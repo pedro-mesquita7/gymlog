@@ -1,7 +1,58 @@
 import { useDuckDB } from './hooks/useDuckDB';
+import { useExercises } from './hooks/useExercises';
+import { useGyms } from './hooks/useGyms';
+import { ExerciseList } from './components/ExerciseList';
+import { GymList } from './components/GymList';
 
 function App() {
-  const { status, eventCount } = useDuckDB();
+  const { status, eventCount, refreshEventCount } = useDuckDB();
+
+  const {
+    exercises,
+    isLoading: exercisesLoading,
+    createExercise,
+    updateExercise,
+    deleteExercise,
+  } = useExercises();
+
+  const {
+    gyms,
+    isLoading: gymsLoading,
+    createGym,
+    updateGym,
+    deleteGym,
+  } = useGyms();
+
+  // Refresh event count after any operation
+  const handleCreateExercise = async (data: Parameters<typeof createExercise>[0]) => {
+    await createExercise(data);
+    refreshEventCount();
+  };
+
+  const handleUpdateExercise = async (id: string, data: Parameters<typeof updateExercise>[1]) => {
+    await updateExercise(id, data);
+    refreshEventCount();
+  };
+
+  const handleDeleteExercise = async (id: string) => {
+    await deleteExercise(id);
+    refreshEventCount();
+  };
+
+  const handleCreateGym = async (data: Parameters<typeof createGym>[0]) => {
+    await createGym(data);
+    refreshEventCount();
+  };
+
+  const handleUpdateGym = async (id: string, data: Parameters<typeof updateGym>[1]) => {
+    await updateGym(id, data);
+    refreshEventCount();
+  };
+
+  const handleDeleteGym = async (id: string) => {
+    await deleteGym(id);
+    refreshEventCount();
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -11,12 +62,12 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 space-y-6">
         {/* Database Status Card */}
-        <div className="bg-white shadow rounded-lg p-6 mb-6">
+        <div className="bg-white shadow rounded-lg p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Database Status</h2>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             <div className="flex items-center">
               <div className={`w-3 h-3 rounded-full mr-2 ${
                 status.isConnected ? 'bg-green-500' : 'bg-red-500'
@@ -35,9 +86,9 @@ function App() {
               </span>
             </div>
 
-            <div className="col-span-2">
+            <div>
               <span className="text-sm text-gray-600">
-                Events stored: <span className="font-medium">{eventCount}</span>
+                Events: <span className="font-medium">{eventCount}</span>
               </span>
             </div>
           </div>
@@ -50,18 +101,34 @@ function App() {
 
           {!status.isPersistent && status.isConnected && (
             <div className="mt-4 p-3 bg-yellow-50 text-yellow-700 rounded text-sm">
-              Note: Running in memory-only mode. Data will not persist after page refresh.
-              For full persistence, use Chrome or Edge.
+              Running in memory-only mode. Data will not persist. Use Chrome/Edge for OPFS persistence.
             </div>
           )}
         </div>
 
-        {/* Placeholder for feature components */}
-        <div className="bg-white shadow rounded-lg p-6">
-          <p className="text-gray-600">
-            Data layer ready. Exercise and Gym management coming next...
-          </p>
-        </div>
+        {/* Gym Management - placed first since exercises may reference gyms */}
+        {status.isConnected && (
+          <GymList
+            gyms={gyms}
+            exercises={exercises}
+            isLoading={gymsLoading}
+            onCreateGym={handleCreateGym}
+            onUpdateGym={handleUpdateGym}
+            onDeleteGym={handleDeleteGym}
+          />
+        )}
+
+        {/* Exercise Management - receives gyms for gym-specific exercises */}
+        {status.isConnected && (
+          <ExerciseList
+            exercises={exercises}
+            gyms={gyms}
+            isLoading={exercisesLoading}
+            onCreateExercise={handleCreateExercise}
+            onUpdateExercise={handleUpdateExercise}
+            onDeleteExercise={handleDeleteExercise}
+          />
+        )}
       </main>
     </div>
   );
