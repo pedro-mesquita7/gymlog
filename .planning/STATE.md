@@ -11,28 +11,28 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 1 of 4 (Foundation & Data Layer)
-Plan: 1 of 6 in current phase
+Plan: 2 of 6 in current phase
 Status: In progress
-Last activity: 2026-01-27 — Completed 01-01-PLAN.md
+Last activity: 2026-01-27 — Completed 01-02-PLAN.md
 
-Progress: [█░░░░░░░░░] 17%
+Progress: [██░░░░░░░░] 33%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 6 min
+- Total plans completed: 2
+- Average duration: 4 min
 - Total execution time: 0.1 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation-data-layer | 1 | 6 min | 6 min |
+| 01-foundation-data-layer | 2 | 8 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 6 min
-- Trend: Baseline established
+- Last 5 plans: 6 min, 2 min
+- Trend: Improving (execution getting faster)
 
 *Updated after each plan completion*
 
@@ -52,6 +52,10 @@ Recent decisions affecting current work:
 - DEV-002: Build target set to esnext (modern JS features, requires Chrome 89+/Firefox 89+/Safari 15+)
 - DEV-003: dbt profile uses in-memory DuckDB for build-time compilation
 
+**From 01-02:**
+- DEV-004: Events stored as JSON payload with virtual partitioning columns (schema flexibility + Parquet compatibility)
+- DEV-005: Singleton pattern for DuckDB instance (single OPFS handle, avoids connection overhead)
+
 ### Pending Todos
 
 None yet.
@@ -62,8 +66,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-27 (roadmap creation)
-Stopped at: Roadmap created with 4 phases covering all 38 v1 requirements
+Last session: 2026-01-27 22:28:56 UTC
+Stopped at: Completed 01-02-PLAN.md (DuckDB infrastructure)
 Resume file: None
 
-**Next action:** /gsd:plan-phase 1
+**Next action:** Continue with plan 01-03 (Exercise management)
