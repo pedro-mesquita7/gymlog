@@ -11,28 +11,28 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 1 of 4 (Foundation & Data Layer)
-Plan: 2 of 6 in current phase
+Plan: 3 of 6 in current phase
 Status: In progress
-Last activity: 2026-01-27 — Completed 01-02-PLAN.md
+Last activity: 2026-01-27 — Completed 01-03-PLAN.md
 
-Progress: [██░░░░░░░░] 33%
+Progress: [███░░░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
+- Total plans completed: 3
 - Average duration: 4 min
-- Total execution time: 0.1 hours
+- Total execution time: 0.2 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation-data-layer | 2 | 8 min | 4 min |
+| 01-foundation-data-layer | 3 | 11 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 6 min, 2 min
-- Trend: Improving (execution getting faster)
+- Last 5 plans: 6 min, 2 min, 3 min
+- Trend: Stable (consistent execution speed)
 
 *Updated after each plan completion*
 
@@ -56,6 +56,11 @@ Recent decisions affecting current work:
 - DEV-004: Events stored as JSON payload with virtual partitioning columns (schema flexibility + Parquet compatibility)
 - DEV-005: Singleton pattern for DuckDB instance (single OPFS handle, avoids connection overhead)
 
+**From 01-03:**
+- DEV-006: Compiled SQL in TypeScript instead of requiring dbt runtime (dbt models as documentation, compiled-queries.ts for execution)
+- DEV-007: JSON_EXTRACT_STRING for payload parsing in staging models (DuckDB JSON extraction functions)
+- DEV-008: ROW_NUMBER deduplication pattern for event replay (idempotent processing)
+
 ### Pending Todos
 
 None yet.
@@ -66,8 +71,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-27 22:28:56 UTC
-Stopped at: Completed 01-02-PLAN.md (DuckDB infrastructure)
+Last session: 2026-01-27 22:34:10 UTC
+Stopped at: Completed 01-03-PLAN.md (dbt transformation pipeline)
 Resume file: None
 
-**Next action:** Continue with plan 01-03 (Exercise management)
+**Next action:** Continue with plan 01-04 (Workout tracking)
