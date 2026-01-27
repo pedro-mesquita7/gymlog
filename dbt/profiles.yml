@@ -1,0 +1,6 @@
+gymlog:
+  outputs:
+    browser:
+      type: duckdb
+      path: ':memory:'
+  target: browser
