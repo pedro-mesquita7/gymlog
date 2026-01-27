@@ -1,0 +1,28 @@
+import type * as duckdb from '@duckdb/duckdb-wasm';
+
+export interface DatabaseConnection {
+  db: duckdb.AsyncDuckDB;
+  conn: duckdb.AsyncDuckDBConnection;
+}
+
+export interface DatabaseStatus {
+  isInitialized: boolean;
+  isConnected: boolean;
+  isPersistent: boolean;  // true if OPFS, false if memory-only
+  error: string | null;
+}
+
+// Entity types derived from events (for UI display)
+export interface Exercise {
+  exercise_id: string;
+  name: string;
+  muscle_group: string;
+  is_global: boolean;
+  gym_id: string | null;
+}
+
+export interface Gym {
+  gym_id: string;
+  name: string;
+  location: string | null;
+}
