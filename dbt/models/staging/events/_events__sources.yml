@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw event data stored in DuckDB events table"
+    tables:
+      - name: events
+        description: "All events from event sourcing system"
+        columns:
+          - name: _event_id
+            description: "UUID v7 event identifier"
+          - name: _created_at
+            description: "Event timestamp"
+          - name: event_type
+            description: "Type discriminator"
+          - name: payload
+            description: "JSON payload with event data"
