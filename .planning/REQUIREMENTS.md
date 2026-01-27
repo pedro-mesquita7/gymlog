@@ -113,13 +113,55 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (To be filled by roadmap) | | |
+| EXER-01 | Phase 1 | Pending |
+| EXER-02 | Phase 1 | Pending |
+| EXER-03 | Phase 1 | Pending |
+| EXER-04 | Phase 1 | Pending |
+| GYM-01 | Phase 1 | Pending |
+| GYM-02 | Phase 1 | Pending |
+| GYM-03 | Phase 1 | Pending |
+| GYM-04 | Phase 1 | Pending |
+| DATA-01 | Phase 1 | Pending |
+| DATA-02 | Phase 1 | Pending |
+| DATA-03 | Phase 1 | Pending |
+| DATA-04 | Phase 1 | Pending |
+| DATA-07 | Phase 1 | Pending |
+| DATA-08 | Phase 1 | Pending |
+| DATA-09 | Phase 1 | Pending |
+| TMPL-01 | Phase 2 | Pending |
+| TMPL-02 | Phase 2 | Pending |
+| TMPL-03 | Phase 2 | Pending |
+| TMPL-04 | Phase 2 | Pending |
+| TMPL-05 | Phase 2 | Pending |
+| TMPL-06 | Phase 2 | Pending |
+| TMPL-07 | Phase 2 | Pending |
+| LOG-01 | Phase 2 | Pending |
+| LOG-02 | Phase 2 | Pending |
+| LOG-03 | Phase 2 | Pending |
+| LOG-04 | Phase 2 | Pending |
+| LOG-05 | Phase 2 | Pending |
+| LOG-06 | Phase 2 | Pending |
+| LOG-07 | Phase 2 | Pending |
+| LOG-08 | Phase 2 | Pending |
+| LOG-09 | Phase 2 | Pending |
+| HIST-01 | Phase 3 | Pending |
+| HIST-02 | Phase 3 | Pending |
+| HIST-03 | Phase 3 | Pending |
+| HIST-04 | Phase 3 | Pending |
+| HIST-05 | Phase 3 | Pending |
+| DATA-05 | Phase 3 | Pending |
+| DATA-06 | Phase 3 | Pending |
+| DATA-10 | Phase 3 | Pending |
+| DATA-11 | Phase 3 | Pending |
+| DURA-01 | Phase 4 | Pending |
+| DURA-02 | Phase 4 | Pending |
+| DURA-03 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 38 total
-- Mapped to phases: 0
-- Unmapped: 38 (pending roadmap)
+- Mapped to phases: 38
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-27 after initial definition*
+*Last updated: 2026-01-27 after roadmap creation*
