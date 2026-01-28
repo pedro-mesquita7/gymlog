@@ -63,10 +63,18 @@ Plans:
   6. User can use rest timer between sets with configurable duration
   7. User can complete workout (saving all data) or cancel workout in progress with confirmation
 
-**Plans**: TBD
+**Plans**: 9 plans in 7 waves
 
 Plans:
-- [ ] TBD during /gsd:plan-phase 2
+- [ ] 02-01-PLAN.md — Install dependencies and create types/events for templates and workouts
+- [ ] 02-02-PLAN.md — useTemplates hook with CRUD operations and getTemplates query
+- [ ] 02-03-PLAN.md — TemplateBuilder form with drag-drop exercise reordering
+- [ ] 02-04-PLAN.md — Template List UI with navigation tabs
+- [ ] 02-05-PLAN.md — Zustand workout store with persist and StartWorkout component
+- [ ] 02-06-PLAN.md — Active workout UI (ExerciseView, SetLogger, NumberStepper)
+- [ ] 02-07-PLAN.md — Rest timer and exercise substitution
+- [ ] 02-08-PLAN.md — Workout completion and cancellation with event persistence
+- [ ] 02-09-PLAN.md — Human verification of Phase 2
 
 ---
 
@@ -118,7 +126,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 8/8 | Complete | 2026-01-28 |
-| 2. Templates & Logging | 0/TBD | Not started | - |
+| 2. Templates & Logging | 0/9 | Planned | - |
 | 3. History & Analytics | 0/TBD | Not started | - |
 | 4. Data Durability | 0/TBD | Not started | - |
 
