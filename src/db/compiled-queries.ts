@@ -204,6 +204,7 @@ recent_sets AS (
         f.set_id,
         f.workout_id,
         f.exercise_id,
+        f.original_exercise_id,
         f.weight_kg,
         f.reps,
         f.rir,
@@ -214,7 +215,7 @@ recent_sets AS (
         w.gym_id AS workout_gym_id
     FROM (${FACT_SETS_SQL}) f
     JOIN workout_events w ON f.workout_id = w.workout_id
-    WHERE f.logged_at >= CURRENT_DATE - INTERVAL '14 days'
+    WHERE CAST(f.logged_at AS TIMESTAMP) >= CURRENT_DATE - INTERVAL '14 days'
 )
 
 SELECT
