@@ -11,28 +11,28 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 1 of 4 (Foundation & Data Layer)
-Plan: 5 of 6 in current phase
-Status: In progress
-Last activity: 2026-01-27 — Completed 01-05-PLAN.md
+Plan: 8 of 8 in current phase (gap closure plan)
+Status: Phase complete
+Last activity: 2026-01-28 — Completed 01-08-PLAN.md (UX Gap Closure)
 
-Progress: [█████░░░░░] 83%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 4 min
-- Total execution time: 0.3 hours
+- Total plans completed: 8
+- Average duration: 3 min
+- Total execution time: 0.4 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation-data-layer | 5 | 18 min | 4 min |
+| 01-foundation-data-layer | 8 | 22 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 6 min, 2 min, 3 min, 3 min, 4 min
-- Trend: Stable (consistent 3-4 min execution)
+- Last 5 plans: 3 min, 3 min, 4 min, 4 min, 2 min
+- Trend: Stable (consistent 2-4 min execution)
 
 *Updated after each plan completion*
 
@@ -67,6 +67,9 @@ Recent decisions affecting current work:
 **From 01-05:**
 - DEV-010: Display exercise count in gym list to show impact before deletion (users see which gyms have associated exercises)
 
+**From 01-08:**
+- DEV-011: Calculate exercise count via LEFT JOIN in query rather than separate fetch (single round trip)
+
 ### Pending Todos
 
 None yet.
@@ -77,8 +80,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-27 22:40:35 UTC
-Stopped at: Completed 01-05-PLAN.md (Gym Management UI)
+Last session: 2026-01-28 11:07:42 UTC
+Stopped at: Completed 01-08-PLAN.md (UX Gap Closure)
 Resume file: None
 
-**Next action:** Continue with plan 01-06 (Workout Tracking)
+**Next action:** Phase 1 complete. Ready for Phase 2 (Tracking & Analytics)
