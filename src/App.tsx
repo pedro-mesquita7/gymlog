@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { useDuckDB } from './hooks/useDuckDB';
 import { useExercises } from './hooks/useExercises';
 import { useGyms } from './hooks/useGyms';
+import { useTemplates } from './hooks/useTemplates';
+import { useWorkoutStore, selectIsWorkoutActive } from './stores/useWorkoutStore';
 import { ExerciseList } from './components/ExerciseList';
 import { GymList } from './components/GymList';
 import { TemplateList } from './components/templates/TemplateList';
+import { StartWorkout } from './components/workout/StartWorkout';
 import { Navigation, type Tab } from './components/Navigation';
 
 function App() {
@@ -26,6 +29,11 @@ function App() {
     updateGym,
     deleteGym,
   } = useGyms();
+
+  const { templates, isLoading: templatesLoading } = useTemplates();
+
+  const isWorkoutActive = useWorkoutStore(selectIsWorkoutActive);
+  const session = useWorkoutStore(state => state.session);
 
   const handleCreateExercise = async (data: Parameters<typeof createExercise>[0]) => {
     await createExercise(data);
@@ -83,6 +91,55 @@ function App() {
     );
   }
 
+  // Render Workouts tab content
+  const renderWorkoutsContent = () => {
+    // If workout is active, show active workout view (placeholder for now)
+    if (isWorkoutActive && session) {
+      return (
+        <div className="text-center py-12">
+          <div className="text-accent text-sm font-medium mb-2">Workout in progress</div>
+          <p className="text-zinc-500 mb-6">
+            Started at {new Date(session.started_at).toLocaleTimeString()}
+          </p>
+          <p className="text-zinc-400 text-sm">
+            (Active workout UI coming in next plan)
+          </p>
+        </div>
+      );
+    }
+
+    // Show start workout or gym/exercise management
+    return (
+      <div className="space-y-12">
+        {/* Start Workout section */}
+        {gyms.length > 0 && templates.filter(t => !t.is_archived).length > 0 && (
+          <StartWorkout
+            templates={templates}
+            gyms={gyms}
+            onStarted={() => {}}  // No-op for now, will navigate to active workout
+          />
+        )}
+
+        {/* Always show gym/exercise management */}
+        <GymList
+          gyms={gyms}
+          isLoading={gymsLoading}
+          onCreateGym={handleCreateGym}
+          onUpdateGym={handleUpdateGym}
+          onDeleteGym={handleDeleteGym}
+        />
+
+        <ExerciseList
+          exercises={exercises}
+          isLoading={exercisesLoading}
+          onCreateExercise={handleCreateExercise}
+          onUpdateExercise={handleUpdateExercise}
+          onDeleteExercise={handleDeleteExercise}
+        />
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen pb-20">
       {/* Header */}
@@ -92,6 +149,11 @@ function App() {
             Gym<span className="text-accent">Log</span>
           </h1>
           <div className="flex items-baseline gap-3">
+            {isWorkoutActive && (
+              <span className="text-xs text-accent font-medium animate-pulse">
+                WORKOUT ACTIVE
+              </span>
+            )}
             {eventCount > 0 && (
               <span className="text-xs text-zinc-500 font-mono">
                 {eventCount} events
@@ -106,26 +168,7 @@ function App() {
 
       {/* Main Content */}
       <main className="max-w-2xl mx-auto px-6 py-10">
-        {activeTab === 'workouts' ? (
-          <div className="space-y-12">
-            <GymList
-              gyms={gyms}
-              isLoading={gymsLoading}
-              onCreateGym={handleCreateGym}
-              onUpdateGym={handleUpdateGym}
-              onDeleteGym={handleDeleteGym}
-            />
-            <ExerciseList
-              exercises={exercises}
-              isLoading={exercisesLoading}
-              onCreateExercise={handleCreateExercise}
-              onUpdateExercise={handleUpdateExercise}
-              onDeleteExercise={handleDeleteExercise}
-            />
-          </div>
-        ) : (
-          <TemplateList />
-        )}
+        {activeTab === 'workouts' ? renderWorkoutsContent() : <TemplateList />}
       </main>
 
       {/* Bottom Navigation */}
