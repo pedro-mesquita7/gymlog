@@ -23,7 +23,6 @@ function App() {
     deleteGym,
   } = useGyms();
 
-  // Refresh event count after any operation
   const handleCreateExercise = async (data: Parameters<typeof createExercise>[0]) => {
     await createExercise(data);
     refreshEventCount();
@@ -54,81 +53,70 @@ function App() {
     refreshEventCount();
   };
 
+  // Loading state
+  if (!status.isConnected && !status.error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-zinc-500">Loading...</div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (status.error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6">
+        <div className="max-w-sm">
+          <p className="text-red-500 font-mono text-sm mb-4">{status.error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="text-sm text-zinc-400 hover:text-white transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">GymLog</h1>
+    <div className="min-h-screen">
+      {/* Header */}
+      <header className="border-b border-zinc-800">
+        <div className="max-w-2xl mx-auto px-6 py-6 flex items-baseline justify-between">
+          <h1 className="text-2xl font-bold tracking-tight">
+            Gym<span className="text-accent">Log</span>
+          </h1>
+          <div className="flex items-baseline gap-3">
+            {eventCount > 0 && (
+              <span className="text-xs text-zinc-500 font-mono">
+                {eventCount} events
+              </span>
+            )}
+            {!status.isPersistent && (
+              <span className="text-xs text-zinc-500 font-mono">demo mode</span>
+            )}
+          </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 space-y-6">
-        {/* Database Status Card */}
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Database Status</h2>
+      {/* Main Content */}
+      <main className="max-w-2xl mx-auto px-6 py-10 space-y-12">
+        <GymList
+          gyms={gyms}
+          isLoading={gymsLoading}
+          onCreateGym={handleCreateGym}
+          onUpdateGym={handleUpdateGym}
+          onDeleteGym={handleDeleteGym}
+        />
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            <div className="flex items-center">
-              <div className={`w-3 h-3 rounded-full mr-2 ${
-                status.isConnected ? 'bg-green-500' : 'bg-red-500'
-              }`} />
-              <span className="text-sm text-gray-600">
-                {status.isConnected ? 'Connected' : 'Disconnected'}
-              </span>
-            </div>
-
-            <div className="flex items-center">
-              <div className={`w-3 h-3 rounded-full mr-2 ${
-                status.isPersistent ? 'bg-green-500' : 'bg-yellow-500'
-              }`} />
-              <span className="text-sm text-gray-600">
-                {status.isPersistent ? 'OPFS Persistent' : 'Memory Only'}
-              </span>
-            </div>
-
-            <div>
-              <span className="text-sm text-gray-600">
-                Events: <span className="font-medium">{eventCount}</span>
-              </span>
-            </div>
-          </div>
-
-          {status.error && (
-            <div className="mt-4 p-3 bg-red-50 text-red-700 rounded text-sm">
-              Error: {status.error}
-            </div>
-          )}
-
-          {!status.isPersistent && status.isConnected && (
-            <div className="mt-4 p-3 bg-yellow-50 text-yellow-700 rounded text-sm">
-              Running in memory-only mode. Data will not persist. Use Chrome/Edge for OPFS persistence.
-            </div>
-          )}
-        </div>
-
-        {/* Gym Management - placed first since exercises may reference gyms */}
-        {status.isConnected && (
-          <GymList
-            gyms={gyms}
-            exercises={exercises}
-            isLoading={gymsLoading}
-            onCreateGym={handleCreateGym}
-            onUpdateGym={handleUpdateGym}
-            onDeleteGym={handleDeleteGym}
-          />
-        )}
-
-        {/* Exercise Management - receives gyms for gym-specific exercises */}
-        {status.isConnected && (
-          <ExerciseList
-            exercises={exercises}
-            gyms={gyms}
-            isLoading={exercisesLoading}
-            onCreateExercise={handleCreateExercise}
-            onUpdateExercise={handleUpdateExercise}
-            onDeleteExercise={handleDeleteExercise}
-          />
-        )}
+        <ExerciseList
+          exercises={exercises}
+          isLoading={exercisesLoading}
+          onCreateExercise={handleCreateExercise}
+          onUpdateExercise={handleUpdateExercise}
+          onDeleteExercise={handleDeleteExercise}
+        />
       </main>
     </div>
   );
