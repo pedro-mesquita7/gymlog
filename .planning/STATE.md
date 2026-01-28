@@ -11,28 +11,28 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 2 of 4 (Templates & Logging)
-Plan: 5 of 9 in current phase
+Plan: 6 of 9 in current phase
 Status: In progress
-Last activity: 2026-01-28 — Completed 02-05-PLAN.md (Workout Session State)
+Last activity: 2026-01-28 — Completed 02-06-PLAN.md (Active Workout Logging)
 
-Progress: [███████░░░] 76%
+Progress: [███████░░░] 78%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
+- Total plans completed: 14
 - Average duration: 3 min
-- Total execution time: 0.6 hours
+- Total execution time: 0.7 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 8 | 22 min | 3 min |
-| 02-templates-logging | 5 | 18 min | 4 min |
+| 02-templates-logging | 6 | 21 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 4 min, 3 min, 4 min, 4 min
+- Last 5 plans: 4 min, 3 min, 4 min, 4 min, 3 min
 - Trend: Stable (consistent 3-4 min execution)
 
 *Updated after each plan completion*
@@ -95,6 +95,13 @@ Recent decisions affecting current work:
 - DEV-024: Zustand partialize to persist only session and config, not actions (reduces storage size)
 - DEV-025: completeWorkout returns session for event writing (enables workout completion flow)
 
+**From 02-06:**
+- DEV-026: NumberStepper uses inputMode="decimal" for mobile number keyboard (better UX on touch devices)
+- DEV-027: Weight increments by 2.5kg (standard plate increment for gym equipment)
+- DEV-028: Auto-advance pattern: keep weight, reset reps after logging set (convenience for multiple sets)
+- DEV-029: Swipe navigation for exercises with trackMouse: false (touch-only during workout)
+- DEV-030: WorkoutTimer updates via useEffect interval every second (live elapsed time display)
+
 ### Pending Todos
 
 None yet.
@@ -105,8 +112,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-28 12:57:06 UTC
-Stopped at: Completed 02-05-PLAN.md (Workout Session State)
+Last session: 2026-01-28 13:02:37 UTC
+Stopped at: Completed 02-06-PLAN.md (Active Workout Logging)
 Resume file: None
 
-**Next action:** Continue Phase 2 execution - execute 02-06 (Active Workout Logging)
+**Next action:** Continue Phase 2 execution - execute 02-07 (Rest Timer)
