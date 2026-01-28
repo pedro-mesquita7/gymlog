@@ -1,0 +1,157 @@
+import { useState } from 'react';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import type { Exercise } from '../../types/database';
+import type { TemplateFormData } from './TemplateBuilder';
+
+interface ExerciseRowProps {
+  id: string;           // field.id from useFieldArray
+  index: number;
+  exercise: Exercise | undefined;  // Looked up from exercises list
+  exercises: Exercise[];  // Full list for replacement picker
+  register: UseFormRegister<TemplateFormData>;
+  setValue: UseFormSetValue<TemplateFormData>;
+  watch: UseFormWatch<TemplateFormData>;
+  onRemove: () => void;
+}
+
+export function ExerciseRow({ id, index, exercise, exercises, register, setValue, watch, onRemove }: ExerciseRowProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  const [expanded, setExpanded] = useState(false);
+  const currentReplacement = watch(`exercises.${index}.replacement_exercise_id`);
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`bg-zinc-800/50 rounded-lg p-4 ${isDragging ? 'ring-2 ring-accent' : ''}`}
+    >
+      <div className="flex items-center gap-3">
+        {/* Drag handle */}
+        <button
+          type="button"
+          {...attributes}
+          {...listeners}
+          className="cursor-grab touch-none text-zinc-500 hover:text-zinc-300"
+        >
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M7 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM7 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM7 14a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM13 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM13 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM13 14a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+          </svg>
+        </button>
+
+        {/* Exercise name */}
+        <div className="flex-1">
+          <div className="font-medium">{exercise?.name ?? 'Unknown'}</div>
+          <div className="text-xs text-zinc-500">{exercise?.muscle_group}</div>
+        </div>
+
+        {/* Rep range */}
+        <div className="flex items-center gap-1">
+          <input
+            type="number"
+            {...register(`exercises.${index}.target_reps_min`, { valueAsNumber: true })}
+            className="w-12 bg-zinc-700 rounded px-2 py-1 text-center text-sm"
+            min={1}
+          />
+          <span className="text-zinc-500">-</span>
+          <input
+            type="number"
+            {...register(`exercises.${index}.target_reps_max`, { valueAsNumber: true })}
+            className="w-12 bg-zinc-700 rounded px-2 py-1 text-center text-sm"
+            min={1}
+          />
+          <span className="text-xs text-zinc-500 ml-1">reps</span>
+        </div>
+
+        {/* Sets */}
+        <div className="flex items-center gap-1">
+          <input
+            type="number"
+            {...register(`exercises.${index}.suggested_sets`, { valueAsNumber: true })}
+            className="w-12 bg-zinc-700 rounded px-2 py-1 text-center text-sm"
+            min={1}
+          />
+          <span className="text-xs text-zinc-500">sets</span>
+        </div>
+
+        {/* Expand/Remove buttons */}
+        <button
+          type="button"
+          onClick={() => setExpanded(!expanded)}
+          className="text-zinc-500 hover:text-zinc-300 p-1"
+          title="Options"
+        >
+          <svg className={`w-4 h-4 transition-transform ${expanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          onClick={onRemove}
+          className="text-zinc-500 hover:text-red-400 p-1"
+          title="Remove"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Expanded options */}
+      {expanded && (
+        <div className="mt-4 pt-4 border-t border-zinc-700 space-y-3">
+          {/* Rest time override */}
+          <div className="flex items-center gap-2">
+            <label className="text-sm text-zinc-400 w-24">Rest time:</label>
+            <input
+              type="number"
+              {...register(`exercises.${index}.rest_seconds`, { valueAsNumber: true })}
+              placeholder="Default"
+              className="w-20 bg-zinc-700 rounded px-2 py-1 text-sm"
+              min={0}
+            />
+            <span className="text-xs text-zinc-500">seconds</span>
+          </div>
+
+          {/* Replacement exercise */}
+          <div className="flex items-center gap-2">
+            <label className="text-sm text-zinc-400 w-24">Replacement:</label>
+            <select
+              {...register(`exercises.${index}.replacement_exercise_id`)}
+              className="flex-1 bg-zinc-700 rounded px-2 py-1 text-sm"
+            >
+              <option value="">None</option>
+              {exercises
+                .filter(e => e.exercise_id !== exercise?.exercise_id)
+                .map(e => (
+                  <option key={e.exercise_id} value={e.exercise_id}>
+                    {e.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+        </div>
+      )}
+
+      {/* Hidden fields */}
+      <input type="hidden" {...register(`exercises.${index}.exercise_id`)} />
+      <input type="hidden" {...register(`exercises.${index}.order_index`)} value={index} />
+    </div>
+  );
+}
