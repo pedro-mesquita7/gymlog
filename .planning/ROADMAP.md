@@ -12,7 +12,7 @@ Build a local-first PWA for strength training tracking with proper data engineer
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation & Data Layer** - Core entities and data engineering infrastructure
+- [x] **Phase 1: Foundation & Data Layer** - Core entities and data engineering infrastructure
 - [ ] **Phase 2: Templates & Logging** - Workout templates and active logging workflow
 - [ ] **Phase 3: History & Analytics** - Exercise history, PRs, 1RM calculations, and analytics
 - [ ] **Phase 4: Data Durability** - Export/import and backup reminders
@@ -42,8 +42,8 @@ Plans:
 - [x] 01-04-PLAN.md — Exercise management (CRUD + filtering)
 - [x] 01-05-PLAN.md — Gym management (CRUD + exercise association)
 - [x] 01-06-PLAN.md — Human verification of Phase 1
-- [ ] 01-07-PLAN.md — Gap closure: Enable OPFS persistence (upgrade DuckDB-WASM to stable)
-- [ ] 01-08-PLAN.md — Gap closure: UI polish (exercise count on gyms, event count in header)
+- [x] 01-07-PLAN.md — Gap closure: Enable OPFS persistence (upgrade DuckDB-WASM to stable)
+- [x] 01-08-PLAN.md — Gap closure: UI polish (exercise count on gyms, event count in header)
 
 ---
 
@@ -117,7 +117,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Data Layer | 6/8 | Gap closure | - |
+| 1. Foundation & Data Layer | 8/8 | Complete | 2026-01-28 |
 | 2. Templates & Logging | 0/TBD | Not started | - |
 | 3. History & Analytics | 0/TBD | Not started | - |
 | 4. Data Durability | 0/TBD | Not started | - |
