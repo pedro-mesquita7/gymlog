@@ -37,8 +37,11 @@ export function useHistory({ exerciseId, currentGymId }: UseHistoryOptions): Use
     try {
       const conn = await db.connect();
 
-      // Query with gym filtering parameter
-      const result = await conn.query(EXERCISE_HISTORY_SQL, [currentGymId, exerciseId]);
+      // Replace parameters with actual values (DuckDB-WASM doesn't support parameterized queries via query())
+      const sql = EXERCISE_HISTORY_SQL
+        .replace('$1', `'${currentGymId}'`)
+        .replace('$2', `'${exerciseId}'`);
+      const result = await conn.query(sql);
       const rows = result.toArray().map((row: any) => ({
         set_id: row.set_id,
         workout_id: row.workout_id,
@@ -120,7 +123,9 @@ export function usePRList(exerciseId: string): {
 
       try {
         const conn = await db.connect();
-        const result = await conn.query(PR_LIST_SQL, [exerciseId]);
+        // Replace parameter with actual value (DuckDB-WASM doesn't support parameterized queries via query())
+        const sql = PR_LIST_SQL.replace('$1', `'${exerciseId}'`);
+        const result = await conn.query(sql);
         const rows = result.toArray().map((row: any) => ({
           set_id: row.set_id,
           workout_id: row.workout_id,
@@ -154,34 +159,46 @@ export function useExerciseMax(exerciseId: string): ExerciseMax | null {
 
   useEffect(() => {
     async function fetchMax() {
-      if (!exerciseId) return;
+      console.log('[useExerciseMax] Called with exerciseId:', exerciseId);
+      if (!exerciseId) {
+        console.log('[useExerciseMax] No exerciseId, returning');
+        return;
+      }
 
       const db = getDuckDB();
+      console.log('[useExerciseMax] DB:', db ? 'connected' : 'null');
       if (!db) return;
 
       try {
         const conn = await db.connect();
-        const result = await conn.query(CURRENT_MAX_SQL, [exerciseId]);
+        console.log('[useExerciseMax] Running query...');
+        // Replace $1 parameter with actual value (DuckDB-WASM doesn't support parameterized queries via query())
+        const sql = CURRENT_MAX_SQL.replace('$1', `'${exerciseId}'`);
+        const result = await conn.query(sql);
         const rows = result.toArray();
+        console.log('[useExerciseMax] Query result rows:', rows);
 
         if (rows.length > 0) {
           const row = rows[0] as any;
-          setMax({
+          const maxData = {
             max_weight: row.max_weight !== null ? Number(row.max_weight) : null,
             max_1rm: row.max_1rm !== null ? Number(row.max_1rm) : null,
-          });
+          };
+          console.log('[useExerciseMax] Setting max:', maxData);
+          setMax(maxData);
         } else {
-          // No rows - set to object with nulls so PR detection knows there's no history
+          console.log('[useExerciseMax] No rows, setting nulls');
           setMax({ max_weight: null, max_1rm: null });
         }
         await conn.close();
       } catch (err) {
-        console.error('Error fetching exercise max:', err);
+        console.error('[useExerciseMax] Error:', err);
       }
     }
 
     fetchMax();
   }, [exerciseId]);
 
+  console.log('[useExerciseMax] Returning max:', max);
   return max;
 }
