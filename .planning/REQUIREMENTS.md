@@ -11,7 +11,7 @@ Requirements for Analytics milestone. Each maps to roadmap phases.
 
 - [ ] **CHART-01**: User can view exercise progress chart showing weight over last 4 weeks
 - [ ] **CHART-02**: User can view estimated 1RM trend on exercise progress chart
-- [ ] **CHART-03**: User can view volume (sets × reps × weight) per exercise over time
+- [ ] **CHART-03**: User can view volume (sets x reps x weight) per exercise over time
 - [ ] **CHART-04**: User can compare this week's performance to last week for each exercise
 
 ### Volume Analytics
@@ -78,10 +78,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CHART-02 | Phase 5 | Pending |
 | CHART-03 | Phase 5 | Pending |
 | CHART-04 | Phase 5 | Pending |
+| PR-01 | Phase 5 | Pending |
 | VOL-01 | Phase 6 | Pending |
 | VOL-02 | Phase 6 | Pending |
 | VOL-03 | Phase 6 | Pending |
-| PR-01 | Phase 5 | Pending |
 | PROG-01 | Phase 7 | Pending |
 | PROG-02 | Phase 7 | Pending |
 | PROG-03 | Phase 7 | Pending |
@@ -89,8 +89,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 **Coverage:**
 - v1.1 requirements: 14 total
 - Mapped to phases: 14
-- Unmapped: 0 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-28*
-*Last updated: 2026-01-28 after milestone definition*
+*Last updated: 2026-01-28 after roadmap creation*
