@@ -11,16 +11,16 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 3 of 4 (History & Analytics)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-28 — Completed 03-01-PLAN.md
+Last activity: 2026-01-28 — Completed 03-02-PLAN.md
 
-Progress: [███████████░] 85%
+Progress: [███████████░] 90%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
+- Total plans completed: 19
 - Average duration: 3 min
 - Total execution time: ~1 hour
 
@@ -30,11 +30,11 @@ Progress: [███████████░] 85%
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 8 | 22 min | 3 min |
 | 02-templates-logging | 9 | 30 min | 3 min |
-| 03-history-analytics | 1 | 3 min | 3 min |
+| 03-history-analytics | 2 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 3 min, 3 min, verification, 3 min
-- Trend: Stable (consistent 3 min execution)
+- Last 5 plans: 3 min, 3 min, verification, 3 min, 2 min
+- Trend: Stable (consistent 2-3 min execution)
 
 *Updated after each plan completion*
 
@@ -127,6 +127,12 @@ Recent decisions affecting current work:
 - DEV-045: Anomaly detection with 50% default threshold for percent change (flags unusual performance jumps)
 - DEV-046: filter_exercise_by_gym macro centralizes global vs gym-specific logic (reusable WHERE clause pattern)
 
+**From 03-02:**
+- DEV-047: Layered intermediate model approach (int_sets__with_1rm → int_sets__with_prs → int_sets__with_anomalies)
+- DEV-048: PR detection uses original_exercise_id to track PRs across substitutions
+- DEV-049: First-time exercises flagged as PRs (previous_max_weight_kg IS NULL)
+- DEV-050: Anomaly detection uses LAG(weight_kg) for session-to-session comparison
+
 ### Pending Todos
 
 None yet.
@@ -138,7 +144,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 03-01-PLAN.md
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None
 
-**Next action:** Continue with 03-02-PLAN.md (mart models)
+**Next action:** Continue with 03-03-PLAN.md (final phase 3 plan)
