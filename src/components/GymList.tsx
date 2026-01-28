@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import type { Gym, Exercise } from '../types/database';
+import type { Gym } from '../types/database';
 import { GymForm, type GymFormData } from './GymForm';
 import { DeleteConfirmation } from './DeleteConfirmation';
 
 interface GymListProps {
   gyms: Gym[];
-  exercises: Exercise[];
   isLoading: boolean;
   onCreateGym: (data: GymFormData) => Promise<void>;
   onUpdateGym: (id: string, data: GymFormData) => Promise<void>;
@@ -14,7 +13,6 @@ interface GymListProps {
 
 export function GymList({
   gyms,
-  exercises,
   isLoading,
   onCreateGym,
   onUpdateGym,
@@ -24,11 +22,6 @@ export function GymList({
   const [editingGym, setEditingGym] = useState<Gym | null>(null);
   const [deletingGym, setDeletingGym] = useState<Gym | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
-
-  // Count exercises associated with each gym
-  const getExerciseCount = (gymId: string) => {
-    return exercises.filter((e) => e.gym_id === gymId).length;
-  };
 
   const handleCreateSubmit = async (data: GymFormData) => {
     await onCreateGym(data);
@@ -54,81 +47,65 @@ export function GymList({
     }
   };
 
-  // Check if gym has associated exercises
-  const getDeleteWarning = (gym: Gym): string => {
-    const exerciseCount = getExerciseCount(gym.gym_id);
-    if (exerciseCount > 0) {
-      return `This gym has ${exerciseCount} associated exercise(s). Deleting it will not remove those exercises, but they will no longer be associated with any gym.`;
-    }
-    return `Are you sure you want to delete "${gym.name}"? This action cannot be undone.`;
-  };
-
   return (
-    <div className="bg-white shadow rounded-lg">
-      {/* Header */}
-      <div className="p-4 border-b border-gray-200">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">Gyms</h2>
-          <button
-            onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium"
-          >
-            + Add Gym
-          </button>
+    <section>
+      <div className="flex items-baseline justify-between mb-6">
+        <div>
+          <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-1">
+            Locations
+          </h2>
+          <p className="text-xl font-semibold">Your Gyms</p>
         </div>
+        <button
+          onClick={() => setShowForm(true)}
+          className="text-sm font-medium text-accent hover:text-orange-400 transition-colors"
+        >
+          + Add
+        </button>
       </div>
 
-      {/* Content */}
-      <div className="p-4">
-        {isLoading ? (
-          <div className="text-center py-8 text-gray-500">Loading gyms...</div>
-        ) : gyms.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            No gyms yet. Add your first gym to get started!
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {gyms.map((gym) => {
-              const exerciseCount = getExerciseCount(gym.gym_id);
-              return (
-                <div
-                  key={gym.gym_id}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-md hover:bg-gray-100"
+      {isLoading ? (
+        <div className="text-zinc-600 text-sm">Loading...</div>
+      ) : gyms.length === 0 ? (
+        <div className="border border-dashed border-zinc-800 py-8 px-6">
+          <p className="text-zinc-500 text-sm">No gyms added yet</p>
+        </div>
+      ) : (
+        <div className="space-y-px">
+          {gyms.map((gym) => (
+            <div
+              key={gym.gym_id}
+              className="group flex items-center justify-between py-4 border-b border-zinc-800/50 hover:bg-zinc-900/30 -mx-3 px-3 transition-colors"
+            >
+              <div>
+                <h3 className="font-medium">{gym.name}</h3>
+                {gym.location && (
+                  <p className="text-sm text-zinc-500 mt-0.5">{gym.location}</p>
+                )}
+                <p className="text-xs text-zinc-600 mt-0.5">
+                  {gym.exercise_count} {gym.exercise_count === 1 ? 'exercise' : 'exercises'}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button
+                  onClick={() => setEditingGym(gym)}
+                  className="text-xs text-zinc-500 hover:text-white transition-colors"
                 >
-                  <div>
-                    <div className="font-medium text-gray-900">{gym.name}</div>
-                    <div className="text-sm text-gray-500">
-                      {gym.location && <span>{gym.location}</span>}
-                      {!gym.location && <span className="italic">No location</span>}
-                      <span className="mx-2">·</span>
-                      <span>
-                        {exerciseCount} exercise{exerciseCount !== 1 ? 's' : ''}
-                      </span>
-                    </div>
-                  </div>
+                  Edit
+                </button>
+                <button
+                  onClick={() => setDeletingGym(gym)}
+                  className="text-xs text-zinc-500 hover:text-red-500 transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => setEditingGym(gym)}
-                      className="px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 rounded"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => setDeletingGym(gym)}
-                      className="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* Create Form */}
       {showForm && (
         <GymForm
           onSubmit={handleCreateSubmit}
@@ -136,7 +113,6 @@ export function GymList({
         />
       )}
 
-      {/* Edit Form */}
       {editingGym && (
         <GymForm
           gym={editingGym}
@@ -145,15 +121,14 @@ export function GymList({
         />
       )}
 
-      {/* Delete Confirmation */}
       <DeleteConfirmation
         isOpen={!!deletingGym}
         title="Delete Gym"
-        message={deletingGym ? getDeleteWarning(deletingGym) : ''}
+        message={`Delete "${deletingGym?.name}"?${deletingGym?.exercise_count ? ` This will affect ${deletingGym.exercise_count} gym-specific exercise${deletingGym.exercise_count === 1 ? '' : 's'}.` : ''} This cannot be undone.`}
         onConfirm={handleDeleteConfirm}
         onCancel={() => setDeletingGym(null)}
         isDeleting={isDeleting}
       />
-    </div>
+    </section>
   );
 }
