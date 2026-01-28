@@ -1,3 +1,5 @@
+import type { TemplateExercise } from './template';
+
 // Base event type with required audit columns (DATA-07)
 export interface BaseEvent {
   _event_id: string;      // UUID v7, timestamp-sortable
@@ -11,8 +13,7 @@ export interface ExerciseCreatedEvent extends BaseEvent {
   exercise_id: string;
   name: string;
   muscle_group: string;
-  is_global: boolean;
-  gym_id: string | null;  // null if is_global is true
+  is_global: boolean;  // false = track weight per-gym
 }
 
 export interface ExerciseUpdatedEvent extends BaseEvent {
@@ -21,7 +22,6 @@ export interface ExerciseUpdatedEvent extends BaseEvent {
   name: string;
   muscle_group: string;
   is_global: boolean;
-  gym_id: string | null;
 }
 
 export interface ExerciseDeletedEvent extends BaseEvent {
@@ -49,6 +49,32 @@ export interface GymDeletedEvent extends BaseEvent {
   gym_id: string;
 }
 
+// Template events (TMPL-01 through TMPL-07)
+export interface TemplateCreatedEvent extends BaseEvent {
+  event_type: 'template_created';
+  template_id: string;
+  name: string;
+  exercises: TemplateExercise[];
+}
+
+export interface TemplateUpdatedEvent extends BaseEvent {
+  event_type: 'template_updated';
+  template_id: string;
+  name: string;
+  exercises: TemplateExercise[];
+}
+
+export interface TemplateDeletedEvent extends BaseEvent {
+  event_type: 'template_deleted';
+  template_id: string;
+}
+
+export interface TemplateArchivedEvent extends BaseEvent {
+  event_type: 'template_archived';
+  template_id: string;
+  is_archived: boolean;  // true = archive, false = restore
+}
+
 // Union type for all events
 export type GymLogEvent =
   | ExerciseCreatedEvent
@@ -56,7 +82,11 @@ export type GymLogEvent =
   | ExerciseDeletedEvent
   | GymCreatedEvent
   | GymUpdatedEvent
-  | GymDeletedEvent;
+  | GymDeletedEvent
+  | TemplateCreatedEvent
+  | TemplateUpdatedEvent
+  | TemplateDeletedEvent
+  | TemplateArchivedEvent;
 
 // Muscle groups as defined in PROJECT.md
 export const MUSCLE_GROUPS = [
