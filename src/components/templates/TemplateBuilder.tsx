@@ -1,0 +1,212 @@
+import { useForm, useFieldArray } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useState } from 'react';
+import { ExerciseList } from './ExerciseList';
+import type { Exercise } from '../../types/database';
+import type { Template, TemplateExercise } from '../../types/template';
+
+// Zod schema for validation
+const templateExerciseSchema = z.object({
+  exercise_id: z.string().min(1),
+  order_index: z.number(),
+  target_reps_min: z.number().min(1),
+  target_reps_max: z.number().min(1),
+  suggested_sets: z.number().min(1),
+  rest_seconds: z.number().nullable(),
+  replacement_exercise_id: z.string().nullable(),
+});
+
+const templateSchema = z.object({
+  name: z.string().min(1, 'Template name is required'),
+  exercises: z.array(templateExerciseSchema).min(1, 'Add at least one exercise'),
+}).superRefine((data, ctx) => {
+  // Validate each exercise appears only once
+  const exerciseIds = data.exercises.map(e => e.exercise_id);
+  const duplicates = exerciseIds.filter((id, i) => exerciseIds.indexOf(id) !== i);
+  if (duplicates.length > 0) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Each exercise can only appear once in template',
+      path: ['exercises'],
+    });
+  }
+
+  // Validate min <= max for each exercise
+  data.exercises.forEach((ex, i) => {
+    if (ex.target_reps_min > ex.target_reps_max) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Min reps must be <= max reps',
+        path: ['exercises', i, 'target_reps_max'],
+      });
+    }
+  });
+});
+
+export type TemplateFormData = z.infer<typeof templateSchema>;
+
+interface TemplateBuilderProps {
+  exercises: Exercise[];  // Available exercises to add
+  template?: Template;    // Existing template for edit mode
+  onSubmit: (data: TemplateFormData) => Promise<void>;
+  onCancel: () => void;
+}
+
+export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: TemplateBuilderProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showExercisePicker, setShowExercisePicker] = useState(false);
+
+  const defaultExercises: TemplateFormData['exercises'] = template?.exercises.map((e, i) => ({
+    exercise_id: e.exercise_id,
+    order_index: i,
+    target_reps_min: e.target_reps_min,
+    target_reps_max: e.target_reps_max,
+    suggested_sets: e.suggested_sets,
+    rest_seconds: e.rest_seconds,
+    replacement_exercise_id: e.replacement_exercise_id,
+  })) ?? [];
+
+  const { control, register, handleSubmit, setValue, watch, formState: { errors } } = useForm<TemplateFormData>({
+    resolver: zodResolver(templateSchema),
+    defaultValues: {
+      name: template?.name ?? '',
+      exercises: defaultExercises,
+    },
+  });
+
+  const fieldArray = useFieldArray({
+    control,
+    name: 'exercises',
+  });
+
+  const selectedExerciseIds = new Set(fieldArray.fields.map(f => f.exercise_id));
+
+  const handleAddExercise = (exerciseId: string) => {
+    if (selectedExerciseIds.has(exerciseId)) return;
+
+    fieldArray.append({
+      exercise_id: exerciseId,
+      order_index: fieldArray.fields.length,
+      target_reps_min: 8,
+      target_reps_max: 12,
+      suggested_sets: 3,
+      rest_seconds: null,
+      replacement_exercise_id: null,
+    });
+  };
+
+  const handleFormSubmit = async (data: TemplateFormData) => {
+    setIsSubmitting(true);
+    try {
+      // Update order_index based on current position
+      const exercises = data.exercises.map((e, i) => ({
+        ...e,
+        order_index: i,
+      }));
+      await onSubmit({ ...data, exercises });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Sort exercises alphabetically for picker
+  const sortedExercises = [...exercises].sort((a, b) => a.name.localeCompare(b.name));
+
+  return (
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
+      {/* Template name */}
+      <div>
+        <label className="block text-sm font-medium text-zinc-400 mb-2">
+          Template Name
+        </label>
+        <input
+          {...register('name')}
+          type="text"
+          placeholder="e.g., Upper A, Push Day"
+          className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent"
+        />
+        {errors.name && (
+          <p className="mt-1 text-sm text-red-400">{errors.name.message}</p>
+        )}
+      </div>
+
+      {/* Exercise list with drag-drop */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <label className="text-sm font-medium text-zinc-400">
+            Exercises ({fieldArray.fields.length})
+          </label>
+          <button
+            type="button"
+            onClick={() => setShowExercisePicker(!showExercisePicker)}
+            className="text-sm text-accent hover:text-accent/80"
+          >
+            {showExercisePicker ? 'Hide' : 'Add Exercises'}
+          </button>
+        </div>
+
+        {errors.exercises && typeof errors.exercises.message === 'string' && (
+          <p className="mb-2 text-sm text-red-400">{errors.exercises.message}</p>
+        )}
+
+        {/* CRITICAL: ExerciseList component renders here */}
+        <ExerciseList
+          fieldArray={fieldArray}
+          exercises={exercises}
+          register={register}
+          setValue={setValue}
+          watch={watch}
+        />
+      </div>
+
+      {/* Exercise picker (checkbox list) */}
+      {showExercisePicker && (
+        <div className="bg-zinc-800/50 rounded-lg p-4 max-h-64 overflow-y-auto">
+          <div className="space-y-2">
+            {sortedExercises.map(exercise => (
+              <label
+                key={exercise.exercise_id}
+                className="flex items-center gap-3 p-2 rounded hover:bg-zinc-700/50 cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  checked={selectedExerciseIds.has(exercise.exercise_id)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      handleAddExercise(exercise.exercise_id);
+                    } else {
+                      const index = fieldArray.fields.findIndex(f => f.exercise_id === exercise.exercise_id);
+                      if (index >= 0) fieldArray.remove(index);
+                    }
+                  }}
+                  className="rounded border-zinc-600 text-accent focus:ring-accent"
+                />
+                <span>{exercise.name}</span>
+                <span className="text-xs text-zinc-500">{exercise.muscle_group}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Form actions */}
+      <div className="flex gap-3 pt-4">
+        <button
+          type="button"
+          onClick={onCancel}
+          className="flex-1 px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="flex-1 px-4 py-3 bg-accent hover:bg-accent/90 text-black font-medium rounded-lg transition-colors disabled:opacity-50"
+        >
+          {isSubmitting ? 'Saving...' : template ? 'Update Template' : 'Create Template'}
+        </button>
+      </div>
+    </form>
+  );
+}
