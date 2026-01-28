@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Data Layer** - Core entities and data engineering infrastructure
 - [x] **Phase 2: Templates & Logging** - Workout templates and active logging workflow
-- [ ] **Phase 3: History & Analytics** - Exercise history, PRs, 1RM calculations, and analytics
+- [x] **Phase 3: History & Analytics** - Exercise history, PRs, 1RM calculations, and analytics
 - [ ] **Phase 4: Data Durability** - Export/import and backup reminders
 
 ## Phase Details
@@ -97,13 +97,13 @@ Plans:
 **Plans**: 7 plans in 6 waves
 
 Plans:
-- [ ] 03-01-PLAN.md — dbt staging models and analytics macros
-- [ ] 03-02-PLAN.md — dbt intermediate models (1RM, PR detection, anomaly flags)
-- [ ] 03-03-PLAN.md — dbt mart models, tests, and documentation
-- [ ] 03-04-PLAN.md — Compiled SQL queries for runtime execution
-- [ ] 03-05-PLAN.md — useHistory hook and ExerciseHistory component
-- [ ] 03-06-PLAN.md — PR detection, PR list, and 1RM display components
-- [ ] 03-07-PLAN.md — Human verification of Phase 3
+- [x] 03-01-PLAN.md — dbt staging models and analytics macros
+- [x] 03-02-PLAN.md — dbt intermediate models (1RM, PR detection, anomaly flags)
+- [x] 03-03-PLAN.md — dbt mart models, tests, and documentation
+- [x] 03-04-PLAN.md — Compiled SQL queries for runtime execution
+- [x] 03-05-PLAN.md — useHistory hook and ExerciseHistory component
+- [x] 03-06-PLAN.md — PR detection, PR list, and 1RM display components
+- [x] 03-07-PLAN.md — Human verification of Phase 3
 
 ---
 
@@ -119,10 +119,12 @@ Plans:
   2. User can import data from Parquet backup file
   3. App shows backup reminder after N workouts since last export
 
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] TBD during /gsd:plan-phase 4
+- [ ] 04-01-PLAN.md — Backup store and export hook with workout counter
+- [ ] 04-02-PLAN.md — Import hook with schema validation
+- [ ] 04-03-PLAN.md — Backup UI (reminder banner, settings tab, App integration)
 
 ## Progress
 
@@ -133,9 +135,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 8/8 | Complete | 2026-01-28 |
 | 2. Templates & Logging | 9/9 | Complete | 2026-01-28 |
-| 3. History & Analytics | 0/7 | Planned | - |
-| 4. Data Durability | 0/TBD | Not started | - |
+| 3. History & Analytics | 7/7 | Complete | 2026-01-28 |
+| 4. Data Durability | 0/3 | Planning complete | - |
 
 ---
 *Created: 2026-01-27*
-*Last updated: 2026-01-28*
+*Last updated: 2026-01-28 (Phase 4 planned)*
