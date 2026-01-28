@@ -8,6 +8,7 @@ import { ExerciseList } from './components/ExerciseList';
 import { GymList } from './components/GymList';
 import { TemplateList } from './components/templates/TemplateList';
 import { StartWorkout } from './components/workout/StartWorkout';
+import { ActiveWorkout } from './components/workout/ActiveWorkout';
 import { Navigation, type Tab } from './components/Navigation';
 
 function App() {
@@ -93,34 +94,49 @@ function App() {
 
   // Render Workouts tab content
   const renderWorkoutsContent = () => {
-    // If workout is active, show active workout view (placeholder for now)
+    // If workout is active, show active workout view
     if (isWorkoutActive && session) {
+      const currentTemplate = templates.find(t => t.template_id === session.template_id);
+
+      if (!currentTemplate) {
+        // Template was deleted while workout in progress - should not happen normally
+        return (
+          <div className="text-center py-12 text-red-400">
+            Template not found. Please cancel this workout.
+          </div>
+        );
+      }
+
       return (
-        <div className="text-center py-12">
-          <div className="text-accent text-sm font-medium mb-2">Workout in progress</div>
-          <p className="text-zinc-500 mb-6">
-            Started at {new Date(session.started_at).toLocaleTimeString()}
-          </p>
-          <p className="text-zinc-400 text-sm">
-            (Active workout UI coming in next plan)
-          </p>
-        </div>
+        <ActiveWorkout
+          template={currentTemplate}
+          exercises={exercises}
+          onFinish={() => {
+            refreshEventCount();
+          }}
+          onCancel={() => {
+            // Session already cleared by cancelWorkout action
+          }}
+        />
       );
     }
 
-    // Show start workout or gym/exercise management
+    // No active workout - show start workout or management views
     return (
       <div className="space-y-12">
-        {/* Start Workout section */}
+        {/* Start Workout section - only show if we have gyms and templates */}
         {gyms.length > 0 && templates.filter(t => !t.is_archived).length > 0 && (
           <StartWorkout
             templates={templates}
             gyms={gyms}
-            onStarted={() => {}}  // No-op for now, will navigate to active workout
+            onStarted={() => {
+              // Session is already set by startWorkout action
+              // Component will re-render showing ActiveWorkout
+            }}
           />
         )}
 
-        {/* Always show gym/exercise management */}
+        {/* Gym and exercise management */}
         <GymList
           gyms={gyms}
           isLoading={gymsLoading}
