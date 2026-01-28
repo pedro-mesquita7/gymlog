@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface PRIndicatorProps {
   isPR: boolean;
@@ -10,13 +10,16 @@ interface PRIndicatorProps {
  */
 export function PRIndicator({ isPR, prType = 'weight_and_1rm' }: PRIndicatorProps) {
   const [show, setShow] = useState(false);
+  const prevIsPR = useRef(isPR);
 
   useEffect(() => {
-    if (isPR) {
+    // Only trigger when isPR transitions from false to true
+    if (isPR && !prevIsPR.current) {
       setShow(true);
       const timer = setTimeout(() => setShow(false), 3000);
       return () => clearTimeout(timer);
     }
+    prevIsPR.current = isPR;
   }, [isPR]);
 
   if (!show) return null;

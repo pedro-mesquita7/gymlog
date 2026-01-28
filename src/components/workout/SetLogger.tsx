@@ -66,7 +66,10 @@ export function SetLogger({
 
     // Show PR notification if this is a PR
     if (isPR) {
-      setShowPR(true);
+      // Reset first to ensure state change triggers animation
+      setShowPR(false);
+      // Use setTimeout to ensure state updates in sequence
+      setTimeout(() => setShowPR(true), 0);
     }
 
     onLogSet({

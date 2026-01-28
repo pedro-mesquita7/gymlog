@@ -227,7 +227,7 @@ SELECT
     END AS matches_gym_context
 FROM recent_sets r
 JOIN exercise_dim e ON r.exercise_id = e.exercise_id
-WHERE r.exercise_id = $2
+WHERE r.original_exercise_id = $2
 ORDER BY r.logged_at DESC
 `;
 
@@ -250,7 +250,7 @@ SELECT
     END AS pr_type,
     logged_at
 FROM fact_sets
-WHERE is_pr = true AND exercise_id = $1
+WHERE is_pr = true AND original_exercise_id = $1
 ORDER BY logged_at DESC
 `;
 
@@ -263,5 +263,5 @@ SELECT
     MAX(weight_kg) AS max_weight,
     MAX(estimated_1rm) AS max_1rm
 FROM fact_sets
-WHERE exercise_id = $1
+WHERE original_exercise_id = $1
 `;

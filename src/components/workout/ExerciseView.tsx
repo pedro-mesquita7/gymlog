@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { useWorkoutStore, selectSetsForExercise } from '../../stores/useWorkoutStore';
+import { useState, useMemo } from 'react';
+import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { SetLogger } from './SetLogger';
 import { RestTimer } from './RestTimer';
 import { ExerciseSubstitution } from './ExerciseSubstitution';
+import { ExerciseHistory } from '../history/ExerciseHistory';
 import type { TemplateExercise } from '../../types/template';
 import type { Exercise } from '../../types/database';
 
@@ -29,13 +30,19 @@ export function ExerciseView({
   const logSet = useWorkoutStore(state => state.logSet);
   const removeSet = useWorkoutStore(state => state.removeSet);
   const [showSubstitution, setShowSubstitution] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
 
   // Get substituted exercise ID if any
   const substitutedId = session?.exerciseSubstitutions[templateExercise.exercise_id];
   const actualExerciseId = substitutedId ?? templateExercise.exercise_id;
 
   // Get sets for this exercise (by original template exercise ID)
-  const sets = useWorkoutStore(selectSetsForExercise(templateExercise.exercise_id));
+  // Select raw array from store (referentially stable), filter with useMemo to avoid infinite loop
+  const allSets = useWorkoutStore(state => state.session?.sets);
+  const sets = useMemo(
+    () => allSets?.filter(s => s.original_exercise_id === templateExercise.exercise_id) ?? [],
+    [allSets, templateExercise.exercise_id]
+  );
 
   const handleLogSet = (data: { weight_kg: number; reps: number; rir: number | null }) => {
     logSet(actualExerciseId, templateExercise.exercise_id, data);
@@ -45,21 +52,33 @@ export function ExerciseView({
 
   return (
     <div className="space-y-6">
-      {/* Exercise header - clickable for substitution */}
+      {/* Exercise header */}
       <div className="text-center">
         <div className="text-xs text-zinc-500 mb-1">
           Exercise {exerciseIndex + 1} of {totalExercises}
         </div>
-        <button
-          onClick={() => setShowSubstitution(true)}
-          className="text-2xl font-bold hover:text-accent transition-colors"
-        >
+        <div className="text-2xl font-bold">
           {exerciseName}
           {substitutedId && <span className="text-accent text-sm ml-2">(sub)</span>}
-        </button>
+        </div>
         {exercise?.muscle_group && (
           <div className="text-sm text-zinc-500">{exercise.muscle_group}</div>
         )}
+        {/* Action buttons */}
+        <div className="flex gap-2 justify-center mt-2">
+          <button
+            onClick={() => setShowSubstitution(true)}
+            className="px-3 py-1 text-xs text-zinc-400 hover:text-accent border border-zinc-700 hover:border-accent rounded-full transition-colors"
+          >
+            Swap Exercise
+          </button>
+          <button
+            onClick={() => setShowHistory(true)}
+            className="px-3 py-1 text-xs text-zinc-400 hover:text-blue-400 border border-zinc-700 hover:border-blue-400 rounded-full transition-colors"
+          >
+            History
+          </button>
+        </div>
       </div>
 
       {/* Progress indicator */}
@@ -148,6 +167,20 @@ export function ExerciseView({
           exercises={exercises}
           onClose={() => setShowSubstitution(false)}
         />
+      )}
+
+      {/* History modal */}
+      {showHistory && session && (
+        <div className="fixed inset-0 bg-black/80 z-40 flex items-center justify-center p-4">
+          <div className="w-full max-w-md">
+            <ExerciseHistory
+              exerciseId={templateExercise.exercise_id}
+              exerciseName={exerciseName}
+              currentGymId={session.gym_id}
+              onClose={() => setShowHistory(false)}
+            />
+          </div>
+        </div>
       )}
     </div>
   );
