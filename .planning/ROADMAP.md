@@ -13,7 +13,7 @@ Build a local-first PWA for strength training tracking with proper data engineer
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Data Layer** - Core entities and data engineering infrastructure
-- [ ] **Phase 2: Templates & Logging** - Workout templates and active logging workflow
+- [x] **Phase 2: Templates & Logging** - Workout templates and active logging workflow
 - [ ] **Phase 3: History & Analytics** - Exercise history, PRs, 1RM calculations, and analytics
 - [ ] **Phase 4: Data Durability** - Export/import and backup reminders
 
@@ -66,15 +66,15 @@ Plans:
 **Plans**: 9 plans in 7 waves
 
 Plans:
-- [ ] 02-01-PLAN.md — Install dependencies and create types/events for templates and workouts
-- [ ] 02-02-PLAN.md — useTemplates hook with CRUD operations and getTemplates query
-- [ ] 02-03-PLAN.md — TemplateBuilder form with drag-drop exercise reordering
-- [ ] 02-04-PLAN.md — Template List UI with navigation tabs
-- [ ] 02-05-PLAN.md — Zustand workout store with persist and StartWorkout component
-- [ ] 02-06-PLAN.md — Active workout UI (ExerciseView, SetLogger, NumberStepper)
-- [ ] 02-07-PLAN.md — Rest timer and exercise substitution
-- [ ] 02-08-PLAN.md — Workout completion and cancellation with event persistence
-- [ ] 02-09-PLAN.md — Human verification of Phase 2
+- [x] 02-01-PLAN.md — Install dependencies and create types/events for templates and workouts
+- [x] 02-02-PLAN.md — useTemplates hook with CRUD operations and getTemplates query
+- [x] 02-03-PLAN.md — TemplateBuilder form with drag-drop exercise reordering
+- [x] 02-04-PLAN.md — Template List UI with navigation tabs
+- [x] 02-05-PLAN.md — Zustand workout store with persist and StartWorkout component
+- [x] 02-06-PLAN.md — Active workout UI (ExerciseView, SetLogger, NumberStepper)
+- [x] 02-07-PLAN.md — Rest timer and exercise substitution
+- [x] 02-08-PLAN.md — Workout completion and cancellation with event persistence
+- [x] 02-09-PLAN.md — Human verification of Phase 2
 
 ---
 
@@ -94,10 +94,16 @@ Plans:
   6. Metrics layer defines 1RM, volume, and PR calculations as single source of truth
   7. Anomaly detection flags unusual values (e.g., weight jumped 50%+ from last session)
 
-**Plans**: TBD
+**Plans**: 7 plans in 6 waves
 
 Plans:
-- [ ] TBD during /gsd:plan-phase 3
+- [ ] 03-01-PLAN.md — dbt staging models and analytics macros
+- [ ] 03-02-PLAN.md — dbt intermediate models (1RM, PR detection, anomaly flags)
+- [ ] 03-03-PLAN.md — dbt mart models, tests, and documentation
+- [ ] 03-04-PLAN.md — Compiled SQL queries for runtime execution
+- [ ] 03-05-PLAN.md — useHistory hook and ExerciseHistory component
+- [ ] 03-06-PLAN.md — PR detection, PR list, and 1RM display components
+- [ ] 03-07-PLAN.md — Human verification of Phase 3
 
 ---
 
@@ -126,8 +132,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 8/8 | Complete | 2026-01-28 |
-| 2. Templates & Logging | 0/9 | Planned | - |
-| 3. History & Analytics | 0/TBD | Not started | - |
+| 2. Templates & Logging | 9/9 | Complete | 2026-01-28 |
+| 3. History & Analytics | 0/7 | Planned | - |
 | 4. Data Durability | 0/TBD | Not started | - |
 
 ---
