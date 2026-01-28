@@ -67,8 +67,12 @@ Recent decisions affecting current work:
 **From 01-05:**
 - DEV-010: Display exercise count in gym list to show impact before deletion (users see which gyms have associated exercises)
 
+**From 01-07:**
+- DEV-011: Pin DuckDB-WASM to 1.32.0 (dev versions have OPFS file locking bugs)
+- DEV-012: Use opfs://gymlog.db path for OPFS persistence
+
 **From 01-08:**
-- DEV-011: Calculate exercise count via LEFT JOIN in query rather than separate fetch (single round trip)
+- DEV-013: Calculate exercise count via LEFT JOIN in query rather than separate fetch (single round trip)
 
 ### Pending Todos
 
@@ -80,8 +84,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-28 11:07:42 UTC
-Stopped at: Completed 01-08-PLAN.md (UX Gap Closure)
+Last session: 2026-01-28 11:08:43 UTC
+Stopped at: Completed 01-07-PLAN.md (OPFS Persistence - gap closure)
 Resume file: None
 
 **Next action:** Phase 1 complete. Ready for Phase 2 (Tracking & Analytics)
