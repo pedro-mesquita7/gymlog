@@ -11,16 +11,16 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 2 of 4 (Templates & Logging)
-Plan: 3 of 9 in current phase
+Plan: 4 of 9 in current phase
 Status: In progress
-Last activity: 2026-01-28 — Completed 02-03-PLAN.md (Template Builder Components)
+Last activity: 2026-01-28 — Completed 02-04-PLAN.md (Template List UI)
 
-Progress: [███░░░░░░░] 25%
+Progress: [████░░░░░░] 29%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
+- Total plans completed: 11
 - Average duration: 3 min
 - Total execution time: 0.5 hours
 
@@ -29,10 +29,10 @@ Progress: [███░░░░░░░] 25%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 8 | 22 min | 3 min |
-| 02-templates-logging | 2 | 7 min | 4 min |
+| 02-templates-logging | 3 | 10 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 4 min, 2 min, 3 min, 4 min
+- Last 5 plans: 4 min, 2 min, 3 min, 4 min, 3 min
 - Trend: Stable (consistent 2-4 min execution)
 
 *Updated after each plan completion*
@@ -85,6 +85,11 @@ Recent decisions affecting current work:
 - DEV-018: PointerSensor with distance: 8 constraint prevents accidental drags
 - DEV-019: Zod superRefine for cross-field validation (duplicate exercises, min <= max reps)
 
+**From 02-04:**
+- DEV-020: Action menu with backdrop pattern for dropdowns (click-outside closes menu, avoids z-index battles)
+- DEV-021: Show archived toggle instead of separate page (simpler UX, all templates in one view)
+- DEV-022: Bottom navigation with pb-20 padding (prevents content overlap with fixed nav)
+
 ### Pending Todos
 
 None yet.
@@ -95,8 +100,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-28 12:52:17 UTC
-Stopped at: Completed 02-03-PLAN.md (Template Builder Components)
+Last session: 2026-01-28 12:55:53 UTC
+Stopped at: Completed 02-04-PLAN.md (Template List UI)
 Resume file: None
 
-**Next action:** Continue Phase 2 execution - execute 02-04 (Template List UI)
+**Next action:** Continue Phase 2 execution - execute 02-05 (Start Workout Flow)
