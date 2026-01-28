@@ -11,16 +11,16 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 2 of 4 (Templates & Logging)
-Plan: 2 of 9 in current phase
+Plan: 3 of 9 in current phase
 Status: In progress
-Last activity: 2026-01-28 — Completed 02-02-PLAN.md (Template CRUD Operations)
+Last activity: 2026-01-28 — Completed 02-03-PLAN.md (Template Builder Components)
 
-Progress: [██░░░░░░░░] 22%
+Progress: [███░░░░░░░] 25%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
+- Total plans completed: 10
 - Average duration: 3 min
 - Total execution time: 0.5 hours
 
@@ -29,10 +29,10 @@ Progress: [██░░░░░░░░] 22%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 8 | 22 min | 3 min |
-| 02-templates-logging | 1 | 3 min | 3 min |
+| 02-templates-logging | 2 | 7 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 4 min, 4 min, 2 min, 3 min
+- Last 5 plans: 4 min, 4 min, 2 min, 3 min, 4 min
 - Trend: Stable (consistent 2-4 min execution)
 
 *Updated after each plan completion*
@@ -80,6 +80,11 @@ Recent decisions affecting current work:
 - DEV-015: activeTemplates as computed property filtering archived templates (avoids repeated filtering in components)
 - DEV-016: ID-returning operations for createTemplate and duplicateTemplate (enables immediate navigation)
 
+**From 02-03:**
+- DEV-017: Use field.id as key for useFieldArray items, not array index (prevents React key errors during reordering)
+- DEV-018: PointerSensor with distance: 8 constraint prevents accidental drags
+- DEV-019: Zod superRefine for cross-field validation (duplicate exercises, min <= max reps)
+
 ### Pending Todos
 
 None yet.
@@ -90,8 +95,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-28 12:44:04 UTC
-Stopped at: Completed 02-02-PLAN.md (Template CRUD Operations)
+Last session: 2026-01-28 12:52:17 UTC
+Stopped at: Completed 02-03-PLAN.md (Template Builder Components)
 Resume file: None
 
-**Next action:** Continue Phase 2 execution - execute 02-01 (dependencies) or 02-03 (Template List UI)
+**Next action:** Continue Phase 2 execution - execute 02-04 (Template List UI)
