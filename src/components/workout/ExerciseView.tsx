@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import { useWorkoutStore, selectSetsForExercise } from '../../stores/useWorkoutStore';
 import { SetLogger } from './SetLogger';
+import { RestTimer } from './RestTimer';
+import { ExerciseSubstitution } from './ExerciseSubstitution';
 import type { TemplateExercise } from '../../types/template';
 import type { Exercise } from '../../types/database';
 
 interface ExerciseViewProps {
   templateExercise: TemplateExercise;
   exercise: Exercise | undefined;  // Looked up from exercises list
+  exercises: Exercise[];  // Full exercise library for substitution
   exerciseIndex: number;
   totalExercises: number;
   onPrev: () => void;
@@ -15,6 +19,7 @@ interface ExerciseViewProps {
 export function ExerciseView({
   templateExercise,
   exercise,
+  exercises,
   exerciseIndex,
   totalExercises,
   onPrev,
@@ -23,6 +28,7 @@ export function ExerciseView({
   const session = useWorkoutStore(state => state.session);
   const logSet = useWorkoutStore(state => state.logSet);
   const removeSet = useWorkoutStore(state => state.removeSet);
+  const [showSubstitution, setShowSubstitution] = useState(false);
 
   // Get substituted exercise ID if any
   const substitutedId = session?.exerciseSubstitutions[templateExercise.exercise_id];
@@ -39,17 +45,20 @@ export function ExerciseView({
 
   return (
     <div className="space-y-6">
-      {/* Exercise header */}
+      {/* Exercise header - clickable for substitution */}
       <div className="text-center">
         <div className="text-xs text-zinc-500 mb-1">
           Exercise {exerciseIndex + 1} of {totalExercises}
         </div>
-        <h2 className="text-2xl font-bold">{exerciseName}</h2>
+        <button
+          onClick={() => setShowSubstitution(true)}
+          className="text-2xl font-bold hover:text-accent transition-colors"
+        >
+          {exerciseName}
+          {substitutedId && <span className="text-accent text-sm ml-2">(sub)</span>}
+        </button>
         {exercise?.muscle_group && (
           <div className="text-sm text-zinc-500">{exercise.muscle_group}</div>
-        )}
-        {substitutedId && (
-          <div className="text-xs text-accent mt-1">Substituted</div>
         )}
       </div>
 
@@ -75,6 +84,9 @@ export function ExerciseView({
         targetRepsMax={templateExercise.target_reps_max}
         onLogSet={handleLogSet}
       />
+
+      {/* Rest timer */}
+      <RestTimer restSeconds={templateExercise.rest_seconds} />
 
       {/* Logged sets list */}
       {sets.length > 0 && (
@@ -126,6 +138,17 @@ export function ExerciseView({
           Next
         </button>
       </div>
+
+      {/* Substitution modal */}
+      {showSubstitution && (
+        <ExerciseSubstitution
+          originalExerciseId={templateExercise.exercise_id}
+          originalExerciseName={exercises.find(e => e.exercise_id === templateExercise.exercise_id)?.name ?? 'Unknown'}
+          replacementExerciseId={templateExercise.replacement_exercise_id}
+          exercises={exercises}
+          onClose={() => setShowSubstitution(false)}
+        />
+      )}
     </div>
   );
 }

@@ -69,6 +69,7 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
       <ExerciseView
         templateExercise={currentTemplateExercise}
         exercise={exerciseData}
+        exercises={exercises}
         exerciseIndex={currentIndex}
         totalExercises={totalExercises}
         onPrev={goToPrev}
