@@ -1,14 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDuckDB } from './hooks/useDuckDB';
 import { useExercises } from './hooks/useExercises';
 import { useGyms } from './hooks/useGyms';
 import { useTemplates } from './hooks/useTemplates';
 import { useWorkoutStore, selectIsWorkoutActive } from './stores/useWorkoutStore';
+import { useBackupStore, selectShouldShowReminder } from './stores/useBackupStore';
 import { ExerciseList } from './components/ExerciseList';
 import { GymList } from './components/GymList';
 import { TemplateList } from './components/templates/TemplateList';
 import { StartWorkout } from './components/workout/StartWorkout';
 import { ActiveWorkout } from './components/workout/ActiveWorkout';
+import { BackupReminder } from './components/backup/BackupReminder';
+import { BackupSettings } from './components/backup/BackupSettings';
 import { Navigation, type Tab } from './components/Navigation';
 
 function App() {
@@ -31,10 +34,20 @@ function App() {
     deleteGym,
   } = useGyms();
 
-  const { templates, isLoading: templatesLoading } = useTemplates();
+  const { templates, isLoading: templatesLoading, refresh: refreshTemplates } = useTemplates();
 
   const isWorkoutActive = useWorkoutStore(selectIsWorkoutActive);
   const session = useWorkoutStore(state => state.session);
+  const cancelWorkout = useWorkoutStore(state => state.cancelWorkout);
+  const shouldShowReminder = useBackupStore(selectShouldShowReminder);
+
+  // Refresh templates when switching to workouts tab (templates may have been
+  // created/modified on the templates tab which uses its own hook instance)
+  useEffect(() => {
+    if (activeTab === 'workouts') {
+      refreshTemplates();
+    }
+  }, [activeTab, refreshTemplates]);
 
   const handleCreateExercise = async (data: Parameters<typeof createExercise>[0]) => {
     await createExercise(data);
@@ -96,13 +109,26 @@ function App() {
   const renderWorkoutsContent = () => {
     // If workout is active, show active workout view
     if (isWorkoutActive && session) {
+      // Wait for templates to load before deciding if template is missing
+      if (templatesLoading) {
+        return (
+          <div className="text-center py-12 text-zinc-500">Loading workout...</div>
+        );
+      }
+
       const currentTemplate = templates.find(t => t.template_id === session.template_id);
 
       if (!currentTemplate) {
-        // Template was deleted while workout in progress - should not happen normally
+        // Template data lost (e.g. in-memory DB after reload) or deleted
         return (
-          <div className="text-center py-12 text-red-400">
-            Template not found. Please cancel this workout.
+          <div className="text-center py-12 space-y-4">
+            <p className="text-red-400">Template not found. Session data may have been lost.</p>
+            <button
+              onClick={() => cancelWorkout()}
+              className="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors"
+            >
+              Dismiss
+            </button>
           </div>
         );
       }
@@ -182,9 +208,22 @@ function App() {
         </div>
       </header>
 
+      {/* Demo mode warning */}
+      {!status.isPersistent && status.isConnected && (
+        <div className="bg-amber-900/30 border-b border-amber-700/50">
+          <div className="max-w-2xl mx-auto px-6 py-2 text-center text-sm text-amber-200">
+            Demo mode: Data will be lost on refresh. For persistence, run outside Docker.
+          </div>
+        </div>
+      )}
+
+      {/* Backup reminder - only in persistent mode */}
+      {status.isPersistent && shouldShowReminder && <BackupReminder />}
+
       {/* Main Content */}
       <main className="max-w-2xl mx-auto px-6 py-10">
-        {activeTab === 'workouts' ? renderWorkoutsContent() : <TemplateList />}
+        {activeTab === 'settings' ? <BackupSettings /> :
+         activeTab === 'workouts' ? renderWorkoutsContent() : <TemplateList />}
       </main>
 
       {/* Bottom Navigation */}
