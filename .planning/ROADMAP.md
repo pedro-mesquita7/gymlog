@@ -43,14 +43,14 @@
   4. User can view total volume (sets x reps x weight) over time for each exercise
   5. User can view this week vs last week performance comparison per exercise
   6. User can view all-time PR list showing best lifts per exercise
-**Plans**: TBD
+**Plans**: 5 plans in 3 waves
 
 Plans:
-- [ ] 05-01: dbt analytics models (vw_exercise_progress, vw_volume_by_muscle_group, vw_progression_status)
-- [ ] 05-02: Analytics hooks (useExerciseProgress, useMuscleGroupVolume, useProgressionStatus)
-- [ ] 05-03: Recharts integration and ExerciseProgressChart component
-- [ ] 05-04: PRList component and week-over-week comparison
-- [ ] 05-05: Analytics tab navigation and AnalyticsView container
+- [ ] 05-01-PLAN.md — dbt analytics views (vw_exercise_progress, vw_weekly_comparison) [Wave 1]
+- [ ] 05-02-PLAN.md — Install Recharts/date-fns, extend types, add SQL queries [Wave 1]
+- [ ] 05-03-PLAN.md — Analytics hooks (useExerciseProgress, useWeeklyComparison) [Wave 2]
+- [ ] 05-04-PLAN.md — Chart components (ExerciseProgressChart, WeekComparisonCard, PRListCard) [Wave 2]
+- [ ] 05-05-PLAN.md — AnalyticsPage container and Navigation integration with lazy loading [Wave 3]
 
 #### Phase 6: Volume Analytics
 **Goal**: Deliver muscle group volume tracking with visual indicators for training balance
@@ -92,7 +92,7 @@ Phases execute in numeric order: 5 -> 6 -> 7
 | 2. Templates | v1.0 | 9/9 | Complete | 2026-01-28 |
 | 3. History | v1.0 | 6/6 | Complete | 2026-01-28 |
 | 4. Polish | v1.0 | 6/6 | Complete | 2026-01-28 |
-| 5. Analytics Foundation | v1.1 | 0/5 | Not started | - |
+| 5. Analytics Foundation | v1.1 | 0/5 | Planned | - |
 | 6. Volume Analytics | v1.1 | 0/2 | Not started | - |
 | 7. Progression Intelligence | v1.1 | 0/2 | Not started | - |
 
