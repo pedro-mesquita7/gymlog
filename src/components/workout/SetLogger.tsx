@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { NumberStepper } from '../ui/NumberStepper';
+import { PRIndicator } from '../history/PRIndicator';
+import { EstimatedMaxDisplay } from '../history/EstimatedMaxDisplay';
+import { useExerciseMax } from '../../hooks/useHistory';
 
 interface SetLoggerProps {
   exerciseId: string;
@@ -25,9 +28,46 @@ export function SetLogger({
   const [reps, setReps] = useState(0);
   const [rir, setRir] = useState<number | null>(null);
   const [showRir, setShowRir] = useState(true);  // RIR always visible per CONTEXT.md
+  const [showPR, setShowPR] = useState(false);
+  const [prType, setPrType] = useState<'weight' | '1rm' | 'weight_and_1rm'>('weight_and_1rm');
+
+  // Get current max weight and 1RM for PR detection
+  const maxData = useExerciseMax(originalExerciseId);
+
+  // Calculate estimated 1RM for current inputs (Epley formula)
+  const currentEstimated1RM = useMemo(() => {
+    if (weight <= 0 || reps <= 0) return null;
+    return weight * (1 + reps / 30.0);
+  }, [weight, reps]);
+
+  // Detect if current set would be a PR
+  const isPR = useMemo(() => {
+    if (!maxData || weight <= 0 || reps <= 0) return false;
+
+    const isWeightPR = maxData.max_weight === null || weight > maxData.max_weight;
+    const is1RMPR = currentEstimated1RM !== null &&
+                    (maxData.max_1rm === null || currentEstimated1RM > maxData.max_1rm);
+
+    if (isWeightPR && is1RMPR) {
+      setPrType('weight_and_1rm');
+      return true;
+    } else if (isWeightPR) {
+      setPrType('weight');
+      return true;
+    } else if (is1RMPR) {
+      setPrType('1rm');
+      return true;
+    }
+    return false;
+  }, [weight, reps, currentEstimated1RM, maxData]);
 
   const handleSubmit = () => {
     if (weight <= 0 || reps <= 0) return;
+
+    // Show PR notification if this is a PR
+    if (isPR) {
+      setShowPR(true);
+    }
 
     onLogSet({
       weight_kg: weight,
@@ -44,6 +84,17 @@ export function SetLogger({
 
   return (
     <div className="space-y-6">
+      {/* PR Indicator */}
+      <PRIndicator isPR={showPR} prType={prType} />
+
+      {/* Current max display */}
+      {maxData && (
+        <EstimatedMaxDisplay
+          maxWeight={maxData.max_weight}
+          max1RM={maxData.max_1rm}
+        />
+      )}
+
       {/* Last session reference */}
       {(lastWeight || lastReps) && (
         <div className="text-center text-sm text-zinc-500">
@@ -81,15 +132,44 @@ export function SetLogger({
         />
 
         {showRir && (
-          <NumberStepper
-            value={rir ?? 0}
-            onChange={(v) => setRir(v === 0 ? null : v)}
-            step={1}
-            min={0}
-            max={10}
-            label="RIR"
-            size="lg"
-          />
+          <div className="flex flex-col items-center">
+            <label className="text-xs text-zinc-500 mb-1">RIR</label>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setRir(prev => prev === null ? 0 : Math.max(0, prev - 1))}
+                className="w-12 h-12 bg-zinc-700 hover:bg-zinc-600 rounded-lg font-bold text-2xl transition-colors flex items-center justify-center"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                inputMode="numeric"
+                value={rir ?? ''}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === '') {
+                    setRir(null);
+                  } else {
+                    const num = parseInt(val, 10);
+                    if (!isNaN(num)) setRir(Math.min(10, Math.max(0, num)));
+                  }
+                }}
+                placeholder="-"
+                min={0}
+                max={10}
+                className="w-24 bg-zinc-800 border border-zinc-700 rounded-lg text-center text-lg font-medium py-3 focus:outline-none focus:ring-2 focus:ring-accent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
+              <button
+                type="button"
+                onClick={() => setRir(prev => prev === null ? 0 : Math.min(10, prev + 1))}
+                className="w-12 h-12 bg-zinc-700 hover:bg-zinc-600 rounded-lg font-bold text-2xl transition-colors flex items-center justify-center"
+              >
+                +
+              </button>
+            </div>
+            <span className="text-xs text-zinc-500 mt-1">0 = failure</span>
+          </div>
         )}
       </div>
 

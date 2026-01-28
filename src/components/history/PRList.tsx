@@ -9,12 +9,20 @@ interface PRListProps {
  * Display list of all PRs for an exercise
  */
 export function PRList({ exerciseId, exerciseName }: PRListProps) {
-  const { data: prs, isLoading } = usePRList(exerciseId);
+  const { prs, isLoading, error } = usePRList(exerciseId);
 
   if (isLoading) {
     return (
       <div className="text-center text-zinc-500 py-8">
         Loading PR history...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center text-red-400 py-8">
+        Error loading PRs: {error}
       </div>
     );
   }
@@ -88,9 +96,11 @@ export function PRList({ exerciseId, exerciseName }: PRListProps) {
                 {formatDate(pr.logged_at)}
               </span>
             </div>
-            <div className="text-sm text-zinc-500">
-              Est 1RM: {pr.estimated_1rm.toFixed(1)}kg
-            </div>
+            {pr.estimated_1rm && (
+              <div className="text-sm text-zinc-500">
+                Est 1RM: {pr.estimated_1rm.toFixed(1)}kg
+              </div>
+            )}
           </div>
         ))}
       </div>
