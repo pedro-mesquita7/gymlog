@@ -31,12 +31,19 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. User can create, edit, delete, and view gyms with name and optional location
   3. All data is stored in DuckDB-WASM using Parquet files in OPFS
   4. All changes are captured as immutable events with audit columns (_created_at, _event_id)
-  5. dbt models transform raw events to staging to marts (star schema: fact_sets, dim_exercise, dim_gym, dim_workout_template)
+  5. dbt models transform raw events to staging to marts (star schema: dim_exercise, dim_gym; fact_sets and dim_workout_template deferred to Phase 2 when workout logging is built)
 
-**Plans**: TBD
+**Plans**: 8 plans in 6 waves
 
 Plans:
-- [ ] TBD during /gsd:plan-phase 1
+- [x] 01-01-PLAN.md — Project setup with Vite, React, TypeScript, dependencies
+- [x] 01-02-PLAN.md — DuckDB initialization and event sourcing infrastructure
+- [x] 01-03-PLAN.md — dbt models (staging, intermediate, marts)
+- [x] 01-04-PLAN.md — Exercise management (CRUD + filtering)
+- [x] 01-05-PLAN.md — Gym management (CRUD + exercise association)
+- [x] 01-06-PLAN.md — Human verification of Phase 1
+- [ ] 01-07-PLAN.md — Gap closure: Enable OPFS persistence (upgrade DuckDB-WASM to stable)
+- [ ] 01-08-PLAN.md — Gap closure: UI polish (exercise count on gyms, event count in header)
 
 ---
 
@@ -110,11 +117,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Data Layer | 0/TBD | Not started | - |
+| 1. Foundation & Data Layer | 6/8 | Gap closure | - |
 | 2. Templates & Logging | 0/TBD | Not started | - |
 | 3. History & Analytics | 0/TBD | Not started | - |
 | 4. Data Durability | 0/TBD | Not started | - |
 
 ---
 *Created: 2026-01-27*
-*Last updated: 2026-01-27*
+*Last updated: 2026-01-28*
