@@ -75,6 +75,38 @@ export interface TemplateArchivedEvent extends BaseEvent {
   is_archived: boolean;  // true = archive, false = restore
 }
 
+// Workout events (LOG-01 through LOG-09)
+export interface WorkoutStartedEvent extends BaseEvent {
+  event_type: 'workout_started';
+  workout_id: string;
+  template_id: string;
+  gym_id: string;
+  started_at: string;
+}
+
+export interface SetLoggedEvent extends BaseEvent {
+  event_type: 'set_logged';
+  workout_id: string;
+  set_id: string;
+  exercise_id: string;           // Actual exercise used (may be substitution)
+  original_exercise_id: string;  // Template's exercise
+  weight_kg: number;
+  reps: number;
+  rir: number | null;
+}
+
+export interface WorkoutCompletedEvent extends BaseEvent {
+  event_type: 'workout_completed';
+  workout_id: string;
+  completed_at: string;
+}
+
+export interface WorkoutCancelledEvent extends BaseEvent {
+  event_type: 'workout_cancelled';
+  workout_id: string;
+  cancelled_at: string;
+}
+
 // Union type for all events
 export type GymLogEvent =
   | ExerciseCreatedEvent
@@ -86,7 +118,11 @@ export type GymLogEvent =
   | TemplateCreatedEvent
   | TemplateUpdatedEvent
   | TemplateDeletedEvent
-  | TemplateArchivedEvent;
+  | TemplateArchivedEvent
+  | WorkoutStartedEvent
+  | SetLoggedEvent
+  | WorkoutCompletedEvent
+  | WorkoutCancelledEvent;
 
 // Muscle groups as defined in PROJECT.md
 export const MUSCLE_GROUPS = [
