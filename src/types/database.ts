@@ -17,12 +17,12 @@ export interface Exercise {
   exercise_id: string;
   name: string;
   muscle_group: string;
-  is_global: boolean;
-  gym_id: string | null;
+  is_global: boolean;  // false = track weight per-gym
 }
 
 export interface Gym {
   gym_id: string;
   name: string;
   location: string | null;
+  exercise_count: number;  // Count of gym-specific exercises
 }
