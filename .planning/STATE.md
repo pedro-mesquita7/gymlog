@@ -6,34 +6,35 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
-**Current focus:** Phase 2 - Templates & Logging
+**Current focus:** Phase 3 - History & Analytics
 
 ## Current Position
 
-Phase: 2 of 4 (Templates & Logging)
-Plan: 8 of 9 in current phase
+Phase: 3 of 4 (History & Analytics)
+Plan: 1 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-28 — Completed 02-08-PLAN.md (Workout Completion)
+Last activity: 2026-01-28 — Completed 03-01-PLAN.md
 
-Progress: [████████░░] 89%
+Progress: [███████████░] 85%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
+- Total plans completed: 18
 - Average duration: 3 min
-- Total execution time: 0.8 hours
+- Total execution time: ~1 hour
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 8 | 22 min | 3 min |
-| 02-templates-logging | 8 | 27 min | 3 min |
+| 02-templates-logging | 9 | 30 min | 3 min |
+| 03-history-analytics | 1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 4 min, 3 min, 3 min, 3 min
-- Trend: Stable (consistent 3-4 min execution)
+- Last 5 plans: 3 min, 3 min, 3 min, verification, 3 min
+- Trend: Stable (consistent 3 min execution)
 
 *Updated after each plan completion*
 
@@ -114,6 +115,18 @@ Recent decisions affecting current work:
 - DEV-037: Save disabled with zero sets (prevent accidental empty workout saves)
 - DEV-038: Warning for incomplete exercises (warn but allow saving when exercises have no sets)
 
+**From 02-09 (Verification):**
+- DEV-039: Demo mode warning banner when OPFS unavailable (clear user expectation about data loss)
+- DEV-040: RIR input supports null (empty/not filled) distinct from 0 (failure)
+- DEV-041: Explicit "Swap Exercise" button instead of hidden tap-on-name (better discoverability)
+- DEV-042: useMemo for filtered store selectors to avoid infinite render loops
+
+**From 03-01:**
+- DEV-043: Staging models follow JSON_EXTRACT_STRING pattern from existing models (consistent extraction logic)
+- DEV-044: Epley formula (weight × (1 + reps/30)) for 1RM calculation (most accurate for 1-10 rep range)
+- DEV-045: Anomaly detection with 50% default threshold for percent change (flags unusual performance jumps)
+- DEV-046: filter_exercise_by_gym macro centralizes global vs gym-specific logic (reusable WHERE clause pattern)
+
 ### Pending Todos
 
 None yet.
@@ -124,8 +137,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-28 13:12:45 UTC
-Stopped at: Completed 02-08-PLAN.md (Workout Completion)
+Last session: 2026-01-28
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None
 
-**Next action:** Continue Phase 2 execution - execute 02-09 (next plan)
+**Next action:** Continue with 03-02-PLAN.md (mart models)
