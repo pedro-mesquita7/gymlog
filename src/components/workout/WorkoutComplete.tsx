@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { writeEvent } from '../../db/events';
+import { useBackupStore } from '../../stores/useBackupStore';
 import type { WorkoutSession } from '../../types/workout-session';
 import type { Template } from '../../types/template';
 import type { Exercise } from '../../types/database';
@@ -20,6 +21,7 @@ interface WorkoutCompleteProps {
 export function WorkoutComplete({ session, template, exercises, onSaved, onCancel }: WorkoutCompleteProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const incrementWorkoutCount = useBackupStore((state) => state.incrementWorkoutCount);
 
   // Calculate workout stats
   const totalSets = session.sets.length;
@@ -69,6 +71,9 @@ export function WorkoutComplete({ session, template, exercises, onSaved, onCance
         workout_id: session.workout_id,
         completed_at: new Date().toISOString(),
       });
+
+      // Increment backup counter after successful save
+      incrementWorkoutCount();
 
       onSaved();
     } catch (err) {
