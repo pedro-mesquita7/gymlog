@@ -11,16 +11,16 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 2 of 4 (Templates & Logging)
-Plan: 7 of 9 in current phase
+Plan: 8 of 9 in current phase
 Status: In progress
-Last activity: 2026-01-28 — Completed 02-07-PLAN.md (Rest Timer & Exercise Substitution)
+Last activity: 2026-01-28 — Completed 02-08-PLAN.md (Workout Completion)
 
-Progress: [████████░░] 83%
+Progress: [████████░░] 89%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
+- Total plans completed: 16
 - Average duration: 3 min
 - Total execution time: 0.8 hours
 
@@ -29,10 +29,10 @@ Progress: [████████░░] 83%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 8 | 22 min | 3 min |
-| 02-templates-logging | 7 | 24 min | 3 min |
+| 02-templates-logging | 8 | 27 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 4 min, 4 min, 3 min, 3 min
+- Last 5 plans: 4 min, 4 min, 3 min, 3 min, 3 min
 - Trend: Stable (consistent 3-4 min execution)
 
 *Updated after each plan completion*
@@ -109,6 +109,11 @@ Recent decisions affecting current work:
 - DEV-034: Exercise name clickable for substitution (intuitive tap target, clear (sub) indicator)
 - DEV-035: Custom one-off exercises for substitution (allows ad-hoc replacements without polluting library)
 
+**From 02-08:**
+- DEV-036: Complete view as state toggle in ActiveWorkout (simpler UX, maintains workout context, no routing complexity)
+- DEV-037: Save disabled with zero sets (prevent accidental empty workout saves)
+- DEV-038: Warning for incomplete exercises (warn but allow saving when exercises have no sets)
+
 ### Pending Todos
 
 None yet.
@@ -119,8 +124,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-28 13:07:52 UTC
-Stopped at: Completed 02-07-PLAN.md (Rest Timer & Exercise Substitution)
+Last session: 2026-01-28 13:12:45 UTC
+Stopped at: Completed 02-08-PLAN.md (Workout Completion)
 Resume file: None
 
-**Next action:** Continue Phase 2 execution - execute 02-08 (Workout Completion)
+**Next action:** Continue Phase 2 execution - execute 02-09 (next plan)
