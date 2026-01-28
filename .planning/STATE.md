@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 4 of 4 (Data Durability)
-Plan: 2 of 3 in current phase
+Plan: 1 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-28 — Completed 04-02-PLAN.md
+Last activity: 2026-01-28 — Completed 04-01-PLAN.md
 
-Progress: [███████████░] 93% (25/27 plans)
+Progress: [███████████░] 89% (24/27 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 25
+- Total plans completed: 24
 - Average duration: 2.7 min
-- Total execution time: ~1 hour 8 min
+- Total execution time: ~1 hour 5 min
 
 **By Phase:**
 
@@ -31,10 +31,10 @@ Progress: [███████████░] 93% (25/27 plans)
 | 01-foundation-data-layer | 8 | 22 min | 3 min |
 | 02-templates-logging | 9 | 30 min | 3 min |
 | 03-history-analytics | 6 | 16 min | 2.7 min |
-| 04-data-durability | 2 | 4 min | 2 min |
+| 04-data-durability | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 2 min, 3 min, 3 min, 2 min
+- Last 5 plans: 2 min, 3 min, 3 min, 2 min, 2 min
 - Trend: Stable (consistent 2-3 min execution)
 
 *Updated after each plan completion*
@@ -150,11 +150,13 @@ Recent decisions affecting current work:
 - DEV-059: Real-time PR detection using useMemo to compare current inputs against maxData (immediate feedback during logging)
 - DEV-060: EstimatedMaxDisplay conditionally renders only when maxData exists (avoids empty state flicker)
 
-**From 04-02:**
-- DEV-061: Pre-validate file extension before DuckDB operations (fail fast on user error)
-- DEV-062: Schema validation checks only required columns, not virtual columns (year/month are generated)
-- DEV-063: Duplicate detection via WHERE _event_id NOT IN subquery (idempotent imports)
-- DEV-064: Track both imported and skipped counts for user feedback
+**From 04-01:**
+- DEV-061: Backup state in localStorage (not sessionStorage) to persist across tab close
+- DEV-062: BACKUP_THRESHOLD = 10 workouts before reminder shown
+- DEV-063: Reset reminderDismissed on new workout completion (re-prompts after dismissal)
+- DEV-064: zstd compression level 3 for Parquet export (balance size/speed)
+- DEV-065: URL.revokeObjectURL after download to prevent memory leaks
+- DEV-066: Warn but allow export with active workout (includes in-progress data)
 
 ### Pending Todos
 
@@ -167,7 +169,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 04-02-PLAN.md
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
 
-**Next action:** Continue Phase 4. Next: 04-03 (frontend integration for backup/import UI)
+**Next action:** Continue Phase 4. Next: 04-02 (backup UI implementation)
