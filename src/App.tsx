@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { useDuckDB } from './hooks/useDuckDB';
 import { useExercises } from './hooks/useExercises';
 import { useGyms } from './hooks/useGyms';
 import { ExerciseList } from './components/ExerciseList';
 import { GymList } from './components/GymList';
+import { TemplateList } from './components/templates/TemplateList';
+import { Navigation, type Tab } from './components/Navigation';
 
 function App() {
+  const [activeTab, setActiveTab] = useState<Tab>('workouts');
   const { status, eventCount, refreshEventCount } = useDuckDB();
 
   const {
@@ -80,7 +84,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20">
       {/* Header */}
       <header className="border-b border-zinc-800">
         <div className="max-w-2xl mx-auto px-6 py-6 flex items-baseline justify-between">
@@ -101,23 +105,31 @@ function App() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-2xl mx-auto px-6 py-10 space-y-12">
-        <GymList
-          gyms={gyms}
-          isLoading={gymsLoading}
-          onCreateGym={handleCreateGym}
-          onUpdateGym={handleUpdateGym}
-          onDeleteGym={handleDeleteGym}
-        />
-
-        <ExerciseList
-          exercises={exercises}
-          isLoading={exercisesLoading}
-          onCreateExercise={handleCreateExercise}
-          onUpdateExercise={handleUpdateExercise}
-          onDeleteExercise={handleDeleteExercise}
-        />
+      <main className="max-w-2xl mx-auto px-6 py-10">
+        {activeTab === 'workouts' ? (
+          <div className="space-y-12">
+            <GymList
+              gyms={gyms}
+              isLoading={gymsLoading}
+              onCreateGym={handleCreateGym}
+              onUpdateGym={handleUpdateGym}
+              onDeleteGym={handleDeleteGym}
+            />
+            <ExerciseList
+              exercises={exercises}
+              isLoading={exercisesLoading}
+              onCreateExercise={handleCreateExercise}
+              onUpdateExercise={handleUpdateExercise}
+              onDeleteExercise={handleDeleteExercise}
+            />
+          </div>
+        ) : (
+          <TemplateList />
+        )}
       </main>
+
+      {/* Bottom Navigation */}
+      <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
 }
