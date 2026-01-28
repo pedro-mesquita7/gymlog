@@ -1,0 +1,96 @@
+# Requirements: GymLog v1.1 Analytics
+
+**Defined:** 2026-01-28
+**Core Value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
+
+## v1.1 Requirements
+
+Requirements for Analytics milestone. Each maps to roadmap phases.
+
+### Progress Charts
+
+- [ ] **CHART-01**: User can view exercise progress chart showing weight over last 4 weeks
+- [ ] **CHART-02**: User can view estimated 1RM trend on exercise progress chart
+- [ ] **CHART-03**: User can view volume (sets × reps × weight) per exercise over time
+- [ ] **CHART-04**: User can compare this week's performance to last week for each exercise
+
+### Volume Analytics
+
+- [ ] **VOL-01**: User can view sets per week by muscle group as bar chart
+- [ ] **VOL-02**: User sees color-coded volume zones (under 10 sets, 10-20 optimal, 20+ high)
+- [ ] **VOL-03**: User can view muscle group heat map showing training frequency
+
+### PR & History
+
+- [ ] **PR-01**: User can view PR list showing all-time bests per exercise
+
+### Progression Intelligence
+
+- [ ] **PROG-01**: User sees plateau alert when no PR achieved in 4+ weeks with flat trend
+- [ ] **PROG-02**: User sees regression alert when weight drops 10%+ or volume drops 20%+
+- [ ] **PROG-03**: User can view progression dashboard showing status (progressing/plateau/regressing) per exercise
+
+### Infrastructure
+
+- [ ] **INFRA-01**: Analytics tab added to main navigation
+- [ ] **INFRA-02**: Recharts library integrated with Tailwind CSS theming
+- [ ] **INFRA-03**: Analytics dbt models created (vw_exercise_progress, vw_volume_by_muscle_group, vw_progression_status)
+
+## v1.2 Requirements
+
+Deferred to future release. Tracked but not in current roadmap.
+
+### Extended Analytics
+
+- **EXT-01**: User can select custom time range (3 months, 6 months, 1 year, all time)
+- **EXT-02**: User sees volume recommendations comparing to research-backed targets
+- **EXT-03**: User can export chart as image
+
+### Advanced Features
+
+- **ADV-01**: User can compare multiple exercises on one chart
+- **ADV-02**: User can set personal volume targets per muscle group
+- **ADV-03**: User receives periodic progress summary notifications
+
+## Out of Scope
+
+Explicitly excluded. Documented to prevent scope creep.
+
+| Feature | Reason |
+|---------|--------|
+| AI workout recommendations | Complexity not justified; user makes their own programming decisions |
+| Social/leaderboard comparison | Anti-feature per research; introduces confounding variables |
+| Calorie/nutrition tracking | Different domain; keep focus on performance metrics |
+| Guilt-based alerts | Anti-feature per research; causes app abandonment |
+| Smartwatch integration | Defer to v2+; solve mobile first |
+| Complex derived metrics | "Training load" etc. confusing without explanation |
+
+## Traceability
+
+Which phases cover which requirements. Updated during roadmap creation.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| INFRA-01 | Phase 5 | Pending |
+| INFRA-02 | Phase 5 | Pending |
+| INFRA-03 | Phase 5 | Pending |
+| CHART-01 | Phase 5 | Pending |
+| CHART-02 | Phase 5 | Pending |
+| CHART-03 | Phase 5 | Pending |
+| CHART-04 | Phase 5 | Pending |
+| VOL-01 | Phase 6 | Pending |
+| VOL-02 | Phase 6 | Pending |
+| VOL-03 | Phase 6 | Pending |
+| PR-01 | Phase 5 | Pending |
+| PROG-01 | Phase 7 | Pending |
+| PROG-02 | Phase 7 | Pending |
+| PROG-03 | Phase 7 | Pending |
+
+**Coverage:**
+- v1.1 requirements: 14 total
+- Mapped to phases: 14
+- Unmapped: 0 ✓
+
+---
+*Requirements defined: 2026-01-28*
+*Last updated: 2026-01-28 after milestone definition*
