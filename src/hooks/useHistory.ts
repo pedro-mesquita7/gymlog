@@ -170,6 +170,9 @@ export function useExerciseMax(exerciseId: string): ExerciseMax | null {
             max_weight: row.max_weight !== null ? Number(row.max_weight) : null,
             max_1rm: row.max_1rm !== null ? Number(row.max_1rm) : null,
           });
+        } else {
+          // No rows - set to object with nulls so PR detection knows there's no history
+          setMax({ max_weight: null, max_1rm: null });
         }
         await conn.close();
       } catch (err) {

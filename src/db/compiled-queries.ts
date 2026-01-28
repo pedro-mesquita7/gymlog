@@ -90,7 +90,7 @@ WITH set_events AS (
         CAST(payload->>'weight_kg' AS DECIMAL) AS weight_kg,
         CAST(payload->>'reps' AS INTEGER) AS reps,
         CASE WHEN payload->>'rir' = 'null' THEN NULL ELSE CAST(payload->>'rir' AS INTEGER) END AS rir,
-        COALESCE(payload->>'logged_at', _created_at) AS logged_at,
+        COALESCE(payload->>'logged_at', CAST(_created_at AS VARCHAR)) AS logged_at,
         _event_id,
         _created_at
     FROM events
