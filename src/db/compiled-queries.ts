@@ -11,8 +11,7 @@ WITH all_exercise_events AS (
         payload->>'exercise_id' AS exercise_id,
         payload->>'name' AS name,
         payload->>'muscle_group' AS muscle_group,
-        CAST(payload->>'is_global' AS BOOLEAN) AS is_global,
-        NULLIF(payload->>'gym_id', 'null') AS gym_id
+        CAST(payload->>'is_global' AS BOOLEAN) AS is_global
     FROM events
     WHERE event_type IN ('exercise_created', 'exercise_updated', 'exercise_deleted')
 ),
@@ -33,7 +32,6 @@ active_exercises AS (
         name,
         muscle_group,
         is_global,
-        gym_id,
         _created_at AS first_created_at,
         _created_at AS last_updated_at
     FROM deduplicated
@@ -80,4 +78,190 @@ active_gyms AS (
 
 SELECT * FROM active_gyms
 ORDER BY name
+`;
+
+export const FACT_SETS_SQL = `
+WITH set_events AS (
+    SELECT
+        payload->>'set_id' AS set_id,
+        payload->>'workout_id' AS workout_id,
+        payload->>'exercise_id' AS exercise_id,
+        payload->>'original_exercise_id' AS original_exercise_id,
+        CAST(payload->>'weight_kg' AS DECIMAL) AS weight_kg,
+        CAST(payload->>'reps' AS INTEGER) AS reps,
+        CASE WHEN payload->>'rir' = 'null' THEN NULL ELSE CAST(payload->>'rir' AS INTEGER) END AS rir,
+        COALESCE(payload->>'logged_at', _created_at) AS logged_at,
+        _event_id,
+        _created_at
+    FROM events
+    WHERE event_type = 'set_logged'
+),
+
+sets_with_1rm AS (
+    SELECT
+        *,
+        weight_kg * (1 + reps / 30.0) AS estimated_1rm
+    FROM set_events
+),
+
+sets_with_prs AS (
+    SELECT
+        s.*,
+        MAX(weight_kg) OVER (
+            PARTITION BY original_exercise_id
+            ORDER BY logged_at
+            ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING
+        ) AS previous_max_weight,
+        MAX(estimated_1rm) OVER (
+            PARTITION BY original_exercise_id
+            ORDER BY logged_at
+            ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING
+        ) AS previous_max_1rm
+    FROM sets_with_1rm s
+),
+
+sets_with_pr_flags AS (
+    SELECT
+        *,
+        CASE
+            WHEN previous_max_weight IS NULL THEN true
+            WHEN weight_kg > previous_max_weight THEN true
+            ELSE false
+        END AS is_weight_pr,
+        CASE
+            WHEN previous_max_1rm IS NULL AND estimated_1rm IS NOT NULL THEN true
+            WHEN estimated_1rm IS NOT NULL AND estimated_1rm > previous_max_1rm THEN true
+            ELSE false
+        END AS is_1rm_pr
+    FROM sets_with_prs
+),
+
+sets_with_anomalies AS (
+    SELECT
+        s.*,
+        (is_weight_pr OR is_1rm_pr) AS is_pr,
+        LAG(weight_kg) OVER (
+            PARTITION BY original_exercise_id
+            ORDER BY logged_at
+        ) AS previous_weight
+    FROM sets_with_pr_flags s
+),
+
+sets_with_anomaly_flag AS (
+    SELECT
+        *,
+        CASE
+            WHEN previous_weight IS NULL OR previous_weight = 0 THEN false
+            WHEN ABS((weight_kg - previous_weight) / previous_weight) > 0.50 THEN true
+            ELSE false
+        END AS is_anomaly,
+        CASE
+            WHEN previous_weight IS NOT NULL AND previous_weight > 0
+            THEN ROUND((weight_kg - previous_weight) / previous_weight * 100, 1)
+            ELSE NULL
+        END AS weight_change_pct
+    FROM sets_with_anomalies
+)
+
+SELECT
+    set_id,
+    workout_id,
+    exercise_id,
+    original_exercise_id,
+    weight_kg,
+    reps,
+    rir,
+    estimated_1rm,
+    is_weight_pr,
+    is_1rm_pr,
+    is_pr,
+    is_anomaly,
+    weight_change_pct,
+    previous_weight,
+    previous_max_weight,
+    logged_at,
+    _event_id,
+    _created_at
+FROM sets_with_anomaly_flag
+ORDER BY logged_at DESC
+`;
+
+export const EXERCISE_HISTORY_SQL = `
+WITH workout_events AS (
+    SELECT
+        payload->>'workout_id' AS workout_id,
+        payload->>'gym_id' AS gym_id
+    FROM events
+    WHERE event_type = 'workout_started'
+),
+
+exercise_dim AS (
+    ${DIM_EXERCISE_SQL}
+),
+
+recent_sets AS (
+    SELECT
+        f.set_id,
+        f.workout_id,
+        f.exercise_id,
+        f.weight_kg,
+        f.reps,
+        f.rir,
+        f.estimated_1rm,
+        f.is_pr,
+        f.is_anomaly,
+        f.logged_at,
+        w.gym_id AS workout_gym_id
+    FROM (${FACT_SETS_SQL}) f
+    JOIN workout_events w ON f.workout_id = w.workout_id
+    WHERE f.logged_at >= CURRENT_DATE - INTERVAL '14 days'
+)
+
+SELECT
+    r.*,
+    e.name AS exercise_name,
+    e.is_global,
+    CASE
+        WHEN e.is_global = true THEN true
+        ELSE r.workout_gym_id = $1
+    END AS matches_gym_context
+FROM recent_sets r
+JOIN exercise_dim e ON r.exercise_id = e.exercise_id
+WHERE r.exercise_id = $2
+ORDER BY r.logged_at DESC
+`;
+
+export const PR_LIST_SQL = `
+WITH fact_sets AS (
+    ${FACT_SETS_SQL}
+)
+
+SELECT
+    set_id,
+    workout_id,
+    exercise_id,
+    weight_kg,
+    reps,
+    estimated_1rm,
+    CASE
+        WHEN is_weight_pr AND is_1rm_pr THEN 'weight_and_1rm'
+        WHEN is_weight_pr THEN 'weight'
+        WHEN is_1rm_pr THEN '1rm'
+    END AS pr_type,
+    logged_at
+FROM fact_sets
+WHERE is_pr = true AND exercise_id = $1
+ORDER BY logged_at DESC
+`;
+
+export const CURRENT_MAX_SQL = `
+WITH fact_sets AS (
+    ${FACT_SETS_SQL}
+)
+
+SELECT
+    MAX(weight_kg) AS max_weight,
+    MAX(estimated_1rm) AS max_1rm
+FROM fact_sets
+WHERE exercise_id = $1
 `;
