@@ -48,7 +48,23 @@ Track workout performance with proper data engineering — both usable as a pers
 
 ### Active
 
-(None — define in next milestone)
+**v1.1 Analytics:**
+- [ ] Progress charts per exercise (last 4 weeks of weight/volume)
+- [ ] Volume trends by muscle group
+- [ ] Progression detection with alerts during workout
+- [ ] Progression dashboard showing status across exercises
+- [ ] Surface PRList component in UI
+
+## Current Milestone: v1.1 Analytics
+
+**Goal:** Add visual analytics and progression tracking to help users understand their training trends and identify plateaus.
+
+**Target features:**
+- Progress charts showing exercise performance over last 4 weeks
+- Volume distribution across muscle groups
+- Automatic plateau/regression detection with workout alerts
+- Progression dashboard for overview
+- PR list view (surface existing component)
 
 ### Out of Scope
 
@@ -62,13 +78,9 @@ Track workout performance with proper data engineering — both usable as a pers
 **User profile:** Data Engineer building this for personal use and GitHub portfolio. Goes to multiple gyms and wants history to be context-aware (gym-specific equipment shouldn't show cross-gym data).
 
 **Known Issues:**
-- PRList component built but not surfaced in UI (minor)
 - Backup reminders only work in persistent mode (by design)
 
 **Potential v2 Features:**
-- Progress charts over time per exercise
-- Volume trends by muscle group
-- Progression detection (plateau/regression analysis)
 - Supersets (paired exercises)
 - Plate calculator for barbell loading
 
@@ -94,4 +106,4 @@ Track workout performance with proper data engineering — both usable as a pers
 | Pin DuckDB-WASM to 1.32.0 | Dev versions have OPFS file locking bugs | Good |
 
 ---
-*Last updated: 2026-01-28 after v1.0 milestone*
+*Last updated: 2026-01-28 after v1.1 milestone start*

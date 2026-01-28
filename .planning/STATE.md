@@ -6,22 +6,23 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
-**Current focus:** Planning next milestone
+**Current focus:** v1.1 Analytics milestone
 
 ## Current Position
 
-Phase: v1.0 complete
-Plan: All 27 plans shipped
-Status: Milestone complete, ready for v2 planning
-Last activity: 2026-01-28 — v1.0 milestone archived
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-28 — Milestone v1.1 started
 
-Progress: [████████████] 100% (27/27 plans)
+Progress: [░░░░░░░░░░░░] 0%
 
 ## Milestones
 
 | Version | Status | Shipped |
 |---------|--------|---------|
 | v1.0 MVP | Complete | 2026-01-28 |
+| v1.1 Analytics | In Progress | — |
 
 See `.planning/MILESTONES.md` for details.
 
@@ -29,7 +30,7 @@ See `.planning/MILESTONES.md` for details.
 
 ### Decisions
 
-Key decisions are logged in PROJECT.md. Major technical decisions from v1.0:
+Key decisions from v1.0 (still apply):
 
 - DuckDB-WASM + Parquet for modern DE showcase
 - Event sourcing for immutable audit trail
@@ -37,8 +38,6 @@ Key decisions are logged in PROJECT.md. Major technical decisions from v1.0:
 - Zustand with persist for client state
 - String interpolation for SQL (DuckDB-WASM limitation)
 - Pin DuckDB-WASM to 1.32.0 (OPFS bug workaround)
-
-Full decision log (DEV-001 to DEV-066) archived in phase summaries.
 
 ### Pending Todos
 
@@ -51,7 +50,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: v1.0 milestone complete
+Stopped at: Defining v1.1 requirements
 Resume file: None
 
-**Next action:** `/gsd:new-milestone` to define v2 requirements and roadmap
+**Next action:** Complete requirements and roadmap definition
