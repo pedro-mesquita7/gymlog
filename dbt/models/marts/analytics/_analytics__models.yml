@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: vw_exercise_history
+    description: "Analytical view of recent exercise performance - last 2 weeks with gym and workout context"
+    columns:
+      - name: set_id
+        description: "Unique set identifier"
+      - name: workout_id
+        description: "Associated workout session ID"
+      - name: exercise_id
+        description: "Exercise performed (actual, may differ from original due to substitution)"
+      - name: original_exercise_id
+        description: "Originally planned exercise ID"
+      - name: exercise_name
+        description: "Exercise name"
+      - name: muscle_group
+        description: "Primary muscle group targeted"
+      - name: is_global
+        description: "True if exercise is globally comparable across gyms"
+      - name: weight_kg
+        description: "Weight lifted in kilograms"
+      - name: reps
+        description: "Number of repetitions performed"
+      - name: rir
+        description: "Reps in reserve (null if not tracked)"
+      - name: estimated_1rm
+        description: "Estimated one-rep max"
+      - name: is_pr
+        description: "True if this set was a personal record"
+      - name: is_anomaly
+        description: "True if weight changed 50%+ from previous session"
+      - name: weight_change_pct
+        description: "Percentage change from previous session weight"
+      - name: logged_at
+        description: "Timestamp when set was logged"
+      - name: workout_started_at
+        description: "Workout session start time"
+      - name: workout_completed_at
+        description: "Workout session completion time (null if in progress)"
+      - name: gym_id
+        description: "Gym where workout was performed"
+      - name: exercise_gym_id
+        description: "Gym associated with exercise (null if global)"
+      - name: template_id
+        description: "Template used for workout (null if custom)"
+      - name: _created_at
+        description: "Event creation timestamp"

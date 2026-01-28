@@ -46,3 +46,147 @@ models:
         description: "Timestamp when gym was first created"
       - name: last_updated_at
         description: "Timestamp of most recent update"
+
+  - name: fact_sets
+    description: "Fact table for logged sets with analytics columns - 1RM estimates, PR flags, and anomaly detection"
+    columns:
+      - name: set_id
+        description: "Unique set identifier"
+        tests:
+          - unique
+          - not_null
+      - name: workout_id
+        description: "Associated workout session ID"
+        tests:
+          - not_null
+      - name: exercise_id
+        description: "Exercise performed (may be substitution)"
+        tests:
+          - not_null
+      - name: original_exercise_id
+        description: "Original planned exercise (used for PR tracking across substitutions)"
+        tests:
+          - not_null
+      - name: weight_kg
+        description: "Weight lifted in kilograms"
+        tests:
+          - not_null
+      - name: reps
+        description: "Number of repetitions performed"
+        tests:
+          - not_null
+      - name: rir
+        description: "Reps in reserve (null if not tracked)"
+      - name: estimated_1rm
+        description: "Estimated one-rep max using Epley formula"
+      - name: is_weight_pr
+        description: "True if weight exceeds previous max for this exercise"
+      - name: is_1rm_pr
+        description: "True if estimated 1RM exceeds previous max"
+      - name: is_pr
+        description: "True if either weight or 1RM is a personal record"
+      - name: is_anomaly
+        description: "True if weight changed 50%+ from previous session"
+      - name: weight_change_pct
+        description: "Percentage change from previous session weight"
+      - name: previous_weight
+        description: "Weight used in previous set for this exercise"
+      - name: previous_max_weight
+        description: "Historical max weight before this set"
+      - name: logged_at
+        description: "Timestamp when set was logged"
+        tests:
+          - not_null
+      - name: _event_id
+        description: "Source event ID for lineage"
+      - name: _created_at
+        description: "Event creation timestamp"
+
+  - name: fact_workouts
+    description: "Fact table for workout sessions with aggregated metrics - set counts, volume, and duration"
+    columns:
+      - name: workout_id
+        description: "Unique workout session identifier"
+        tests:
+          - unique
+          - not_null
+      - name: template_id
+        description: "Template used for this workout (null if custom)"
+      - name: gym_id
+        description: "Gym where workout was performed (null if unspecified)"
+      - name: started_at
+        description: "Workout start timestamp"
+        tests:
+          - not_null
+      - name: completed_at
+        description: "Workout completion timestamp (null if in progress)"
+      - name: status
+        description: "Workout status: 'completed' or 'in_progress'"
+      - name: total_sets
+        description: "Total number of sets logged"
+      - name: total_exercises
+        description: "Number of distinct exercises performed"
+      - name: total_volume_kg
+        description: "Total training volume (sum of weight × reps)"
+      - name: pr_count
+        description: "Number of personal records achieved"
+      - name: first_set_logged_at
+        description: "Timestamp of first set logged"
+      - name: last_set_logged_at
+        description: "Timestamp of last set logged"
+      - name: duration_minutes
+        description: "Workout duration from start to completion (null if in progress)"
+      - name: _event_id
+        description: "Source workout_started event ID"
+      - name: _created_at
+        description: "Event creation timestamp"
+
+  - name: fact_prs
+    description: "Fact table for personal records history with improvement tracking and achievement classification"
+    columns:
+      - name: set_id
+        description: "Unique set identifier"
+        tests:
+          - not_null
+      - name: workout_id
+        description: "Associated workout session ID"
+        tests:
+          - not_null
+      - name: exercise_id
+        description: "Exercise performed"
+        tests:
+          - not_null
+      - name: original_exercise_id
+        description: "Original planned exercise (tracks PRs across substitutions)"
+        tests:
+          - not_null
+      - name: weight_kg
+        description: "Weight lifted in kilograms"
+        tests:
+          - not_null
+      - name: reps
+        description: "Number of repetitions performed"
+        tests:
+          - not_null
+      - name: rir
+        description: "Reps in reserve (null if not tracked)"
+      - name: estimated_1rm
+        description: "Estimated one-rep max"
+      - name: pr_type
+        description: "Type of PR: 'weight', '1rm', or 'weight_and_1rm'"
+      - name: achievement_type
+        description: "Classification: 'first' (first time logging exercise) or 'improvement'"
+      - name: previous_max_weight
+        description: "Previous max weight before this PR (null for first-time exercises)"
+      - name: weight_improvement_kg
+        description: "Absolute weight improvement in kg (null for first-time)"
+      - name: weight_improvement_pct
+        description: "Percentage weight improvement (null for first-time)"
+      - name: logged_at
+        description: "Timestamp when PR was achieved"
+        tests:
+          - not_null
+      - name: _event_id
+        description: "Source event ID"
+      - name: _created_at
+        description: "Event creation timestamp"
