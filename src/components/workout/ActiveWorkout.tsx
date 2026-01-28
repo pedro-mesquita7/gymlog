@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { ExerciseView } from './ExerciseView';
+import { WorkoutComplete } from './WorkoutComplete';
+import { DeleteConfirmation } from '../DeleteConfirmation';
 import type { Template } from '../../types/template';
 import type { Exercise } from '../../types/database';
 
@@ -16,6 +18,11 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
   const session = useWorkoutStore(state => state.session);
   const currentIndex = useWorkoutStore(state => state.session?.current_exercise_index ?? 0);
   const setCurrentExerciseIndex = useWorkoutStore(state => state.setCurrentExerciseIndex);
+  const completeWorkout = useWorkoutStore(state => state.completeWorkout);
+  const cancelWorkout = useWorkoutStore(state => state.cancelWorkout);
+
+  const [view, setView] = useState<'workout' | 'complete'>('workout');
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   const templateExercises = template.exercises;
   const totalExercises = templateExercises.length;
@@ -42,6 +49,23 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
 
   if (!session) return null;
 
+  // Show complete view
+  if (view === 'complete') {
+    return (
+      <WorkoutComplete
+        session={session}
+        template={template}
+        exercises={exercises}
+        onSaved={() => {
+          completeWorkout();
+          onFinish();
+        }}
+        onCancel={() => setView('workout')}
+      />
+    );
+  }
+
+  // Main workout view
   const currentTemplateExercise = templateExercises[currentIndex];
   const substitutedId = session.exerciseSubstitutions[currentTemplateExercise.exercise_id];
   const actualExerciseId = substitutedId ?? currentTemplateExercise.exercise_id;
@@ -79,18 +103,30 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
       {/* Finish/Cancel buttons */}
       <div className="flex gap-3 mt-8 pt-6 border-t border-zinc-800">
         <button
-          onClick={onCancel}
+          onClick={() => setShowCancelConfirm(true)}
           className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 rounded-lg transition-colors"
         >
           Cancel
         </button>
         <button
-          onClick={onFinish}
+          onClick={() => setView('complete')}
           className="flex-1 py-3 bg-green-600 hover:bg-green-500 font-medium rounded-lg transition-colors"
         >
           Finish Workout
         </button>
       </div>
+
+      {/* Cancel confirmation - uses isOpen prop to control visibility */}
+      <DeleteConfirmation
+        isOpen={showCancelConfirm}
+        title="Cancel Workout?"
+        message={`This will discard your workout progress. ${session.sets.length} set${session.sets.length !== 1 ? 's' : ''} will be lost.`}
+        onConfirm={() => {
+          cancelWorkout();
+          onCancel();
+        }}
+        onCancel={() => setShowCancelConfirm(false)}
+      />
     </div>
   );
 }
