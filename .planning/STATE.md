@@ -13,7 +13,7 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 Phase: 5 of 7 (Analytics Foundation & Progress Charts)
 Plan: 1 of 5 in current phase
 Status: In progress
-Last activity: 2026-01-29 — Completed 05-02-PLAN.md (Analytics Infrastructure)
+Last activity: 2026-01-29 — Completed 05-01-PLAN.md (Analytics Foundation)
 
 Progress: [████████████████░░░░░░░░] 28/36 plans (78% - v1.0 complete + 1/9 v1.1)
 
@@ -66,6 +66,8 @@ v1.1 decisions:
 - date-fns 4.1.0 for date utilities (modern, tree-shakeable)
 - 28-day lookback for exercise progress charts (sufficient trend data)
 - 14-day lookback for weekly comparison (current + previous week)
+- original_exercise_id for stable progress tracking across substitutions
+- SQL volume calculation (weight_kg * reps) for 10-100x performance vs JavaScript
 
 ### Pending Todos
 
@@ -77,8 +79,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-29T09:20:31Z
-Stopped at: Completed 05-02-PLAN.md (Analytics Infrastructure)
+Last session: 2026-01-29T09:20:17Z
+Stopped at: Completed 05-01-PLAN.md (Analytics Foundation)
 Resume file: None
 
-**Next action:** Execute 05-03-PLAN.md (useExerciseProgress hook)
+**Next action:** Execute 05-02-PLAN.md (Analytics Infrastructure)
