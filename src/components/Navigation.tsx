@@ -1,4 +1,4 @@
-type Tab = 'workouts' | 'templates' | 'settings';
+type Tab = 'workouts' | 'templates' | 'analytics' | 'settings';
 
 interface NavigationProps {
   activeTab: Tab;
@@ -28,6 +28,16 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
           }`}
         >
           Templates
+        </button>
+        <button
+          onClick={() => onTabChange('analytics')}
+          className={`flex-1 py-4 text-center text-sm font-medium transition-colors ${
+            activeTab === 'analytics'
+              ? 'text-accent border-t-2 border-accent -mt-px'
+              : 'text-zinc-500 hover:text-zinc-300'
+          }`}
+        >
+          Analytics
         </button>
         <button
           onClick={() => onTabChange('settings')}
