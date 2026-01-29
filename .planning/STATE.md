@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Phase: 5 of 7 (Analytics Foundation & Progress Charts)
-Plan: 0 of 5 in current phase
-Status: Ready to plan
-Last activity: 2026-01-28 — Roadmap created for v1.1 Analytics
+Plan: 1 of 5 in current phase
+Status: In progress
+Last activity: 2026-01-29 — Completed 05-02-PLAN.md (Analytics Infrastructure)
 
-Progress: [████████████████░░░░░░░░] 27/36 plans (75% through v1.0, starting v1.1)
+Progress: [████████████████░░░░░░░░] 28/36 plans (78% - v1.0 complete + 1/9 v1.1)
 
 ## Milestones
 
@@ -27,9 +27,9 @@ Progress: [████████████████░░░░░░░
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 27 (v1.0)
-- Average duration: — (tracking starts fresh for v1.1)
-- Total execution time: —
+- Total plans completed: 28 (27 v1.0 + 1 v1.1)
+- Average duration (v1.1): 8min
+- Total execution time (v1.1): 8min
 
 **By Phase (v1.0):**
 
@@ -40,7 +40,11 @@ Progress: [████████████████░░░░░░░
 | 3. History | 6 | Complete |
 | 4. Polish | 6 | Complete |
 
-*Metrics reset for v1.1 milestone*
+**By Phase (v1.1):**
+
+| Phase | Plans | Status |
+|-------|-------|--------|
+| 5. Analytics Foundation | 1/5 | In Progress |
 
 ## Accumulated Context
 
@@ -59,6 +63,9 @@ v1.1 decisions:
 - Recharts 3.7.0 for charting (~96KB gzipped, most popular React library)
 - Hook-based analytics data access (matches existing useHistory pattern)
 - No Zustand store for analytics (read-only, hooks manage state)
+- date-fns 4.1.0 for date utilities (modern, tree-shakeable)
+- 28-day lookback for exercise progress charts (sufficient trend data)
+- 14-day lookback for weekly comparison (current + previous week)
 
 ### Pending Todos
 
@@ -70,8 +77,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-28
-Stopped at: Created roadmap for v1.1 Analytics milestone
+Last session: 2026-01-29T09:20:31Z
+Stopped at: Completed 05-02-PLAN.md (Analytics Infrastructure)
 Resume file: None
 
-**Next action:** `/gsd:plan-phase 5` to create detailed plans for Analytics Foundation
+**Next action:** Execute 05-03-PLAN.md (useExerciseProgress hook)
