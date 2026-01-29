@@ -46,3 +46,51 @@ models:
         description: "Template used for workout (null if custom)"
       - name: _created_at
         description: "Event creation timestamp"
+
+  - name: vw_exercise_progress
+    description: "Daily aggregated progress data for exercise charts (last 28 days)"
+    columns:
+      - name: exercise_id
+        description: "Original exercise ID (stable across substitutions)"
+      - name: date
+        description: "Date of workout"
+      - name: max_weight
+        description: "Maximum weight lifted that day (kg)"
+      - name: max_1rm
+        description: "Maximum estimated 1RM that day (kg)"
+      - name: total_volume
+        description: "Total volume (sum of weight_kg * reps)"
+      - name: set_count
+        description: "Number of sets performed"
+      - name: exercise_name
+        description: "Name of the exercise"
+      - name: muscle_group
+        description: "Primary muscle group"
+
+  - name: vw_weekly_comparison
+    description: "Week-over-week comparison metrics for exercise performance"
+    columns:
+      - name: exercise_id
+        description: "Original exercise ID"
+      - name: week_start
+        description: "Start of the week"
+      - name: max_weight
+        description: "Maximum weight lifted that week"
+      - name: max_1rm
+        description: "Maximum estimated 1RM that week"
+      - name: total_volume
+        description: "Total volume for the week"
+      - name: set_count
+        description: "Number of sets performed that week"
+      - name: prev_max_weight
+        description: "Previous week's maximum weight"
+      - name: prev_volume
+        description: "Previous week's total volume"
+      - name: exercise_name
+        description: "Name of the exercise"
+      - name: muscle_group
+        description: "Primary muscle group"
+      - name: weight_change_pct
+        description: "Percentage change in max weight from previous week"
+      - name: volume_change_pct
+        description: "Percentage change in volume from previous week"
