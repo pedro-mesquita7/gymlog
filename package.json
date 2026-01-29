@@ -16,10 +16,12 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@duckdb/duckdb-wasm": "1.32.0",
     "@hookform/resolvers": "^5.2.2",
+    "date-fns": "^4.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.71.1",
     "react-swipeable": "^7.0.2",
+    "recharts": "^3.7.0",
     "uuidv7": "^1.1.0",
     "zod": "^4.3.6",
     "zustand": "^5.0.10"
