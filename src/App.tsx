@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useDuckDB } from './hooks/useDuckDB';
 import { useExercises } from './hooks/useExercises';
 import { useGyms } from './hooks/useGyms';
@@ -13,6 +13,9 @@ import { ActiveWorkout } from './components/workout/ActiveWorkout';
 import { BackupReminder } from './components/backup/BackupReminder';
 import { BackupSettings } from './components/backup/BackupSettings';
 import { Navigation, type Tab } from './components/Navigation';
+
+// Lazy load Analytics page to keep Recharts out of main bundle
+const AnalyticsPage = lazy(() => import('./components/analytics/AnalyticsPage').then(m => ({ default: m.AnalyticsPage })));
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('workouts');
@@ -223,6 +226,11 @@ function App() {
       {/* Main Content */}
       <main className="max-w-2xl mx-auto px-6 py-10">
         {activeTab === 'settings' ? <BackupSettings /> :
+         activeTab === 'analytics' ? (
+           <Suspense fallback={<div className="text-center py-12 text-zinc-500">Loading analytics...</div>}>
+             <AnalyticsPage />
+           </Suspense>
+         ) :
          activeTab === 'workouts' ? renderWorkoutsContent() : <TemplateList />}
       </main>
 
