@@ -60,8 +60,8 @@ export function ExerciseProgressChart({
               borderRadius: '8px',
             }}
             labelFormatter={(date) => format(new Date(date), 'PPP')}
-            formatter={(value: number, name: string) => [
-              `${value.toFixed(1)} kg`,
+            formatter={(value: number | undefined, name: string | undefined) => [
+              value !== undefined ? `${value.toFixed(1)} kg` : 'N/A',
               name === 'maxWeight' ? 'Max Weight' :
               name === 'max1rm' ? 'Est. 1RM' : 'Volume'
             ]}
