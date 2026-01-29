@@ -38,3 +38,43 @@ export interface HistoryByDate {
   date: string;  // YYYY-MM-DD
   sets: SetHistory[];
 }
+
+// Progress chart data point (CHART-01, CHART-02, CHART-03)
+export interface ProgressPoint {
+  date: string;           // ISO date string (YYYY-MM-DD)
+  maxWeight: number;      // Max weight lifted that day
+  max1rm: number;         // Max estimated 1RM that day
+  totalVolume: number;    // Sum of (weight * reps) for day
+  setCount: number;       // Number of sets
+}
+
+// Weekly comparison data (CHART-04)
+export interface WeeklyComparison {
+  exerciseId: string;
+  exerciseName: string;
+  muscleGroup: string;
+  weekStart: string;      // ISO date string
+  maxWeight: number;
+  max1rm: number;
+  totalVolume: number;
+  setCount: number;
+  prevMaxWeight: number | null;
+  prevVolume: number | null;
+  weightChangePct: number | null;
+  volumeChangePct: number | null;
+}
+
+// Hook return types
+export interface UseExerciseProgressReturn {
+  data: ProgressPoint[];
+  isLoading: boolean;
+  error: string | null;
+  refresh: () => Promise<void>;
+}
+
+export interface UseWeeklyComparisonReturn {
+  data: WeeklyComparison[];
+  isLoading: boolean;
+  error: string | null;
+  refresh: () => Promise<void>;
+}
