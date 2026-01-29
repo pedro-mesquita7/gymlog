@@ -1,3 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --accent: 16 100% 50%; /* Vibrant orange */
+    --chart-primary: 220 70% 50%;   /* Blue for primary data */
+    --chart-success: 142 76% 36%;   /* Green for 1RM/positive */
+    --chart-muted: 240 5% 65%;      /* Gray for axes/grid */
+  }
+
+  html {
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    @apply bg-zinc-950 text-zinc-100 antialiased;
+  }
+}
+
+@layer components {
+  .text-accent {
+    color: hsl(var(--accent));
+  }
+
+  .bg-accent {
+    background-color: hsl(var(--accent));
+  }
+
+  .border-accent {
+    border-color: hsl(var(--accent));
+  }
+}
