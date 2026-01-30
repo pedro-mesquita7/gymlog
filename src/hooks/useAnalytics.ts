@@ -40,13 +40,23 @@ export function useExerciseProgress({ exerciseId }: UseExerciseProgressOptions):
       const sql = EXERCISE_PROGRESS_SQL.replace('$1', `'${exerciseId}'`);
       const result = await conn.query(sql);
 
-      const rows = result.toArray().map((row: any) => ({
-        date: String(row.date),
-        maxWeight: Number(row.max_weight),
-        max1rm: row.max_1rm !== null ? Number(row.max_1rm) : 0,
-        totalVolume: Number(row.total_volume),
-        setCount: Number(row.set_count),
-      })) as ProgressPoint[];
+      const rows = result.toArray().map((row: any) => {
+        // DuckDB DATE returns epoch-day integers; convert to ISO date string
+        const dateVal = row.date;
+        let dateStr: string;
+        if (typeof dateVal === 'number') {
+          dateStr = new Date(dateVal * 86400000).toISOString().split('T')[0];
+        } else {
+          dateStr = String(dateVal).split('T')[0];
+        }
+        return {
+          date: dateStr,
+          maxWeight: Number(row.max_weight),
+          max1rm: row.max_1rm !== null ? Number(row.max_1rm) : 0,
+          totalVolume: Number(row.total_volume),
+          setCount: Number(row.set_count),
+        };
+      }) as ProgressPoint[];
 
       setData(rows);
       await conn.close();
@@ -89,11 +99,16 @@ export function useWeeklyComparison(): UseWeeklyComparisonReturn {
       const conn = await db.connect();
       const result = await conn.query(WEEKLY_COMPARISON_SQL);
 
-      const rows = result.toArray().map((row: any) => ({
+      const rows = result.toArray().map((row: any) => {
+        const wsVal = row.week_start;
+        const weekStartStr = typeof wsVal === 'number'
+          ? new Date(wsVal * 86400000).toISOString().split('T')[0]
+          : String(wsVal).split('T')[0];
+        return {
         exerciseId: String(row.exercise_id),
         exerciseName: String(row.exercise_name),
         muscleGroup: String(row.muscle_group),
-        weekStart: String(row.week_start),
+        weekStart: weekStartStr,
         maxWeight: Number(row.max_weight),
         max1rm: row.max_1rm !== null ? Number(row.max_1rm) : 0,
         totalVolume: Number(row.total_volume),
@@ -102,7 +117,8 @@ export function useWeeklyComparison(): UseWeeklyComparisonReturn {
         prevVolume: row.prev_volume !== null ? Number(row.prev_volume) : null,
         weightChangePct: row.weight_change_pct !== null ? Number(row.weight_change_pct) : null,
         volumeChangePct: row.volume_change_pct !== null ? Number(row.volume_change_pct) : null,
-      })) as WeeklyComparison[];
+        };
+      }) as WeeklyComparison[];
 
       setData(rows);
       await conn.close();

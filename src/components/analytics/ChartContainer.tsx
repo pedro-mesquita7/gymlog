@@ -12,8 +12,8 @@ interface ChartContainerProps {
  */
 export function ChartContainer({ children, height = 300 }: ChartContainerProps) {
   return (
-    <div style={{ width: '100%', height }} className="relative">
-      <ResponsiveContainer width="100%" height="100%">
+    <div style={{ width: '100%', height, minWidth: 0 }} className="relative">
+      <ResponsiveContainer width="100%" height="100%" minWidth={0}>
         {children}
       </ResponsiveContainer>
     </div>
