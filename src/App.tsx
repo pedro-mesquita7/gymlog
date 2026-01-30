@@ -13,13 +13,17 @@ import { ActiveWorkout } from './components/workout/ActiveWorkout';
 import { BackupReminder } from './components/backup/BackupReminder';
 import { BackupSettings } from './components/backup/BackupSettings';
 import { Navigation, type Tab } from './components/Navigation';
+import type { DatabaseStatus } from './types/database';
 
 // Lazy load Analytics page to keep Recharts out of main bundle
 const AnalyticsPage = lazy(() => import('./components/analytics/AnalyticsPage').then(m => ({ default: m.AnalyticsPage })));
 
-function App() {
+function AppContent({ status, eventCount, refreshEventCount }: {
+  status: DatabaseStatus;
+  eventCount: number;
+  refreshEventCount: () => Promise<void>;
+}) {
   const [activeTab, setActiveTab] = useState<Tab>('workouts');
-  const { status, eventCount, refreshEventCount } = useDuckDB();
 
   const {
     exercises,
@@ -82,32 +86,6 @@ function App() {
     refreshEventCount();
   };
 
-  // Loading state
-  if (!status.isConnected && !status.error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-zinc-500">Loading...</div>
-      </div>
-    );
-  }
-
-  // Error state
-  if (status.error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="max-w-sm">
-          <p className="text-red-500 font-mono text-sm mb-4">{status.error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="text-sm text-zinc-400 hover:text-white transition-colors"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   // Render Workouts tab content
   const renderWorkoutsContent = () => {
     // If workout is active, show active workout view
@@ -150,20 +128,18 @@ function App() {
       );
     }
 
-    // No active workout - show start workout or management views
+    // No active workout - show start workout and management views
     return (
       <div className="space-y-12">
-        {/* Start Workout section - only show if we have gyms and templates */}
-        {gyms.length > 0 && templates.filter(t => !t.is_archived).length > 0 && (
-          <StartWorkout
-            templates={templates}
-            gyms={gyms}
-            onStarted={() => {
-              // Session is already set by startWorkout action
-              // Component will re-render showing ActiveWorkout
-            }}
-          />
-        )}
+        {/* Start Workout section */}
+        <StartWorkout
+          templates={templates}
+          gyms={gyms}
+          onStarted={() => {
+            // Session is already set by startWorkout action
+            // Component will re-render showing ActiveWorkout
+          }}
+        />
 
         {/* Gym and exercise management */}
         <GymList
@@ -237,6 +213,45 @@ function App() {
       {/* Bottom Navigation */}
       <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
+  );
+}
+
+function App() {
+  const { status, eventCount, refreshEventCount } = useDuckDB();
+
+  // Loading state - wait for DB before mounting data hooks
+  if (!status.isConnected && !status.error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-zinc-500">Loading...</div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (status.error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6">
+        <div className="max-w-sm">
+          <p className="text-red-500 font-mono text-sm mb-4">{status.error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="text-sm text-zinc-400 hover:text-white transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // DB is connected - mount content with data hooks
+  return (
+    <AppContent
+      status={status}
+      eventCount={eventCount}
+      refreshEventCount={refreshEventCount}
+    />
   );
 }
 
