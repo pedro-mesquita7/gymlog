@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Phase: 6 of 7 (Volume Analytics)
-Plan: 1 of 4 complete
+Plan: 2 of 4 complete
 Status: In progress
-Last activity: 2026-01-30 — Completed 06-01-PLAN.md (Volume Analytics Data Layer)
+Last activity: 2026-01-30 — Completed 06-02-PLAN.md (Volume Analytics Hooks)
 
-Progress: [█████████████████░░░░░░░] 33/36 plans (92% - v1.0 complete + 6/9 v1.1)
+Progress: [█████████████████░░░░░░░] 34/36 plans (94% - v1.0 complete + 7/9 v1.1)
 
 ## Milestones
 
@@ -27,9 +27,9 @@ Progress: [█████████████████░░░░░░
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 33 (27 v1.0 + 6 v1.1)
+- Total plans completed: 34 (27 v1.0 + 7 v1.1)
 - Average duration (v1.1): 3min
-- Total execution time (v1.1): 17min
+- Total execution time (v1.1): 19min
 
 **By Phase (v1.0):**
 
@@ -45,7 +45,7 @@ Progress: [█████████████████░░░░░░
 | Phase | Plans | Status |
 |-------|-------|--------|
 | 5. Analytics Foundation | 5/5 | Complete |
-| 6. Volume Analytics | 1/4 | In Progress |
+| 6. Volume Analytics | 2/4 | In Progress |
 
 ## Accumulated Context
 
@@ -77,6 +77,9 @@ v1.1 decisions:
 - 28-day lookback for volume analytics (4 weeks of muscle group trend data)
 - Weekly aggregation for volume (industry standard: 10-20 sets/week per muscle)
 - CTE pattern for volume SQL queries (matches existing EXERCISE_PROGRESS_SQL)
+- Default volume thresholds: low=10, optimal=20 sets/week
+- Standard muscle groups always appear in volume data (zero-filled if missing)
+- localStorage for volume threshold persistence (no Zustand for analytics)
 
 ### Pending Todos
 
@@ -88,8 +91,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-30T19:07:49Z
-Stopped at: Completed 06-01-PLAN.md (Volume Analytics Data Layer)
+Last session: 2026-01-30T19:11:55Z
+Stopped at: Completed 06-02-PLAN.md (Volume Analytics Hooks)
 Resume file: None
 
-**Next action:** Continue Phase 6 with plan 06-02 (Volume Analytics Hooks) or other volume analytics features.
+**Next action:** Continue Phase 6 with plan 06-03 (Volume Trend Chart) or plan 06-04 (Muscle Heat Map).
