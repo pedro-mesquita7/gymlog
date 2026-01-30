@@ -6,16 +6,16 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
-**Current focus:** v1.1 Analytics milestone - Phase 6 (Volume Analytics)
+**Current focus:** v1.1 Analytics milestone - Phase 7 (Progression Intelligence)
 
 ## Current Position
 
-Phase: 6 of 7 (Volume Analytics)
-Plan: 5 of 5 complete
-Status: Phase complete — verified ✓
-Last activity: 2026-01-30 — Phase 6 verified (18/18 must-haves passed)
+Phase: 7 of 7 (Progression Intelligence)
+Plan: 1 of 5 complete
+Status: In progress
+Last activity: 2026-01-30 — Completed 07-01-PLAN.md (Progression Status SQL Foundation)
 
-Progress: [██████████████████████░░] 37/39 plans (95% - v1.0 complete + 10/11 v1.1)
+Progress: [███████████████████████░] 38/39 plans (97% - v1.0 complete + 11/11 v1.1)
 
 ## Milestones
 
@@ -27,9 +27,9 @@ Progress: [██████████████████████░
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 37 (27 v1.0 + 10 v1.1)
-- Average duration (v1.1): 2min 33s
-- Total execution time (v1.1): 25min 43s
+- Total plans completed: 38 (27 v1.0 + 11 v1.1)
+- Average duration (v1.1): 2min 51s
+- Total execution time (v1.1): 31min 23s
 
 **By Phase (v1.0):**
 
@@ -46,6 +46,7 @@ Progress: [██████████████████████░
 |-------|-------|--------|
 | 5. Analytics Foundation | 5/5 | Complete |
 | 6. Volume Analytics | 5/5 | Complete |
+| 7. Progression Intelligence | 1/5 | In Progress |
 
 ## Accumulated Context
 
@@ -88,6 +89,14 @@ v1.1 decisions:
 - Muscle group mappings: Chest→chest, Back→upper-back/lower-back/trapezius, Shoulders→deltoids, Legs→quadriceps/hamstring/gluteal/calves, Arms→biceps/triceps/forearm, Core→abs/obliques
 - HSL color scheme for volume zones: red (0°) under-training, green (142°) optimal, yellow (45°) high volume
 
+Phase 7 (Progression Intelligence) decisions:
+- Dual-criteria plateau: no PR in 4+ weeks AND weight change < 5% (prevents false positives during deload)
+- 8-week baseline for regression (excludes current week via ROWS BETWEEN 8 PRECEDING AND 1 PRECEDING)
+- Regression thresholds: 10%+ weight drop OR 20%+ volume drop
+- Minimum 2 sessions before showing status (avoids noise for new exercises)
+- Gym-aware partitioning in window functions (PARTITION BY exercise_id, gym_id)
+- JavaScript filtering for single-exercise lookup (simpler than SQL parameterization with DuckDB-WASM)
+
 ### Pending Todos
 
 None.
@@ -98,8 +107,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-30T19:25:06Z
-Stopped at: Completed 06-05-PLAN.md (AnalyticsPage Integration)
+Last session: 2026-01-30T20:09:13Z
+Stopped at: Completed 07-01-PLAN.md (Progression Status SQL Foundation)
 Resume file: None
 
-**Next action:** Phase 6 complete. Begin Phase 7 (Progression Intelligence) — discuss, plan, or execute.
+**Next action:** Continue Phase 7 with Plan 02 (ProgressionDashboard component).
