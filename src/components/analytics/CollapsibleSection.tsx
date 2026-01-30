@@ -18,17 +18,12 @@ export function CollapsibleSection({
   return (
     <details open={defaultOpen} className="space-y-4 border-b border-zinc-800 pb-6">
       <summary className="cursor-pointer text-lg font-semibold text-zinc-200 select-none hover:text-zinc-100 transition-colors list-none flex items-center gap-2">
-        <span className="text-zinc-500 text-sm transition-transform inline-block details-chevron">▶</span>
+        <span className="text-zinc-500 text-sm transition-transform inline-block [details[open]_&]:rotate-90">▶</span>
         {title}
       </summary>
       <div className="pt-2">
         {children}
       </div>
-      <style jsx>{`
-        details[open] .details-chevron {
-          transform: rotate(90deg);
-        }
-      `}</style>
     </details>
   );
 }

@@ -48,7 +48,7 @@ export function VolumeBarChart({ data, thresholds }: VolumeBarChartProps) {
   // Calculate max value for yellow zone upper bound
   const maxValue = Math.max(
     ...chartData.flatMap(row =>
-      weekLabels.map(week => (row[week] as number) || 0)
+      weekLabels.map(week => ((row as any)[week] as number) || 0)
     ),
     optimal + 5
   );
@@ -125,7 +125,7 @@ export function VolumeBarChart({ data, thresholds }: VolumeBarChartProps) {
             border: '1px solid hsl(240 4% 16%)',
             borderRadius: '8px',
           }}
-          formatter={(value: number) => [`${value} sets`, '']}
+          formatter={(value: number | undefined) => [`${value || 0} sets`, '']}
         />
         <Legend
           wrapperStyle={{ paddingTop: '10px' }}

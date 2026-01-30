@@ -1,9 +1,15 @@
 import { useState, useMemo } from 'react';
 import { useExercises } from '../../hooks/useExercises';
 import { useExerciseProgress, useWeeklyComparison } from '../../hooks/useAnalytics';
+import { useVolumeAnalytics } from '../../hooks/useVolumeAnalytics';
+import { useVolumeThresholds } from '../../hooks/useVolumeThresholds';
 import { ExerciseProgressChart } from './ExerciseProgressChart';
 import { WeekComparisonCard } from './WeekComparisonCard';
 import { PRListCard } from './PRListCard';
+import { VolumeBarChart } from './VolumeBarChart';
+import { VolumeZoneIndicator } from './VolumeZoneIndicator';
+import { MuscleHeatMap } from './MuscleHeatMap';
+import { CollapsibleSection } from './CollapsibleSection';
 
 /**
  * Main Analytics page container
@@ -26,6 +32,10 @@ export function AnalyticsPage() {
 
   // Fetch weekly comparison data
   const { data: weeklyData, isLoading: weeklyLoading, error: weeklyError } = useWeeklyComparison();
+
+  // Fetch volume analytics data
+  const { volumeData, heatMapData, isLoading: volumeLoading, error: volumeError } = useVolumeAnalytics();
+  const volumeThresholds = useVolumeThresholds();
 
   // Filter weekly data for selected exercise
   const selectedWeeklyData = useMemo(
@@ -86,10 +96,7 @@ export function AnalyticsPage() {
       </div>
 
       {/* Progress Chart Section */}
-      <section className="space-y-4">
-        <h2 className="text-lg font-semibold text-zinc-200">
-          Progress (Last 4 Weeks)
-        </h2>
+      <CollapsibleSection title="Progress (Last 4 Weeks)" defaultOpen={true}>
         {progressError ? (
           <div className="text-center py-8 text-red-400">Error: {progressError}</div>
         ) : progressLoading ? (
@@ -103,13 +110,10 @@ export function AnalyticsPage() {
             />
           </div>
         )}
-      </section>
+      </CollapsibleSection>
 
       {/* Week Comparison Section */}
-      <section className="space-y-4">
-        <h2 className="text-lg font-semibold text-zinc-200">
-          This Week vs Last Week
-        </h2>
+      <CollapsibleSection title="This Week vs Last Week" defaultOpen={true}>
         {weeklyError ? (
           <div className="text-center py-8 text-red-400">Error: {weeklyError}</div>
         ) : weeklyLoading ? (
@@ -121,20 +125,51 @@ export function AnalyticsPage() {
             No data yet for this week. Log a workout to see comparison.
           </div>
         )}
-      </section>
+      </CollapsibleSection>
 
       {/* PR List Section */}
-      <section className="space-y-4">
-        <h2 className="text-lg font-semibold text-zinc-200">
-          All-Time PRs
-        </h2>
+      <CollapsibleSection title="All-Time PRs" defaultOpen={true}>
         {selectedExercise && (
           <PRListCard
             exerciseId={selectedExercise.exercise_id}
             exerciseName={selectedExercise.name}
           />
         )}
-      </section>
+      </CollapsibleSection>
+
+      {/* Visual Divider between exercise-specific and muscle-group sections */}
+      <div className="border-t-2 border-zinc-700 pt-8 mt-8">
+        <h2 className="text-xl font-bold text-zinc-100 mb-6">Volume Analytics</h2>
+      </div>
+
+      {/* Weekly Volume by Muscle Group Section */}
+      <CollapsibleSection title="Weekly Volume by Muscle Group" defaultOpen={true}>
+        {volumeError ? (
+          <div className="text-center py-8 text-red-400">Error: {volumeError}</div>
+        ) : volumeLoading ? (
+          <div className="text-center py-8 text-zinc-500">Loading volume data...</div>
+        ) : (
+          <div className="space-y-4">
+            <VolumeZoneIndicator thresholds={volumeThresholds.defaultThresholds} />
+            <div className="bg-zinc-800/30 rounded-lg p-4">
+              <VolumeBarChart data={volumeData} thresholds={volumeThresholds} />
+            </div>
+          </div>
+        )}
+      </CollapsibleSection>
+
+      {/* Training Balance Heat Map Section */}
+      <CollapsibleSection title="Training Balance Heat Map" defaultOpen={true}>
+        {volumeError ? (
+          <div className="text-center py-8 text-red-400">Error: {volumeError}</div>
+        ) : volumeLoading ? (
+          <div className="text-center py-8 text-zinc-500">Loading heat map...</div>
+        ) : (
+          <div className="bg-zinc-800/30 rounded-lg p-4">
+            <MuscleHeatMap data={heatMapData} thresholds={volumeThresholds} />
+          </div>
+        )}
+      </CollapsibleSection>
     </div>
   );
 }
