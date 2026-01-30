@@ -3,6 +3,8 @@ import { NumberStepper } from '../ui/NumberStepper';
 import { PRIndicator } from '../history/PRIndicator';
 import { EstimatedMaxDisplay } from '../history/EstimatedMaxDisplay';
 import { useExerciseMax } from '../../hooks/useHistory';
+import { ProgressionAlert } from './ProgressionAlert';
+import { useWorkoutStore } from '../../stores/useWorkoutStore';
 
 interface SetLoggerProps {
   exerciseId: string;
@@ -31,8 +33,12 @@ export function SetLogger({
   const [showPR, setShowPR] = useState(false);
   const [prType, setPrType] = useState<'weight' | '1rm' | 'weight_and_1rm'>('weight_and_1rm');
 
+  // Get current gym context for progression alert
+  const currentGymId = useWorkoutStore((state) => state.session?.gym_id || '');
+
   // Get current max weight and 1RM for PR detection
   const maxData = useExerciseMax(originalExerciseId);
+  console.log('[SetLogger] maxData:', maxData, 'for exercise:', originalExerciseId);
 
   // Calculate estimated 1RM for current inputs (Epley formula)
   const currentEstimated1RM = useMemo(() => {
@@ -87,6 +93,13 @@ export function SetLogger({
 
   return (
     <div className="space-y-6">
+      {/* Progression Alert */}
+      <ProgressionAlert
+        exerciseId={exerciseId}
+        originalExerciseId={originalExerciseId}
+        currentGymId={currentGymId}
+      />
+
       {/* PR Indicator */}
       <PRIndicator isPR={showPR} prType={prType} />
 
