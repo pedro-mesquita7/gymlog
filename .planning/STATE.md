@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Phase: 7 of 7 (Progression Intelligence)
-Plan: 2 of 5 complete
+Plan: 3 of 5 complete
 Status: In progress
-Last activity: 2026-01-30 — Completed 07-02-PLAN.md (Progression Dashboard UI)
+Last activity: 2026-01-30 — Completed 07-03-PLAN.md (Session-Dismissible Progression Alerts)
 
-Progress: [███████████████████████░] 39/40 plans (98% - v1.0 complete + 12/12 v1.1)
+Progress: [███████████████████████░] 40/40 plans (100% - v1.0 complete + 13/13 v1.1)
 
 ## Milestones
 
@@ -27,9 +27,9 @@ Progress: [███████████████████████
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 39 (27 v1.0 + 12 v1.1)
-- Average duration (v1.1): 2min 47s
-- Total execution time (v1.1): 33min 32s
+- Total plans completed: 40 (27 v1.0 + 13 v1.1)
+- Average duration (v1.1): 2min 42s
+- Total execution time (v1.1): 35min 32s
 
 **By Phase (v1.0):**
 
@@ -46,7 +46,7 @@ Progress: [███████████████████████
 |-------|-------|--------|
 | 5. Analytics Foundation | 5/5 | Complete |
 | 6. Volume Analytics | 5/5 | Complete |
-| 7. Progression Intelligence | 2/5 | In Progress |
+| 7. Progression Intelligence | 3/5 | In Progress |
 
 ## Accumulated Context
 
@@ -99,6 +99,10 @@ Phase 7 (Progression Intelligence) decisions:
 - Problems-first sorting: regressing > plateau > progressing > unknown, then alphabetical
 - formatDistanceToNow for last PR display (relative time more intuitive than absolute dates)
 - Combined regression metrics in single line (Weight: -X% / Volume: -Y%) for compact display
+- 2-hour session boundary for dismissible alerts (typical workout 60-90min, 2hr provides buffer)
+- Session-dismissible alerts: cleared when 2+ hours pass, return if condition persists
+- Progressing alerts not dismissible (positive reinforcement should persist)
+- Dynamic regression messages include drop percentages (actionable: "down 15%" vs "down significantly")
 
 ### Pending Todos
 
@@ -110,8 +114,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-30T20:15:57Z
-Stopped at: Completed 07-02-PLAN.md (Progression Dashboard UI)
+Last session: 2026-01-30T06:23:48Z
+Stopped at: Completed 07-03-PLAN.md (Session-Dismissible Progression Alerts)
 Resume file: None
 
-**Next action:** Continue Phase 7 with Plan 03 (ProgressionAlert component for workout logging).
+**Next action:** Continue Phase 7 with Plan 04 (Progression Suggestions) or Plan 05 (Testing & Documentation).
