@@ -41,7 +41,10 @@ export function ExerciseProgressChart({
           />
           <XAxis
             dataKey="date"
-            tickFormatter={(date) => format(new Date(date), 'MMM d')}
+            tickFormatter={(date) => {
+              const d = new Date(date);
+              return isNaN(d.getTime()) ? String(date) : format(d, 'MMM d');
+            }}
             stroke="hsl(var(--chart-muted))"
             fontSize={12}
             tickLine={false}
@@ -59,7 +62,10 @@ export function ExerciseProgressChart({
               border: '1px solid hsl(240 4% 16%)',
               borderRadius: '8px',
             }}
-            labelFormatter={(date) => format(new Date(date), 'PPP')}
+            labelFormatter={(date) => {
+              const d = new Date(date);
+              return isNaN(d.getTime()) ? String(date) : format(d, 'PPP');
+            }}
             formatter={(value: number | undefined, name: string | undefined) => [
               value !== undefined ? `${value.toFixed(1)} kg` : 'N/A',
               name === 'maxWeight' ? 'Max Weight' :

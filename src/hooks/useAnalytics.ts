@@ -41,13 +41,17 @@ export function useExerciseProgress({ exerciseId }: UseExerciseProgressOptions):
       const result = await conn.query(sql);
 
       const rows = result.toArray().map((row: any) => {
-        // DuckDB DATE returns epoch-day integers; convert to ISO date string
+        // DuckDB DATE returns epoch-day integers (number or BigInt); convert to ISO date string
         const dateVal = row.date;
         let dateStr: string;
         if (typeof dateVal === 'number') {
           dateStr = new Date(dateVal * 86400000).toISOString().split('T')[0];
+        } else if (typeof dateVal === 'bigint') {
+          dateStr = new Date(Number(dateVal) * 86400000).toISOString().split('T')[0];
         } else {
-          dateStr = String(dateVal).split('T')[0];
+          // Could be a Date object or string
+          const d = new Date(dateVal);
+          dateStr = !isNaN(d.getTime()) ? d.toISOString().split('T')[0] : String(dateVal).split('T')[0];
         }
         return {
           date: dateStr,
@@ -101,9 +105,15 @@ export function useWeeklyComparison(): UseWeeklyComparisonReturn {
 
       const rows = result.toArray().map((row: any) => {
         const wsVal = row.week_start;
-        const weekStartStr = typeof wsVal === 'number'
-          ? new Date(wsVal * 86400000).toISOString().split('T')[0]
-          : String(wsVal).split('T')[0];
+        let weekStartStr: string;
+        if (typeof wsVal === 'number') {
+          weekStartStr = new Date(wsVal * 86400000).toISOString().split('T')[0];
+        } else if (typeof wsVal === 'bigint') {
+          weekStartStr = new Date(Number(wsVal) * 86400000).toISOString().split('T')[0];
+        } else {
+          const d = new Date(wsVal);
+          weekStartStr = !isNaN(d.getTime()) ? d.toISOString().split('T')[0] : String(wsVal).split('T')[0];
+        }
         return {
         exerciseId: String(row.exercise_id),
         exerciseName: String(row.exercise_name),
