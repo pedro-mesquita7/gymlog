@@ -411,3 +411,191 @@ WHERE CAST(fs.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '28 days'
 GROUP BY e.muscle_group
 ORDER BY total_sets DESC
 `;
+
+// Progression status (mirrors vw_progression_status.sql)
+export const PROGRESSION_STATUS_SQL = `
+WITH fact_sets AS (
+    ${FACT_SETS_SQL}
+),
+
+workout_events AS (
+    SELECT
+        payload->>'workout_id' AS workout_id,
+        payload->>'gym_id' AS gym_id,
+        COALESCE(payload->>'logged_at', CAST(_created_at AS VARCHAR)) AS logged_at
+    FROM events
+    WHERE event_type = 'workout_started'
+),
+
+exercise_sessions AS (
+    SELECT
+        fs.original_exercise_id,
+        w.gym_id,
+        w.workout_id,
+        w.logged_at AS session_date,
+        MAX(fs.weight_kg) AS max_weight_session,
+        AVG(fs.weight_kg) AS avg_weight_session,
+        SUM(fs.weight_kg * fs.reps) AS volume_session
+    FROM fact_sets fs
+    INNER JOIN workout_events w ON fs.workout_id = w.workout_id
+    WHERE CAST(w.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '9 weeks'
+    GROUP BY fs.original_exercise_id, w.gym_id, w.workout_id, w.logged_at
+),
+
+session_counts AS (
+    SELECT
+        original_exercise_id,
+        gym_id,
+        COUNT(DISTINCT workout_id) AS session_count_4wk
+    FROM exercise_sessions
+    WHERE CAST(session_date AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '4 weeks'
+    GROUP BY original_exercise_id, gym_id
+    HAVING COUNT(DISTINCT workout_id) >= 2
+),
+
+last_pr_per_exercise AS (
+    SELECT
+        original_exercise_id,
+        MAX(logged_at) AS last_pr_date
+    FROM fact_sets
+    WHERE is_pr = true
+    GROUP BY original_exercise_id
+),
+
+recent_weight_stats AS (
+    SELECT
+        es.original_exercise_id,
+        es.gym_id,
+        AVG(es.max_weight_session) AS avg_weight_4wk,
+        MIN(es.max_weight_session) AS min_weight_4wk,
+        MAX(es.max_weight_session) AS max_weight_4wk
+    FROM exercise_sessions es
+    INNER JOIN session_counts sc
+        ON es.original_exercise_id = sc.original_exercise_id
+        AND es.gym_id = sc.gym_id
+    WHERE CAST(es.session_date AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '4 weeks'
+    GROUP BY es.original_exercise_id, es.gym_id
+),
+
+weekly_aggregates AS (
+    SELECT
+        original_exercise_id,
+        gym_id,
+        DATE_TRUNC('week', CAST(session_date AS TIMESTAMPTZ))::DATE AS week_start,
+        AVG(avg_weight_session) AS avg_weight_week,
+        SUM(volume_session) AS total_volume_week
+    FROM exercise_sessions
+    GROUP BY original_exercise_id, gym_id, DATE_TRUNC('week', CAST(session_date AS TIMESTAMPTZ))::DATE
+),
+
+baseline_metrics AS (
+    SELECT
+        original_exercise_id,
+        gym_id,
+        week_start,
+        avg_weight_week,
+        total_volume_week,
+        AVG(avg_weight_week) OVER (
+            PARTITION BY original_exercise_id, gym_id
+            ORDER BY week_start
+            ROWS BETWEEN 8 PRECEDING AND 1 PRECEDING
+        ) AS baseline_avg_weight_8wk,
+        AVG(total_volume_week) OVER (
+            PARTITION BY original_exercise_id, gym_id
+            ORDER BY week_start
+            ROWS BETWEEN 8 PRECEDING AND 1 PRECEDING
+        ) AS baseline_avg_volume_8wk,
+        RANK() OVER (
+            PARTITION BY original_exercise_id, gym_id
+            ORDER BY week_start DESC
+        ) AS week_recency_rank
+    FROM weekly_aggregates
+),
+
+current_week_metrics AS (
+    SELECT
+        original_exercise_id,
+        gym_id,
+        avg_weight_week AS current_avg_weight,
+        total_volume_week AS current_volume,
+        baseline_avg_weight_8wk,
+        baseline_avg_volume_8wk,
+        CASE
+            WHEN baseline_avg_weight_8wk > 0 THEN
+                ROUND(((baseline_avg_weight_8wk - avg_weight_week) / baseline_avg_weight_8wk) * 100, 1)
+            ELSE NULL
+        END AS weight_drop_pct,
+        CASE
+            WHEN baseline_avg_volume_8wk > 0 THEN
+                ROUND(((baseline_avg_volume_8wk - total_volume_week) / baseline_avg_volume_8wk) * 100, 1)
+            ELSE NULL
+        END AS volume_drop_pct
+    FROM baseline_metrics
+    WHERE week_recency_rank = 1
+),
+
+plateau_detection AS (
+    SELECT
+        rws.original_exercise_id,
+        rws.gym_id,
+        sc.session_count_4wk,
+        lpr.last_pr_date,
+        CASE
+            WHEN lpr.last_pr_date IS NULL THEN true
+            WHEN CAST(lpr.last_pr_date AS TIMESTAMPTZ) < CURRENT_DATE - INTERVAL '4 weeks' THEN true
+            ELSE false
+        END AS no_pr_4wk,
+        CASE
+            WHEN rws.avg_weight_4wk > 0 THEN
+                ((rws.max_weight_4wk - rws.min_weight_4wk) / rws.avg_weight_4wk) < 0.05
+            ELSE false
+        END AS weight_flat
+    FROM recent_weight_stats rws
+    INNER JOIN session_counts sc
+        ON rws.original_exercise_id = sc.original_exercise_id
+        AND rws.gym_id = sc.gym_id
+    LEFT JOIN last_pr_per_exercise lpr
+        ON rws.original_exercise_id = lpr.original_exercise_id
+),
+
+regression_detection AS (
+    SELECT
+        original_exercise_id,
+        gym_id,
+        weight_drop_pct,
+        volume_drop_pct,
+        (weight_drop_pct >= 10.0 OR volume_drop_pct >= 20.0) AS is_regressing
+    FROM current_week_metrics
+),
+
+combined_status AS (
+    SELECT
+        pd.original_exercise_id,
+        pd.gym_id,
+        pd.session_count_4wk,
+        pd.last_pr_date,
+        COALESCE(rd.weight_drop_pct, 0) AS weight_drop_pct,
+        COALESCE(rd.volume_drop_pct, 0) AS volume_drop_pct,
+        CASE
+            WHEN rd.is_regressing THEN 'regressing'
+            WHEN pd.no_pr_4wk AND pd.weight_flat THEN 'plateau'
+            WHEN NOT pd.no_pr_4wk THEN 'progressing'
+            ELSE 'unknown'
+        END AS status
+    FROM plateau_detection pd
+    LEFT JOIN regression_detection rd
+        ON pd.original_exercise_id = rd.original_exercise_id
+        AND pd.gym_id = rd.gym_id
+)
+
+SELECT
+    original_exercise_id,
+    gym_id,
+    status,
+    session_count_4wk,
+    last_pr_date,
+    weight_drop_pct,
+    volume_drop_pct
+FROM combined_status
+ORDER BY original_exercise_id, gym_id
+`;

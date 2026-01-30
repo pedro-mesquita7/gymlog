@@ -120,3 +120,28 @@ export interface UseVolumeThresholdsReturn {
   resetThreshold: (muscleGroup: string) => void;
   getThreshold: (muscleGroup: string) => VolumeThresholds;
 }
+
+// Progression status per exercise (Phase 7)
+export interface ProgressionStatus {
+  exerciseId: string;
+  gymId: string;
+  status: 'progressing' | 'plateau' | 'regressing' | 'unknown';
+  lastPrDate: string | null;
+  sessionCount4wk: number;
+  weightDropPct: number | null;
+  volumeDropPct: number | null;
+}
+
+// Hook return types for progression
+export interface UseProgressionStatusReturn {
+  data: ProgressionStatus[];
+  isLoading: boolean;
+  error: string | null;
+  refresh: () => Promise<void>;
+}
+
+export interface UseExerciseProgressionReturn {
+  data: ProgressionStatus | null;
+  isLoading: boolean;
+  error: string | null;
+}
