@@ -34,65 +34,51 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
 
       {/* Gym selection */}
       <div>
-        <label className="block text-sm font-medium text-zinc-400 mb-3">
+        <label className="block text-sm font-medium text-zinc-400 mb-2">
           Where are you training?
         </label>
         {gyms.length === 0 ? (
           <p className="text-zinc-500 text-sm">
-            No gyms yet. Add a gym in the Workouts tab.
+            No gyms yet. Add a gym below.
           </p>
         ) : (
-          <div className="grid gap-2">
+          <select
+            value={selectedGymId}
+            onChange={e => setSelectedGymId(e.target.value)}
+            className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-accent"
+          >
+            <option value="">Select gym...</option>
             {gyms.map(gym => (
-              <button
-                key={gym.gym_id}
-                type="button"
-                onClick={() => setSelectedGymId(gym.gym_id)}
-                className={`p-4 rounded-lg text-left transition-colors ${
-                  selectedGymId === gym.gym_id
-                    ? 'bg-accent/20 border-2 border-accent'
-                    : 'bg-zinc-800/50 border-2 border-transparent hover:border-zinc-700'
-                }`}
-              >
-                <div className="font-medium">{gym.name}</div>
-                {gym.location && (
-                  <div className="text-sm text-zinc-500">{gym.location}</div>
-                )}
-              </button>
+              <option key={gym.gym_id} value={gym.gym_id}>
+                {gym.name}{gym.location ? ` — ${gym.location}` : ''}
+              </option>
             ))}
-          </div>
+          </select>
         )}
       </div>
 
       {/* Template selection */}
       <div>
-        <label className="block text-sm font-medium text-zinc-400 mb-3">
+        <label className="block text-sm font-medium text-zinc-400 mb-2">
           What workout?
         </label>
         {activeTemplates.length === 0 ? (
           <p className="text-zinc-500 text-sm">
-            No templates yet. Create a template in the Templates tab.
+            No templates yet. Create one in the Templates tab.
           </p>
         ) : (
-          <div className="grid gap-2">
+          <select
+            value={selectedTemplateId}
+            onChange={e => setSelectedTemplateId(e.target.value)}
+            className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-accent"
+          >
+            <option value="">Select template...</option>
             {activeTemplates.map(template => (
-              <button
-                key={template.template_id}
-                type="button"
-                onClick={() => setSelectedTemplateId(template.template_id)}
-                className={`p-4 rounded-lg text-left transition-colors ${
-                  selectedTemplateId === template.template_id
-                    ? 'bg-accent/20 border-2 border-accent'
-                    : 'bg-zinc-800/50 border-2 border-transparent hover:border-zinc-700'
-                }`}
-              >
-                <div className="font-medium">{template.name}</div>
-                <div className="text-sm text-zinc-500">
-                  {template.exercises.length} exercises
-                </div>
-              </button>
+              <option key={template.template_id} value={template.template_id}>
+                {template.name} ({template.exercises.length} exercises)
+              </option>
             ))}
-          </div>
+          </select>
         )}
       </div>
 
