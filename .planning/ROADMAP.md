@@ -2,8 +2,8 @@
 
 ## Milestones
 
-- ✅ **v1.0 MVP** - Phases 1-4 (shipped 2026-01-28)
-- 🚧 **v1.1 Analytics** - Phases 5-7 (in progress)
+- **v1.0 MVP** - Phases 1-4 (shipped 2026-01-28)
+- **v1.1 Analytics** - Phases 5-7 (shipped 2026-01-30)
 
 ## Phases
 
@@ -28,69 +28,24 @@
 
 </details>
 
-### v1.1 Analytics (In Progress)
+<details>
+<summary>v1.1 Analytics (Phases 5-7) - SHIPPED 2026-01-30</summary>
 
-**Milestone Goal:** Add visual analytics and progression tracking to help users understand their training trends and identify plateaus.
-
-#### Phase 5: Analytics Foundation & Progress Charts
+### Phase 5: Analytics Foundation & Progress Charts
 **Goal**: Establish analytics data layer, integrate Recharts, and deliver exercise progress visualization
-**Depends on**: Phase 4
-**Requirements**: INFRA-01, INFRA-02, INFRA-03, CHART-01, CHART-02, CHART-03, CHART-04, PR-01
-**Success Criteria** (what must be TRUE):
-  1. User can navigate to Analytics tab from main navigation
-  2. User can view line chart showing weight progression over last 4 weeks for any exercise
-  3. User can view estimated 1RM trend line overlaid on exercise progress chart
-  4. User can view total volume (sets x reps x weight) over time for each exercise
-  5. User can view this week vs last week performance comparison per exercise
-  6. User can view all-time PR list showing best lifts per exercise
-**Plans**: 7 plans in 3 waves + 1 gap closure wave
+**Plans**: 7 plans (complete)
 
-Plans:
-- [x] 05-01-PLAN.md — dbt analytics views (vw_exercise_progress, vw_weekly_comparison) [Wave 1]
-- [x] 05-02-PLAN.md — Install Recharts/date-fns, extend types, add SQL queries [Wave 1]
-- [x] 05-03-PLAN.md — Analytics hooks (useExerciseProgress, useWeeklyComparison) [Wave 2]
-- [x] 05-04-PLAN.md — Chart components (ExerciseProgressChart, WeekComparisonCard, PRListCard) [Wave 2]
-- [x] 05-05-PLAN.md — AnalyticsPage container and Navigation integration with lazy loading [Wave 3]
-- [x] 05-06-PLAN.md — Fix date parsing bug (remove epoch-day multiplication) [Gap Closure]
-- [x] 05-07-PLAN.md — Fix OPFS database corruption (accessMode, CHECKPOINT, cleanup) [Gap Closure]
-
-#### Phase 6: Volume Analytics
+### Phase 6: Volume Analytics
 **Goal**: Deliver muscle group volume tracking with visual indicators for training balance
-**Depends on**: Phase 5
-**Requirements**: VOL-01, VOL-02, VOL-03
-**Success Criteria** (what must be TRUE):
-  1. User can view bar chart showing sets per week grouped by muscle group
-  2. User sees color-coded volume zones (red <10 sets, green 10-20 optimal, yellow 20+ high)
-  3. User can view muscle group heat map showing training frequency distribution
-**Plans**: 5 plans in 4 waves
+**Plans**: 5 plans (complete)
 
-Plans:
-- [x] 06-01-PLAN.md — dbt views, SQL queries, TypeScript types [Wave 1]
-- [x] 06-02-PLAN.md — Volume analytics + threshold hooks [Wave 2]
-- [x] 06-03-PLAN.md — VolumeBarChart, VolumeZoneIndicator, CollapsibleSection [Wave 3]
-- [x] 06-04-PLAN.md — MuscleHeatMap with react-muscle-highlighter [Wave 3]
-- [x] 06-05-PLAN.md — AnalyticsPage integration [Wave 4]
-
-#### Phase 7: Progression Intelligence
+### Phase 7: Progression Intelligence
 **Goal**: Deliver progression detection with dashboard overview and workout alerts
-**Depends on**: Phase 6
-**Requirements**: PROG-01, PROG-02, PROG-03
-**Success Criteria** (what must be TRUE):
-  1. User sees plateau alert badge when no PR achieved in 4+ weeks with flat weight trend
-  2. User sees regression alert when weight drops 10%+ or volume drops 20%+ from recent average
-  3. User can view progression dashboard showing status (progressing/plateau/regressing) for each exercise
-  4. User sees contextual alert during workout logging when current exercise is in plateau/regression
-**Plans**: 3 plans in 2 waves
+**Plans**: 3 plans (complete)
 
-Plans:
-- [x] 07-01-PLAN.md — SQL progression detection, types, hooks (useProgressionStatus, useExerciseProgression) [Wave 1]
-- [x] 07-02-PLAN.md — ProgressionDashboard + StatusCards + AnalyticsPage integration [Wave 2]
-- [x] 07-03-PLAN.md — Session-dismissible alert store + ProgressionAlert + SetLogger injection [Wave 2]
+</details>
 
 ## Progress
-
-**Execution Order:**
-Phases execute in numeric order: 5 -> 6 -> 7
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -104,4 +59,4 @@ Phases execute in numeric order: 5 -> 6 -> 7
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-30 — Phase 7 complete*
+*Last updated: 2026-01-30 — v1.1 milestone shipped*
