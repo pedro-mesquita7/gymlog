@@ -10,6 +10,7 @@ import { VolumeBarChart } from './VolumeBarChart';
 import { VolumeZoneIndicator } from './VolumeZoneIndicator';
 import { MuscleHeatMap } from './MuscleHeatMap';
 import { CollapsibleSection } from './CollapsibleSection';
+import { ProgressionDashboard } from './ProgressionDashboard';
 
 /**
  * Main Analytics page container
@@ -169,6 +170,15 @@ export function AnalyticsPage() {
             <MuscleHeatMap data={heatMapData} thresholds={volumeThresholds} />
           </div>
         )}
+      </CollapsibleSection>
+
+      {/* Visual Divider between volume and progression sections */}
+      <div className="border-t-2 border-zinc-700 pt-8 mt-8">
+        <h2 className="text-xl font-bold text-zinc-100 mb-6">Progression Intelligence</h2>
+      </div>
+
+      <CollapsibleSection title="Exercise Progression Status" defaultOpen={true}>
+        <ProgressionDashboard />
       </CollapsibleSection>
     </div>
   );
