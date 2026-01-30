@@ -94,3 +94,25 @@ models:
         description: "Percentage change in max weight from previous week"
       - name: volume_change_pct
         description: "Percentage change in volume from previous week"
+
+  - name: vw_volume_by_muscle_group
+    description: "Weekly volume aggregation by muscle group (last 4 weeks)"
+    columns:
+      - name: week_start
+        description: "Start of the week (Monday)"
+      - name: muscle_group
+        description: "Primary muscle group"
+      - name: set_count
+        description: "Number of sets performed that week for the muscle group"
+
+  - name: vw_muscle_heat_map
+    description: "4-week aggregate volume for heat map visualization"
+    columns:
+      - name: muscle_group
+        description: "Primary muscle group"
+      - name: total_sets
+        description: "Total sets over last 4 weeks"
+      - name: first_logged_at
+        description: "First set logged in the 4-week period"
+      - name: last_logged_at
+        description: "Most recent set logged in the 4-week period"
