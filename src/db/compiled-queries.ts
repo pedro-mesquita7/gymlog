@@ -272,14 +272,14 @@ export const EXERCISE_PROGRESS_SQL = `
 WITH daily_aggregates AS (
     SELECT
         original_exercise_id AS exercise_id,
-        DATE_TRUNC('day', CAST(logged_at AS TIMESTAMP))::DATE AS date,
+        DATE_TRUNC('day', CAST(logged_at AS TIMESTAMPTZ))::DATE AS date,
         MAX(weight_kg) AS max_weight,
         MAX(estimated_1rm) AS max_1rm,
         SUM(weight_kg * reps) AS total_volume,
         COUNT(*) AS set_count
     FROM (${FACT_SETS_SQL}) fact_sets
-    WHERE CAST(logged_at AS TIMESTAMP) >= CURRENT_DATE - INTERVAL '28 days'
-    GROUP BY original_exercise_id, DATE_TRUNC('day', CAST(logged_at AS TIMESTAMP))::DATE
+    WHERE CAST(logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '28 days'
+    GROUP BY original_exercise_id, DATE_TRUNC('day', CAST(logged_at AS TIMESTAMPTZ))::DATE
 ),
 
 exercise_dim AS (
@@ -306,14 +306,14 @@ export const WEEKLY_COMPARISON_SQL = `
 WITH weekly_metrics AS (
     SELECT
         original_exercise_id AS exercise_id,
-        DATE_TRUNC('week', CAST(logged_at AS TIMESTAMP))::DATE AS week_start,
+        DATE_TRUNC('week', CAST(logged_at AS TIMESTAMPTZ))::DATE AS week_start,
         MAX(weight_kg) AS max_weight,
         MAX(estimated_1rm) AS max_1rm,
         SUM(weight_kg * reps) AS total_volume,
         COUNT(*) AS set_count
     FROM (${FACT_SETS_SQL}) fact_sets
-    WHERE CAST(logged_at AS TIMESTAMP) >= CURRENT_DATE - INTERVAL '14 days'
-    GROUP BY original_exercise_id, DATE_TRUNC('week', CAST(logged_at AS TIMESTAMP))::DATE
+    WHERE CAST(logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '14 days'
+    GROUP BY original_exercise_id, DATE_TRUNC('week', CAST(logged_at AS TIMESTAMPTZ))::DATE
 ),
 
 with_comparison AS (

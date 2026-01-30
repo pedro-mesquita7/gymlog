@@ -20,12 +20,12 @@ export function AnalyticsPage() {
   );
 
   // Fetch progress data for selected exercise
-  const { data: progressData, isLoading: progressLoading } = useExerciseProgress({
+  const { data: progressData, isLoading: progressLoading, error: progressError } = useExerciseProgress({
     exerciseId: selectedExerciseId
   });
 
   // Fetch weekly comparison data
-  const { data: weeklyData, isLoading: weeklyLoading } = useWeeklyComparison();
+  const { data: weeklyData, isLoading: weeklyLoading, error: weeklyError } = useWeeklyComparison();
 
   // Filter weekly data for selected exercise
   const selectedWeeklyData = useMemo(
@@ -90,7 +90,9 @@ export function AnalyticsPage() {
         <h2 className="text-lg font-semibold text-zinc-200">
           Progress (Last 4 Weeks)
         </h2>
-        {progressLoading ? (
+        {progressError ? (
+          <div className="text-center py-8 text-red-400">Error: {progressError}</div>
+        ) : progressLoading ? (
           <div className="text-center py-8 text-zinc-500">Loading chart...</div>
         ) : (
           <div className="bg-zinc-800/30 rounded-lg p-4">
@@ -108,7 +110,9 @@ export function AnalyticsPage() {
         <h2 className="text-lg font-semibold text-zinc-200">
           This Week vs Last Week
         </h2>
-        {weeklyLoading ? (
+        {weeklyError ? (
+          <div className="text-center py-8 text-red-400">Error: {weeklyError}</div>
+        ) : weeklyLoading ? (
           <div className="text-center py-8 text-zinc-500">Loading comparison...</div>
         ) : currentWeekComparison ? (
           <WeekComparisonCard data={currentWeekComparison} />
