@@ -83,9 +83,9 @@ Plans:
 **Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 07-01-PLAN.md — SQL progression detection, types, hooks (useProgressionStatus, useExerciseProgression) [Wave 1]
-- [ ] 07-02-PLAN.md — ProgressionDashboard + StatusCards + AnalyticsPage integration [Wave 2]
-- [ ] 07-03-PLAN.md — Session-dismissible alert store + ProgressionAlert + SetLogger injection [Wave 2]
+- [x] 07-01-PLAN.md — SQL progression detection, types, hooks (useProgressionStatus, useExerciseProgression) [Wave 1]
+- [x] 07-02-PLAN.md — ProgressionDashboard + StatusCards + AnalyticsPage integration [Wave 2]
+- [x] 07-03-PLAN.md — Session-dismissible alert store + ProgressionAlert + SetLogger injection [Wave 2]
 
 ## Progress
 
@@ -100,8 +100,8 @@ Phases execute in numeric order: 5 -> 6 -> 7
 | 4. Polish | v1.0 | 6/6 | Complete | 2026-01-28 |
 | 5. Analytics Foundation | v1.1 | 7/7 | Complete | 2026-01-30 |
 | 6. Volume Analytics | v1.1 | 5/5 | Complete | 2026-01-30 |
-| 7. Progression Intelligence | v1.1 | 0/3 | Not started | - |
+| 7. Progression Intelligence | v1.1 | 3/3 | Complete | 2026-01-30 |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-30*
+*Last updated: 2026-01-30 — Phase 7 complete*

@@ -26,9 +26,9 @@ Requirements for Analytics milestone. Each maps to roadmap phases.
 
 ### Progression Intelligence
 
-- [ ] **PROG-01**: User sees plateau alert when no PR achieved in 4+ weeks with flat trend
-- [ ] **PROG-02**: User sees regression alert when weight drops 10%+ or volume drops 20%+
-- [ ] **PROG-03**: User can view progression dashboard showing status (progressing/plateau/regressing) per exercise
+- [x] **PROG-01**: User sees plateau alert when no PR achieved in 4+ weeks with flat trend
+- [x] **PROG-02**: User sees regression alert when weight drops 10%+ or volume drops 20%+
+- [x] **PROG-03**: User can view progression dashboard showing status (progressing/plateau/regressing) per exercise
 
 ### Infrastructure
 
@@ -82,9 +82,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VOL-01 | Phase 6 | Complete |
 | VOL-02 | Phase 6 | Complete |
 | VOL-03 | Phase 6 | Complete |
-| PROG-01 | Phase 7 | Pending |
-| PROG-02 | Phase 7 | Pending |
-| PROG-03 | Phase 7 | Pending |
+| PROG-01 | Phase 7 | Complete |
+| PROG-02 | Phase 7 | Complete |
+| PROG-03 | Phase 7 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 14 total
@@ -93,4 +93,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-28*
-*Last updated: 2026-01-28 after roadmap creation*
+*Last updated: 2026-01-30 — Phase 7 requirements complete*
