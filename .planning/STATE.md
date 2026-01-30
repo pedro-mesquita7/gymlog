@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Phase: 6 of 7 (Volume Analytics)
-Plan: 2 of 4 complete
+Plan: 3 of 4 complete
 Status: In progress
-Last activity: 2026-01-30 — Completed 06-02-PLAN.md (Volume Analytics Hooks)
+Last activity: 2026-01-30 — Completed 06-03-PLAN.md (Volume Trend Chart)
 
-Progress: [█████████████████░░░░░░░] 34/36 plans (94% - v1.0 complete + 7/9 v1.1)
+Progress: [█████████████████░░░░░░░] 35/36 plans (97% - v1.0 complete + 8/9 v1.1)
 
 ## Milestones
 
@@ -27,9 +27,9 @@ Progress: [█████████████████░░░░░░
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 34 (27 v1.0 + 7 v1.1)
-- Average duration (v1.1): 3min
-- Total execution time (v1.1): 19min
+- Total plans completed: 35 (27 v1.0 + 8 v1.1)
+- Average duration (v1.1): 2min 37s
+- Total execution time (v1.1): 21min
 
 **By Phase (v1.0):**
 
@@ -45,7 +45,7 @@ Progress: [█████████████████░░░░░░
 | Phase | Plans | Status |
 |-------|-------|--------|
 | 5. Analytics Foundation | 5/5 | Complete |
-| 6. Volume Analytics | 2/4 | In Progress |
+| 6. Volume Analytics | 3/4 | In Progress |
 
 ## Accumulated Context
 
@@ -80,6 +80,10 @@ v1.1 decisions:
 - Default volume thresholds: low=10, optimal=20 sets/week
 - Standard muscle groups always appear in volume data (zero-filled if missing)
 - localStorage for volume threshold persistence (no Zustand for analytics)
+- Native HTML details/summary for CollapsibleSection (zero JavaScript, full accessibility)
+- Grouped bars (not stacked) for multi-week volume comparison
+- ReferenceArea zones use default thresholds for chart-wide background
+- minPointSize={3} ensures zero-value bars remain visible
 
 ### Pending Todos
 
@@ -91,8 +95,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-30T19:11:55Z
-Stopped at: Completed 06-02-PLAN.md (Volume Analytics Hooks)
+Last session: 2026-01-30T19:15:52Z
+Stopped at: Completed 06-03-PLAN.md (Volume Trend Chart)
 Resume file: None
 
-**Next action:** Continue Phase 6 with plan 06-03 (Volume Trend Chart) or plan 06-04 (Muscle Heat Map).
+**Next action:** Continue Phase 6 with plan 06-04 (Muscle Heat Map) or plan 06-05 (Analytics Page Integration).
