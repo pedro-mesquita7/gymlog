@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Phase: 7 of 7 (Progression Intelligence)
-Plan: 1 of 5 complete
+Plan: 2 of 5 complete
 Status: In progress
-Last activity: 2026-01-30 — Completed 07-01-PLAN.md (Progression Status SQL Foundation)
+Last activity: 2026-01-30 — Completed 07-02-PLAN.md (Progression Dashboard UI)
 
-Progress: [███████████████████████░] 38/39 plans (97% - v1.0 complete + 11/11 v1.1)
+Progress: [███████████████████████░] 39/40 plans (98% - v1.0 complete + 12/12 v1.1)
 
 ## Milestones
 
@@ -27,9 +27,9 @@ Progress: [███████████████████████
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 38 (27 v1.0 + 11 v1.1)
-- Average duration (v1.1): 2min 51s
-- Total execution time (v1.1): 31min 23s
+- Total plans completed: 39 (27 v1.0 + 12 v1.1)
+- Average duration (v1.1): 2min 47s
+- Total execution time (v1.1): 33min 32s
 
 **By Phase (v1.0):**
 
@@ -46,7 +46,7 @@ Progress: [███████████████████████
 |-------|-------|--------|
 | 5. Analytics Foundation | 5/5 | Complete |
 | 6. Volume Analytics | 5/5 | Complete |
-| 7. Progression Intelligence | 1/5 | In Progress |
+| 7. Progression Intelligence | 2/5 | In Progress |
 
 ## Accumulated Context
 
@@ -96,6 +96,9 @@ Phase 7 (Progression Intelligence) decisions:
 - Minimum 2 sessions before showing status (avoids noise for new exercises)
 - Gym-aware partitioning in window functions (PARTITION BY exercise_id, gym_id)
 - JavaScript filtering for single-exercise lookup (simpler than SQL parameterization with DuckDB-WASM)
+- Problems-first sorting: regressing > plateau > progressing > unknown, then alphabetical
+- formatDistanceToNow for last PR display (relative time more intuitive than absolute dates)
+- Combined regression metrics in single line (Weight: -X% / Volume: -Y%) for compact display
 
 ### Pending Todos
 
@@ -107,8 +110,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-30T20:09:13Z
-Stopped at: Completed 07-01-PLAN.md (Progression Status SQL Foundation)
+Last session: 2026-01-30T20:15:57Z
+Stopped at: Completed 07-02-PLAN.md (Progression Dashboard UI)
 Resume file: None
 
-**Next action:** Continue Phase 7 with Plan 02 (ProgressionDashboard component).
+**Next action:** Continue Phase 7 with Plan 03 (ProgressionAlert component for workout logging).
