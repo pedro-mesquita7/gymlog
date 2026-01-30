@@ -6,16 +6,16 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 
 **Core value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
-**Current focus:** v1.2 UX & Portfolio Polish — defining requirements
+**Current focus:** v1.2 UX & Portfolio Polish — Phase 8 ready to begin
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 8 - Testing & Design Foundation
 Plan: —
-Status: Defining requirements
-Last activity: 2026-01-30 — Milestone v1.2 started
+Status: Roadmap created, ready for phase planning
+Last activity: 2026-01-30 — v1.2 roadmap created
 
-Progress: [░░░░░░░░░░░░░░░░░░░░░░░░] 0/? plans (v1.2)
+Progress: [░░░░░░░░░░░░░░░░░░░░░░░░] 0/4 phases (v1.2)
 
 ## Milestones
 
@@ -23,7 +23,7 @@ Progress: [░░░░░░░░░░░░░░░░░░░░░░░
 |---------|--------|---------|
 | v1.0 MVP | Complete | 2026-01-28 |
 | v1.1 Analytics | Complete | 2026-01-30 |
-| v1.2 UX & Portfolio Polish | In Progress | — |
+| v1.2 UX & Portfolio Polish | Phase 8 | — |
 
 ## Performance Metrics
 
@@ -48,6 +48,15 @@ Progress: [░░░░░░░░░░░░░░░░░░░░░░░
 | 5. Analytics Foundation | 7/7 | Complete |
 | 6. Volume Analytics | 5/5 | Complete |
 | 7. Progression Intelligence | 3/3 | Complete |
+
+**By Phase (v1.2):**
+
+| Phase | Plans | Status |
+|-------|-------|--------|
+| 8. Testing & Design Foundation | 0/? | Pending |
+| 9. Batch Logging & Visual Polish | 0/? | Pending |
+| 10. Workout Features & Demo Data | 0/? | Pending |
+| 11. CI/CD & Portfolio | 0/? | Pending |
 
 ## Accumulated Context
 
@@ -76,6 +85,12 @@ v1.1 decisions (still apply):
 - Session-dismissible alerts with 2-hour session boundary via Zustand persist
 - All detection logic in SQL for 10-100x performance over JavaScript
 
+v1.2 roadmap decisions:
+- 4 phases, compressed from research's 6-phase suggestion (quick depth mode)
+- Testing + Design foundation before features (prevent two-system pitfall)
+- Batch logging highest UX impact, depends on design primitives
+- CI/CD and portfolio documentation last (documents completed work)
+
 ### Pending Todos
 
 None.
@@ -87,7 +102,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-30
-Stopped at: Defining v1.2 requirements
+Stopped at: v1.2 roadmap created
 Resume file: None
 
-**Next action:** Complete requirements definition and roadmap creation.
+**Next action:** Run `/gsd:plan-phase 8` to create execution plan for Testing & Design Foundation.

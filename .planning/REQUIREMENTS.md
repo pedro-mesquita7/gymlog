@@ -98,40 +98,40 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BLOG-01 | — | Pending |
-| BLOG-02 | — | Pending |
-| BLOG-03 | — | Pending |
-| BLOG-04 | — | Pending |
-| BLOG-05 | — | Pending |
-| ROTN-01 | — | Pending |
-| ROTN-02 | — | Pending |
-| ROTN-03 | — | Pending |
-| ROTN-04 | — | Pending |
-| SUMM-01 | — | Pending |
-| SUMM-02 | — | Pending |
-| SUMM-03 | — | Pending |
-| UI-01 | — | Pending |
-| UI-02 | — | Pending |
-| UI-03 | — | Pending |
-| UI-04 | — | Pending |
-| TEST-01 | — | Pending |
-| TEST-02 | — | Pending |
-| TEST-03 | — | Pending |
-| TEST-04 | — | Pending |
-| CICD-01 | — | Pending |
-| CICD-02 | — | Pending |
-| CICD-03 | — | Pending |
-| PORT-01 | — | Pending |
-| PORT-02 | — | Pending |
-| PORT-03 | — | Pending |
-| PORT-04 | — | Pending |
-| PORT-05 | — | Pending |
+| BLOG-01 | Phase 9 | Pending |
+| BLOG-02 | Phase 9 | Pending |
+| BLOG-03 | Phase 9 | Pending |
+| BLOG-04 | Phase 9 | Pending |
+| BLOG-05 | Phase 9 | Pending |
+| ROTN-01 | Phase 10 | Pending |
+| ROTN-02 | Phase 10 | Pending |
+| ROTN-03 | Phase 10 | Pending |
+| ROTN-04 | Phase 10 | Pending |
+| SUMM-01 | Phase 10 | Pending |
+| SUMM-02 | Phase 10 | Pending |
+| SUMM-03 | Phase 10 | Pending |
+| UI-01 | Phase 8 | Pending |
+| UI-02 | Phase 8 | Pending |
+| UI-03 | Phase 9 | Pending |
+| UI-04 | Phase 9 | Pending |
+| TEST-01 | Phase 8 | Pending |
+| TEST-02 | Phase 8 | Pending |
+| TEST-03 | Phase 8 | Pending |
+| TEST-04 | Phase 8 | Pending |
+| CICD-01 | Phase 11 | Pending |
+| CICD-02 | Phase 11 | Pending |
+| CICD-03 | Phase 11 | Pending |
+| PORT-01 | Phase 10 | Pending |
+| PORT-02 | Phase 11 | Pending |
+| PORT-03 | Phase 11 | Pending |
+| PORT-04 | Phase 11 | Pending |
+| PORT-05 | Phase 11 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 28 total
-- Mapped to phases: 0
-- Unmapped: 28
+- Mapped to phases: 28
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-01-30 after initial definition*
+*Last updated: 2026-01-30 — traceability updated with phase mappings*
