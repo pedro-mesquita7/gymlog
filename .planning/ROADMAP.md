@@ -51,8 +51,8 @@ Plans:
 - [x] 05-03-PLAN.md — Analytics hooks (useExerciseProgress, useWeeklyComparison) [Wave 2]
 - [x] 05-04-PLAN.md — Chart components (ExerciseProgressChart, WeekComparisonCard, PRListCard) [Wave 2]
 - [x] 05-05-PLAN.md — AnalyticsPage container and Navigation integration with lazy loading [Wave 3]
-- [ ] 05-06-PLAN.md — Fix date parsing bug (remove epoch-day multiplication) [Gap Closure]
-- [ ] 05-07-PLAN.md — Fix OPFS database corruption (accessMode, CHECKPOINT, cleanup) [Gap Closure]
+- [x] 05-06-PLAN.md — Fix date parsing bug (remove epoch-day multiplication) [Gap Closure]
+- [x] 05-07-PLAN.md — Fix OPFS database corruption (accessMode, CHECKPOINT, cleanup) [Gap Closure]
 
 #### Phase 6: Volume Analytics
 **Goal**: Deliver muscle group volume tracking with visual indicators for training balance
@@ -94,7 +94,7 @@ Phases execute in numeric order: 5 -> 6 -> 7
 | 2. Templates | v1.0 | 9/9 | Complete | 2026-01-28 |
 | 3. History | v1.0 | 6/6 | Complete | 2026-01-28 |
 | 4. Polish | v1.0 | 6/6 | Complete | 2026-01-28 |
-| 5. Analytics Foundation | v1.1 | 5/7 | Gap Closure | - |
+| 5. Analytics Foundation | v1.1 | 7/7 | Complete | 2026-01-30 |
 | 6. Volume Analytics | v1.1 | 0/2 | Not started | - |
 | 7. Progression Intelligence | v1.1 | 0/2 | Not started | - |
 
