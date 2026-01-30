@@ -62,11 +62,14 @@ Plans:
   1. User can view bar chart showing sets per week grouped by muscle group
   2. User sees color-coded volume zones (red <10 sets, green 10-20 optimal, yellow 20+ high)
   3. User can view muscle group heat map showing training frequency distribution
-**Plans**: TBD
+**Plans**: 5 plans in 4 waves
 
 Plans:
-- [ ] 06-01: MuscleGroupVolumeChart with stacked bars
-- [ ] 06-02: Volume zone color coding and frequency heat map
+- [x] 06-01-PLAN.md — dbt views, SQL queries, TypeScript types [Wave 1]
+- [x] 06-02-PLAN.md — Volume analytics + threshold hooks [Wave 2]
+- [x] 06-03-PLAN.md — VolumeBarChart, VolumeZoneIndicator, CollapsibleSection [Wave 3]
+- [x] 06-04-PLAN.md — MuscleHeatMap with react-muscle-highlighter [Wave 3]
+- [x] 06-05-PLAN.md — AnalyticsPage integration [Wave 4]
 
 #### Phase 7: Progression Intelligence
 **Goal**: Deliver progression detection with dashboard overview and workout alerts
@@ -95,7 +98,7 @@ Phases execute in numeric order: 5 -> 6 -> 7
 | 3. History | v1.0 | 6/6 | Complete | 2026-01-28 |
 | 4. Polish | v1.0 | 6/6 | Complete | 2026-01-28 |
 | 5. Analytics Foundation | v1.1 | 7/7 | Complete | 2026-01-30 |
-| 6. Volume Analytics | v1.1 | 0/2 | Not started | - |
+| 6. Volume Analytics | v1.1 | 5/5 | Complete | 2026-01-30 |
 | 7. Progression Intelligence | v1.1 | 0/2 | Not started | - |
 
 ---

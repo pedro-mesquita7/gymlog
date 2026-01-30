@@ -16,9 +16,9 @@ Requirements for Analytics milestone. Each maps to roadmap phases.
 
 ### Volume Analytics
 
-- [ ] **VOL-01**: User can view sets per week by muscle group as bar chart
-- [ ] **VOL-02**: User sees color-coded volume zones (under 10 sets, 10-20 optimal, 20+ high)
-- [ ] **VOL-03**: User can view muscle group heat map showing training frequency
+- [x] **VOL-01**: User can view sets per week by muscle group as bar chart
+- [x] **VOL-02**: User sees color-coded volume zones (under 10 sets, 10-20 optimal, 20+ high)
+- [x] **VOL-03**: User can view muscle group heat map showing training frequency
 
 ### PR & History
 
@@ -79,9 +79,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CHART-03 | Phase 5 | Pending |
 | CHART-04 | Phase 5 | Pending |
 | PR-01 | Phase 5 | Pending |
-| VOL-01 | Phase 6 | Pending |
-| VOL-02 | Phase 6 | Pending |
-| VOL-03 | Phase 6 | Pending |
+| VOL-01 | Phase 6 | Complete |
+| VOL-02 | Phase 6 | Complete |
+| VOL-03 | Phase 6 | Complete |
 | PROG-01 | Phase 7 | Pending |
 | PROG-02 | Phase 7 | Pending |
 | PROG-03 | Phase 7 | Pending |
