@@ -1,5 +1,5 @@
 import { uuidv7 } from 'uuidv7';
-import { getDuckDB } from './duckdb-init';
+import { getDuckDB, checkpoint } from './duckdb-init';
 import type { GymLogEvent } from '../types/events';
 
 // Generate timestamp-sortable event ID (DATA-07)
@@ -40,6 +40,9 @@ export async function writeEvent<T extends GymLogEvent>(
   } finally {
     await conn.close();
   }
+
+  // Flush to OPFS (non-blocking, fire-and-forget)
+  checkpoint();
 
   return event;
 }

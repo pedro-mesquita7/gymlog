@@ -40,14 +40,16 @@ export function useExerciseProgress({ exerciseId }: UseExerciseProgressOptions):
       const sql = EXERCISE_PROGRESS_SQL.replace('$1', `'${exerciseId}'`);
       const result = await conn.query(sql);
 
-      const rows = result.toArray().map((row: any) => {
-        // DuckDB DATE returns epoch-day integers (number or BigInt); convert to ISO date string
+      const rawRows = result.toArray();
+      console.log('[useExerciseProgress] raw rows:', rawRows.length, 'first row:', rawRows[0], 'date type:', typeof rawRows[0]?.date, 'date value:', rawRows[0]?.date);
+      const rows = rawRows.map((row: any) => {
+        // DuckDB-WASM DATE returns millisecond-epoch integers (number or BigInt)
         const dateVal = row.date;
         let dateStr: string;
         if (typeof dateVal === 'number') {
-          dateStr = new Date(dateVal * 86400000).toISOString().split('T')[0];
+          dateStr = new Date(dateVal).toISOString().split('T')[0];
         } else if (typeof dateVal === 'bigint') {
-          dateStr = new Date(Number(dateVal) * 86400000).toISOString().split('T')[0];
+          dateStr = new Date(Number(dateVal)).toISOString().split('T')[0];
         } else {
           // Could be a Date object or string
           const d = new Date(dateVal);
@@ -103,13 +105,16 @@ export function useWeeklyComparison(): UseWeeklyComparisonReturn {
       const conn = await db.connect();
       const result = await conn.query(WEEKLY_COMPARISON_SQL);
 
-      const rows = result.toArray().map((row: any) => {
+      const rawRows = result.toArray();
+      console.log('[useWeeklyComparison] raw rows:', rawRows.length, 'first row:', rawRows[0], 'week_start type:', typeof rawRows[0]?.week_start, 'week_start value:', rawRows[0]?.week_start);
+      const rows = rawRows.map((row: any) => {
+        // DuckDB-WASM DATE returns millisecond-epoch integers (number or BigInt)
         const wsVal = row.week_start;
         let weekStartStr: string;
         if (typeof wsVal === 'number') {
-          weekStartStr = new Date(wsVal * 86400000).toISOString().split('T')[0];
+          weekStartStr = new Date(wsVal).toISOString().split('T')[0];
         } else if (typeof wsVal === 'bigint') {
-          weekStartStr = new Date(Number(wsVal) * 86400000).toISOString().split('T')[0];
+          weekStartStr = new Date(Number(wsVal)).toISOString().split('T')[0];
         } else {
           const d = new Date(wsVal);
           weekStartStr = !isNaN(d.getTime()) ? d.toISOString().split('T')[0] : String(wsVal).split('T')[0];

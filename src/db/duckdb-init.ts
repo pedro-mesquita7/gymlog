@@ -4,6 +4,45 @@ let db: duckdb.AsyncDuckDB | null = null;
 let initPromise: Promise<{ db: duckdb.AsyncDuckDB; isPersistent: boolean }> | null = null;
 let isPersistent = false;
 
+const SCHEMA_SQL = `
+  CREATE TABLE IF NOT EXISTS events (
+    _event_id VARCHAR PRIMARY KEY,
+    _created_at TIMESTAMP NOT NULL,
+    event_type VARCHAR NOT NULL,
+    payload JSON NOT NULL,
+    year INTEGER GENERATED ALWAYS AS (YEAR(_created_at)) VIRTUAL,
+    month INTEGER GENERATED ALWAYS AS (MONTH(_created_at)) VIRTUAL
+  )
+`;
+
+async function cleanupOPFS(): Promise<void> {
+  try {
+    const root = await navigator.storage.getDirectory();
+    for (const name of ['gymlog.db', 'gymlog.db.wal']) {
+      try {
+        await root.removeEntry(name);
+        console.log(`Deleted corrupted OPFS file: ${name}`);
+      } catch {
+        // File may not exist, ignore
+      }
+    }
+  } catch (cleanupErr) {
+    console.warn('OPFS cleanup failed:', cleanupErr);
+  }
+}
+
+async function openWithOPFS(database: duckdb.AsyncDuckDB): Promise<boolean> {
+  await database.open({
+    path: 'opfs://gymlog.db',
+    accessMode: duckdb.DuckDBAccessMode.READ_WRITE,
+  });
+  const conn = await database.connect();
+  await conn.query(SCHEMA_SQL);
+  await conn.query('CHECKPOINT');
+  await conn.close();
+  return true;
+}
+
 export async function initDuckDB(): Promise<{ db: duckdb.AsyncDuckDB; isPersistent: boolean }> {
   // Prevent concurrent initialization
   if (initPromise) {
@@ -28,27 +67,42 @@ export async function initDuckDB(): Promise<{ db: duckdb.AsyncDuckDB; isPersiste
     db = new duckdb.AsyncDuckDB(logger, worker);
     await db.instantiate(bundle.mainModule);
 
-    // Use OPFS for persistence (data survives page refresh)
-    await db.open({ path: 'opfs://gymlog.db' });
-    isPersistent = true;
-    console.log('DuckDB initialized (OPFS persistent mode)');
+    // Try OPFS for persistence, fall back to in-memory if unavailable
+    try {
+      await openWithOPFS(db);
+      isPersistent = true;
+      console.log('DuckDB initialized (OPFS persistent mode)');
+    } catch (opfsErr) {
+      const errMsg = String(opfsErr);
+      const isCorruption = errMsg.includes('not a valid') || errMsg.includes('corrupt') || errMsg.includes('Could not');
 
-    // Initialize schema
-    const conn = await db.connect();
+      if (isCorruption) {
+        console.warn('OPFS database corrupted, cleaning up and retrying:', opfsErr);
+        await cleanupOPFS();
 
-    // Create events buffer table for event sourcing
-    await conn.query(`
-      CREATE TABLE IF NOT EXISTS events (
-        _event_id VARCHAR PRIMARY KEY,
-        _created_at TIMESTAMP NOT NULL,
-        event_type VARCHAR NOT NULL,
-        payload JSON NOT NULL,
-        year INTEGER GENERATED ALWAYS AS (YEAR(_created_at)) VIRTUAL,
-        month INTEGER GENERATED ALWAYS AS (MONTH(_created_at)) VIRTUAL
-      )
-    `);
-
-    await conn.close();
+        try {
+          await openWithOPFS(db);
+          isPersistent = true;
+          console.log('DuckDB initialized (OPFS persistent mode after cleanup)');
+        } catch (retryErr) {
+          console.warn('OPFS retry failed, falling back to in-memory:', retryErr);
+          await db.open({});
+          const conn = await db.connect();
+          await conn.query(SCHEMA_SQL);
+          await conn.close();
+          isPersistent = false;
+          console.log('DuckDB initialized (in-memory mode)');
+        }
+      } else {
+        console.warn('OPFS unavailable, falling back to in-memory:', opfsErr);
+        await db.open({});
+        const conn = await db.connect();
+        await conn.query(SCHEMA_SQL);
+        await conn.close();
+        isPersistent = false;
+        console.log('DuckDB initialized (in-memory mode)');
+      }
+    }
 
     return { db: db!, isPersistent };
   })();
@@ -62,4 +116,15 @@ export function getDuckDB(): duckdb.AsyncDuckDB | null {
 
 export function getIsPersistent(): boolean {
   return isPersistent;
+}
+
+export async function checkpoint(): Promise<void> {
+  if (!db || !isPersistent) return;
+  try {
+    const conn = await db.connect();
+    await conn.query('CHECKPOINT');
+    await conn.close();
+  } catch (err) {
+    console.warn('CHECKPOINT failed:', err);
+  }
 }
