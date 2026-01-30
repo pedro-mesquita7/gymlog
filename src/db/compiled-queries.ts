@@ -87,7 +87,7 @@ WITH set_events AS (
         payload->>'workout_id' AS workout_id,
         payload->>'exercise_id' AS exercise_id,
         payload->>'original_exercise_id' AS original_exercise_id,
-        CAST(payload->>'weight_kg' AS DECIMAL) AS weight_kg,
+        CAST(payload->>'weight_kg' AS DOUBLE) AS weight_kg,
         CAST(payload->>'reps' AS INTEGER) AS reps,
         CASE WHEN payload->>'rir' = 'null' THEN NULL ELSE CAST(payload->>'rir' AS INTEGER) END AS rir,
         COALESCE(payload->>'logged_at', CAST(_created_at AS VARCHAR)) AS logged_at,
