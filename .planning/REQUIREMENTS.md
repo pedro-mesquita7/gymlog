@@ -9,10 +9,10 @@ Requirements for Analytics milestone. Each maps to roadmap phases.
 
 ### Progress Charts
 
-- [ ] **CHART-01**: User can view exercise progress chart showing weight over last 4 weeks
-- [ ] **CHART-02**: User can view estimated 1RM trend on exercise progress chart
-- [ ] **CHART-03**: User can view volume (sets x reps x weight) per exercise over time
-- [ ] **CHART-04**: User can compare this week's performance to last week for each exercise
+- [x] **CHART-01**: User can view exercise progress chart showing weight over last 4 weeks
+- [x] **CHART-02**: User can view estimated 1RM trend on exercise progress chart
+- [x] **CHART-03**: User can view volume (sets x reps x weight) per exercise over time
+- [x] **CHART-04**: User can compare this week's performance to last week for each exercise
 
 ### Volume Analytics
 
@@ -22,7 +22,7 @@ Requirements for Analytics milestone. Each maps to roadmap phases.
 
 ### PR & History
 
-- [ ] **PR-01**: User can view PR list showing all-time bests per exercise
+- [x] **PR-01**: User can view PR list showing all-time bests per exercise
 
 ### Progression Intelligence
 
@@ -32,9 +32,9 @@ Requirements for Analytics milestone. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: Analytics tab added to main navigation
-- [ ] **INFRA-02**: Recharts library integrated with Tailwind CSS theming
-- [ ] **INFRA-03**: Analytics dbt models created (vw_exercise_progress, vw_volume_by_muscle_group, vw_progression_status)
+- [x] **INFRA-01**: Analytics tab added to main navigation
+- [x] **INFRA-02**: Recharts library integrated with Tailwind CSS theming
+- [x] **INFRA-03**: Analytics dbt models created (vw_exercise_progress, vw_volume_by_muscle_group, vw_progression_status)
 
 ## v1.2 Requirements
 
@@ -71,14 +71,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 5 | Pending |
-| INFRA-02 | Phase 5 | Pending |
-| INFRA-03 | Phase 5 | Pending |
-| CHART-01 | Phase 5 | Pending |
-| CHART-02 | Phase 5 | Pending |
-| CHART-03 | Phase 5 | Pending |
-| CHART-04 | Phase 5 | Pending |
-| PR-01 | Phase 5 | Pending |
+| INFRA-01 | Phase 5 | Complete |
+| INFRA-02 | Phase 5 | Complete |
+| INFRA-03 | Phase 5 | Complete |
+| CHART-01 | Phase 5 | Complete |
+| CHART-02 | Phase 5 | Complete |
+| CHART-03 | Phase 5 | Complete |
+| CHART-04 | Phase 5 | Complete |
+| PR-01 | Phase 5 | Complete |
 | VOL-01 | Phase 6 | Complete |
 | VOL-02 | Phase 6 | Complete |
 | VOL-03 | Phase 6 | Complete |
