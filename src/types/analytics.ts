@@ -78,3 +78,45 @@ export interface UseWeeklyComparisonReturn {
   error: string | null;
   refresh: () => Promise<void>;
 }
+
+// Volume by muscle group (VOL-01, VOL-02)
+export interface VolumeByMuscleGroup {
+  muscleGroup: string;
+  weekStart: string;  // ISO date string
+  setCount: number;
+}
+
+// Muscle heat map data (VOL-03)
+export interface MuscleHeatMapData {
+  muscleGroup: string;
+  totalSets: number;
+}
+
+// Volume threshold configuration (VOL-02)
+export interface VolumeThresholds {
+  low: number;       // Below this = under-training (default: 10)
+  optimal: number;   // Above low, at or below this = optimal (default: 20)
+  // Above optimal = over-training
+}
+
+// Per-muscle-group threshold overrides
+export interface MuscleGroupThresholds {
+  [muscleGroup: string]: VolumeThresholds;
+}
+
+// Hook return types
+export interface UseVolumeAnalyticsReturn {
+  volumeData: VolumeByMuscleGroup[];
+  heatMapData: MuscleHeatMapData[];
+  isLoading: boolean;
+  error: string | null;
+  refresh: () => Promise<void>;
+}
+
+export interface UseVolumeThresholdsReturn {
+  thresholds: MuscleGroupThresholds;
+  defaultThresholds: VolumeThresholds;
+  setThreshold: (muscleGroup: string, thresholds: VolumeThresholds) => void;
+  resetThreshold: (muscleGroup: string) => void;
+  getThreshold: (muscleGroup: string) => VolumeThresholds;
+}

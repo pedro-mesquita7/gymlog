@@ -358,3 +358,56 @@ FROM with_comparison w
 INNER JOIN exercise_dim e ON w.exercise_id = e.exercise_id
 ORDER BY week_start DESC, exercise_name
 `;
+
+// Volume by muscle group (mirrors vw_volume_by_muscle_group.sql)
+export const VOLUME_BY_MUSCLE_GROUP_SQL = `
+WITH fact_sets AS (
+    ${FACT_SETS_SQL}
+),
+
+exercise_dim AS (
+    ${DIM_EXERCISE_SQL}
+),
+
+weekly_volume AS (
+    SELECT
+        DATE_TRUNC('week', CAST(fs.logged_at AS TIMESTAMPTZ))::DATE AS week_start,
+        e.muscle_group,
+        COUNT(*) AS set_count
+    FROM fact_sets fs
+    INNER JOIN exercise_dim e ON fs.original_exercise_id = e.exercise_id
+    WHERE CAST(fs.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '28 days'
+    GROUP BY
+        DATE_TRUNC('week', CAST(fs.logged_at AS TIMESTAMPTZ))::DATE,
+        e.muscle_group
+)
+
+SELECT
+    week_start,
+    muscle_group,
+    set_count
+FROM weekly_volume
+ORDER BY week_start DESC, muscle_group
+`;
+
+// Muscle heat map (mirrors vw_muscle_heat_map.sql)
+export const MUSCLE_HEAT_MAP_SQL = `
+WITH fact_sets AS (
+    ${FACT_SETS_SQL}
+),
+
+exercise_dim AS (
+    ${DIM_EXERCISE_SQL}
+)
+
+SELECT
+    e.muscle_group,
+    COUNT(*) AS total_sets,
+    MIN(fs.logged_at) AS first_logged_at,
+    MAX(fs.logged_at) AS last_logged_at
+FROM fact_sets fs
+INNER JOIN exercise_dim e ON fs.original_exercise_id = e.exercise_id
+WHERE CAST(fs.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '28 days'
+GROUP BY e.muscle_group
+ORDER BY total_sets DESC
+`;
