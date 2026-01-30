@@ -80,11 +80,12 @@ Plans:
   2. User sees regression alert when weight drops 10%+ or volume drops 20%+ from recent average
   3. User can view progression dashboard showing status (progressing/plateau/regressing) for each exercise
   4. User sees contextual alert during workout logging when current exercise is in plateau/regression
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 07-01: ProgressionDashboard and status cards
-- [ ] 07-02: Workout alerts injection into SetLogger
+- [ ] 07-01-PLAN.md — SQL progression detection, types, hooks (useProgressionStatus, useExerciseProgression) [Wave 1]
+- [ ] 07-02-PLAN.md — ProgressionDashboard + StatusCards + AnalyticsPage integration [Wave 2]
+- [ ] 07-03-PLAN.md — Session-dismissible alert store + ProgressionAlert + SetLogger injection [Wave 2]
 
 ## Progress
 
@@ -99,7 +100,7 @@ Phases execute in numeric order: 5 -> 6 -> 7
 | 4. Polish | v1.0 | 6/6 | Complete | 2026-01-28 |
 | 5. Analytics Foundation | v1.1 | 7/7 | Complete | 2026-01-30 |
 | 6. Volume Analytics | v1.1 | 5/5 | Complete | 2026-01-30 |
-| 7. Progression Intelligence | v1.1 | 0/2 | Not started | - |
+| 7. Progression Intelligence | v1.1 | 0/3 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
