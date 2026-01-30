@@ -6,16 +6,16 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
-**Current focus:** v1.1 Analytics milestone - Phase 5 (Analytics Foundation & Progress Charts)
+**Current focus:** v1.1 Analytics milestone - Phase 6 (Volume Analytics)
 
 ## Current Position
 
-Phase: 5 of 7 (Analytics Foundation & Progress Charts)
-Plan: 5 of 5 complete - Phase complete!
-Status: Phase complete
-Last activity: 2026-01-29 — Completed 05-05-PLAN.md (AnalyticsPage Assembly)
+Phase: 6 of 7 (Volume Analytics)
+Plan: 1 of 4 complete
+Status: In progress
+Last activity: 2026-01-30 — Completed 06-01-PLAN.md (Volume Analytics Data Layer)
 
-Progress: [████████████████░░░░░░░░] 32/36 plans (89% - v1.0 complete + 5/9 v1.1)
+Progress: [█████████████████░░░░░░░] 33/36 plans (92% - v1.0 complete + 6/9 v1.1)
 
 ## Milestones
 
@@ -27,9 +27,9 @@ Progress: [████████████████░░░░░░░
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 32 (27 v1.0 + 5 v1.1)
+- Total plans completed: 33 (27 v1.0 + 6 v1.1)
 - Average duration (v1.1): 3min
-- Total execution time (v1.1): 15min
+- Total execution time (v1.1): 17min
 
 **By Phase (v1.0):**
 
@@ -45,6 +45,7 @@ Progress: [████████████████░░░░░░░
 | Phase | Plans | Status |
 |-------|-------|--------|
 | 5. Analytics Foundation | 5/5 | Complete |
+| 6. Volume Analytics | 1/4 | In Progress |
 
 ## Accumulated Context
 
@@ -73,6 +74,9 @@ v1.1 decisions:
 - Memoize chart data to prevent unnecessary re-renders
 - Lazy load Analytics page to keep Recharts out of main bundle (110KB savings)
 - Auto-select first exercise on Analytics page load for better UX
+- 28-day lookback for volume analytics (4 weeks of muscle group trend data)
+- Weekly aggregation for volume (industry standard: 10-20 sets/week per muscle)
+- CTE pattern for volume SQL queries (matches existing EXERCISE_PROGRESS_SQL)
 
 ### Pending Todos
 
@@ -84,8 +88,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-29T09:32:32Z
-Stopped at: Completed 05-05-PLAN.md (AnalyticsPage Assembly) - Phase 5 complete!
+Last session: 2026-01-30T19:07:49Z
+Stopped at: Completed 06-01-PLAN.md (Volume Analytics Data Layer)
 Resume file: None
 
-**Next action:** Phase 5 complete. Begin Phase 6 planning or continue v1.1 development with remaining phases.
+**Next action:** Continue Phase 6 with plan 06-02 (Volume Analytics Hooks) or other volume analytics features.
