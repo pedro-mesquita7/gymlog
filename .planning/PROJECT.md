@@ -61,6 +61,23 @@ Track workout performance with proper data engineering — both usable as a pers
 - Progression intelligence (PROG-01 to PROG-03) — v1.1
 - Analytics infrastructure (INFRA-01 to INFRA-03) — v1.1
 
+### Active
+
+**v1.2 UX & Portfolio Polish:**
+- [ ] Batch set logging with pre-filled grid and ghost data from last session
+- [ ] Workout rotation settings (default gym + template sequence)
+- [ ] Smart start with pre-filled defaults
+- [ ] Workout completion summary
+- [ ] Visual overhaul (design system, hierarchy, polish)
+- [ ] Demo/seed data for portfolio reviewers
+- [ ] Test coverage (unit + integration)
+- [ ] Portfolio-ready README
+- [ ] dbt lineage/docs visibility
+- [ ] Data quality UI
+- [ ] CI/CD pipeline (GitHub Actions)
+- [ ] Observability dashboard
+- [ ] Error boundaries
+
 ### Out of Scope
 
 - SCD Type 2 for exercise changes — complexity not justified until definitions actually change frequently
@@ -76,17 +93,43 @@ Track workout performance with proper data engineering — both usable as a pers
 - Backup reminders only work in persistent mode (by design)
 - dbt vw_progression_status.sql references fw.logged_at but fact_workouts uses started_at (non-blocking — compiled queries bypass dbt at runtime)
 
-**Potential v1.2 Features:**
+**Potential v2+ Features:**
 - Custom time range selection (3 months, 6 months, 1 year, all time)
 - Volume recommendations vs research-backed targets
 - Chart export as image
 - Multi-exercise comparison on one chart
 - Personal volume targets per muscle group
-
-**Potential v2+ Features:**
 - Supersets (paired exercises)
 - Plate calculator for barbell loading
 - Progress summary notifications
+
+## Current Milestone: v1.2 UX & Portfolio Polish
+
+**Goal:** Transform GymLog from a functional app into a polished personal tool and impressive DE portfolio piece — streamlined logging, visual overhaul, and production-grade engineering practices.
+
+**Target features:**
+
+Workout flow:
+- Pre-filled set grid with ghost data from last session, add/remove rows, save all at once
+- Workout rotation in settings (default gym + template sequence), auto-advances after each workout
+- Smart start with pre-filled defaults (editable before confirming)
+- Workout completion summary (PRs, volume, duration)
+- Floating rest timer alongside new grid UI
+
+Visual overhaul:
+- Consistent design system (typography, spacing, components) across all screens
+- Better information hierarchy and scannability
+- Polished feel (transitions, visual refinement)
+
+Portfolio credibility:
+- Demo/seed data for reviewers (one-click load)
+- Test coverage (unit + integration for critical paths)
+- Portfolio-ready README with architecture diagram, screenshots, DE decisions
+- dbt lineage/docs surfaced in app or hosted alongside
+- Data quality visibility in UI
+- CI/CD pipeline (GitHub Actions: dbt tests, TS tests, auto-deploy)
+- Observability dashboard (storage usage, row counts, query performance)
+- Error boundaries with graceful degradation
 
 ## Constraints
 
@@ -116,4 +159,4 @@ Track workout performance with proper data engineering — both usable as a pers
 | Dual-criteria plateau detection | No PR 4+ weeks AND flat weight < 5%, prevents false positives during deload | Good |
 
 ---
-*Last updated: 2026-01-30 after v1.1 milestone completion*
+*Last updated: 2026-01-30 after v1.2 milestone start*

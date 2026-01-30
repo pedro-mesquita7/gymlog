@@ -6,15 +6,16 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 
 **Core value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
-**Current focus:** v1.1 Analytics milestone shipped. Ready for next milestone.
+**Current focus:** v1.2 UX & Portfolio Polish — defining requirements
 
 ## Current Position
 
-Phase: None (between milestones)
-Status: v1.1 Analytics shipped
-Last activity: 2026-01-30 — v1.1 milestone completed and archived
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-30 — Milestone v1.2 started
 
-Progress: [████████████████████████] 42/42 plans (100% - v1.0 + v1.1)
+Progress: [░░░░░░░░░░░░░░░░░░░░░░░░] 0/? plans (v1.2)
 
 ## Milestones
 
@@ -22,6 +23,7 @@ Progress: [███████████████████████
 |---------|--------|---------|
 | v1.0 MVP | Complete | 2026-01-28 |
 | v1.1 Analytics | Complete | 2026-01-30 |
+| v1.2 UX & Portfolio Polish | In Progress | — |
 
 ## Performance Metrics
 
@@ -85,7 +87,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-30
-Stopped at: v1.1 milestone completed and archived
+Stopped at: Defining v1.2 requirements
 Resume file: None
 
-**Next action:** Start next milestone with `/gsd:new-milestone`.
+**Next action:** Complete requirements definition and roadmap creation.
