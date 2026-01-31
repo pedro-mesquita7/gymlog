@@ -1,14 +1,14 @@
 # Requirements: GymLog v1.3
 
 **Defined:** 2026-01-31
-**Core Value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
+**Core Value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
 ## v1.3 Requirements
 
 ### Bug Fix & Data Integrity
 
-- [ ] **BUG-01**: Exercise history persists after plan deletion — non-gym-specific exercises retain all logged data regardless of plan lifecycle
-- [ ] **BUG-02**: Error boundary coverage audit — verify all feature areas have graceful fallback UI, fix gaps
+- [ ] **BUG-01**: Exercise history persists after plan deletion -- non-gym-specific exercises retain all logged data regardless of plan lifecycle
+- [ ] **BUG-02**: Error boundary coverage audit -- verify all feature areas have graceful fallback UI, fix gaps
 
 ### Security & Audit
 
@@ -33,7 +33,7 @@
 
 ### Analytics
 
-- [ ] **ANLT-01**: Analytics page is single scrollable dashboard: summary stats → volume overview → exercise detail
+- [ ] **ANLT-01**: Analytics page is single scrollable dashboard: summary stats -> volume overview -> exercise detail
 - [ ] **ANLT-02**: Time range selector (1M/3M/6M/1Y/All) affects all analytics charts globally
 - [ ] **ANLT-03**: Volume per muscle group shows research-backed target ranges (Schoenfeld/RP) with color-coded zones
 - [ ] **ANLT-04**: Volume zone legend explains MEV/MAV/MRV with source citation
@@ -102,50 +102,50 @@ Deferred beyond v1.3:
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BUG-01 | TBD | Pending |
-| BUG-02 | TBD | Pending |
-| SEC-01 | TBD | Pending |
-| SEC-02 | TBD | Pending |
-| SEC-03 | TBD | Pending |
-| SEC-04 | TBD | Pending |
-| SEC-05 | TBD | Pending |
-| TEST-01 | TBD | Pending |
-| TEST-02 | TBD | Pending |
-| TEST-03 | TBD | Pending |
-| TEST-04 | TBD | Pending |
-| TEST-05 | TBD | Pending |
-| UX-01 | TBD | Pending |
-| UX-02 | TBD | Pending |
-| ANLT-01 | TBD | Pending |
-| ANLT-02 | TBD | Pending |
-| ANLT-03 | TBD | Pending |
-| ANLT-04 | TBD | Pending |
-| CLR-01 | TBD | Pending |
-| CLR-02 | TBD | Pending |
-| CLR-03 | TBD | Pending |
-| DEMO-01 | TBD | Pending |
-| DEMO-02 | TBD | Pending |
-| DEMO-03 | TBD | Pending |
-| TOON-01 | TBD | Pending |
-| TOON-02 | TBD | Pending |
-| TOON-03 | TBD | Pending |
-| TOON-04 | TBD | Pending |
-| TOON-05 | TBD | Pending |
-| PWA-01 | TBD | Pending |
-| PWA-02 | TBD | Pending |
-| PWA-03 | TBD | Pending |
-| PWA-04 | TBD | Pending |
-| README-01 | TBD | Pending |
-| README-02 | TBD | Pending |
-| README-03 | TBD | Pending |
-| POLISH-01 | TBD | Pending |
-| POLISH-02 | TBD | Pending |
+| BUG-01 | Phase 12 | Pending |
+| BUG-02 | Phase 12 | Pending |
+| SEC-01 | Phase 12 | Pending |
+| SEC-02 | Phase 12 | Pending |
+| SEC-03 | Phase 12 | Pending |
+| SEC-04 | Phase 12 | Pending |
+| SEC-05 | Phase 12 | Pending |
+| TEST-01 | Phase 13 | Pending |
+| TEST-02 | Phase 13 | Pending |
+| TEST-03 | Phase 13 | Pending |
+| TEST-04 | Phase 13 | Pending |
+| TEST-05 | Phase 13 | Pending |
+| UX-01 | Phase 14 | Pending |
+| UX-02 | Phase 14 | Pending |
+| ANLT-01 | Phase 15 | Pending |
+| ANLT-02 | Phase 15 | Pending |
+| ANLT-03 | Phase 15 | Pending |
+| ANLT-04 | Phase 15 | Pending |
+| CLR-01 | Phase 14 | Pending |
+| CLR-02 | Phase 14 | Pending |
+| CLR-03 | Phase 14 | Pending |
+| DEMO-01 | Phase 16 | Pending |
+| DEMO-02 | Phase 16 | Pending |
+| DEMO-03 | Phase 16 | Pending |
+| TOON-01 | Phase 16 | Pending |
+| TOON-02 | Phase 16 | Pending |
+| TOON-03 | Phase 16 | Pending |
+| TOON-04 | Phase 16 | Pending |
+| TOON-05 | Phase 16 | Pending |
+| PWA-01 | Phase 17 | Pending |
+| PWA-02 | Phase 17 | Pending |
+| PWA-03 | Phase 17 | Pending |
+| PWA-04 | Phase 17 | Pending |
+| README-01 | Phase 17 | Pending |
+| README-02 | Phase 17 | Pending |
+| README-03 | Phase 17 | Pending |
+| POLISH-01 | Phase 17 | Pending |
+| POLISH-02 | Phase 17 | Pending |
 
 **Coverage:**
-- v1.3 requirements: 37 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 37
+- v1.3 requirements: 38 total
+- Mapped to phases: 38
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-31*
-*Last updated: 2026-01-31 after initial definition*
+*Last updated: 2026-01-31 -- traceability populated after roadmap creation*
