@@ -102,10 +102,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 10-01-PLAN.md — Rotation store + Settings UI with drag-and-drop editor
-- [ ] 10-02-PLAN.md — Quick-start card + StartWorkout rotation pre-fill
-- [ ] 10-03-PLAN.md — Enhanced WorkoutComplete with PRs, comparison, rotation advance
-- [ ] 10-04-PLAN.md — Demo data generation + clear all data
+- [x] 10-01-PLAN.md — Rotation store + Settings UI with drag-and-drop editor
+- [x] 10-02-PLAN.md — Quick-start card + StartWorkout rotation pre-fill
+- [x] 10-03-PLAN.md — Enhanced WorkoutComplete with PRs, comparison, rotation advance
+- [x] 10-04-PLAN.md — Demo data generation + clear all data
 
 **Success Criteria**:
 1. User can define template sequence per gym (e.g., Upper A -> Lower A -> Upper B -> Lower B) in settings
@@ -142,9 +142,9 @@ Plans:
 | 7. Progression Intelligence | v1.1 | 3/3 | Complete | 2026-01-30 |
 | 8. Testing & Design Foundation | v1.2 | 7/7 | Complete | 2026-01-31 |
 | 9. Batch Logging & Visual Polish | v1.2 | 5/5 | Complete | 2026-01-31 |
-| 10. Workout Features & Demo Data | v1.2 | 0/4 | Planned | — |
+| 10. Workout Features & Demo Data | v1.2 | 4/4 | Complete | 2026-01-31 |
 | 11. CI/CD & Portfolio | v1.2 | 0/? | Pending | — |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-31 — Phase 10 planned (4 plans in 3 waves)*
+*Last updated: 2026-01-31 — Phase 10 complete (4/4 plans, verified 16/16 must-haves)*
