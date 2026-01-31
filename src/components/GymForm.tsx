@@ -63,6 +63,7 @@ export function GymForm({ gym, onSubmit, onCancel }: GymFormProps) {
                 Name
               </label>
               <input
+                data-testid="gym-name-input"
                 type="text"
                 id="name"
                 value={name}
@@ -78,6 +79,7 @@ export function GymForm({ gym, onSubmit, onCancel }: GymFormProps) {
                 Location <span className="text-text-muted">(optional)</span>
               </label>
               <input
+                data-testid="gym-location-input"
                 type="text"
                 id="location"
                 value={location}
@@ -101,6 +103,7 @@ export function GymForm({ gym, onSubmit, onCancel }: GymFormProps) {
                 Cancel
               </button>
               <button
+                data-testid="btn-add-gym"
                 type="submit"
                 disabled={isSubmitting}
                 className="text-sm font-medium text-accent hover:text-accent/80 transition-colors disabled:opacity-50"

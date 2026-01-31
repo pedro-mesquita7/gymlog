@@ -68,6 +68,7 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
         ) : (
           <Select
             id="gym-select"
+            data-testid="gym-select"
             value={selectedGymId}
             onChange={e => setSelectedGymId(e.target.value)}
           >
@@ -93,6 +94,7 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
         ) : (
           <Select
             id="template-select"
+            data-testid="template-select"
             value={selectedTemplateId}
             onChange={e => setSelectedTemplateId(e.target.value)}
           >
@@ -108,6 +110,7 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
 
       {/* Start button */}
       <Button
+        data-testid="btn-start-workout"
         onClick={handleStart}
         disabled={!canStart}
         variant="primary"

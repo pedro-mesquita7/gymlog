@@ -67,7 +67,7 @@ export function AnalyticsPage() {
 
   if (exercises.length === 0) {
     return (
-      <div className="text-center py-12 space-y-4">
+      <div data-testid="analytics-empty" className="text-center py-12 space-y-4">
         <p className="text-zinc-500">No exercises yet.</p>
         <p className="text-sm text-zinc-600">
           Create exercises and log workouts to see analytics.
@@ -77,13 +77,14 @@ export function AnalyticsPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div data-testid="analytics-charts" className="space-y-8">
       {/* Exercise Selector */}
       <div>
         <label htmlFor="exercise-select" className="block text-sm font-medium text-zinc-400 mb-2">
           Select Exercise
         </label>
         <select
+          data-testid="analytics-exercise-select"
           id="exercise-select"
           value={selectedExerciseId}
           onChange={(e) => setSelectedExerciseId(e.target.value)}

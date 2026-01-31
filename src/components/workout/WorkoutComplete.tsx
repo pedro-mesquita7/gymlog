@@ -121,7 +121,7 @@ export function WorkoutComplete({
     return (
       <div className="space-y-6">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">Workout Complete</h2>
+          <h2 data-testid="workout-complete-heading" className="text-2xl font-bold mb-2">Workout Complete</h2>
           <p className="text-zinc-500">{template.name}</p>
         </div>
 
@@ -187,6 +187,7 @@ export function WorkoutComplete({
         {/* Action buttons */}
         <div className="flex gap-3 pt-4">
           <Button
+            data-testid="btn-go-back"
             variant="secondary"
             size="md"
             onClick={onCancel}
@@ -196,6 +197,7 @@ export function WorkoutComplete({
             Go Back
           </Button>
           <Button
+            data-testid="btn-save-workout"
             variant="primary"
             size="md"
             onClick={handleSave}
@@ -207,7 +209,7 @@ export function WorkoutComplete({
         </div>
 
         {totalSets === 0 && (
-          <p className="text-center text-sm text-zinc-500">
+          <p data-testid="no-sets-warning" className="text-center text-sm text-zinc-500">
             Log at least one set to save this workout
           </p>
         )}
@@ -223,7 +225,7 @@ export function WorkoutComplete({
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold mb-2">Workout Saved!</h2>
+        <h2 data-testid="workout-saved-heading" className="text-2xl font-bold mb-2">Workout Saved!</h2>
         <p className="text-zinc-500">{template.name}</p>
       </div>
 
@@ -288,6 +290,7 @@ export function WorkoutComplete({
       {/* Done button */}
       <div className="pt-4">
         <Button
+          data-testid="btn-done-workout"
           variant="primary"
           size="md"
           onClick={onSaved}

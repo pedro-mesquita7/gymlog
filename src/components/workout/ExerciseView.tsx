@@ -75,7 +75,7 @@ export function ExerciseView({
         <div className="text-xs text-zinc-500 mb-1">
           Exercise {exerciseIndex + 1} of {totalExercises}
         </div>
-        <div className="text-2xl font-bold">
+        <div data-testid="active-exercise-name" className="text-2xl font-bold">
           {exerciseName}
           {substitutedId && <span className="text-accent text-sm ml-2">(sub)</span>}
         </div>

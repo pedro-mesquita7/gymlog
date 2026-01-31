@@ -69,6 +69,7 @@ export function ExerciseForm({ exercise, onSubmit, onCancel }: ExerciseFormProps
                 Name
               </label>
               <input
+                data-testid="exercise-name-input"
                 type="text"
                 id="name"
                 value={name}
@@ -84,6 +85,7 @@ export function ExerciseForm({ exercise, onSubmit, onCancel }: ExerciseFormProps
                 Muscle Group
               </label>
               <select
+                data-testid="exercise-muscle-select"
                 id="muscleGroup"
                 value={muscleGroup}
                 onChange={(e) => setMuscleGroup(e.target.value as MuscleGroup)}
@@ -147,6 +149,7 @@ export function ExerciseForm({ exercise, onSubmit, onCancel }: ExerciseFormProps
                 Cancel
               </button>
               <button
+                data-testid="btn-add-exercise"
                 type="submit"
                 disabled={isSubmitting}
                 className="text-sm font-medium text-accent hover:text-accent/80 transition-colors disabled:opacity-50"

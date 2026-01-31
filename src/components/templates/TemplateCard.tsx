@@ -51,6 +51,7 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
         {/* Actions menu */}
         <div className="relative">
           <button
+            data-testid="btn-template-menu"
             onClick={() => setShowMenu(!showMenu)}
             className="p-2 text-text-muted hover:text-text-secondary"
           >
@@ -94,6 +95,7 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
                   {template.is_archived ? 'Restore' : 'Archive'}
                 </Button>
                 <Button
+                  data-testid="btn-template-delete"
                   onClick={() => { setShowMenu(false); setShowDeleteConfirm(true); }}
                   variant="danger"
                   size="sm"

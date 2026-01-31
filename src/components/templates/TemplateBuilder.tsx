@@ -134,6 +134,7 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
         </label>
         <input
           {...register('name')}
+          data-testid="template-name-input"
           type="text"
           placeholder="e.g., Upper A, Push Day"
           className="w-full bg-bg-tertiary border border-border-secondary rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent"
@@ -212,6 +213,7 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
           Cancel
         </button>
         <button
+          data-testid="btn-create-template"
           type="submit"
           disabled={isSubmitting}
           className="flex-1 px-4 py-3 bg-accent hover:bg-accent/90 text-black font-medium rounded-lg transition-colors disabled:opacity-50"

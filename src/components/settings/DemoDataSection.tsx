@@ -82,6 +82,7 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
             Load 6 weeks of sample workouts to explore all features
           </p>
           <button
+            data-testid="btn-load-demo"
             onClick={handleLoadDemoData}
             disabled={isLoadingDemo}
             className="w-full py-3 px-4 bg-accent hover:bg-accent/90 disabled:bg-bg-tertiary rounded-lg font-medium transition-colors"
@@ -97,6 +98,7 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
             Remove all workouts, exercises, gyms, and settings
           </p>
           <button
+            data-testid="btn-clear-data"
             onClick={handleClearAllData}
             className="w-full py-3 px-4 bg-error/20 hover:bg-error/30 text-error border border-error/30 rounded-lg font-medium transition-colors"
           >

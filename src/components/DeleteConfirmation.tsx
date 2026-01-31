@@ -33,6 +33,7 @@ export function DeleteConfirmation({
 
           <div className="flex justify-end gap-4">
             <button
+              data-testid="btn-cancel-delete"
               onClick={onCancel}
               disabled={isDeleting}
               className="text-sm text-text-muted hover:text-text-primary transition-colors disabled:opacity-50"
@@ -40,6 +41,7 @@ export function DeleteConfirmation({
               Cancel
             </button>
             <button
+              data-testid="btn-confirm-delete"
               onClick={onConfirm}
               disabled={isDeleting}
               className="text-sm font-medium text-error hover:text-error/80 transition-colors disabled:opacity-50"

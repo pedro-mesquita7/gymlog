@@ -133,6 +133,7 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
           Cancel
         </Button>
         <Button
+          data-testid="btn-finish-workout"
           variant="primary"
           size="md"
           onClick={handleFinishWorkout}

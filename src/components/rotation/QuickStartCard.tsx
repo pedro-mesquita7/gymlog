@@ -51,13 +51,14 @@ export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps
   }
 
   return (
-    <div className="border-2 border-accent bg-accent/5 rounded-lg p-4 space-y-3">
-      <div className="text-sm text-text-secondary">
+    <div data-testid="quick-start-card" className="border-2 border-accent bg-accent/5 rounded-lg p-4 space-y-3">
+      <div data-testid="rotation-info" className="text-sm text-text-secondary">
         Workout {nextTemplate.position + 1} of {nextTemplate.total} in {nextTemplate.rotationName}
       </div>
       <div className="text-xl font-bold">{template.name}</div>
       <div className="text-text-secondary">at {gym.name}</div>
       <Button
+        data-testid="btn-quick-start"
         variant="primary"
         size="lg"
         className="w-full"

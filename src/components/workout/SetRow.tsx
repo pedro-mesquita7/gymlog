@@ -101,12 +101,13 @@ export function SetRow({
             {setNumber}
           </div>
           {prStatus && (
-            <span className="bg-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-medium">
+            <span data-testid={`set-${setNumber}-pr`} className="bg-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-medium">
               {prStatus.isWeightPR && prStatus.is1rmPR ? 'PR!' : prStatus.isWeightPR ? 'Weight PR' : '1RM PR'}
             </span>
           )}
         </div>
         <button
+          data-testid={`set-${setNumber}-remove`}
           onClick={onRemove}
           className="text-zinc-500 hover:text-red-400 transition-colors text-sm"
           aria-label="Remove set"
@@ -122,6 +123,7 @@ export function SetRow({
           <label className="text-xs text-zinc-400">Weight ({weightUnit})</label>
           <div className="relative">
             <Input
+              data-testid={`set-${setNumber}-weight`}
               type="number"
               step="0.1"
               placeholder={ghostData ? (weightUnit === 'lbs' ? (ghostData.weight_kg * 2.20462).toFixed(1) : ghostData.weight_kg.toFixed(1)) : ''}
@@ -148,6 +150,7 @@ export function SetRow({
           <label className="text-xs text-zinc-400">Reps</label>
           <div className="relative">
             <Input
+              data-testid={`set-${setNumber}-reps`}
               type="number"
               step="1"
               placeholder={ghostData ? ghostData.reps.toString() : ''}
@@ -174,6 +177,7 @@ export function SetRow({
           <label className="text-xs text-zinc-400">RIR</label>
           <div className="relative">
             <Input
+              data-testid={`set-${setNumber}-rir`}
               type="number"
               step="1"
               min="0"

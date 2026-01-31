@@ -140,11 +140,12 @@ export function BackupSettings() {
           {lastBackupDate
             ? `Last backup: ${new Date(lastBackupDate).toLocaleDateString()}`
             : 'No backups yet'}
-          {' · '}{eventCount} events
+          {' · '}<span data-testid="event-count">{eventCount} events</span>
         </div>
 
         {/* Export button */}
         <button
+          data-testid="btn-export-backup"
           onClick={exportBackup}
           disabled={isExporting}
           className="w-full py-3 px-4 bg-accent hover:bg-accent/90 disabled:bg-bg-tertiary rounded-lg font-medium transition-colors"
@@ -162,6 +163,7 @@ export function BackupSettings() {
 
         {/* File input */}
         <input
+          data-testid="file-input-parquet"
           type="file"
           accept=".parquet"
           onChange={handleFileSelect}
@@ -170,6 +172,7 @@ export function BackupSettings() {
         />
 
         <button
+          data-testid="btn-import-backup"
           onClick={() => fileInputRef.current?.click()}
           disabled={isImporting}
           className="w-full py-3 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 disabled:bg-bg-tertiary/50 rounded-lg font-medium transition-colors"
@@ -179,7 +182,7 @@ export function BackupSettings() {
 
         {/* Import result feedback */}
         {lastResult && (
-          <div className={`mt-4 p-3 rounded-lg ${lastResult.success ? 'bg-success/20 text-success' : 'bg-error/20 text-error'}`}>
+          <div data-testid="import-result" className={`mt-4 p-3 rounded-lg ${lastResult.success ? 'bg-success/20 text-success' : 'bg-error/20 text-error'}`}>
             {lastResult.success
               ? `Imported ${lastResult.eventsImported} events (${lastResult.eventsSkipped} duplicates skipped)`
               : lastResult.error}
