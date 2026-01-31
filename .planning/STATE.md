@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 ## Current Position
 
 Phase: 12 of 17 (Bug Fix & Security Hardening)
-Plan: 03 of TBD in current phase
+Plan: 01 of TBD in current phase (also 03 completed)
 Status: In progress
-Last activity: 2026-01-31 -- Completed 12-03-PLAN.md (Security Audit & .gitignore)
+Last activity: 2026-01-31 -- Completed 12-01-PLAN.md (Fix Exercise History Bug)
 
-Progress: [===========░░░░░░░░░] 63% (69/~110 plans lifetime)
+Progress: [===========░░░░░░░░░] 64% (70/~110 plans lifetime)
 
 ## Milestones
 
@@ -29,8 +29,8 @@ Progress: [===========░░░░░░░░░] 63% (69/~110 plans lifetime)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 69 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 1 v1.3)
-- Total commits: 289
+- Total plans completed: 70 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 2 v1.3)
+- Total commits: 290
 - Project duration: 5 days (2026-01-27 to 2026-01-31)
 
 **By Phase (v1.2 -- most recent):**
@@ -57,14 +57,14 @@ None.
 
 ### Blockers/Concerns
 
-- BUG-01: Exercise history bug needs codebase investigation during Phase 12 planning
+- BUG-01: RESOLVED -- DIM_EXERCISE_ALL_SQL added, 5 analytics queries updated (12-01)
 - SEC-03: CSP headers must accommodate DuckDB-WASM (worker-src blob:, wasm-unsafe-eval)
 - Phase 15: Time range threading must audit ALL analytics SQL for hardcoded 4-week windows
 
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 12-03-PLAN.md (Security Audit & .gitignore)
+Stopped at: Completed 12-01-PLAN.md (Fix Exercise History Bug)
 Resume file: None
 
 **Next action:** Continue Phase 12 execution
