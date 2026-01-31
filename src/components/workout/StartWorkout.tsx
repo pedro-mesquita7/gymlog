@@ -36,7 +36,7 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
 
       {/* Gym selection */}
       <div>
-        <label className="block text-sm font-medium text-zinc-400 mb-2">
+        <label htmlFor="gym-select" className="block text-sm font-medium text-zinc-400 mb-2">
           Where are you training?
         </label>
         {gyms.length === 0 ? (
@@ -45,6 +45,7 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
           </p>
         ) : (
           <Select
+            id="gym-select"
             value={selectedGymId}
             onChange={e => setSelectedGymId(e.target.value)}
           >
@@ -60,7 +61,7 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
 
       {/* Template selection */}
       <div>
-        <label className="block text-sm font-medium text-zinc-400 mb-2">
+        <label htmlFor="template-select" className="block text-sm font-medium text-zinc-400 mb-2">
           What workout?
         </label>
         {activeTemplates.length === 0 ? (
@@ -69,6 +70,7 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
           </p>
         ) : (
           <Select
+            id="template-select"
             value={selectedTemplateId}
             onChange={e => setSelectedTemplateId(e.target.value)}
           >
