@@ -11,9 +11,9 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 11 - CI/CD & Portfolio
-Plan: 5 of ? complete (11-03)
+Plan: 5 of ? complete (11-05)
 Status: In progress
-Last activity: 2026-01-31 — Completed 11-03-PLAN.md (Portfolio README)
+Last activity: 2026-01-31 — Completed 11-05-PLAN.md (Data Quality Display)
 
 Progress: [█████] 5/? plans (Phase 11)
 
@@ -28,15 +28,15 @@ Progress: [█████] 5/? plans (Phase 11)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 62 (27 v1.0 + 15 v1.1 + 20 v1.2)
+- Total plans completed: 63 (27 v1.0 + 15 v1.1 + 21 v1.2)
 - Average duration (v1.2 Phase 8): 6min 30s
 - Total execution time (v1.2 Phase 8): 45min 30s
 - Average duration (v1.2 Phase 9): 7min 25s
 - Total execution time (v1.2 Phase 9): 37min 6s
 - Average duration (v1.2 Phase 10): 4min 1s
 - Total execution time (v1.2 Phase 10): 16min 7s
-- Average duration (v1.2 Phase 11): 4min 11s
-- Total execution time (v1.2 Phase 11): 20min 57s (5/? plans)
+- Average duration (v1.2 Phase 11): 3min 52s
+- Total execution time (v1.2 Phase 11): 19min 22s (5/? plans)
 
 **By Phase (v1.0):**
 
@@ -184,6 +184,9 @@ v1.2 Phase 11 (CI/CD & Portfolio) decisions:
 - Portfolio README with 2 Mermaid diagrams (architecture + data lineage)
 - README documents 4 key decisions with tradeoffs (Event Sourcing, DuckDB-WASM, dbt, OPFS)
 - Tech stack table and CI/CD pipeline overview for hiring manager quick scan
+- Client-side dbt test execution pattern for data quality monitoring
+- On-demand data quality checks (user-triggered, not automatic)
+- 5 test categories: custom, schema, anomaly detection
 
 ### Pending Todos
 
@@ -191,12 +194,12 @@ None.
 
 ### Blockers/Concerns
 
-None. Phase 11 Plan 03 complete. Portfolio README published.
+None. Phase 11 Plan 05 complete. Data quality monitoring added to Settings.
 
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 11-03-PLAN.md (Portfolio README)
+Stopped at: Completed 11-05-PLAN.md (Data Quality Display)
 Resume file: None
 
 **Next action:** Proceed to next Phase 11 plan (if any).
