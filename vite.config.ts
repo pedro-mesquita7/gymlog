@@ -9,7 +9,15 @@ export default defineConfig({
     exclude: ['@duckdb/duckdb-wasm']
   },
   build: {
-    target: 'esnext'
+    target: 'esnext',
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'duckdb': ['@duckdb/duckdb-wasm'],
+        },
+      },
+    },
   },
   server: {
     host: '0.0.0.0',
