@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Input } from '../ui/Input';
+import { useWorkoutStore } from '../../stores/useWorkoutStore';
 
 interface GhostData {
   weight_kg: number;
@@ -32,6 +33,8 @@ export function SetRow({
   onRemove,
   initialData,
 }: SetRowProps) {
+  const weightUnit = useWorkoutStore((state) => state.weightUnit);
+
   const [weightKg, setWeightKg] = useState<string>(
     initialData?.weight_kg?.toString() ?? ''
   );
@@ -94,12 +97,12 @@ export function SetRow({
       <div className="grid grid-cols-3 gap-3">
         {/* Weight */}
         <div className="space-y-1">
-          <label className="text-xs text-zinc-400">Weight (kg)</label>
+          <label className="text-xs text-zinc-400">Weight ({weightUnit})</label>
           <div className="relative">
             <Input
               type="number"
               step="0.1"
-              placeholder={ghostData ? ghostData.weight_kg.toFixed(1) : ''}
+              placeholder={ghostData ? (weightUnit === 'lbs' ? (ghostData.weight_kg * 2.20462).toFixed(1) : ghostData.weight_kg.toFixed(1)) : ''}
               value={weightKg}
               onChange={(e) => setWeightKg(e.target.value)}
               onFocus={(e) => e.target.select()}

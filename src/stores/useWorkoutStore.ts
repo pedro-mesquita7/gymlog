@@ -13,6 +13,10 @@ interface WorkoutState {
   // Rest timer config
   defaultRestSeconds: number;
 
+  // User preferences
+  weightUnit: 'kg' | 'lbs';
+  soundEnabled: boolean;
+
   // Actions
   startWorkout: (templateId: string, gymId: string) => void;
   logSet: (
@@ -33,8 +37,21 @@ interface WorkoutState {
   revertSubstitution: (originalId: string) => void;
   addCustomExercise: (exerciseId: string, name: string) => void;
   setDefaultRestSeconds: (seconds: number) => void;
+  setWeightUnit: (unit: 'kg' | 'lbs') => void;
+  setSoundEnabled: (enabled: boolean) => void;
   completeWorkout: () => WorkoutSession | null;  // Returns session for event writing
   cancelWorkout: () => void;
+}
+
+// One-time migration: sessionStorage → localStorage
+// Prevents existing users from losing active workout data
+if (typeof window !== 'undefined') {
+  const ssData = sessionStorage.getItem('gymlog-workout');
+  const lsData = localStorage.getItem('gymlog-workout');
+  if (ssData && !lsData) {
+    localStorage.setItem('gymlog-workout', ssData);
+    sessionStorage.removeItem('gymlog-workout');
+  }
 }
 
 export const useWorkoutStore = create<WorkoutState>()(
@@ -42,6 +59,8 @@ export const useWorkoutStore = create<WorkoutState>()(
     (set, get) => ({
       session: null,
       defaultRestSeconds: DEFAULT_REST_SECONDS,
+      weightUnit: 'kg' as const,
+      soundEnabled: true,
 
       startWorkout: (templateId, gymId) => {
         set({
@@ -225,6 +244,14 @@ export const useWorkoutStore = create<WorkoutState>()(
         set({ defaultRestSeconds: seconds });
       },
 
+      setWeightUnit: (unit) => {
+        set({ weightUnit: unit });
+      },
+
+      setSoundEnabled: (enabled) => {
+        set({ soundEnabled: enabled });
+      },
+
       completeWorkout: () => {
         const session = get().session;
         set({ session: null });
@@ -236,11 +263,17 @@ export const useWorkoutStore = create<WorkoutState>()(
       },
     }),
     {
-      name: 'gymlog-workout',  // sessionStorage key
-      storage: createJSONStorage(() => sessionStorage),  // Clear on tab close
+      name: 'gymlog-workout',
+      storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         session: state.session,
         defaultRestSeconds: state.defaultRestSeconds,
+        weightUnit: state.weightUnit,
+        soundEnabled: state.soundEnabled,
+      }),
+      merge: (persistedState, currentState) => ({
+        ...currentState,
+        ...(persistedState as Partial<WorkoutState>),
       }),
     }
   )

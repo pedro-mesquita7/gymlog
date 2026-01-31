@@ -1,4 +1,5 @@
 import { useRef, useEffect, useCallback } from 'react';
+import { useWorkoutStore } from '../stores/useWorkoutStore';
 
 export function useAudioNotification() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -21,6 +22,7 @@ export function useAudioNotification() {
   }, []);
 
   const play = useCallback(async () => {
+    if (!useWorkoutStore.getState().soundEnabled) return;
     if (audioRef.current) {
       try {
         audioRef.current.currentTime = 0;

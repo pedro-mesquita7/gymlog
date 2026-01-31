@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { writeEvent } from '../../db/events';
 import { useBackupStore } from '../../stores/useBackupStore';
+import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { Button } from '../ui/Button';
 import type { WorkoutSession } from '../../types/workout-session';
 import type { Template } from '../../types/template';
@@ -31,11 +32,13 @@ export function WorkoutComplete({
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const incrementWorkoutCount = useBackupStore((state) => state.incrementWorkoutCount);
+  const weightUnit = useWorkoutStore((state) => state.weightUnit);
 
   // Calculate workout stats
   const totalSets = session.sets.length;
   const uniqueExercises = new Set(session.sets.map(s => s.original_exercise_id)).size;
   const totalVolume = session.sets.reduce((sum, s) => sum + (s.weight_kg * s.reps), 0);
+  const displayVolume = weightUnit === 'lbs' ? totalVolume * 2.20462 : totalVolume;
 
   // Find exercises with no logged sets
   const exercisesWithSets = new Set(session.sets.map(s => s.original_exercise_id));
@@ -121,7 +124,7 @@ export function WorkoutComplete({
 
       {/* Total volume */}
       <div className="text-center text-zinc-500">
-        Total volume: <span className="text-zinc-300 font-medium">{totalVolume.toLocaleString()} kg</span>
+        Total volume: <span className="text-zinc-300 font-medium">{Math.round(displayVolume).toLocaleString()} {weightUnit}</span>
       </div>
 
       {/* Warning for partial sets (incomplete data) */}
