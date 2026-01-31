@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { useRotationStore, selectNextTemplate } from '../../stores/useRotationStore';
 import type { Template } from '../../types/template';
@@ -16,7 +17,7 @@ interface StartWorkoutProps {
 export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) {
   // Read rotation state for pre-fill
   const defaultGymId = useRotationStore(state => state.defaultGymId);
-  const nextTemplate = useRotationStore(selectNextTemplate);
+  const nextTemplate = useRotationStore(useShallow(selectNextTemplate));
 
   // Pre-fill from rotation if available
   const [selectedGymId, setSelectedGymId] = useState<string>(() => defaultGymId || '');

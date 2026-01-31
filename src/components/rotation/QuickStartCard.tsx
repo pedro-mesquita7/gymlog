@@ -1,3 +1,4 @@
+import { useShallow } from 'zustand/react/shallow';
 import { useRotationStore, selectNextTemplate } from '../../stores/useRotationStore';
 import type { Template } from '../../types/template';
 import type { Gym } from '../../types/database';
@@ -10,7 +11,7 @@ interface QuickStartCardProps {
 }
 
 export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps) {
-  const nextTemplate = useRotationStore(selectNextTemplate);
+  const nextTemplate = useRotationStore(useShallow(selectNextTemplate));
   const defaultGymId = useRotationStore(state => state.defaultGymId);
 
   // Case 1: No rotation configured
