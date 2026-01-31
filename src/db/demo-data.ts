@@ -206,7 +206,6 @@ export async function loadDemoData(): Promise<void> {
 
         // Get template for this workout
         const templateId = templateIds[templateIndex % templateIds.length];
-        const templateName = templates[templateIndex % templates.length].name;
         const templateExercises = templates[templateIndex % templates.length].exercises;
         templateIndex++;
 
