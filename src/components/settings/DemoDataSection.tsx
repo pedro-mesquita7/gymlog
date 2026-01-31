@@ -22,29 +22,15 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
     setIsLoadingDemo(true);
 
     try {
-      // Clear existing data (but don't reload yet)
+      // Clear existing events (keep table structure intact)
       const db = getDuckDB();
       if (db) {
         const conn = await db.connect();
         try {
-          await conn.query('DROP TABLE IF EXISTS events');
+          await conn.query('DELETE FROM events');
         } finally {
           await conn.close();
         }
-      }
-
-      // Clear OPFS files
-      try {
-        const root = await navigator.storage.getDirectory();
-        for (const name of ['gymlog.db', 'gymlog.db.wal']) {
-          try {
-            await root.removeEntry(name);
-          } catch {
-            // File may not exist, ignore
-          }
-        }
-      } catch (err) {
-        console.warn('Failed to clear OPFS:', err);
       }
 
       // Clear localStorage
@@ -59,10 +45,6 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
       for (const key of keysToRemove) {
         localStorage.removeItem(key);
       }
-
-      // Re-initialize database
-      const { initDuckDB } = await import('../../db/duckdb-init');
-      await initDuckDB();
 
       // Load demo data
       await loadDemoData();
