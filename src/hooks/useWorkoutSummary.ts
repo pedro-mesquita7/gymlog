@@ -148,35 +148,31 @@ export function useWorkoutSummary(
           }
         }
 
-        // 6. Session comparison query (previous workout with same template)
+        // 6. Session comparison: find most recent completed workout with same template
+        //    Since this runs before the current workout is saved, the most recent
+        //    completed workout IS the previous one we want to compare against.
         let comparisonData: SessionComparison | null = null;
         if (templateId) {
-          const comparisonQuery = `
-            WITH workout_volumes AS (
+          try {
+            const comparisonQuery = `
               SELECT
-                ws.payload->>'workout_id' as workout_id,
-                ws._created_at as started_at,
-                SUM(CAST(sl.payload->>'weight_kg' AS DOUBLE) * CAST(sl.payload->>'reps' AS INTEGER)) as total_volume
+                ws._created_at as last_date,
+                SUM(CAST(sl.payload->>'weight_kg' AS DOUBLE) * CAST(sl.payload->>'reps' AS INTEGER)) as last_volume_kg
               FROM events ws
-              JOIN events wc ON wc.event_type = 'workout_completed'
-                AND wc.payload->>'workout_id' = ws.payload->>'workout_id'
               JOIN events sl ON sl.event_type = 'set_logged'
                 AND sl.payload->>'workout_id' = ws.payload->>'workout_id'
               WHERE ws.event_type = 'workout_started'
                 AND ws.payload->>'template_id' = '${templateId}'
+                AND EXISTS (
+                  SELECT 1 FROM events wc
+                  WHERE wc.event_type = 'workout_completed'
+                    AND wc.payload->>'workout_id' = ws.payload->>'workout_id'
+                )
               GROUP BY ws.payload->>'workout_id', ws._created_at
               ORDER BY ws._created_at DESC
-              LIMIT 2
-            )
-            SELECT
-              started_at as last_date,
-              total_volume as last_volume_kg
-            FROM workout_volumes
-            ORDER BY started_at ASC
-            LIMIT 1
-          `;
+              LIMIT 1
+            `;
 
-          try {
             const compResult = await conn.query(comparisonQuery);
             const compRows = compResult.toArray();
             if (compRows.length > 0) {
@@ -188,8 +184,8 @@ export function useWorkoutSummary(
                 volume_delta_kg: currentVolumeKg - lastVolumeKg,
               };
             }
-          } catch {
-            // Comparison is optional, don't fail the whole summary
+          } catch (compErr) {
+            console.error('Comparison query failed:', compErr);
           }
         }
 
