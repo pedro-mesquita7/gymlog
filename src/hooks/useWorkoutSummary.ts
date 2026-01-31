@@ -216,7 +216,7 @@ export function useWorkoutSummary(
       mounted = false;
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [enabled, templateId]);
+  }, [enabled, templateId, sets.length]);
 
   return { prs, comparison, isLoading };
 }
