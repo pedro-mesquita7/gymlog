@@ -10,39 +10,49 @@ Track workout performance with proper data engineering — both usable as a pers
 
 ## Current State
 
-**Version:** v1.1 Analytics (shipped 2026-01-30)
+**Version:** v1.2 UX & Portfolio Polish (shipped 2026-01-31)
 
 **Tech Stack:**
 - React 18 + TypeScript + Vite
 - DuckDB-WASM 1.32.0 with OPFS persistence
 - dbt-duckdb for transformation layer
 - Zustand for client-side state
-- Tailwind CSS + react-hook-form + dnd-kit
-- Recharts 3.7.0 + date-fns 4.1.0
+- Tailwind CSS 4 + react-hook-form + dnd-kit
+- Recharts 3.7.0 + date-fns 4.1.0 + framer-motion (LazyMotion)
 - react-muscle-highlighter for anatomical diagrams
+- Vitest + React Testing Library + Playwright
+- Geist Sans + Geist Mono fonts
+- GitHub Actions CI/CD
 
 **Codebase:**
-- ~12,865 lines of TypeScript
-- ~227 files
-- 7 phases, 42 plans executed across 2 milestones
+- ~12,537 lines of TypeScript
+- ~3,255 lines of SQL/YAML (dbt)
+- 287 commits, 11 phases, 68 plans across 3 milestones
 
 **What's Working:**
 - Exercise and gym management with full CRUD
 - Workout templates with drag-drop reordering
-- Active workout logging with rest timer
+- Batch set logging with grid UI and ghost text from last session
+- Workout rotation with auto-advance and Quick Start
+- Post-workout summary with PRs and volume comparison
 - Exercise history with gym-context filtering
-- PR detection during logging
-- 1RM calculations (Epley formula)
+- PR detection during logging (weight + estimated 1RM)
 - Parquet export/import for backup
 - Event sourcing with immutable audit trail
 - Exercise progress charts (weight, 1RM, volume over 4 weeks)
-- Week-over-week performance comparison
 - Volume analytics per muscle group with color-coded zones
 - Anatomical muscle heat map
 - SQL-based plateau and regression detection
 - Progression dashboard with problems-first sorting
 - Session-dismissible contextual alerts during workouts
 - Lazy-loaded Analytics page (Recharts out of main bundle)
+- Design system with OKLCH tokens and UI primitives
+- Error boundaries with graceful fallback UI
+- 71+ tests (unit, integration, E2E)
+- One-click demo data for portfolio reviewers
+- In-app observability and data quality monitoring
+- CI/CD pipeline with GitHub Pages deployment
+- Portfolio README with architecture diagram and dbt lineage
 
 ## Requirements
 
@@ -60,23 +70,17 @@ Track workout performance with proper data engineering — both usable as a pers
 - PR list (PR-01) — v1.1
 - Progression intelligence (PROG-01 to PROG-03) — v1.1
 - Analytics infrastructure (INFRA-01 to INFRA-03) — v1.1
+- Batch logging (BLOG-01 to BLOG-05) — v1.2
+- Workout rotation (ROTN-01 to ROTN-04) — v1.2
+- Workout summary (SUMM-01 to SUMM-03) — v1.2
+- Visual polish (UI-01 to UI-04) — v1.2
+- Testing & quality (TEST-01 to TEST-04) — v1.2
+- CI/CD (CICD-01 to CICD-03) — v1.2
+- Portfolio & demo (PORT-01 to PORT-05) — v1.2
 
 ### Active
 
-**v1.2 UX & Portfolio Polish:**
-- [ ] Batch set logging with pre-filled grid and ghost data from last session
-- [ ] Workout rotation settings (default gym + template sequence)
-- [ ] Smart start with pre-filled defaults
-- [ ] Workout completion summary
-- [ ] Visual overhaul (design system, hierarchy, polish)
-- [ ] Demo/seed data for portfolio reviewers
-- [ ] Test coverage (unit + integration)
-- [ ] Portfolio-ready README
-- [ ] dbt lineage/docs visibility
-- [ ] Data quality UI
-- [ ] CI/CD pipeline (GitHub Actions)
-- [ ] Observability dashboard
-- [ ] Error boundaries
+None — no active milestone. Use `/gsd:new-milestone` to start v1.3.
 
 ### Out of Scope
 
@@ -103,40 +107,16 @@ Track workout performance with proper data engineering — both usable as a pers
 - Plate calculator for barbell loading
 - Progress summary notifications
 
-## Current Milestone: v1.2 UX & Portfolio Polish
+## Current Milestone
 
-**Goal:** Transform GymLog from a functional app into a polished personal tool and impressive DE portfolio piece — streamlined logging, visual overhaul, and production-grade engineering practices.
-
-**Target features:**
-
-Workout flow:
-- Pre-filled set grid with ghost data from last session, add/remove rows, save all at once
-- Workout rotation in settings (default gym + template sequence), auto-advances after each workout
-- Smart start with pre-filled defaults (editable before confirming)
-- Workout completion summary (PRs, volume, duration)
-- Floating rest timer alongside new grid UI
-
-Visual overhaul:
-- Consistent design system (typography, spacing, components) across all screens
-- Better information hierarchy and scannability
-- Polished feel (transitions, visual refinement)
-
-Portfolio credibility:
-- Demo/seed data for reviewers (one-click load)
-- Test coverage (unit + integration for critical paths)
-- Portfolio-ready README with architecture diagram, screenshots, DE decisions
-- dbt lineage/docs surfaced in app or hosted alongside
-- Data quality visibility in UI
-- CI/CD pipeline (GitHub Actions: dbt tests, TS tests, auto-deploy)
-- Observability dashboard (storage usage, row counts, query performance)
-- Error boundaries with graceful degradation
+None — v1.2 shipped. Use `/gsd:new-milestone` to start v1.3.
 
 ## Constraints
 
 - **Tech Stack**: React + TypeScript + Vite, DuckDB-WASM, Parquet, dbt-duckdb, Tailwind CSS
 - **Hosting**: GitHub Pages (static only, no backend)
 - **Storage**: Browser local storage only (OPFS + Parquet files)
-- **Units**: kg only (no unit conversion)
+- **Units**: kg internally (lbs display conversion available)
 - **Offline**: Must work fully offline after initial load (PWA)
 
 ## Key Decisions
@@ -159,4 +139,4 @@ Portfolio credibility:
 | Dual-criteria plateau detection | No PR 4+ weeks AND flat weight < 5%, prevents false positives during deload | Good |
 
 ---
-*Last updated: 2026-01-30 after v1.2 milestone start*
+*Last updated: 2026-01-31 after v1.2 milestone complete*

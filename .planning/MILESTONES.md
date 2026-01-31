@@ -1,5 +1,37 @@
 # Project Milestones: GymLog
 
+## v1.2 UX & Portfolio Polish (Shipped: 2026-01-31)
+
+**Delivered:** Production-grade workout app with batch logging, workout rotation, design system, testing infrastructure, CI/CD pipeline, and portfolio-ready documentation — transforming GymLog from functional tool into impressive DE portfolio piece
+
+**Phases completed:** 8-11 (23 plans total)
+
+**Key accomplishments:**
+- Batch set logging with spreadsheet-like grid, ghost text from last session, and session-over-session delta arrows
+- Workout rotation system with configurable template sequences, auto-advance, and Quick Start pre-fill
+- Post-workout summary with PR badges (weight + estimated 1RM), volume comparison to last session
+- Design system with Geist fonts, OKLCH color tokens, and reusable UI primitives (Button, Input, Card, Dialog)
+- 71+ tests (Vitest unit + RTL integration + Playwright E2E) with error boundaries at feature level
+- One-click demo data (6 weeks progressive overload) for portfolio reviewers
+- GitHub Actions CI/CD pipeline (lint, test, dbt-check, GitHub Pages deploy)
+- Portfolio README with architecture diagram, dbt lineage, tech stack, and DE decision rationale
+- In-app observability dashboard (storage, query performance, event counts)
+- Client-side data quality monitoring (dbt test SQL via CTE wrapper pattern)
+
+**Stats:**
+- 287 total commits (project lifetime)
+- 12,537 lines of TypeScript
+- 3,255 lines of SQL/YAML (dbt)
+- 4 phases, 23 plans (including 2 gap closure)
+- 28/28 requirements satisfied
+- 15/15 cross-phase integration points verified
+
+**Git range:** `c3ac3f8` (phase 8 start) → `ef3b2c8` (milestone audit)
+
+**What's next:** v1.3 with extended analytics (custom time ranges, chart export, multi-exercise comparison)
+
+---
+
 ## v1.1 Analytics (Shipped: 2026-01-30)
 
 **Delivered:** Visual analytics and progression tracking — exercise progress charts, volume analytics with muscle heat map, and SQL-based plateau/regression detection with contextual workout alerts
