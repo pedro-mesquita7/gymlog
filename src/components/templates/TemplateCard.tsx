@@ -2,6 +2,8 @@ import { useState } from 'react';
 import type { Template } from '../../types/template';
 import type { Exercise } from '../../types/database';
 import { DeleteConfirmation } from '../DeleteConfirmation';
+import { Card } from '../ui/Card';
+import { Button } from '../ui/Button';
 
 interface TemplateCardProps {
   template: Template;
@@ -26,7 +28,7 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
   const moreCount = Math.max(0, template.exercises.length - 3);
 
   return (
-    <div className={`bg-zinc-800/50 rounded-lg p-4 ${template.is_archived ? 'opacity-60' : ''}`}>
+    <Card className={template.is_archived ? 'opacity-60' : ''}>
       <div className="flex items-start justify-between">
         <div className="flex-1 cursor-pointer" onClick={onEdit}>
           <h3 className="font-medium flex items-center gap-2">
@@ -67,30 +69,38 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
 
               {/* Menu */}
               <div className="absolute right-0 mt-1 w-40 bg-zinc-700 rounded-lg shadow-lg z-20 py-1">
-                <button
+                <Button
                   onClick={() => { setShowMenu(false); onEdit(); }}
-                  className="w-full px-4 py-2 text-left text-sm hover:bg-zinc-600"
+                  variant="ghost"
+                  size="sm"
+                  className="w-full px-4 py-2 text-left text-sm rounded-none"
                 >
                   Edit
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => { setShowMenu(false); onDuplicate(); }}
-                  className="w-full px-4 py-2 text-left text-sm hover:bg-zinc-600"
+                  variant="ghost"
+                  size="sm"
+                  className="w-full px-4 py-2 text-left text-sm rounded-none"
                 >
                   Duplicate
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => { setShowMenu(false); onArchive(!template.is_archived); }}
-                  className="w-full px-4 py-2 text-left text-sm hover:bg-zinc-600"
+                  variant="ghost"
+                  size="sm"
+                  className="w-full px-4 py-2 text-left text-sm rounded-none"
                 >
                   {template.is_archived ? 'Restore' : 'Archive'}
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => { setShowMenu(false); setShowDeleteConfirm(true); }}
-                  className="w-full px-4 py-2 text-left text-sm text-red-400 hover:bg-zinc-600"
+                  variant="danger"
+                  size="sm"
+                  className="w-full px-4 py-2 text-left text-sm rounded-none"
                 >
                   Delete
-                </button>
+                </Button>
               </div>
             </>
           )}
@@ -105,6 +115,6 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
         onConfirm={() => { setShowDeleteConfirm(false); onDelete(); }}
         onCancel={() => setShowDeleteConfirm(false)}
       />
-    </div>
+    </Card>
   );
 }
