@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 8 - Testing & Design Foundation
-Plan: 2 of 7 complete (08-01, 08-02)
+Plan: 3 of 7 complete (08-01, 08-02, 08-03)
 Status: Phase 8 in progress
-Last activity: 2026-01-31 — Completed 08-01-PLAN.md (Testing Infrastructure Setup)
+Last activity: 2026-01-31 — Completed 08-03-PLAN.md (Error Boundary System)
 
-Progress: [██████░░░░░░░░░░░░░░░░░░] 2/7 plans (Phase 8)
+Progress: [█████████░░░░░░░░░░░░░░░] 3/7 plans (Phase 8)
 
 ## Milestones
 
@@ -53,7 +53,7 @@ Progress: [██████░░░░░░░░░░░░░░░░░
 
 | Phase | Plans | Status |
 |-------|-------|--------|
-| 8. Testing & Design Foundation | 2/7 | In Progress |
+| 8. Testing & Design Foundation | 3/7 | In Progress |
 | 9. Batch Logging & Visual Polish | 0/? | Pending |
 | 10. Workout Features & Demo Data | 0/? | Pending |
 | 11. CI/CD & Portfolio | 0/? | Pending |
@@ -102,6 +102,10 @@ v1.2 Phase 8 (Testing & Design) decisions:
 - Tailwind CSS 4 @theme directive for design tokens (systematic, maintainable)
 - Semantic color tokens (bg-primary/secondary, text-primary/secondary/muted)
 - Preserve legacy HSL variables for backward compatibility
+- react-error-boundary for granular error handling (inline error cards per feature)
+- localStorage error logging (last 20 errors) for future Phase 11 observability
+- Feature-level error boundaries (Workouts, Templates, Analytics, Settings)
+- Type-only imports required for TypeScript verbatimModuleSyntax
 
 ### Pending Todos
 
@@ -114,7 +118,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 08-01-PLAN.md (Testing Infrastructure Setup)
+Stopped at: Completed 08-03-PLAN.md (Error Boundary System)
 Resume file: None
 
-**Next action:** Continue with 08-03-PLAN.md or remaining plans in phase 8.
+**Next action:** Continue with remaining plans in phase 8 (08-04, 08-05, 08-06, 08-07).
