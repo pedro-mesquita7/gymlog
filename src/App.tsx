@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
+import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion';
 import { useDuckDB } from './hooks/useDuckDB';
 import { useExercises } from './hooks/useExercises';
 import { useGyms } from './hooks/useGyms';
@@ -94,7 +95,7 @@ function AppContent({ status, eventCount, refreshEventCount }: {
       // Wait for templates to load before deciding if template is missing
       if (templatesLoading) {
         return (
-          <div className="text-center py-12 text-zinc-500">Loading workout...</div>
+          <div className="text-center py-12 text-text-muted">Loading workout...</div>
         );
       }
 
@@ -104,10 +105,10 @@ function AppContent({ status, eventCount, refreshEventCount }: {
         // Template data lost (e.g. in-memory DB after reload) or deleted
         return (
           <div className="text-center py-12 space-y-4">
-            <p className="text-red-400">Template not found. Session data may have been lost.</p>
+            <p className="text-error">Template not found. Session data may have been lost.</p>
             <button
               onClick={() => cancelWorkout()}
-              className="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors"
+              className="px-6 py-3 bg-bg-tertiary hover:bg-zinc-700 rounded-lg transition-colors"
             >
               Dismiss
             </button>
@@ -162,70 +163,90 @@ function AppContent({ status, eventCount, refreshEventCount }: {
     );
   };
 
+  // Check if user prefers reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Animation configuration - respects prefers-reduced-motion
+  const pageTransition = prefersReducedMotion
+    ? { duration: 0 }
+    : { duration: 0.15 }; // Default easing is good enough
+
   return (
-    <div className="min-h-screen pb-20">
-      {/* Header */}
-      <header className="border-b border-zinc-800">
-        <div className="max-w-2xl mx-auto px-6 py-6 flex items-baseline justify-between">
-          <h1 className="text-2xl font-bold tracking-tight">
-            Gym<span className="text-accent">Log</span>
-          </h1>
-          <div className="flex items-baseline gap-3">
-            {isWorkoutActive && (
-              <span className="text-xs text-accent font-medium animate-pulse">
-                WORKOUT ACTIVE
-              </span>
-            )}
-            {eventCount > 0 && (
-              <span className="text-xs text-zinc-500 font-mono">
-                {eventCount} events
-              </span>
-            )}
-            {!status.isPersistent && (
-              <span className="text-xs text-zinc-500 font-mono">demo mode</span>
-            )}
+    <LazyMotion features={domAnimation}>
+      <div className="min-h-screen pb-20">
+        {/* Header */}
+        <header className="border-b border-border-primary">
+          <div className="max-w-2xl mx-auto px-6 py-6 flex items-baseline justify-between">
+            <h1 className="text-2xl font-bold tracking-tight">
+              Gym<span className="text-accent">Log</span>
+            </h1>
+            <div className="flex items-baseline gap-3">
+              {isWorkoutActive && (
+                <span className="text-xs text-accent font-medium animate-pulse">
+                  WORKOUT ACTIVE
+                </span>
+              )}
+              {eventCount > 0 && (
+                <span className="text-xs text-text-muted font-mono">
+                  {eventCount} events
+                </span>
+              )}
+              {!status.isPersistent && (
+                <span className="text-xs text-text-muted font-mono">demo mode</span>
+              )}
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Demo mode warning */}
-      {!status.isPersistent && status.isConnected && (
-        <div className="bg-amber-900/30 border-b border-amber-700/50">
-          <div className="max-w-2xl mx-auto px-6 py-2 text-center text-sm text-amber-200">
-            Demo mode: Data will be lost on refresh. For persistence, run outside Docker.
+        {/* Demo mode warning */}
+        {!status.isPersistent && status.isConnected && (
+          <div className="bg-warning/10 border-b border-warning/30">
+            <div className="max-w-2xl mx-auto px-6 py-2 text-center text-sm text-warning">
+              Demo mode: Data will be lost on refresh. For persistence, run outside Docker.
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Backup reminder - only in persistent mode */}
-      {status.isPersistent && shouldShowReminder && <BackupReminder />}
-
-      {/* Main Content */}
-      <main className="max-w-2xl mx-auto px-6 py-10">
-        {activeTab === 'settings' ? (
-          <FeatureErrorBoundary feature="Settings">
-            <BackupSettings />
-          </FeatureErrorBoundary>
-        ) : activeTab === 'analytics' ? (
-          <FeatureErrorBoundary feature="Analytics">
-            <Suspense fallback={<div className="text-center py-12 text-zinc-500">Loading analytics...</div>}>
-              <AnalyticsPage />
-            </Suspense>
-          </FeatureErrorBoundary>
-        ) : activeTab === 'workouts' ? (
-          <FeatureErrorBoundary feature="Workouts">
-            {renderWorkoutsContent()}
-          </FeatureErrorBoundary>
-        ) : (
-          <FeatureErrorBoundary feature="Templates">
-            <TemplateList />
-          </FeatureErrorBoundary>
         )}
-      </main>
 
-      {/* Bottom Navigation */}
-      <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
-    </div>
+        {/* Backup reminder - only in persistent mode */}
+        {status.isPersistent && shouldShowReminder && <BackupReminder />}
+
+        {/* Main Content */}
+        <main className="max-w-2xl mx-auto px-6 py-10">
+          <AnimatePresence mode="wait">
+            <m.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={pageTransition}
+            >
+              {activeTab === 'settings' ? (
+                <FeatureErrorBoundary feature="Settings">
+                  <BackupSettings />
+                </FeatureErrorBoundary>
+              ) : activeTab === 'analytics' ? (
+                <FeatureErrorBoundary feature="Analytics">
+                  <Suspense fallback={<div className="text-center py-12 text-text-muted">Loading analytics...</div>}>
+                    <AnalyticsPage />
+                  </Suspense>
+                </FeatureErrorBoundary>
+              ) : activeTab === 'workouts' ? (
+                <FeatureErrorBoundary feature="Workouts">
+                  {renderWorkoutsContent()}
+                </FeatureErrorBoundary>
+              ) : (
+                <FeatureErrorBoundary feature="Templates">
+                  <TemplateList />
+                </FeatureErrorBoundary>
+              )}
+            </m.div>
+          </AnimatePresence>
+        </main>
+
+        {/* Bottom Navigation */}
+        <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
+    </LazyMotion>
   );
 }
 
@@ -235,8 +256,8 @@ function App() {
   // Loading state - wait for DB before mounting data hooks
   if (!status.isConnected && !status.error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-zinc-500">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-bg-primary">
+        <div className="text-text-muted">Loading...</div>
       </div>
     );
   }
@@ -244,12 +265,12 @@ function App() {
   // Error state
   if (status.error) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
+      <div className="min-h-screen flex items-center justify-center bg-bg-primary p-6">
         <div className="max-w-sm">
-          <p className="text-red-500 font-mono text-sm mb-4">{status.error}</p>
+          <p className="text-error font-mono text-sm mb-4">{status.error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="text-sm text-zinc-400 hover:text-white transition-colors"
+            className="text-sm text-text-secondary hover:text-text-primary transition-colors"
           >
             Retry
           </button>
