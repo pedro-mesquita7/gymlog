@@ -188,6 +188,9 @@ v1.2 Phase 11 (CI/CD & Portfolio) decisions:
 - On-demand data quality checks (user-triggered, not automatic)
 - 5 test categories: custom, schema, anomaly detection
 - Data quality tests use FACT_SETS_SQL CTE wrapper (query dbt marts without tables)
+- Import @fontsource packages via JS (not CSS @import) for Vite to bundle font files
+- Isolate DuckDB-WASM into separate chunk to avoid size warnings
+- Set chunkSizeWarningLimit to 1000KB for realistic production threshold
 
 ### Pending Todos
 
