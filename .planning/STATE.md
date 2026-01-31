@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 8 - Testing & Design Foundation
-Plan: 4 of 7 complete (08-01, 08-02, 08-03, 08-04)
+Plan: 5 of 7 complete (08-01, 08-02, 08-03, 08-04, 08-05)
 Status: Phase 8 in progress
-Last activity: 2026-01-31 — Completed 08-04-PLAN.md (UI Primitive Components)
+Last activity: 2026-01-31 — Completed 08-05-PLAN.md (Unit Tests for Critical Hooks)
 
-Progress: [████████████░░░░░░░░░░░░] 4/7 plans (Phase 8)
+Progress: [███████████████░░░░░░░░░] 5/7 plans (Phase 8)
 
 ## Milestones
 
@@ -53,7 +53,7 @@ Progress: [████████████░░░░░░░░░░░
 
 | Phase | Plans | Status |
 |-------|-------|--------|
-| 8. Testing & Design Foundation | 4/7 | In Progress |
+| 8. Testing & Design Foundation | 5/7 | In Progress |
 | 9. Batch Logging & Visual Polish | 0/? | Pending |
 | 10. Workout Features & Demo Data | 0/? | Pending |
 | 11. CI/CD & Portfolio | 0/? | Pending |
@@ -111,6 +111,10 @@ v1.2 Phase 8 (Testing & Design) decisions:
 - Card primitive with default and interactive variants
 - UI primitives in src/components/ui/ with variant-driven APIs
 - ComponentPropsWithoutRef for native prop forwarding in primitives
+- Test user-observable behavior, not implementation details (resilient to refactoring)
+- Mock Date and uuidv7 for deterministic timestamps and IDs in tests
+- Test Zustand stores directly without renderHook (faster, simpler)
+- Test data factory pattern (makeSetHistory, makePRRecord, etc.) for reusable fixtures
 
 ### Pending Todos
 
@@ -123,7 +127,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 08-04-PLAN.md (UI Primitive Components)
+Stopped at: Completed 08-05-PLAN.md (Unit Tests for Critical Hooks)
 Resume file: None
 
-**Next action:** Continue with remaining plans in phase 8 (08-05, 08-06, 08-07).
+**Next action:** Continue with remaining plans in phase 8 (08-06, 08-07).
