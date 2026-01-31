@@ -154,22 +154,39 @@ export function useWorkoutSummary(
         let comparisonData: SessionComparison | null = null;
         if (templateId) {
           try {
+            // Use CTEs to pre-filter by event_type before extracting payload fields
+            // (DuckDB may evaluate payload->> across all rows before WHERE filters)
             const comparisonQuery = `
+              WITH started AS (
+                SELECT
+                  payload->>'workout_id' as workout_id,
+                  payload->>'template_id' as template_id,
+                  _created_at
+                FROM events
+                WHERE event_type = 'workout_started'
+              ),
+              completed AS (
+                SELECT payload->>'workout_id' as workout_id
+                FROM events
+                WHERE event_type = 'workout_completed'
+              ),
+              sets AS (
+                SELECT
+                  payload->>'workout_id' as workout_id,
+                  CAST(payload->>'weight_kg' AS DOUBLE) as weight_kg,
+                  CAST(payload->>'reps' AS DOUBLE) as reps
+                FROM events
+                WHERE event_type = 'set_logged'
+              )
               SELECT
-                ws._created_at as last_date,
-                SUM(CAST(sl.payload->>'weight_kg' AS DOUBLE) * CAST(sl.payload->>'reps' AS INTEGER)) as last_volume_kg
-              FROM events ws
-              JOIN events sl ON sl.event_type = 'set_logged'
-                AND sl.payload->>'workout_id' = ws.payload->>'workout_id'
-              WHERE ws.event_type = 'workout_started'
-                AND ws.payload->>'template_id' = '${templateId}'
-                AND EXISTS (
-                  SELECT 1 FROM events wc
-                  WHERE wc.event_type = 'workout_completed'
-                    AND wc.payload->>'workout_id' = ws.payload->>'workout_id'
-                )
-              GROUP BY ws.payload->>'workout_id', ws._created_at
-              ORDER BY ws._created_at DESC
+                s._created_at as last_date,
+                SUM(st.weight_kg * st.reps) as last_volume_kg
+              FROM started s
+              JOIN completed c ON c.workout_id = s.workout_id
+              JOIN sets st ON st.workout_id = s.workout_id
+              WHERE s.template_id = '${templateId}'
+              GROUP BY s.workout_id, s._created_at
+              ORDER BY s._created_at DESC
               LIMIT 1
             `;
 
