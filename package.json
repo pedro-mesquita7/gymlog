@@ -26,6 +26,7 @@
     "date-fns": "^4.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-error-boundary": "^6.1.0",
     "react-hook-form": "^7.71.1",
     "react-muscle-highlighter": "^1.2.0",
     "react-swipeable": "^7.0.2",
