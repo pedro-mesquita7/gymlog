@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 10 - Workout Features & Demo Data
-Plan: 1 of ? complete (10-01)
+Plan: 2 of ? complete (10-02)
 Status: In progress
-Last activity: 2026-01-31 — Completed 10-01-PLAN.md (Rotation Store + Settings UI)
+Last activity: 2026-01-31 — Completed 10-02-PLAN.md (Quick-Start Card + Rotation Pre-Fill)
 
-Progress: [█] 1/? plans (Phase 10)
+Progress: [██] 2/? plans (Phase 10)
 
 ## Milestones
 
@@ -28,13 +28,13 @@ Progress: [█] 1/? plans (Phase 10)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 55 (27 v1.0 + 15 v1.1 + 13 v1.2)
+- Total plans completed: 56 (27 v1.0 + 15 v1.1 + 14 v1.2)
 - Average duration (v1.2 Phase 8): 6min 30s
 - Total execution time (v1.2 Phase 8): 45min 30s
 - Average duration (v1.2 Phase 9): 7min 25s
 - Total execution time (v1.2 Phase 9): 37min 6s
 - Average duration (v1.2 Phase 10): 3min 0s
-- Total execution time (v1.2 Phase 10): 3min 0s
+- Total execution time (v1.2 Phase 10): 6min 0s
 
 **By Phase (v1.0):**
 
@@ -59,7 +59,7 @@ Progress: [█] 1/? plans (Phase 10)
 |-------|-------|--------|
 | 8. Testing & Design Foundation | 7/7 | Complete |
 | 9. Batch Logging & Visual Polish | 5/5 | Complete |
-| 10. Workout Features & Demo Data | 1/? | In Progress |
+| 10. Workout Features & Demo Data | 2/? | In Progress |
 | 11. CI/CD & Portfolio | 0/? | Pending |
 
 ## Accumulated Context
@@ -153,6 +153,10 @@ v1.2 Phase 10 (Workout Features & Demo Data) decisions:
 - Inline drag-and-drop editor expands/collapses per rotation (not separate page)
 - Checkbox-based template selection in rotation creation form
 - Drag handle icon (⠿) for visual affordance in sortable lists
+- QuickStartCard uses border-2 border-accent bg-accent/5 for visual prominence
+- Three states: full quick-start, no rotation hint, no default gym hint
+- Manual selection remains below with rotation pre-fill (editable suggestion)
+- Position indicator shows 'Workout N of M in Rotation Name'
 
 ### Pending Todos
 
@@ -165,7 +169,7 @@ None. Phase 9 gaps closed, all features verified.
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 10-01-PLAN.md (Rotation Store + Settings UI)
+Stopped at: Completed 10-02-PLAN.md (Quick-Start Card + Rotation Pre-Fill)
 Resume file: None
 
-**Next action:** Continue Phase 10 (Plan 10-02: Quick-Start Card).
+**Next action:** Continue Phase 10 (Plan 10-03 or next defined plan).
