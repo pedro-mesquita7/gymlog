@@ -65,7 +65,7 @@ test.describe('GymLog E2E Workout Flow', () => {
 
     // Select the exercise from dropdown
     const exerciseSelect = page.locator('select:has-option("E2E Bench Press")');
-    await exerciseSelect.selectOption({ label: /E2E Bench Press/i });
+    await exerciseSelect.selectOption({ label: 'E2E Bench Press' });
 
     // Set target reps (optional, depends on UI)
     // Most templates have default values, so we can skip detailed config
@@ -81,11 +81,11 @@ test.describe('GymLog E2E Workout Flow', () => {
 
     // Select gym from dropdown
     const gymDropdown = page.locator('select').first();
-    await gymDropdown.selectOption({ label: /Test Gym E2E/i });
+    await gymDropdown.selectOption({ label: 'Test Gym E2E' });
 
     // Select template from dropdown
     const templateDropdown = page.locator('select').nth(1);
-    await templateDropdown.selectOption({ label: /E2E Test Template/i });
+    await templateDropdown.selectOption({ label: 'E2E Test Template' });
 
     // Click Start Workout
     await page.click('button:has-text("Start Workout")');
