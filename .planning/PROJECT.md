@@ -20,6 +20,7 @@ Track workout performance with proper data engineering — both usable as a pers
 - Tailwind CSS 4 + react-hook-form + dnd-kit
 - Recharts 3.7.0 + date-fns 4.1.0 + framer-motion (LazyMotion)
 - react-muscle-highlighter for anatomical diagrams
+- @toon-format/toon for LLM-optimized data export
 - Vitest + React Testing Library + Playwright
 - Geist Sans + Geist Mono fonts
 - GitHub Actions CI/CD
@@ -80,7 +81,20 @@ Track workout performance with proper data engineering — both usable as a pers
 
 ### Active
 
-None — no active milestone. Use `/gsd:new-milestone` to start v1.3.
+- Bug fix: exercise history after plan deletion
+- Security & portfolio audit
+- Comprehensive E2E tests
+- Workouts tab UX streamlining
+- Analytics tab redesign (single scrollable dashboard)
+- Color scheme refinement (OKLCH audit, WCAG AA)
+- Custom time range selection for analytics
+- Volume recommendations vs research-backed targets
+- Demo data UX improvements
+- AI export via TOON notation (@toon-format/toon)
+- PWA audit (service worker, offline, installability)
+- Performance budget (bundle size, Lighthouse)
+- README polish (live demo, screenshots, run locally)
+- General polish & risk sweep
 
 ### Out of Scope
 
@@ -98,8 +112,6 @@ None — no active milestone. Use `/gsd:new-milestone` to start v1.3.
 - dbt vw_progression_status.sql references fw.logged_at but fact_workouts uses started_at (non-blocking — compiled queries bypass dbt at runtime)
 
 **Potential v2+ Features:**
-- Custom time range selection (3 months, 6 months, 1 year, all time)
-- Volume recommendations vs research-backed targets
 - Chart export as image
 - Multi-exercise comparison on one chart
 - Personal volume targets per muscle group
@@ -107,9 +119,25 @@ None — no active milestone. Use `/gsd:new-milestone` to start v1.3.
 - Plate calculator for barbell loading
 - Progress summary notifications
 
-## Current Milestone
+## Current Milestone: v1.3 Production Polish & Deploy Readiness
 
-None — v1.2 shipped. Use `/gsd:new-milestone` to start v1.3.
+**Goal:** Harden the app for real-world use and portfolio presentation — fix data bugs, improve UX flows, redesign analytics, add TOON export, expand test coverage, and audit security/PWA/performance.
+
+**Target features:**
+- Bug fix: exercise history survives plan deletion (plan_id FK issue)
+- Security & portfolio audit (secrets, CSP, npm audit, PII)
+- Comprehensive Playwright E2E test suite
+- Workouts tab: merge Quick Start + manual into compact UI
+- Analytics: single scrollable dashboard with summary → drill-down
+- OKLCH color scheme audit for cohesion and WCAG AA
+- Custom time ranges (3mo, 6mo, 1yr, all time) for charts
+- Volume recommendations vs Schoenfeld et al. research targets
+- Demo data UX: gradient import button, selective data clear
+- AI export via @toon-format/toon (last workout, rotation cycle, N months)
+- PWA audit (service worker, offline, manifest, installability)
+- Performance budget (bundle size, Lighthouse, FMP)
+- README polish (live demo link, screenshots/GIF, local dev)
+- General UX polish and risk sweep
 
 ## Constraints
 
@@ -138,5 +166,8 @@ None — v1.2 shipped. Use `/gsd:new-milestone` to start v1.3.
 | Session-dismissible alerts | 2-hour boundary via Zustand persist, returns if condition persists | Good |
 | Dual-criteria plateau detection | No PR 4+ weeks AND flat weight < 5%, prevents false positives during deload | Good |
 
+| @toon-format/toon for TOON export | Official SDK for Token-Oriented Object Notation; LLM-optimized data format | — Pending |
+| Single scrollable analytics dashboard | Unifies exercise + overall views; no drill-down navigation | — Pending |
+
 ---
-*Last updated: 2026-01-31 after v1.2 milestone complete*
+*Last updated: 2026-01-31 after v1.3 milestone started*
