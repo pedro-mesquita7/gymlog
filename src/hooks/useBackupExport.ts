@@ -43,8 +43,9 @@ export function useBackupExport(): UseBackupExport {
         // Extract the file from DuckDB's virtual filesystem
         const buffer = await db.copyFileToBuffer('backup.parquet');
 
-        // Create a downloadable blob
-        const blob = new Blob([buffer], { type: 'application/octet-stream' });
+        // Create a downloadable blob - convert to regular ArrayBuffer to avoid type mismatch
+        const arrayBuffer = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength) as ArrayBuffer;
+        const blob = new Blob([arrayBuffer], { type: 'application/octet-stream' });
         const url = URL.createObjectURL(blob);
 
         // Trigger download with timestamped filename

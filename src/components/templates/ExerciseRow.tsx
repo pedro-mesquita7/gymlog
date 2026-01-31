@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import type { UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import type { Exercise } from '../../types/database';
 import type { TemplateFormData } from './TemplateBuilder';
 
@@ -33,7 +33,6 @@ export function ExerciseRow({ id, index, exercise, exercises, register, setValue
   };
 
   const [expanded, setExpanded] = useState(false);
-  const currentReplacement = watch(`exercises.${index}.replacement_exercise_id`);
 
   return (
     <div
@@ -116,17 +115,27 @@ export function ExerciseRow({ id, index, exercise, exercises, register, setValue
       {/* Expanded options */}
       {expanded && (
         <div className="mt-4 pt-4 border-t border-zinc-700 space-y-3">
-          {/* Rest time override */}
+          {/* Rest time override (input in minutes, stored as seconds) */}
           <div className="flex items-center gap-2">
             <label className="text-sm text-zinc-400 w-24">Rest time:</label>
             <input
               type="number"
-              {...register(`exercises.${index}.rest_seconds`, { valueAsNumber: true })}
-              placeholder="Default"
+              value={watch(`exercises.${index}.rest_seconds`) != null ? Math.round((watch(`exercises.${index}.rest_seconds`) as number) / 60 * 10) / 10 : ''}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (val === '') {
+                  setValue(`exercises.${index}.rest_seconds`, null);
+                } else {
+                  const mins = parseFloat(val);
+                  if (!isNaN(mins)) setValue(`exercises.${index}.rest_seconds`, Math.round(mins * 60));
+                }
+              }}
+              placeholder="2"
               className="w-20 bg-zinc-700 rounded px-2 py-1 text-sm"
               min={0}
+              step={0.5}
             />
-            <span className="text-xs text-zinc-500">seconds</span>
+            <span className="text-xs text-zinc-500">min</span>
           </div>
 
           {/* Replacement exercise */}

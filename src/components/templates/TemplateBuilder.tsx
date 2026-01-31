@@ -4,7 +4,19 @@ import { z } from 'zod';
 import { useState } from 'react';
 import { ExerciseList } from './ExerciseList';
 import type { Exercise } from '../../types/database';
-import type { Template, TemplateExercise } from '../../types/template';
+import type { Template } from '../../types/template';
+
+// Coerce NaN/empty to null for optional numeric fields
+const nanToNull = z.preprocess(
+  (val) => (val === '' || val === undefined || (typeof val === 'number' && isNaN(val)) ? null : val),
+  z.number().nullable()
+);
+
+// Coerce empty string to null for optional string fields
+const emptyToNull = z.preprocess(
+  (val) => (val === '' ? null : val),
+  z.string().nullable()
+);
 
 // Zod schema for validation
 const templateExerciseSchema = z.object({
@@ -13,8 +25,8 @@ const templateExerciseSchema = z.object({
   target_reps_min: z.number().min(1),
   target_reps_max: z.number().min(1),
   suggested_sets: z.number().min(1),
-  rest_seconds: z.number().nullable(),
-  replacement_exercise_id: z.string().nullable(),
+  rest_seconds: nanToNull,
+  replacement_exercise_id: emptyToNull,
 });
 
 const templateSchema = z.object({
@@ -68,7 +80,7 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
   })) ?? [];
 
   const { control, register, handleSubmit, setValue, watch, formState: { errors } } = useForm<TemplateFormData>({
-    resolver: zodResolver(templateSchema),
+    resolver: zodResolver(templateSchema) as any,
     defaultValues: {
       name: template?.name ?? '',
       exercises: defaultExercises,

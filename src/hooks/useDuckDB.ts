@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { initDuckDB, getIsPersistent } from '../db/duckdb-init';
+import { initDuckDB } from '../db/duckdb-init';
 import { getEventCount } from '../db/queries';
 import type { DatabaseStatus } from '../types/database';
 

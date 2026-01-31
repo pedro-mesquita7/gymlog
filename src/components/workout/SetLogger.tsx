@@ -29,7 +29,7 @@ export function SetLogger({
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
   const [rir, setRir] = useState<number | null>(null);
-  const [showRir, setShowRir] = useState(true);  // RIR always visible per CONTEXT.md
+  const [showRir] = useState(true);  // RIR always visible per CONTEXT.md
   const [showPR, setShowPR] = useState(false);
   const [prType, setPrType] = useState<'weight' | '1rm' | 'weight_and_1rm'>('weight_and_1rm');
 

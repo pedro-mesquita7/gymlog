@@ -1,4 +1,4 @@
-import { useBackupStore, BACKUP_THRESHOLD } from '../../stores/useBackupStore';
+import { useBackupStore } from '../../stores/useBackupStore';
 import { useBackupExport } from '../../hooks/useBackupExport';
 
 export function BackupReminder() {
