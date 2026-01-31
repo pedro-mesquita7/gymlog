@@ -67,6 +67,10 @@
   body {
     @apply bg-zinc-950 text-zinc-100 antialiased;
   }
+
+  input::placeholder {
+    @apply text-text-muted opacity-100;
+  }
 }
 
 @layer components {
