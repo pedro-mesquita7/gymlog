@@ -42,11 +42,12 @@ export function WorkoutComplete({
   const totalVolume = session.sets.reduce((sum, s) => sum + (s.weight_kg * s.reps), 0);
   const displayVolume = weightUnit === 'lbs' ? totalVolume * 2.20462 : totalVolume;
 
-  // Fetch PR and comparison data (only runs in 'saved' phase after events are written)
+  // Fetch PR and comparison data — enabled immediately so data is ready by save time
   const { prs, comparison, isLoading: summaryLoading } = useWorkoutSummary(
-    phase === 'saved' ? session.workout_id : '',
+    session.sets,
     session.template_id,
-    totalVolume
+    totalVolume,
+    true
   );
 
   // Find exercises with no logged sets
