@@ -36,12 +36,13 @@ export function useWorkoutSummary(
     }
 
     let mounted = true;
+    setIsLoading(true);
 
     async function fetchSummaryData() {
       const db = getDuckDB();
       if (!db) {
         console.error('DuckDB not initialized');
-        setIsLoading(false);
+        if (mounted) setIsLoading(false);
         return;
       }
 
@@ -56,7 +57,7 @@ export function useWorkoutSummary(
               CAST(payload->>'weight_kg' AS DOUBLE) as weight_kg,
               CAST(payload->>'reps' AS INTEGER) as reps,
               CAST(payload->>'weight_kg' AS DOUBLE) * (1 + CAST(payload->>'reps' AS INTEGER) / 30.0) as estimated_1rm,
-              ROW_NUMBER() OVER (ORDER BY _created_at) as rowid
+              ROW_NUMBER() OVER (ORDER BY _created_at, _event_id) as rowid
             FROM events
             WHERE event_type = 'set_logged'
           ),
@@ -76,7 +77,11 @@ export function useWorkoutSummary(
         `;
 
         const prResult = await conn.query(prQuery);
-        const prRows = prResult.toArray().map(row => ({ ...row }));
+        const prRows = prResult.toArray().map((row: any) => ({
+          exercise_id: String(row.exercise_id),
+          weight_prs: Number(row.weight_prs),
+          estimated_1rm_prs: Number(row.estimated_1rm_prs),
+        }));
 
         // Get exercise names
         const exerciseNameQuery = `
@@ -88,17 +93,17 @@ export function useWorkoutSummary(
         `;
 
         const exerciseNameResult = await conn.query(exerciseNameQuery);
-        const exerciseNames = exerciseNameResult.toArray().reduce((map, row) => {
-          map[row.exercise_id as string] = row.name as string;
+        const exerciseNames = exerciseNameResult.toArray().reduce((map: Record<string, string>, row: any) => {
+          map[String(row.exercise_id)] = String(row.name);
           return map;
         }, {} as Record<string, string>);
 
         // Combine PR data with exercise names
         const prData: ExercisePR[] = prRows.map(row => ({
-          exercise_id: row.exercise_id as string,
-          exercise_name: exerciseNames[row.exercise_id as string] || 'Unknown',
-          weight_prs: Number(row.weight_prs),
-          estimated_1rm_prs: Number(row.estimated_1rm_prs),
+          exercise_id: row.exercise_id,
+          exercise_name: exerciseNames[row.exercise_id] || 'Unknown',
+          weight_prs: row.weight_prs,
+          estimated_1rm_prs: row.estimated_1rm_prs,
         }));
 
         // Session Comparison Query
@@ -127,13 +132,14 @@ export function useWorkoutSummary(
         `;
 
         const comparisonResult = await conn.query(comparisonQuery);
-        const comparisonRows = comparisonResult.toArray().map(row => ({ ...row }));
+        const comparisonRows = comparisonResult.toArray();
 
         let comparisonData: SessionComparison | null = null;
         if (comparisonRows.length > 0) {
-          const lastVolumeKg = Number(comparisonRows[0].last_volume_kg);
+          const row: any = comparisonRows[0];
+          const lastVolumeKg = Number(row.last_volume_kg);
           comparisonData = {
-            last_date: new Date(comparisonRows[0].last_date as Date).toISOString(),
+            last_date: new Date(row.last_date).toISOString(),
             last_volume_kg: lastVolumeKg,
             volume_delta_kg: currentVolumeKg - lastVolumeKg,
           };

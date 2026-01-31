@@ -115,8 +115,8 @@ export function WorkoutComplete({
   const durationMs = Date.now() - new Date(session.started_at).getTime();
   const durationMins = Math.floor(durationMs / 60000);
 
-  // Review phase: pre-save with warnings and save button
-  if (phase === 'review') {
+  // Review/saving phase: pre-save with warnings and save button
+  if (phase === 'review' || phase === 'saving') {
     return (
       <div className="space-y-6">
         <div className="text-center">
