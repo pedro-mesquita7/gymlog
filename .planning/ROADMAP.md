@@ -99,7 +99,15 @@ Plans:
   3. E2E test starts a workout via Quick Start, completes it, and verifies rotation advances to next template
   4. E2E test imports demo data and verifies charts populate, then clears data and verifies empty state
   5. E2E test exports data as Parquet, re-imports from that file, and verifies data matches
-**Plans**: TBD
+**Plans**: 7 plans
+Plans:
+- [ ] 13-01-PLAN.md -- Test infrastructure: data-testid attributes, fixtures, helpers, config
+- [ ] 13-02-PLAN.md -- TEST-01: Plan CRUD with exercise history preservation
+- [ ] 13-03-PLAN.md -- TEST-02: Batch logging edge cases (empty sets, max values, ghost text)
+- [ ] 13-04-PLAN.md -- TEST-03: Quick Start and workout rotation advancement
+- [ ] 13-05-PLAN.md -- TEST-04: Demo data import and clear
+- [ ] 13-06-PLAN.md -- TEST-05: Parquet export/import round-trip
+- [ ] 13-07-PLAN.md -- CI integration and full suite verification
 
 #### Phase 14: Workouts UX & Color Scheme
 **Goal**: Users experience a visually cohesive app where starting a workout takes one tap and every screen feels intentionally designed
@@ -162,7 +170,7 @@ Plans:
 | 10. Workout Features & Demo Data | v1.2 | 4/4 | Complete | 2026-01-31 |
 | 11. CI/CD & Portfolio | v1.2 | 7/7 | Complete | 2026-01-31 |
 | 12. Bug Fix & Security Hardening | v1.3 | 4/4 | Complete | 2026-01-31 |
-| 13. E2E Test Suite | v1.3 | 0/TBD | Not started | - |
+| 13. E2E Test Suite | v1.3 | 0/7 | Not started | - |
 | 14. Workouts UX & Color Scheme | v1.3 | 0/TBD | Not started | - |
 | 15. Analytics Redesign | v1.3 | 0/TBD | Not started | - |
 | 16. Demo Data UX & TOON Export | v1.3 | 0/TBD | Not started | - |
@@ -170,4 +178,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-31 -- Phase 12 complete (4/4 plans, all verified)*
+*Last updated: 2026-01-31 -- Phase 13 planned (7 plans in 3 waves)*
