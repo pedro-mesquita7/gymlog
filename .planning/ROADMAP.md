@@ -124,7 +124,7 @@ Plans:
 | 5. Analytics Foundation | v1.1 | 7/7 | Complete | 2026-01-30 |
 | 6. Volume Analytics | v1.1 | 5/5 | Complete | 2026-01-30 |
 | 7. Progression Intelligence | v1.1 | 3/3 | Complete | 2026-01-30 |
-| 8. Testing & Design Foundation | v1.2 | 0/7 | In Progress | — |
+| 8. Testing & Design Foundation | v1.2 | 7/7 | Complete | 2026-01-31 |
 | 9. Batch Logging & Visual Polish | v1.2 | 0/? | Pending | — |
 | 10. Workout Features & Demo Data | v1.2 | 0/? | Pending | — |
 | 11. CI/CD & Portfolio | v1.2 | 0/? | Pending | — |
