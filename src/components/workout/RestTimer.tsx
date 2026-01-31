@@ -5,48 +5,60 @@ import { useWorkoutStore } from '../../stores/useWorkoutStore';
 
 interface RestTimerProps {
   restSeconds?: number | null;  // Override from template exercise
+  autoStartTrigger: number;      // Increment to trigger auto-start
   onComplete?: () => void;
 }
 
-export function RestTimer({ restSeconds, onComplete }: RestTimerProps) {
+export function RestTimer({ restSeconds, autoStartTrigger, onComplete }: RestTimerProps) {
   const defaultRestSeconds = useWorkoutStore(state => state.defaultRestSeconds);
-  const [showTimer, setShowTimer] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [hasNotified, setHasNotified] = useState(false);
+  const [showCompleteMessage, setShowCompleteMessage] = useState(false);
 
   const targetSeconds = restSeconds ?? defaultRestSeconds;
   const { seconds, isRunning, start, pause, resume, extend, skip } = useRestTimer(targetSeconds);
   const { play } = useAudioNotification();
   const { vibrate } = useVibration();
 
+  // Auto-start timer when trigger increments
+  useEffect(() => {
+    if (autoStartTrigger > 0) {
+      setIsActive(true);
+      setHasNotified(false);
+      setShowCompleteMessage(false);
+      start(targetSeconds);
+    }
+  }, [autoStartTrigger, targetSeconds, start]);
+
   // Notify when timer reaches 0
   useEffect(() => {
-    if (seconds === 0 && !hasNotified && showTimer) {
+    if (seconds === 0 && !hasNotified && isActive) {
       play();
       vibrate([200, 100, 200, 100, 200]);  // Triple vibration pattern
       setHasNotified(true);
+      setShowCompleteMessage(true);
       onComplete?.();
-    }
-  }, [seconds, hasNotified, showTimer, play, vibrate, onComplete]);
 
-  const handleStart = () => {
-    setShowTimer(true);
-    setHasNotified(false);
-    start(targetSeconds);
-  };
+      // Auto-hide "Rest Complete!" message after 3 seconds
+      const timeout = setTimeout(() => {
+        setShowCompleteMessage(false);
+        setIsActive(false);
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [seconds, hasNotified, isActive, play, vibrate, onComplete]);
 
   const handleExtend = (additionalSeconds: number) => {
     extend(additionalSeconds);
     setHasNotified(false);
+    setShowCompleteMessage(false);
   };
 
   const handleSkip = () => {
     skip();
-    setShowTimer(false);
-  };
-
-  const handleDismiss = () => {
-    setShowTimer(false);
-    setHasNotified(false);
+    setIsActive(false);
+    setShowCompleteMessage(false);
   };
 
   // Format seconds as M:SS
@@ -56,26 +68,19 @@ export function RestTimer({ restSeconds, onComplete }: RestTimerProps) {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Not started yet - show start button
-  if (!showTimer) {
-    return (
-      <button
-        onClick={handleStart}
-        className="w-full py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-zinc-400 transition-colors"
-      >
-        Start Rest ({formatTime(targetSeconds)})
-      </button>
-    );
+  // Not active - render nothing
+  if (!isActive) {
+    return null;
   }
 
-  // Timer complete
-  if (seconds === 0) {
+  // Timer complete - show message briefly
+  if (showCompleteMessage) {
     return (
-      <div className="bg-green-600/20 border border-green-600 rounded-lg p-4 text-center">
-        <div className="text-green-400 font-bold mb-2">Rest Complete!</div>
+      <div className="sticky top-0 z-10 bg-green-600 text-white px-4 py-3 rounded-b-lg flex items-center justify-between">
+        <span className="font-bold">Rest Complete!</span>
         <button
-          onClick={handleDismiss}
-          className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-sm transition-colors"
+          onClick={handleSkip}
+          className="text-white/80 hover:text-white text-sm"
         >
           Dismiss
         </button>
@@ -83,47 +88,38 @@ export function RestTimer({ restSeconds, onComplete }: RestTimerProps) {
     );
   }
 
-  // Timer running
+  // Timer running - persistent banner
   return (
-    <div className="bg-zinc-800 rounded-lg p-4">
-      {/* Timer display */}
-      <div className="text-center mb-4">
-        <div className="text-4xl font-mono font-bold">{formatTime(seconds)}</div>
-        <div className="text-sm text-zinc-500 mt-1">Rest Time</div>
+    <div className="sticky top-0 z-10 bg-accent text-black px-4 py-3 rounded-b-lg flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <span className="font-mono font-bold text-lg">{formatTime(seconds)}</span>
+        <span className="text-sm opacity-80">Rest Time</span>
       </div>
-
-      {/* Controls */}
       <div className="flex gap-2">
         {isRunning ? (
           <button
             onClick={pause}
-            className="flex-1 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm transition-colors"
+            className="px-3 py-1 bg-black/10 hover:bg-black/20 rounded text-sm transition-colors"
           >
             Pause
           </button>
         ) : (
           <button
             onClick={resume}
-            className="flex-1 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm transition-colors"
+            className="px-3 py-1 bg-black/10 hover:bg-black/20 rounded text-sm transition-colors"
           >
             Resume
           </button>
         )}
         <button
           onClick={() => handleExtend(30)}
-          className="flex-1 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm transition-colors"
+          className="px-3 py-1 bg-black/10 hover:bg-black/20 rounded text-sm transition-colors"
         >
           +30s
         </button>
         <button
-          onClick={() => handleExtend(60)}
-          className="flex-1 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm transition-colors"
-        >
-          +1m
-        </button>
-        <button
           onClick={handleSkip}
-          className="flex-1 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm text-zinc-400 transition-colors"
+          className="px-3 py-1 bg-black/10 hover:bg-black/20 rounded text-sm transition-colors"
         >
           Skip
         </button>

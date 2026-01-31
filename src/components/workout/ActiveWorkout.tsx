@@ -3,7 +3,9 @@ import { useSwipeable } from 'react-swipeable';
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { ExerciseView } from './ExerciseView';
 import { WorkoutComplete } from './WorkoutComplete';
-import { DeleteConfirmation } from '../DeleteConfirmation';
+import { RestTimer } from './RestTimer';
+import { Dialog } from '../ui/Dialog';
+import { Button } from '../ui/Button';
 import type { Template } from '../../types/template';
 import type { Exercise } from '../../types/database';
 
@@ -21,8 +23,9 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
   const completeWorkout = useWorkoutStore(state => state.completeWorkout);
   const cancelWorkout = useWorkoutStore(state => state.cancelWorkout);
 
-  const [view, setView] = useState<'workout' | 'complete'>('workout');
-  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [showCompleteDialog, setShowCompleteDialog] = useState(false);
+  const [showCancelDialog, setShowCancelDialog] = useState(false);
+  const [restTimerTrigger, setRestTimerTrigger] = useState(0);
 
   const templateExercises = template.exercises;
   const totalExercises = templateExercises.length;
@@ -39,6 +42,24 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
     }
   };
 
+  const handleSetComplete = () => {
+    // Trigger rest timer by incrementing counter
+    setRestTimerTrigger(prev => prev + 1);
+  };
+
+  const handleFinishWorkout = () => {
+    setShowCompleteDialog(true);
+  };
+
+  const handleCancelWorkout = () => {
+    setShowCancelDialog(true);
+  };
+
+  const confirmCancelWorkout = () => {
+    cancelWorkout();
+    onCancel();
+  };
+
   // Swipe handlers
   const swipeHandlers = useSwipeable({
     onSwipedLeft: goToNext,
@@ -48,22 +69,6 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
   });
 
   if (!session) return null;
-
-  // Show complete view
-  if (view === 'complete') {
-    return (
-      <WorkoutComplete
-        session={session}
-        template={template}
-        exercises={exercises}
-        onSaved={() => {
-          completeWorkout();
-          onFinish();
-        }}
-        onCancel={() => setView('workout')}
-      />
-    );
-  }
 
   // Main workout view
   const currentTemplateExercise = templateExercises[currentIndex];
@@ -75,8 +80,21 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
     ? { exercise_id: actualExerciseId, name: session.customExercises[actualExerciseId], muscle_group: '', is_global: true }
     : exercises.find(e => e.exercise_id === actualExerciseId);
 
+  // Calculate workout stats for completion dialog
+  const totalSets = session.sets.length;
+
+  // Check for partial sets (weight but no reps, or vice versa)
+  // Note: Sets in store are already complete, so this is for future enhancement
+  const partialSets: Array<{ exerciseName: string; issue: string }> = [];
+
   return (
     <div {...swipeHandlers} className="min-h-[60vh]">
+      {/* Rest timer banner - sticky at top */}
+      <RestTimer
+        restSeconds={currentTemplateExercise.rest_seconds}
+        autoStartTrigger={restTimerTrigger}
+      />
+
       {/* Workout header */}
       <div className="flex items-center justify-between mb-6">
         <div>
@@ -98,35 +116,78 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
         totalExercises={totalExercises}
         onPrev={goToPrev}
         onNext={goToNext}
+        onSetComplete={handleSetComplete}
       />
 
       {/* Finish/Cancel buttons */}
       <div className="flex gap-3 mt-8 pt-6 border-t border-zinc-800">
-        <button
-          onClick={() => setShowCancelConfirm(true)}
-          className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 rounded-lg transition-colors"
+        <Button
+          variant="secondary"
+          size="md"
+          onClick={handleCancelWorkout}
+          className="flex-1"
         >
           Cancel
-        </button>
-        <button
-          onClick={() => setView('complete')}
-          className="flex-1 py-3 bg-green-600 hover:bg-green-500 font-medium rounded-lg transition-colors"
+        </Button>
+        <Button
+          variant="primary"
+          size="md"
+          onClick={handleFinishWorkout}
+          className="flex-1 bg-green-600 hover:bg-green-500"
         >
           Finish Workout
-        </button>
+        </Button>
       </div>
 
-      {/* Cancel confirmation - uses isOpen prop to control visibility */}
-      <DeleteConfirmation
-        isOpen={showCancelConfirm}
+      {/* Completion dialog */}
+      <Dialog
+        isOpen={showCompleteDialog}
+        onClose={() => setShowCompleteDialog(false)}
+        title="Workout Complete"
+      >
+        <WorkoutComplete
+          session={session}
+          template={template}
+          exercises={exercises}
+          partialSets={partialSets}
+          onSaved={() => {
+            completeWorkout();
+            onFinish();
+          }}
+          onCancel={() => setShowCompleteDialog(false)}
+        />
+      </Dialog>
+
+      {/* Cancel confirmation dialog */}
+      <Dialog
+        isOpen={showCancelDialog}
+        onClose={() => setShowCancelDialog(false)}
         title="Cancel Workout?"
-        message={`This will discard your workout progress. ${session.sets.length} set${session.sets.length !== 1 ? 's' : ''} will be lost.`}
-        onConfirm={() => {
-          cancelWorkout();
-          onCancel();
-        }}
-        onCancel={() => setShowCancelConfirm(false)}
-      />
+      >
+        <div className="space-y-4">
+          <p className="text-zinc-300">
+            This will discard your workout progress. {totalSets} set{totalSets !== 1 ? 's' : ''} will be lost.
+          </p>
+          <div className="flex gap-3">
+            <Button
+              variant="secondary"
+              size="md"
+              onClick={() => setShowCancelDialog(false)}
+              className="flex-1"
+            >
+              Go Back
+            </Button>
+            <Button
+              variant="danger"
+              size="md"
+              onClick={confirmCancelWorkout}
+              className="flex-1"
+            >
+              Cancel Workout
+            </Button>
+          </div>
+        </div>
+      </Dialog>
     </div>
   );
 }

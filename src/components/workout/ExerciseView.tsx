@@ -64,8 +64,8 @@ export function ExerciseView({
 
   const exerciseName = exercise?.name ?? 'Unknown Exercise';
 
-  // Determine template set count (use sets count from template, default to 3)
-  const templateSetCount = templateExercise.sets?.length ?? 3;
+  // Determine template set count (use suggested_sets from template, default to 3)
+  const templateSetCount = templateExercise.suggested_sets ?? 3;
 
   return (
     <div className="space-y-6">

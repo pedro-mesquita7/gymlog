@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { writeEvent } from '../../db/events';
 import { useBackupStore } from '../../stores/useBackupStore';
+import { Button } from '../ui/Button';
 import type { WorkoutSession } from '../../types/workout-session';
 import type { Template } from '../../types/template';
 import type { Exercise } from '../../types/database';
@@ -16,9 +17,17 @@ interface WorkoutCompleteProps {
   exercises: Exercise[];
   onSaved: () => void;
   onCancel: () => void;
+  partialSets?: Array<{ exerciseName: string; issue: string }>;  // Warning for partial sets
 }
 
-export function WorkoutComplete({ session, template, exercises, onSaved, onCancel }: WorkoutCompleteProps) {
+export function WorkoutComplete({
+  session,
+  template,
+  exercises,
+  onSaved,
+  onCancel,
+  partialSets = []
+}: WorkoutCompleteProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const incrementWorkoutCount = useBackupStore((state) => state.incrementWorkoutCount);
@@ -115,6 +124,23 @@ export function WorkoutComplete({ session, template, exercises, onSaved, onCance
         Total volume: <span className="text-zinc-300 font-medium">{totalVolume.toLocaleString()} kg</span>
       </div>
 
+      {/* Warning for partial sets (incomplete data) */}
+      {partialSets.length > 0 && (
+        <div className="bg-yellow-600/10 border border-yellow-600/30 rounded-lg p-4">
+          <div className="text-yellow-500 font-medium mb-2">
+            Incomplete sets detected:
+          </div>
+          <ul className="text-sm text-zinc-400">
+            {partialSets.map((ps, i) => (
+              <li key={i}>• {ps.exerciseName}: {ps.issue}</li>
+            ))}
+          </ul>
+          <p className="text-sm text-zinc-500 mt-2">
+            Partial sets will be discarded. Go back to complete them.
+          </p>
+        </div>
+      )}
+
       {/* Warning for incomplete exercises */}
       {incompleteExercises.length > 0 && (
         <div className="bg-yellow-600/10 border border-yellow-600/30 rounded-lg p-4">
@@ -138,20 +164,24 @@ export function WorkoutComplete({ session, template, exercises, onSaved, onCance
 
       {/* Action buttons */}
       <div className="flex gap-3 pt-4">
-        <button
+        <Button
+          variant="secondary"
+          size="md"
           onClick={onCancel}
           disabled={isSaving}
-          className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors disabled:opacity-50"
+          className="flex-1"
         >
           Go Back
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="primary"
+          size="md"
           onClick={handleSave}
           disabled={isSaving || totalSets === 0}
-          className="flex-1 py-3 bg-green-600 hover:bg-green-500 font-medium rounded-lg transition-colors disabled:opacity-50"
+          className="flex-1 bg-green-600 hover:bg-green-500"
         >
           {isSaving ? 'Saving...' : 'Save Workout'}
-        </button>
+        </Button>
       </div>
 
       {totalSets === 0 && (
