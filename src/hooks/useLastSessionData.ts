@@ -48,13 +48,34 @@ export function useLastSessionData(
 
         // Fetch sets from the last TWO workout sessions for this exercise+gym
         // session_rank 1 = most recent (ghost text), session_rank 2 = second-to-last (delta comparison)
+        // Uses CTEs to derive fact_sets and dim_workouts from the raw events table.
         const sql = `
-          WITH ranked_workouts AS (
+          WITH set_events AS (
+            SELECT
+              payload->>'set_id' AS set_id,
+              payload->>'workout_id' AS workout_id,
+              payload->>'exercise_id' AS exercise_id,
+              payload->>'original_exercise_id' AS original_exercise_id,
+              CAST(payload->>'weight_kg' AS DOUBLE) AS weight_kg,
+              CAST(payload->>'reps' AS INTEGER) AS reps,
+              CASE WHEN payload->>'rir' = 'null' THEN NULL ELSE CAST(payload->>'rir' AS INTEGER) END AS rir,
+              COALESCE(payload->>'logged_at', CAST(_created_at AS VARCHAR)) AS logged_at
+            FROM events
+            WHERE event_type = 'set_logged'
+          ),
+          workout_events AS (
+            SELECT
+              payload->>'workout_id' AS workout_id,
+              payload->>'gym_id' AS gym_id
+            FROM events
+            WHERE event_type = 'workout_started'
+          ),
+          ranked_workouts AS (
             SELECT DISTINCT w.workout_id,
               MAX(s.logged_at) as last_set_at
-            FROM fact_sets s
-            JOIN dim_workouts w ON s.workout_id = w.workout_id
-            WHERE s.exercise_id = '${exerciseId}'
+            FROM set_events s
+            JOIN workout_events w ON s.workout_id = w.workout_id
+            WHERE s.original_exercise_id = '${exerciseId}'
               AND w.gym_id = '${gymId}'
             GROUP BY w.workout_id
             ORDER BY last_set_at DESC
@@ -66,13 +87,13 @@ export function useLastSessionData(
             s.weight_kg,
             s.reps,
             s.rir
-          FROM fact_sets s
+          FROM set_events s
           JOIN (
             SELECT workout_id,
               ROW_NUMBER() OVER (ORDER BY last_set_at DESC) as session_rank
             FROM ranked_workouts
           ) rw ON s.workout_id = rw.workout_id
-          WHERE s.exercise_id = '${exerciseId}'
+          WHERE s.original_exercise_id = '${exerciseId}'
           ORDER BY rw.session_rank ASC, s.logged_at ASC
         `;
 
