@@ -118,7 +118,11 @@ v1.2 Phase 8 (Testing & Design) decisions:
 - Remove debug console.log statements from production hooks
 - Add accessibility labels to form controls for screen reader support
 - Form labels must use htmlFor attribute to associate with input IDs
-- 61 tests passing, 56% coverage average for tested hooks/stores
+- Integration tests with @testing-library/react and user-event for component testing
+- Use getByRole queries for better accessibility and test resilience
+- Mock Zustand stores via vi.mock with selector pattern for component isolation
+- E2E tests with Playwright (aspirational in WSL, will run in CI/CD)
+- 71 tests passing across unit, integration, and E2E tests
 
 ### Pending Todos
 
