@@ -6,16 +6,16 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 
 **Core value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
-**Current focus:** v1.2 UX & Portfolio Polish — Phase 8 complete, ready for Phase 9
+**Current focus:** v1.2 UX & Portfolio Polish — Phase 9 gaps closed, ready for Phase 10
 
 ## Current Position
 
 Phase: 9 - Batch Logging & Visual Polish
-Plan: 4 of ? complete (09-04)
-Status: Gaps identified - needs closure
-Last activity: 2026-01-31 — Completed 09-04-PLAN.md (Build Verification - Semi-approved)
+Plan: 5 of 5 complete (09-05)
+Status: Phase complete
+Last activity: 2026-01-31 — Completed 09-05-PLAN.md (Gap Closure)
 
-Progress: [████] 4/? plans (Phase 9)
+Progress: [█████] 5/5 plans (Phase 9)
 
 ## Milestones
 
@@ -28,11 +28,11 @@ Progress: [████] 4/? plans (Phase 9)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 53 (27 v1.0 + 15 v1.1 + 11 v1.2)
+- Total plans completed: 54 (27 v1.0 + 15 v1.1 + 12 v1.2)
 - Average duration (v1.2 Phase 8): 6min 30s
 - Total execution time (v1.2 Phase 8): 45min 30s
-- Average duration (v1.2 Phase 9): 7min 47s
-- Total execution time (v1.2 Phase 9): 31min 6s
+- Average duration (v1.2 Phase 9): 7min 25s
+- Total execution time (v1.2 Phase 9): 37min 6s
 
 **By Phase (v1.0):**
 
@@ -56,7 +56,7 @@ Progress: [████] 4/? plans (Phase 9)
 | Phase | Plans | Status |
 |-------|-------|--------|
 | 8. Testing & Design Foundation | 7/7 | Complete |
-| 9. Batch Logging & Visual Polish | 4/? | Gaps identified |
+| 9. Batch Logging & Visual Polish | 5/5 | Complete |
 | 10. Workout Features & Demo Data | 0/? | Pending |
 | 11. CI/CD & Portfolio | 0/? | Pending |
 
@@ -139,6 +139,10 @@ v1.2 Phase 9 (Batch Logging & Visual Polish) decisions:
 - 150ms fade+shift page transitions with prefers-reduced-motion support
 - Design token migration: zinc-500→text-muted, zinc-800→bg-tertiary, semantic tokens for warning/success/error
 - Human verification (09-04) identified 2 gaps: ghost text placeholders not displaying, Settings missing unit/timer/sound toggles
+- localStorage instead of sessionStorage for workout persistence (prevents data loss on tab close)
+- Weight stored internally as kg; lbs is display-only conversion
+- Single ranked CTE SQL query fetches last two sessions for delta comparison
+- Segmented button pattern for Settings toggles (bg-accent text-black active state)
 
 ### Pending Todos
 
@@ -146,16 +150,12 @@ None.
 
 ### Blockers/Concerns
 
-**Phase 9 Gap Closure Required (from 09-04 verification):**
-1. Ghost text placeholders not displaying in SetRow inputs (implementation gap)
-2. Settings page missing unit toggle (kg/lbs), default rest timer duration, sound notifications
-
-Build/tests/types all green - gaps are isolated feature additions.
+None. Phase 9 gaps closed, all features verified.
 
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 09-04-PLAN.md (Build Verification - Semi-approved with gaps)
+Stopped at: Completed 09-05-PLAN.md (Gap Closure - Phase 9 complete)
 Resume file: None
 
-**Next action:** Create gap closure plan (09-05) to fix ghost text display and add Settings customization options before proceeding to Phase 10.
+**Next action:** Proceed to Phase 10 (Workout Features & Demo Data).
