@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
+import { useRotationStore, selectNextTemplate } from '../../stores/useRotationStore';
 import type { Template } from '../../types/template';
 import type { Gym } from '../../types/database';
 import { Button } from '../ui/Button';
 import { Select } from '../ui/Input';
+import { QuickStartCard } from '../rotation/QuickStartCard';
 
 interface StartWorkoutProps {
   templates: Template[];
@@ -12,8 +14,13 @@ interface StartWorkoutProps {
 }
 
 export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) {
-  const [selectedGymId, setSelectedGymId] = useState<string>('');
-  const [selectedTemplateId, setSelectedTemplateId] = useState<string>('');
+  // Read rotation state for pre-fill
+  const defaultGymId = useRotationStore(state => state.defaultGymId);
+  const nextTemplate = useRotationStore(selectNextTemplate);
+
+  // Pre-fill from rotation if available
+  const [selectedGymId, setSelectedGymId] = useState<string>(() => defaultGymId || '');
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>(() => nextTemplate?.templateId || '');
   const startWorkout = useWorkoutStore(state => state.startWorkout);
 
   // Filter to only active (non-archived) templates
@@ -25,10 +32,24 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
     onStarted();
   };
 
+  // Quick-start handler for rotation card
+  const handleQuickStart = (templateId: string, gymId: string) => {
+    startWorkout(templateId, gymId);
+    onStarted();
+  };
+
   const canStart = selectedGymId && selectedTemplateId;
 
   return (
     <div className="space-y-6">
+      {/* Quick-start card from rotation */}
+      <QuickStartCard templates={templates} gyms={gyms} onStart={handleQuickStart} />
+
+      {/* Divider */}
+      <div className="relative">
+        <div className="text-center text-sm text-text-muted py-2">or choose manually</div>
+      </div>
+
       <div className="text-center py-8">
         <h2 className="text-2xl font-bold mb-2">Start Workout</h2>
         <p className="text-zinc-500">Select gym and template to begin</p>
