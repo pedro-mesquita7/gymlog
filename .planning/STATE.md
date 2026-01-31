@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 10 - Workout Features & Demo Data
-Plan: 3 of ? complete (10-03)
+Plan: 4 of ? complete (10-04)
 Status: In progress
-Last activity: 2026-01-31 — Completed 10-03-PLAN.md (Enhanced WorkoutComplete with PRs & Comparison)
+Last activity: 2026-01-31 — Completed 10-04-PLAN.md (Demo Data Generation + Clear All Data)
 
-Progress: [███] 3/? plans (Phase 10)
+Progress: [████] 4/? plans (Phase 10)
 
 ## Milestones
 
@@ -28,13 +28,13 @@ Progress: [███] 3/? plans (Phase 10)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 57 (27 v1.0 + 15 v1.1 + 15 v1.2)
+- Total plans completed: 58 (27 v1.0 + 15 v1.1 + 16 v1.2)
 - Average duration (v1.2 Phase 8): 6min 30s
 - Total execution time (v1.2 Phase 8): 45min 30s
 - Average duration (v1.2 Phase 9): 7min 25s
 - Total execution time (v1.2 Phase 9): 37min 6s
-- Average duration (v1.2 Phase 10): 3min 0s
-- Total execution time (v1.2 Phase 10): 9min 1s
+- Average duration (v1.2 Phase 10): 4min 1s
+- Total execution time (v1.2 Phase 10): 16min 7s
 
 **By Phase (v1.0):**
 
@@ -59,7 +59,7 @@ Progress: [███] 3/? plans (Phase 10)
 |-------|-------|--------|
 | 8. Testing & Design Foundation | 7/7 | Complete |
 | 9. Batch Logging & Visual Polish | 5/5 | Complete |
-| 10. Workout Features & Demo Data | 3/? | In Progress |
+| 10. Workout Features & Demo Data | 4/? | In Progress |
 | 11. CI/CD & Portfolio | 0/? | Pending |
 
 ## Accumulated Context
@@ -161,6 +161,9 @@ v1.2 Phase 10 (Workout Features & Demo Data) decisions:
 - useWorkoutSummary hook only runs in 'saved' phase after events written (avoids race conditions)
 - Rotation advances on save, not cancel (critical UX requirement)
 - Display both weight PRs and estimated 1RM PRs with separate gold badges
+- Direct SQL inserts for demo data (bypassing writeEvent) to set custom historical timestamps
+- Three-layer data clearing: DuckDB table drop, OPFS file removal, localStorage key removal
+- Demo rotation setup via direct localStorage write (position 2 for variety)
 
 ### Pending Todos
 
@@ -173,7 +176,7 @@ None. Phase 9 gaps closed, all features verified.
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 10-03-PLAN.md (Enhanced WorkoutComplete with PRs & Comparison)
+Stopped at: Completed 10-04-PLAN.md (Demo Data Generation + Clear All Data)
 Resume file: None
 
 **Next action:** Continue Phase 10 (next defined plan or phase complete).
