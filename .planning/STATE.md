@@ -10,12 +10,12 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 
 ## Current Position
 
-Phase: 10 - Workout Features & Demo Data
-Plan: 4 of 4 complete (10-04)
-Status: Phase complete
-Last activity: 2026-01-31 — Phase 10 verified (16/16 must-haves)
+Phase: 11 - CI/CD & Portfolio
+Plan: 1 of ? complete (11-01)
+Status: In progress
+Last activity: 2026-01-31 — Completed 11-01-PLAN.md (CI pipeline)
 
-Progress: [█████] 4/4 plans (Phase 10)
+Progress: [█] 1/? plans (Phase 11)
 
 ## Milestones
 
@@ -28,13 +28,15 @@ Progress: [█████] 4/4 plans (Phase 10)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 58 (27 v1.0 + 15 v1.1 + 16 v1.2) [note: counted after 10-04]
+- Total plans completed: 59 (27 v1.0 + 15 v1.1 + 17 v1.2)
 - Average duration (v1.2 Phase 8): 6min 30s
 - Total execution time (v1.2 Phase 8): 45min 30s
 - Average duration (v1.2 Phase 9): 7min 25s
 - Total execution time (v1.2 Phase 9): 37min 6s
 - Average duration (v1.2 Phase 10): 4min 1s
 - Total execution time (v1.2 Phase 10): 16min 7s
+- Average duration (v1.2 Phase 11): 1min 29s
+- Total execution time (v1.2 Phase 11): 1min 29s (1/? plans)
 
 **By Phase (v1.0):**
 
@@ -60,7 +62,7 @@ Progress: [█████] 4/4 plans (Phase 10)
 | 8. Testing & Design Foundation | 7/7 | Complete |
 | 9. Batch Logging & Visual Polish | 5/5 | Complete |
 | 10. Workout Features & Demo Data | 4/4 | Complete |
-| 11. CI/CD & Portfolio | 0/? | Pending |
+| 11. CI/CD & Portfolio | 1/? | In Progress |
 
 ## Accumulated Context
 
@@ -165,18 +167,27 @@ v1.2 Phase 10 (Workout Features & Demo Data) decisions:
 - Three-layer data clearing: DuckDB table drop, OPFS file removal, localStorage key removal
 - Demo rotation setup via direct localStorage write (position 2 for variety)
 
+v1.2 Phase 11 (CI/CD & Portfolio) decisions:
+- 4 parallel check jobs (lint, test-unit, test-e2e, dbt-check) gate deployment for fast failure attribution
+- PRs trigger checks only; push to main triggers checks + GitHub Pages deployment
+- dbt compile validates SQL syntax and DAG integrity in CI (no data needed)
+- Python 3.11 pinned for dbt-duckdb CI stability
+- Playwright report uploaded as artifact with 7-day retention
+- Build-deploy job uses VITE_BASE env var for subpath deployment (to be configured in 11-02)
+- COI serviceworker copy included in workflow (file will be added in 11-02)
+
 ### Pending Todos
 
 None.
 
 ### Blockers/Concerns
 
-None. Phase 10 verified (16/16 must-haves, all 5 success criteria met).
+None. Phase 11 Plan 01 complete. CI pipeline ready for next plan's deployment configuration.
 
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Phase 10 complete (verified)
+Stopped at: Completed 11-01-PLAN.md (CI pipeline)
 Resume file: None
 
-**Next action:** Proceed to Phase 11 (CI/CD & Portfolio).
+**Next action:** Proceed to 11-02 (deployment configuration and serviceworker).
