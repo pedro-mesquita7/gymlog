@@ -8,6 +8,7 @@ import { Input } from '../ui/Input';
 import { RotationSection } from '../settings/RotationSection';
 import { DemoDataSection } from '../settings/DemoDataSection';
 import { ObservabilitySection } from '../settings/ObservabilitySection';
+import { DataQualitySection } from '../settings/DataQualitySection';
 
 export function BackupSettings() {
   const { exportBackup, isExporting, error: exportError } = useBackupExport();
@@ -195,6 +196,11 @@ export function BackupSettings() {
 
       {/* System Observability */}
       <ObservabilitySection />
+
+      <hr className="border-border-primary" />
+
+      {/* Data Quality */}
+      <DataQualitySection />
     </div>
   );
 }
