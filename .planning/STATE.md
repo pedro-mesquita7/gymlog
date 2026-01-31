@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 8 - Testing & Design Foundation
-Plan: 08-01 through 08-07 planned
-Status: Phase 8 planned, ready for execution
-Last activity: 2026-01-31 — Phase 8 planned (7 plans)
+Plan: 08-02 of 7 complete
+Status: Phase 8 in progress
+Last activity: 2026-01-31 — Completed 08-02-PLAN.md (Design Token System & Geist Fonts)
 
-Progress: [░░░░░░░░░░░░░░░░░░░░░░░░] 0/4 phases (v1.2)
+Progress: [░░░░░░░░░░░░░░░░░░░░░░░░] 2/7 plans (Phase 8)
 
 ## Milestones
 
@@ -53,7 +53,7 @@ Progress: [░░░░░░░░░░░░░░░░░░░░░░░
 
 | Phase | Plans | Status |
 |-------|-------|--------|
-| 8. Testing & Design Foundation | 0/7 | Planned |
+| 8. Testing & Design Foundation | 2/7 | In Progress |
 | 9. Batch Logging & Visual Polish | 0/? | Pending |
 | 10. Workout Features & Demo Data | 0/? | Pending |
 | 11. CI/CD & Portfolio | 0/? | Pending |
@@ -91,6 +91,15 @@ v1.2 roadmap decisions:
 - Batch logging highest UX impact, depends on design primitives
 - CI/CD and portfolio documentation last (documents completed work)
 
+v1.2 Phase 8 (Testing & Design) decisions:
+- Vitest + happy-dom for unit tests (fast, jsdom-compatible)
+- Playwright for e2e tests (industry standard, cross-browser)
+- Geist Sans + Geist Mono fonts (Vercel aesthetic, self-hosted)
+- OKLCH color space for accent/semantic colors (better vibrancy, perceptual uniformity)
+- Tailwind CSS 4 @theme directive for design tokens (systematic, maintainable)
+- Semantic color tokens (bg-primary/secondary, text-primary/secondary/muted)
+- Preserve legacy HSL variables for backward compatibility
+
 ### Pending Todos
 
 None.
@@ -102,7 +111,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Phase 8 planned
+Stopped at: Completed 08-02-PLAN.md (Design Token System & Geist Fonts)
 Resume file: None
 
-**Next action:** Run `/gsd:execute-phase 8` to execute Testing & Design Foundation.
+**Next action:** Continue with 08-03-PLAN.md (Button Primitives) or next plan in phase 8.
