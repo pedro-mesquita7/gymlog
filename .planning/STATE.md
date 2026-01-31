@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 11 - CI/CD & Portfolio
-Plan: 2 of ? complete (11-02)
+Plan: 4 of ? complete (11-04)
 Status: In progress
-Last activity: 2026-01-31 — Completed 11-02-PLAN.md (GitHub Pages config)
+Last activity: 2026-01-31 — Completed 11-04-PLAN.md (Observability Dashboard)
 
-Progress: [██] 2/? plans (Phase 11)
+Progress: [████] 4/? plans (Phase 11)
 
 ## Milestones
 
@@ -28,15 +28,15 @@ Progress: [██] 2/? plans (Phase 11)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 60 (27 v1.0 + 15 v1.1 + 18 v1.2)
+- Total plans completed: 62 (27 v1.0 + 15 v1.1 + 20 v1.2)
 - Average duration (v1.2 Phase 8): 6min 30s
 - Total execution time (v1.2 Phase 8): 45min 30s
 - Average duration (v1.2 Phase 9): 7min 25s
 - Total execution time (v1.2 Phase 9): 37min 6s
 - Average duration (v1.2 Phase 10): 4min 1s
 - Total execution time (v1.2 Phase 10): 16min 7s
-- Average duration (v1.2 Phase 11): 3min 45s
-- Total execution time (v1.2 Phase 11): 7min 29s (2/? plans)
+- Average duration (v1.2 Phase 11): 4min 49s
+- Total execution time (v1.2 Phase 11): 19min 17s (4/? plans)
 
 **By Phase (v1.0):**
 
@@ -62,7 +62,7 @@ Progress: [██] 2/? plans (Phase 11)
 | 8. Testing & Design Foundation | 7/7 | Complete |
 | 9. Batch Logging & Visual Polish | 5/5 | Complete |
 | 10. Workout Features & Demo Data | 4/4 | Complete |
-| 11. CI/CD & Portfolio | 2/? | In Progress |
+| 11. CI/CD & Portfolio | 4/? | In Progress |
 
 ## Accumulated Context
 
@@ -178,6 +178,9 @@ v1.2 Phase 11 (CI/CD & Portfolio) decisions:
 - VITE_BASE env var controls base path (default '/' for local, set to '/repo-name/' in CI)
 - coi-serviceworker loaded as first script in head (not bundled)
 - Updated app title from 'gymlog-temp' to 'GymLog' for portfolio polish
+- Storage API graceful fallback returns 0 for unsupported browsers (Firefox <51, Safari <10)
+- Single queryTimeMs metric for all DuckDB queries combined (sufficient for portfolio)
+- Two-column grid layout for event type breakdown (compact, scannable)
 
 ### Pending Todos
 
@@ -185,12 +188,12 @@ None.
 
 ### Blockers/Concerns
 
-None. Phase 11 Plan 02 complete. GitHub Pages deployment configured.
+None. Phase 11 Plan 04 complete. Observability dashboard added to Settings.
 
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 11-02-PLAN.md (GitHub Pages config)
+Stopped at: Completed 11-04-PLAN.md (Observability Dashboard)
 Resume file: None
 
 **Next action:** Proceed to next Phase 11 plan (if any).
