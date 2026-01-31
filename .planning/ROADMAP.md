@@ -53,6 +53,17 @@
 
 **Requirements**: TEST-01, TEST-02, TEST-03, TEST-04, UI-01, UI-02
 
+**Plans**: 7 plans
+
+Plans:
+- [ ] 08-01-PLAN.md — Testing infrastructure (Vitest, RTL, Playwright, DuckDB mock)
+- [ ] 08-02-PLAN.md — Design token system & Geist fonts
+- [ ] 08-03-PLAN.md — Error boundary system with inline error cards
+- [ ] 08-04-PLAN.md — UI primitive components (Button, Input, Card) + migration
+- [ ] 08-05-PLAN.md — Unit tests for critical hooks (useHistory, useWorkoutStore, useExerciseProgress)
+- [ ] 08-06-PLAN.md — Integration tests & E2E workout flow (Playwright)
+- [ ] 08-07-PLAN.md — Visual verification & cleanup
+
 **Success Criteria**:
 1. User sees graceful error UI with recovery options when database queries fail, instead of blank screen
 2. User sees consistent button and input styling in migrated components (StartWorkout, SetLogger, TemplateCard)
@@ -81,7 +92,7 @@
 **Requirements**: ROTN-01, ROTN-02, ROTN-03, ROTN-04, SUMM-01, SUMM-02, SUMM-03, PORT-01
 
 **Success Criteria**:
-1. User can define template sequence per gym (e.g., Upper A → Lower A → Upper B → Lower B) in settings
+1. User can define template sequence per gym (e.g., Upper A -> Lower A -> Upper B -> Lower B) in settings
 2. User sees pre-filled gym and next template from rotation when starting workout (editable before confirming)
 3. User rotation auto-advances to next template after completing each workout
 4. User sees summary screen after workout completion showing total volume, duration, sets, exercises, PRs, and comparison to last session
@@ -113,11 +124,11 @@
 | 5. Analytics Foundation | v1.1 | 7/7 | Complete | 2026-01-30 |
 | 6. Volume Analytics | v1.1 | 5/5 | Complete | 2026-01-30 |
 | 7. Progression Intelligence | v1.1 | 3/3 | Complete | 2026-01-30 |
-| 8. Testing & Design Foundation | v1.2 | 0/? | Pending | — |
+| 8. Testing & Design Foundation | v1.2 | 0/7 | In Progress | — |
 | 9. Batch Logging & Visual Polish | v1.2 | 0/? | Pending | — |
 | 10. Workout Features & Demo Data | v1.2 | 0/? | Pending | — |
 | 11. CI/CD & Portfolio | v1.2 | 0/? | Pending | — |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-30 — v1.2 roadmap created*
+*Last updated: 2026-01-31 — Phase 8 planned (7 plans)*
