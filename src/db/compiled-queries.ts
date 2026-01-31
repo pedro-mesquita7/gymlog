@@ -42,6 +42,42 @@ SELECT * FROM active_exercises
 ORDER BY name
 `;
 
+export const DIM_EXERCISE_ALL_SQL = `
+WITH all_exercise_events AS (
+    SELECT
+        _event_id,
+        _created_at,
+        event_type,
+        payload->>'exercise_id' AS exercise_id,
+        payload->>'name' AS name,
+        payload->>'muscle_group' AS muscle_group,
+        CAST(payload->>'is_global' AS BOOLEAN) AS is_global
+    FROM events
+    WHERE event_type IN ('exercise_created', 'exercise_updated', 'exercise_deleted')
+),
+
+deduplicated AS (
+    SELECT
+        *,
+        ROW_NUMBER() OVER (
+            PARTITION BY exercise_id
+            ORDER BY _created_at DESC
+        ) AS _rn
+    FROM all_exercise_events
+)
+
+SELECT
+    exercise_id,
+    name,
+    muscle_group,
+    is_global,
+    event_type,
+    _created_at AS last_updated_at
+FROM deduplicated
+WHERE _rn = 1
+ORDER BY name
+`;
+
 export const DIM_GYM_SQL = `
 WITH all_gym_events AS (
     SELECT
@@ -195,8 +231,8 @@ WITH workout_events AS (
     WHERE event_type = 'workout_started'
 ),
 
-exercise_dim AS (
-    ${DIM_EXERCISE_SQL}
+exercise_dim_all AS (
+    ${DIM_EXERCISE_ALL_SQL}
 ),
 
 recent_sets AS (
@@ -227,7 +263,7 @@ SELECT
         ELSE r.workout_gym_id = $1
     END AS matches_gym_context
 FROM recent_sets r
-JOIN exercise_dim e ON r.exercise_id = e.exercise_id
+JOIN exercise_dim_all e ON r.exercise_id = e.exercise_id
 WHERE r.original_exercise_id = $2
 ORDER BY r.logged_at DESC
 `;
@@ -282,8 +318,8 @@ WITH daily_aggregates AS (
     GROUP BY original_exercise_id, DATE_TRUNC('day', CAST(logged_at AS TIMESTAMPTZ))::DATE
 ),
 
-exercise_dim AS (
-    ${DIM_EXERCISE_SQL}
+exercise_dim_all AS (
+    ${DIM_EXERCISE_ALL_SQL}
 )
 
 SELECT
@@ -296,7 +332,7 @@ SELECT
     e.name AS exercise_name,
     e.muscle_group
 FROM daily_aggregates d
-INNER JOIN exercise_dim e ON d.exercise_id = e.exercise_id
+INNER JOIN exercise_dim_all e ON d.exercise_id = e.exercise_id
 WHERE d.exercise_id = $1
 ORDER BY d.date
 `;
@@ -329,8 +365,8 @@ with_comparison AS (
     FROM weekly_metrics
 ),
 
-exercise_dim AS (
-    ${DIM_EXERCISE_SQL}
+exercise_dim_all AS (
+    ${DIM_EXERCISE_ALL_SQL}
 )
 
 SELECT
@@ -355,7 +391,7 @@ SELECT
         ELSE NULL
     END AS volume_change_pct
 FROM with_comparison w
-INNER JOIN exercise_dim e ON w.exercise_id = e.exercise_id
+INNER JOIN exercise_dim_all e ON w.exercise_id = e.exercise_id
 ORDER BY week_start DESC, exercise_name
 `;
 
@@ -365,8 +401,8 @@ WITH fact_sets AS (
     ${FACT_SETS_SQL}
 ),
 
-exercise_dim AS (
-    ${DIM_EXERCISE_SQL}
+exercise_dim_all AS (
+    ${DIM_EXERCISE_ALL_SQL}
 ),
 
 weekly_volume AS (
@@ -375,7 +411,7 @@ weekly_volume AS (
         e.muscle_group,
         COUNT(*) AS set_count
     FROM fact_sets fs
-    INNER JOIN exercise_dim e ON fs.original_exercise_id = e.exercise_id
+    INNER JOIN exercise_dim_all e ON fs.original_exercise_id = e.exercise_id
     WHERE CAST(fs.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '28 days'
     GROUP BY
         DATE_TRUNC('week', CAST(fs.logged_at AS TIMESTAMPTZ))::DATE,
@@ -396,8 +432,8 @@ WITH fact_sets AS (
     ${FACT_SETS_SQL}
 ),
 
-exercise_dim AS (
-    ${DIM_EXERCISE_SQL}
+exercise_dim_all AS (
+    ${DIM_EXERCISE_ALL_SQL}
 )
 
 SELECT
@@ -406,7 +442,7 @@ SELECT
     MIN(fs.logged_at) AS first_logged_at,
     MAX(fs.logged_at) AS last_logged_at
 FROM fact_sets fs
-INNER JOIN exercise_dim e ON fs.original_exercise_id = e.exercise_id
+INNER JOIN exercise_dim_all e ON fs.original_exercise_id = e.exercise_id
 WHERE CAST(fs.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '28 days'
 GROUP BY e.muscle_group
 ORDER BY total_sets DESC
