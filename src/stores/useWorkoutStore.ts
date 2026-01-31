@@ -3,8 +3,8 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { uuidv7 } from 'uuidv7';
 import type { WorkoutSession, LoggedSet } from '../types/workout-session';
 
-// Global default rest time in seconds
-const DEFAULT_REST_SECONDS = 90;
+// Global default rest time in seconds (2 minutes)
+const DEFAULT_REST_SECONDS = 120;
 
 interface WorkoutState {
   // Session data (null when no active workout)
@@ -20,7 +20,14 @@ interface WorkoutState {
     originalExerciseId: string,
     data: { weight_kg: number; reps: number; rir: number | null }
   ) => void;
+  updateSet: (
+    exerciseId: string,
+    originalExerciseId: string,
+    index: number,
+    data: { weight_kg: number | null; reps: number | null; rir: number | null }
+  ) => void;
   removeSet: (setId: string) => void;
+  removeSetsByExercise: (originalExerciseId: string, index: number) => void;
   setCurrentExerciseIndex: (index: number) => void;
   substituteExercise: (originalId: string, replacementId: string) => void;
   revertSubstitution: (originalId: string) => void;
@@ -73,6 +80,58 @@ export const useWorkoutStore = create<WorkoutState>()(
         });
       },
 
+      updateSet: (exerciseId, originalExerciseId, index, data) => {
+        const session = get().session;
+        if (!session) return;
+
+        // Find sets for this exercise
+        const exerciseSets = session.sets.filter(
+          s => s.original_exercise_id === originalExerciseId
+        );
+
+        // Check if a set exists at this index
+        const existingSet = exerciseSets[index];
+
+        if (existingSet) {
+          // Update existing set
+          const updatedSets = session.sets.map(s =>
+            s.set_id === existingSet.set_id
+              ? {
+                  ...s,
+                  weight_kg: data.weight_kg ?? s.weight_kg,
+                  reps: data.reps ?? s.reps,
+                  rir: data.rir ?? s.rir,
+                }
+              : s
+          );
+
+          set({
+            session: {
+              ...session,
+              sets: updatedSets,
+            },
+          });
+        } else if (data.weight_kg !== null && data.reps !== null) {
+          // Create new set if data is non-null (upsert behavior)
+          const newSet: LoggedSet = {
+            set_id: uuidv7(),
+            exercise_id: exerciseId,
+            original_exercise_id: originalExerciseId,
+            weight_kg: data.weight_kg,
+            reps: data.reps,
+            rir: data.rir,
+            logged_at: new Date().toISOString(),
+          };
+
+          set({
+            session: {
+              ...session,
+              sets: [...session.sets, newSet],
+            },
+          });
+        }
+      },
+
       removeSet: (setId) => {
         const session = get().session;
         if (!session) return;
@@ -83,6 +142,28 @@ export const useWorkoutStore = create<WorkoutState>()(
             sets: session.sets.filter(s => s.set_id !== setId),
           },
         });
+      },
+
+      removeSetsByExercise: (originalExerciseId, index) => {
+        const session = get().session;
+        if (!session) return;
+
+        // Find sets for this exercise
+        const exerciseSets = session.sets.filter(
+          s => s.original_exercise_id === originalExerciseId
+        );
+
+        // Get the set at the specific index
+        const setToRemove = exerciseSets[index];
+
+        if (setToRemove) {
+          set({
+            session: {
+              ...session,
+              sets: session.sets.filter(s => s.set_id !== setToRemove.set_id),
+            },
+          });
+        }
       },
 
       setCurrentExerciseIndex: (index) => {

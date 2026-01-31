@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
-import { SetLogger } from './SetLogger';
-import { RestTimer } from './RestTimer';
+import { SetGrid } from './SetGrid';
 import { ExerciseSubstitution } from './ExerciseSubstitution';
 import { ExerciseHistory } from '../history/ExerciseHistory';
 import type { TemplateExercise } from '../../types/template';
@@ -15,6 +14,7 @@ interface ExerciseViewProps {
   totalExercises: number;
   onPrev: () => void;
   onNext: () => void;
+  onSetComplete?: () => void;  // Callback to trigger rest timer
 }
 
 export function ExerciseView({
@@ -25,10 +25,11 @@ export function ExerciseView({
   totalExercises,
   onPrev,
   onNext,
+  onSetComplete,
 }: ExerciseViewProps) {
   const session = useWorkoutStore(state => state.session);
-  const logSet = useWorkoutStore(state => state.logSet);
-  const removeSet = useWorkoutStore(state => state.removeSet);
+  const updateSet = useWorkoutStore(state => state.updateSet);
+  const removeSetsByExercise = useWorkoutStore(state => state.removeSetsByExercise);
   const [showSubstitution, setShowSubstitution] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
 
@@ -44,11 +45,27 @@ export function ExerciseView({
     [allSets, templateExercise.exercise_id]
   );
 
-  const handleLogSet = (data: { weight_kg: number; reps: number; rir: number | null }) => {
-    logSet(actualExerciseId, templateExercise.exercise_id, data);
+  const handleSaveSet = (
+    data: { weight_kg: number | null; reps: number | null; rir: number | null },
+    index: number
+  ) => {
+    // Auto-save on blur
+    updateSet(actualExerciseId, templateExercise.exercise_id, index, data);
+
+    // Trigger rest timer if set has valid data
+    if (data.weight_kg !== null && data.reps !== null && onSetComplete) {
+      onSetComplete();
+    }
+  };
+
+  const handleRemoveRow = (index: number) => {
+    removeSetsByExercise(templateExercise.exercise_id, index);
   };
 
   const exerciseName = exercise?.name ?? 'Unknown Exercise';
+
+  // Determine template set count (use sets count from template, default to 3)
+  const templateSetCount = templateExercise.sets?.length ?? 3;
 
   return (
     <div className="space-y-6">
@@ -95,49 +112,17 @@ export function ExerciseView({
         ))}
       </div>
 
-      {/* Set logger */}
-      <SetLogger
-        exerciseId={actualExerciseId}
-        originalExerciseId={templateExercise.exercise_id}
-        targetRepsMin={templateExercise.target_reps_min}
-        targetRepsMax={templateExercise.target_reps_max}
-        onLogSet={handleLogSet}
-      />
-
-      {/* Rest timer */}
-      <RestTimer restSeconds={templateExercise.rest_seconds} />
-
-      {/* Logged sets list */}
-      {sets.length > 0 && (
-        <div className="space-y-2">
-          <div className="text-sm text-zinc-400 font-medium">
-            Sets logged ({sets.length})
-          </div>
-          {sets.map((set, i) => (
-            <div
-              key={set.set_id}
-              className="flex items-center justify-between bg-zinc-800/50 rounded-lg px-4 py-3"
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-zinc-500 text-sm w-8">#{i + 1}</span>
-                <span className="font-medium">{set.weight_kg} kg</span>
-                <span className="text-zinc-400">x {set.reps}</span>
-                {set.rir !== null && (
-                  <span className="text-zinc-500 text-sm">RIR {set.rir}</span>
-                )}
-              </div>
-              <button
-                onClick={() => removeSet(set.set_id)}
-                className="text-zinc-500 hover:text-red-400 p-1"
-                title="Remove set"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          ))}
-        </div>
+      {/* Set grid - card-based batch logging */}
+      {session && (
+        <SetGrid
+          exerciseId={actualExerciseId}
+          originalExerciseId={templateExercise.exercise_id}
+          templateSetCount={templateSetCount}
+          gymId={session.gym_id}
+          sets={sets}
+          onSaveSet={handleSaveSet}
+          onRemoveRow={handleRemoveRow}
+        />
       )}
 
       {/* Navigation */}
