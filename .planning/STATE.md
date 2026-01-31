@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 11 - CI/CD & Portfolio
-Plan: 1 of ? complete (11-01)
+Plan: 2 of ? complete (11-02)
 Status: In progress
-Last activity: 2026-01-31 — Completed 11-01-PLAN.md (CI pipeline)
+Last activity: 2026-01-31 — Completed 11-02-PLAN.md (GitHub Pages config)
 
-Progress: [█] 1/? plans (Phase 11)
+Progress: [██] 2/? plans (Phase 11)
 
 ## Milestones
 
@@ -28,15 +28,15 @@ Progress: [█] 1/? plans (Phase 11)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 59 (27 v1.0 + 15 v1.1 + 17 v1.2)
+- Total plans completed: 60 (27 v1.0 + 15 v1.1 + 18 v1.2)
 - Average duration (v1.2 Phase 8): 6min 30s
 - Total execution time (v1.2 Phase 8): 45min 30s
 - Average duration (v1.2 Phase 9): 7min 25s
 - Total execution time (v1.2 Phase 9): 37min 6s
 - Average duration (v1.2 Phase 10): 4min 1s
 - Total execution time (v1.2 Phase 10): 16min 7s
-- Average duration (v1.2 Phase 11): 1min 29s
-- Total execution time (v1.2 Phase 11): 1min 29s (1/? plans)
+- Average duration (v1.2 Phase 11): 3min 45s
+- Total execution time (v1.2 Phase 11): 7min 29s (2/? plans)
 
 **By Phase (v1.0):**
 
@@ -62,7 +62,7 @@ Progress: [█] 1/? plans (Phase 11)
 | 8. Testing & Design Foundation | 7/7 | Complete |
 | 9. Batch Logging & Visual Polish | 5/5 | Complete |
 | 10. Workout Features & Demo Data | 4/4 | Complete |
-| 11. CI/CD & Portfolio | 1/? | In Progress |
+| 11. CI/CD & Portfolio | 2/? | In Progress |
 
 ## Accumulated Context
 
@@ -175,6 +175,9 @@ v1.2 Phase 11 (CI/CD & Portfolio) decisions:
 - Playwright report uploaded as artifact with 7-day retention
 - Build-deploy job uses VITE_BASE env var for subpath deployment (to be configured in 11-02)
 - COI serviceworker copy included in workflow (file will be added in 11-02)
+- VITE_BASE env var controls base path (default '/' for local, set to '/repo-name/' in CI)
+- coi-serviceworker loaded as first script in head (not bundled)
+- Updated app title from 'gymlog-temp' to 'GymLog' for portfolio polish
 
 ### Pending Todos
 
@@ -182,12 +185,12 @@ None.
 
 ### Blockers/Concerns
 
-None. Phase 11 Plan 01 complete. CI pipeline ready for next plan's deployment configuration.
+None. Phase 11 Plan 02 complete. GitHub Pages deployment configured.
 
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 11-01-PLAN.md (CI pipeline)
+Stopped at: Completed 11-02-PLAN.md (GitHub Pages config)
 Resume file: None
 
-**Next action:** Proceed to 11-02 (deployment configuration and serviceworker).
+**Next action:** Proceed to next Phase 11 plan (if any).
