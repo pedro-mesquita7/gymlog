@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { getDuckDB } from '../db/duckdb-init';
+import { FACT_SETS_SQL } from '../db/compiled-queries';
 
 interface DataQualityTest {
   name: string;
@@ -34,11 +35,8 @@ const DATA_QUALITY_TESTS: DataQualityTest[] = [
     description: 'All logged weights must be positive',
     category: 'custom',
     sql: `
-      SELECT
-          set_id,
-          exercise_id,
-          weight_kg,
-          logged_at
+      WITH fact_sets AS (${FACT_SETS_SQL})
+      SELECT set_id, exercise_id, weight_kg, logged_at
       FROM fact_sets
       WHERE weight_kg <= 0
     `,
@@ -48,11 +46,8 @@ const DATA_QUALITY_TESTS: DataQualityTest[] = [
     description: 'Reps must be between 1 and 100',
     category: 'custom',
     sql: `
-      SELECT
-          set_id,
-          exercise_id,
-          reps,
-          logged_at
+      WITH fact_sets AS (${FACT_SETS_SQL})
+      SELECT set_id, exercise_id, reps, logged_at
       FROM fact_sets
       WHERE reps < 1 OR reps > 100
     `,
@@ -85,8 +80,9 @@ const DATA_QUALITY_TESTS: DataQualityTest[] = [
     description: 'Count sets with 50%+ weight changes',
     category: 'anomaly',
     sql: `
+      WITH fact_sets AS (${FACT_SETS_SQL})
       SELECT COUNT(*) as anomaly_count
-      FROM int_sets__with_anomalies
+      FROM fact_sets
       WHERE is_anomaly = true
     `,
   },
