@@ -11,6 +11,7 @@ import { VolumeZoneIndicator } from './VolumeZoneIndicator';
 import { MuscleHeatMap } from './MuscleHeatMap';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ProgressionDashboard } from './ProgressionDashboard';
+import { FeatureErrorBoundary } from '../ui/FeatureErrorBoundary';
 
 /**
  * Main Analytics page container
@@ -103,13 +104,15 @@ export function AnalyticsPage() {
         ) : progressLoading ? (
           <div className="text-center py-8 text-zinc-500">Loading chart...</div>
         ) : (
-          <div className="bg-zinc-800/30 rounded-lg p-4">
-            <ExerciseProgressChart
-              data={progressData}
-              exerciseName={selectedExercise?.name || 'Exercise'}
-              showVolume={true}
-            />
-          </div>
+          <FeatureErrorBoundary feature="Exercise Progress Chart">
+            <div className="bg-zinc-800/30 rounded-lg p-4">
+              <ExerciseProgressChart
+                data={progressData}
+                exerciseName={selectedExercise?.name || 'Exercise'}
+                showVolume={true}
+              />
+            </div>
+          </FeatureErrorBoundary>
         )}
       </CollapsibleSection>
 
@@ -120,7 +123,9 @@ export function AnalyticsPage() {
         ) : weeklyLoading ? (
           <div className="text-center py-8 text-zinc-500">Loading comparison...</div>
         ) : currentWeekComparison ? (
-          <WeekComparisonCard data={currentWeekComparison} />
+          <FeatureErrorBoundary feature="Week Comparison">
+            <WeekComparisonCard data={currentWeekComparison} />
+          </FeatureErrorBoundary>
         ) : (
           <div className="text-center py-8 text-zinc-500">
             No data yet for this week. Log a workout to see comparison.
@@ -131,10 +136,12 @@ export function AnalyticsPage() {
       {/* PR List Section */}
       <CollapsibleSection title="All-Time PRs" defaultOpen={true}>
         {selectedExercise && (
-          <PRListCard
-            exerciseId={selectedExercise.exercise_id}
-            exerciseName={selectedExercise.name}
-          />
+          <FeatureErrorBoundary feature="Personal Records">
+            <PRListCard
+              exerciseId={selectedExercise.exercise_id}
+              exerciseName={selectedExercise.name}
+            />
+          </FeatureErrorBoundary>
         )}
       </CollapsibleSection>
 
@@ -151,10 +158,14 @@ export function AnalyticsPage() {
           <div className="text-center py-8 text-zinc-500">Loading volume data...</div>
         ) : (
           <div className="space-y-4">
-            <VolumeZoneIndicator thresholds={volumeThresholds.defaultThresholds} />
-            <div className="bg-zinc-800/30 rounded-lg p-4">
-              <VolumeBarChart data={volumeData} thresholds={volumeThresholds} />
-            </div>
+            <FeatureErrorBoundary feature="Volume Zones">
+              <VolumeZoneIndicator thresholds={volumeThresholds.defaultThresholds} />
+            </FeatureErrorBoundary>
+            <FeatureErrorBoundary feature="Volume Chart">
+              <div className="bg-zinc-800/30 rounded-lg p-4">
+                <VolumeBarChart data={volumeData} thresholds={volumeThresholds} />
+              </div>
+            </FeatureErrorBoundary>
           </div>
         )}
       </CollapsibleSection>
@@ -166,9 +177,11 @@ export function AnalyticsPage() {
         ) : volumeLoading ? (
           <div className="text-center py-8 text-zinc-500">Loading heat map...</div>
         ) : (
-          <div className="bg-zinc-800/30 rounded-lg p-4">
-            <MuscleHeatMap data={heatMapData} thresholds={volumeThresholds} />
-          </div>
+          <FeatureErrorBoundary feature="Muscle Heat Map">
+            <div className="bg-zinc-800/30 rounded-lg p-4">
+              <MuscleHeatMap data={heatMapData} thresholds={volumeThresholds} />
+            </div>
+          </FeatureErrorBoundary>
         )}
       </CollapsibleSection>
 
@@ -178,7 +191,9 @@ export function AnalyticsPage() {
       </div>
 
       <CollapsibleSection title="Exercise Progression Status" defaultOpen={true}>
-        <ProgressionDashboard />
+        <FeatureErrorBoundary feature="Progression Dashboard">
+          <ProgressionDashboard />
+        </FeatureErrorBoundary>
       </CollapsibleSection>
     </div>
   );
