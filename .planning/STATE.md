@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 8 - Testing & Design Foundation
-Plan: 3 of 7 complete (08-01, 08-02, 08-03)
+Plan: 4 of 7 complete (08-01, 08-02, 08-03, 08-04)
 Status: Phase 8 in progress
-Last activity: 2026-01-31 — Completed 08-03-PLAN.md (Error Boundary System)
+Last activity: 2026-01-31 — Completed 08-04-PLAN.md (UI Primitive Components)
 
-Progress: [█████████░░░░░░░░░░░░░░░] 3/7 plans (Phase 8)
+Progress: [████████████░░░░░░░░░░░░] 4/7 plans (Phase 8)
 
 ## Milestones
 
@@ -53,7 +53,7 @@ Progress: [█████████░░░░░░░░░░░░░░
 
 | Phase | Plans | Status |
 |-------|-------|--------|
-| 8. Testing & Design Foundation | 3/7 | In Progress |
+| 8. Testing & Design Foundation | 4/7 | In Progress |
 | 9. Batch Logging & Visual Polish | 0/? | Pending |
 | 10. Workout Features & Demo Data | 0/? | Pending |
 | 11. CI/CD & Portfolio | 0/? | Pending |
@@ -106,6 +106,11 @@ v1.2 Phase 8 (Testing & Design) decisions:
 - localStorage error logging (last 20 errors) for future Phase 11 observability
 - Feature-level error boundaries (Workouts, Templates, Analytics, Settings)
 - Type-only imports required for TypeScript verbatimModuleSyntax
+- Button primitive with 4 variants (primary/secondary/ghost/danger) and 3 sizes (sm/md/lg)
+- Input/Select primitives using design tokens for consistent form styling
+- Card primitive with default and interactive variants
+- UI primitives in src/components/ui/ with variant-driven APIs
+- ComponentPropsWithoutRef for native prop forwarding in primitives
 
 ### Pending Todos
 
@@ -118,7 +123,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 08-03-PLAN.md (Error Boundary System)
+Stopped at: Completed 08-04-PLAN.md (UI Primitive Components)
 Resume file: None
 
-**Next action:** Continue with remaining plans in phase 8 (08-04, 08-05, 08-06, 08-07).
+**Next action:** Continue with remaining plans in phase 8 (08-05, 08-06, 08-07).
