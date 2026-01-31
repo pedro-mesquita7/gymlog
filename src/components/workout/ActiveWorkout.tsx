@@ -6,6 +6,7 @@ import { WorkoutComplete } from './WorkoutComplete';
 import { RestTimer } from './RestTimer';
 import { Dialog } from '../ui/Dialog';
 import { Button } from '../ui/Button';
+import { FeatureErrorBoundary } from '../ui/FeatureErrorBoundary';
 import type { Template } from '../../types/template';
 import type { Exercise } from '../../types/database';
 
@@ -108,16 +109,18 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
       </div>
 
       {/* Exercise view */}
-      <ExerciseView
-        templateExercise={currentTemplateExercise}
-        exercise={exerciseData}
-        exercises={exercises}
-        exerciseIndex={currentIndex}
-        totalExercises={totalExercises}
-        onPrev={goToPrev}
-        onNext={goToNext}
-        onSetComplete={handleSetComplete}
-      />
+      <FeatureErrorBoundary feature="Set Logger" key={actualExerciseId}>
+        <ExerciseView
+          templateExercise={currentTemplateExercise}
+          exercise={exerciseData}
+          exercises={exercises}
+          exerciseIndex={currentIndex}
+          totalExercises={totalExercises}
+          onPrev={goToPrev}
+          onNext={goToNext}
+          onSetComplete={handleSetComplete}
+        />
+      </FeatureErrorBoundary>
 
       {/* Finish/Cancel buttons */}
       <div className="flex gap-3 mt-8 pt-6 border-t border-zinc-800">

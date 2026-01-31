@@ -3,6 +3,7 @@ import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { SetGrid } from './SetGrid';
 import { ExerciseSubstitution } from './ExerciseSubstitution';
 import { ExerciseHistory } from '../history/ExerciseHistory';
+import { FeatureErrorBoundary } from '../ui/FeatureErrorBoundary';
 import type { TemplateExercise } from '../../types/template';
 import type { Exercise } from '../../types/database';
 
@@ -158,12 +159,14 @@ export function ExerciseView({
       {showHistory && session && (
         <div className="fixed inset-0 bg-black/80 z-40 flex items-center justify-center p-4">
           <div className="w-full max-w-md">
-            <ExerciseHistory
-              exerciseId={templateExercise.exercise_id}
-              exerciseName={exerciseName}
-              currentGymId={session.gym_id}
-              onClose={() => setShowHistory(false)}
-            />
+            <FeatureErrorBoundary feature="Exercise History">
+              <ExerciseHistory
+                exerciseId={templateExercise.exercise_id}
+                exerciseName={exerciseName}
+                currentGymId={session.gym_id}
+                onClose={() => setShowHistory(false)}
+              />
+            </FeatureErrorBoundary>
           </div>
         </div>
       )}
