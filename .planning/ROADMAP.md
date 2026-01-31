@@ -77,6 +77,14 @@ Plans:
 
 **Requirements**: BLOG-01, BLOG-02, BLOG-03, BLOG-04, BLOG-05, UI-03, UI-04
 
+**Plans**: 4 plans
+
+Plans:
+- [ ] 09-01-PLAN.md — Ghost data hook, SetGrid/SetRow components, Dialog primitive
+- [ ] 09-02-PLAN.md — Wire batch logging into workout flow, rest timer banner, completion dialogs
+- [ ] 09-03-PLAN.md — Install framer-motion, page transitions, design token migration across all screens
+- [ ] 09-04-PLAN.md — Build verification and human visual/interaction testing
+
 **Success Criteria**:
 1. User sees all sets for current exercise in spreadsheet-like grid with weight/reps columns
 2. User sees ghost text from last session's performance in each grid cell as reference
@@ -125,10 +133,10 @@ Plans:
 | 6. Volume Analytics | v1.1 | 5/5 | Complete | 2026-01-30 |
 | 7. Progression Intelligence | v1.1 | 3/3 | Complete | 2026-01-30 |
 | 8. Testing & Design Foundation | v1.2 | 7/7 | Complete | 2026-01-31 |
-| 9. Batch Logging & Visual Polish | v1.2 | 0/? | Pending | — |
+| 9. Batch Logging & Visual Polish | v1.2 | 0/4 | Planned | — |
 | 10. Workout Features & Demo Data | v1.2 | 0/? | Pending | — |
 | 11. CI/CD & Portfolio | v1.2 | 0/? | Pending | — |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-31 — Phase 8 planned (7 plans)*
+*Last updated: 2026-01-31 — Phase 9 planned (4 plans)*
