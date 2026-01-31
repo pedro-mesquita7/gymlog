@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 9 - Batch Logging & Visual Polish
-Plan: 2 of ? complete (09-02)
+Plan: 3 of ? complete (09-03)
 Status: In progress
-Last activity: 2026-01-31 — Completed 09-02-PLAN.md (Batch Logging Integration)
+Last activity: 2026-01-31 — Completed 09-03-PLAN.md (Page Transitions & Design Token Polish)
 
-Progress: [██] 2/? plans (Phase 9)
+Progress: [███] 3/? plans (Phase 9)
 
 ## Milestones
 
@@ -28,11 +28,11 @@ Progress: [██] 2/? plans (Phase 9)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 51 (27 v1.0 + 15 v1.1 + 9 v1.2)
+- Total plans completed: 52 (27 v1.0 + 15 v1.1 + 10 v1.2)
 - Average duration (v1.2 Phase 8): 6min 30s
 - Total execution time (v1.2 Phase 8): 45min 30s
-- Average duration (v1.2 Phase 9): 6min 32s
-- Total execution time (v1.2 Phase 9): 13min 3s
+- Average duration (v1.2 Phase 9): 8min 42s
+- Total execution time (v1.2 Phase 9): 26min 6s
 
 **By Phase (v1.0):**
 
@@ -56,7 +56,7 @@ Progress: [██] 2/? plans (Phase 9)
 | Phase | Plans | Status |
 |-------|-------|--------|
 | 8. Testing & Design Foundation | 7/7 | Complete |
-| 9. Batch Logging & Visual Polish | 2/? | In progress |
+| 9. Batch Logging & Visual Polish | 3/? | In progress |
 | 10. Workout Features & Demo Data | 0/? | Pending |
 | 11. CI/CD & Portfolio | 0/? | Pending |
 
@@ -135,6 +135,9 @@ v1.2 Phase 9 (Batch Logging & Visual Polish) decisions:
 - Rest timer auto-starts via trigger prop (counter increment pattern, no refs needed)
 - Dialog-based modals vs view state machine (preserves context, uses native features)
 - updateSet upserts by index (creates sets on-demand for batch logging)
+- LazyMotion with domAnimation for 5kb bundle instead of full framer-motion (25kb)
+- 150ms fade+shift page transitions with prefers-reduced-motion support
+- Design token migration: zinc-500→text-muted, zinc-800→bg-tertiary, semantic tokens for warning/success/error
 
 ### Pending Todos
 
@@ -147,7 +150,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 09-02-PLAN.md (Batch Logging Integration)
+Stopped at: Completed 09-03-PLAN.md (Page Transitions & Design Token Polish)
 Resume file: None
 
-**Next action:** Continue with 09-03-PLAN.md or 09-04-PLAN.md (Visual Polish or Workout Features).
+**Next action:** Continue with remaining Phase 9 plans (batch logging features, workout polish).
