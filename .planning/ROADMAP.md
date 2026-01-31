@@ -121,6 +121,15 @@ Plans:
 
 **Requirements**: CICD-01, CICD-02, CICD-03, PORT-02, PORT-03, PORT-04, PORT-05
 
+**Plans**: 5 plans
+
+Plans:
+- [ ] 11-01-PLAN.md — GitHub Actions CI pipeline (lint, unit test, E2E test, dbt check, gated deploy)
+- [ ] 11-02-PLAN.md — GitHub Pages deployment config (Vite base path, coi-serviceworker)
+- [ ] 11-03-PLAN.md — Portfolio README (architecture diagram, tech stack, data engineering decisions, dbt lineage)
+- [ ] 11-04-PLAN.md — In-app observability dashboard (storage usage, query metrics, event counts)
+- [ ] 11-05-PLAN.md — Data quality display (run compiled dbt test SQL client-side, anomaly counts)
+
 **Success Criteria**:
 1. GitHub Actions pipeline runs tests and deploys to GitHub Pages automatically on every merge to main
 2. Developer sees clear CI failure if tests fail or dbt compilation fails, preventing broken deploys
@@ -143,8 +152,8 @@ Plans:
 | 8. Testing & Design Foundation | v1.2 | 7/7 | Complete | 2026-01-31 |
 | 9. Batch Logging & Visual Polish | v1.2 | 5/5 | Complete | 2026-01-31 |
 | 10. Workout Features & Demo Data | v1.2 | 4/4 | Complete | 2026-01-31 |
-| 11. CI/CD & Portfolio | v1.2 | 0/? | Pending | — |
+| 11. CI/CD & Portfolio | v1.2 | 0/5 | Pending | — |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-31 — Phase 10 complete (4/4 plans, verified 16/16 must-haves)*
+*Last updated: 2026-01-31 — Phase 11 planned (5 plans in 2 waves)*
