@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { LoggedSet } from '../../types/workout-session';
 import { useLastSessionData } from '../../hooks/useLastSessionData';
+import { useExerciseMax } from '../../hooks/useHistory';
 import { SetRow } from './SetRow';
 import { Button } from '../ui/Button';
 
@@ -34,6 +35,9 @@ export function SetGrid({
     originalExerciseId,
     gymId
   );
+
+  // Get historical max for inline PR detection
+  const maxData = useExerciseMax(originalExerciseId);
 
   // Initialize rows state based on template set count
   const [rows, setRows] = useState<SetData[]>([]);
@@ -124,6 +128,7 @@ export function SetGrid({
               ghostData={setGhostData}
               previousGhostData={previousSetGhostData}
               initialData={row}
+              maxData={maxData}
               onChange={(data) => handleRowChange(data, index)}
               onBlur={() => handleRowBlur(index)}
               onRemove={() => handleRemoveRow(index)}

@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Input } from '../ui/Input';
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
+import type { ExerciseMax } from '../../types/analytics';
 
 interface GhostData {
   weight_kg: number;
@@ -18,6 +19,7 @@ interface SetRowProps {
   setNumber: number;
   ghostData: GhostData | null;
   previousGhostData: GhostData | null;
+  maxData: ExerciseMax | null;
   onChange: (data: SetData) => void;
   onBlur: () => void;
   onRemove: () => void;
@@ -28,6 +30,7 @@ export function SetRow({
   setNumber,
   ghostData,
   previousGhostData,
+  maxData,
   onChange,
   onBlur,
   onRemove,
@@ -58,6 +61,20 @@ export function SetRow({
     onBlur();
   };
 
+  // Inline PR detection: compare current values against historical max
+  const prStatus = useMemo(() => {
+    const w = weightKg ? parseFloat(weightKg) : 0;
+    const r = reps ? parseInt(reps, 10) : 0;
+    if (w <= 0 || r <= 0) return null;
+
+    const estimated1rm = w * (1 + r / 30.0);
+    const isWeightPR = maxData?.max_weight === null || maxData?.max_weight === undefined || w > maxData.max_weight;
+    const is1rmPR = maxData?.max_1rm === null || maxData?.max_1rm === undefined || estimated1rm > maxData.max_1rm;
+
+    if (isWeightPR || is1rmPR) return { isWeightPR, is1rmPR };
+    return null;
+  }, [weightKg, reps, maxData]);
+
   // Calculate delta: last session (ghost) vs second-to-last session (previousGhost)
   const getDelta = (
     field: 'weight_kg' | 'reps' | 'rir'
@@ -77,12 +94,17 @@ export function SetRow({
 
   return (
     <div className="bg-zinc-900 rounded-lg p-4 space-y-3">
-      {/* Header: set number and remove button */}
+      {/* Header: set number, PR badge, and remove button */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-sm font-medium text-zinc-300">
             {setNumber}
           </div>
+          {prStatus && (
+            <span className="bg-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-medium">
+              {prStatus.isWeightPR && prStatus.is1rmPR ? 'PR!' : prStatus.isWeightPR ? 'Weight PR' : '1RM PR'}
+            </span>
+          )}
         </div>
         <button
           onClick={onRemove}

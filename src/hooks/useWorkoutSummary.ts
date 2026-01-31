@@ -48,32 +48,37 @@ export function useWorkoutSummary(
 
       const conn = await db.connect();
       try {
-        // PR Detection Query
+        // PR Detection: compare current workout maxes vs all previous workout maxes
+        // Simple approach: no window functions, just aggregate comparison
         const prQuery = `
-          WITH all_sets AS (
+          WITH prev_maxes AS (
             SELECT
-              payload->>'workout_id' as workout_id,
               payload->>'original_exercise_id' as exercise_id,
-              CAST(payload->>'weight_kg' AS DOUBLE) as weight_kg,
-              CAST(payload->>'reps' AS INTEGER) as reps,
-              CAST(payload->>'weight_kg' AS DOUBLE) * (1 + CAST(payload->>'reps' AS INTEGER) / 30.0) as estimated_1rm,
-              ROW_NUMBER() OVER (ORDER BY _created_at, _event_id) as rowid
+              MAX(CAST(payload->>'weight_kg' AS DOUBLE)) as prev_max_weight,
+              MAX(CAST(payload->>'weight_kg' AS DOUBLE) * (1.0 + CAST(payload->>'reps' AS DOUBLE) / 30.0)) as prev_max_1rm
             FROM events
             WHERE event_type = 'set_logged'
+              AND payload->>'workout_id' != '${workoutId}'
+            GROUP BY payload->>'original_exercise_id'
           ),
-          ranked AS (
-            SELECT *,
-              MAX(weight_kg) OVER (PARTITION BY exercise_id ORDER BY rowid ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING) as prev_max_weight,
-              MAX(estimated_1rm) OVER (PARTITION BY exercise_id ORDER BY rowid ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING) as prev_max_1rm
-            FROM all_sets
+          current_maxes AS (
+            SELECT
+              payload->>'original_exercise_id' as exercise_id,
+              MAX(CAST(payload->>'weight_kg' AS DOUBLE)) as max_weight,
+              MAX(CAST(payload->>'weight_kg' AS DOUBLE) * (1.0 + CAST(payload->>'reps' AS DOUBLE) / 30.0)) as max_1rm
+            FROM events
+            WHERE event_type = 'set_logged'
+              AND payload->>'workout_id' = '${workoutId}'
+            GROUP BY payload->>'original_exercise_id'
           )
-          SELECT exercise_id,
-            COUNT(CASE WHEN weight_kg > COALESCE(prev_max_weight, 0) THEN 1 END) as weight_prs,
-            COUNT(CASE WHEN estimated_1rm > COALESCE(prev_max_1rm, 0) THEN 1 END) as estimated_1rm_prs
-          FROM ranked
-          WHERE workout_id = '${workoutId}'
-            AND (weight_kg > COALESCE(prev_max_weight, 0) OR estimated_1rm > COALESCE(prev_max_1rm, 0))
-          GROUP BY exercise_id
+          SELECT
+            c.exercise_id,
+            CASE WHEN c.max_weight > COALESCE(p.prev_max_weight, 0) THEN 1 ELSE 0 END as weight_prs,
+            CASE WHEN c.max_1rm > COALESCE(p.prev_max_1rm, 0) THEN 1 ELSE 0 END as estimated_1rm_prs
+          FROM current_maxes c
+          LEFT JOIN prev_maxes p ON c.exercise_id = p.exercise_id
+          WHERE c.max_weight > COALESCE(p.prev_max_weight, 0)
+             OR c.max_1rm > COALESCE(p.prev_max_1rm, 0)
         `;
 
         const prResult = await conn.query(prQuery);
