@@ -11,6 +11,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   timeout: 60_000,
+  outputDir: 'test-results',
   expect: { timeout: 10_000 },
 
   use: {

@@ -1,4 +1,4 @@
-import { test, expect, loadDemoData, clearAllData, waitForApp } from './fixtures/app.fixture';
+import { test, expect, loadDemoData, clearAllData } from './fixtures/app.fixture';
 import { SEL } from './helpers/selectors';
 
 test.describe.serial('Demo Data Import and Clear', () => {

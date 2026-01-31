@@ -112,6 +112,7 @@ test.describe('Batch Logging Edge Cases', () => {
     // --- Part 2: Start a NEW workout and verify ghost text ---
     // Force DuckDB checkpoint so data persists across page reload
     await page.evaluate(async () => {
+      // @ts-expect-error -- Vite dev server resolves this path at runtime
       const mod = await import('/src/db/duckdb-init.ts');
       await mod.checkpoint();
     });
