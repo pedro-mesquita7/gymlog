@@ -82,7 +82,12 @@
   3. No secrets, API keys, or PII exist in git history, .env files, localStorage, or demo data fixtures
   4. `npm audit` reports zero high/critical vulnerabilities
   5. App loads and functions correctly with CSP headers enabled (DuckDB-WASM worker-src and wasm-unsafe-eval accommodated)
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 12-01-PLAN.md -- Fix exercise history query (DIM_EXERCISE_ALL_SQL for deleted exercises)
+- [ ] 12-02-PLAN.md -- Add sub-component error boundaries (analytics, history, workout)
+- [ ] 12-03-PLAN.md -- Security audit, .gitignore update, SECURITY-AUDIT.md report
+- [ ] 12-04-PLAN.md -- npm audit fix and CSP meta tag for DuckDB-WASM
 
 #### Phase 13: E2E Test Suite
 **Goal**: Developers have a regression safety net that catches breakage before it ships -- covering the critical user workflows end-to-end
@@ -156,7 +161,7 @@
 | 9. Batch Logging & Visual Polish | v1.2 | 5/5 | Complete | 2026-01-31 |
 | 10. Workout Features & Demo Data | v1.2 | 4/4 | Complete | 2026-01-31 |
 | 11. CI/CD & Portfolio | v1.2 | 7/7 | Complete | 2026-01-31 |
-| 12. Bug Fix & Security Hardening | v1.3 | 0/TBD | Not started | - |
+| 12. Bug Fix & Security Hardening | v1.3 | 0/4 | Planning | - |
 | 13. E2E Test Suite | v1.3 | 0/TBD | Not started | - |
 | 14. Workouts UX & Color Scheme | v1.3 | 0/TBD | Not started | - |
 | 15. Analytics Redesign | v1.3 | 0/TBD | Not started | - |
@@ -165,4 +170,4 @@
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-31 -- v1.3 milestone roadmap created (6 phases, 38 requirements)*
+*Last updated: 2026-01-31 -- Phase 12 planned (4 plans, 1 wave)*
