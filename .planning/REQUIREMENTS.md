@@ -7,24 +7,24 @@
 
 ### Bug Fix & Data Integrity
 
-- [ ] **BUG-01**: Exercise history persists after plan deletion -- non-gym-specific exercises retain all logged data regardless of plan lifecycle
-- [ ] **BUG-02**: Error boundary coverage audit -- verify all feature areas have graceful fallback UI, fix gaps
+- [x] **BUG-01**: Exercise history persists after plan deletion -- non-gym-specific exercises retain all logged data regardless of plan lifecycle
+- [x] **BUG-02**: Error boundary coverage audit -- verify all feature areas have graceful fallback UI, fix gaps
 
 ### Security & Audit
 
-- [ ] **SEC-01**: No exposed secrets in git history, .env files, or localStorage
-- [ ] **SEC-02**: npm audit passes with no high/critical vulnerabilities
-- [ ] **SEC-03**: CSP headers configured (compatible with DuckDB-WASM requirements)
-- [ ] **SEC-04**: No PII in demo data or committed test fixtures
-- [ ] **SEC-05**: .gitignore covers all sensitive and generated files
+- [x] **SEC-01**: No exposed secrets in git history, .env files, or localStorage
+- [x] **SEC-02**: npm audit passes with no high/critical vulnerabilities
+- [x] **SEC-03**: CSP headers configured (compatible with DuckDB-WASM requirements)
+- [x] **SEC-04**: No PII in demo data or committed test fixtures
+- [x] **SEC-05**: .gitignore covers all sensitive and generated files
 
 ### Testing
 
-- [ ] **TEST-01**: E2E tests cover plan CRUD with exercise history preservation after deletion
-- [ ] **TEST-02**: E2E tests cover batch logging edge cases (empty sets, max values, ghost text)
-- [ ] **TEST-03**: E2E tests cover workout rotation advancement and Quick Start
-- [ ] **TEST-04**: E2E tests cover demo data import and clear
-- [ ] **TEST-05**: E2E tests cover Parquet export/import round-trip
+- [x] **TEST-01**: E2E tests cover plan CRUD with exercise history preservation after deletion
+- [x] **TEST-02**: E2E tests cover batch logging edge cases (empty sets, max values, ghost text)
+- [x] **TEST-03**: E2E tests cover workout rotation advancement and Quick Start
+- [x] **TEST-04**: E2E tests cover demo data import and clear
+- [x] **TEST-05**: E2E tests cover Parquet export/import round-trip
 
 ### Workouts UX
 
@@ -102,18 +102,18 @@ Deferred beyond v1.3:
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BUG-01 | Phase 12 | Pending |
-| BUG-02 | Phase 12 | Pending |
-| SEC-01 | Phase 12 | Pending |
-| SEC-02 | Phase 12 | Pending |
-| SEC-03 | Phase 12 | Pending |
-| SEC-04 | Phase 12 | Pending |
-| SEC-05 | Phase 12 | Pending |
-| TEST-01 | Phase 13 | Pending |
-| TEST-02 | Phase 13 | Pending |
-| TEST-03 | Phase 13 | Pending |
-| TEST-04 | Phase 13 | Pending |
-| TEST-05 | Phase 13 | Pending |
+| BUG-01 | Phase 12 | Complete |
+| BUG-02 | Phase 12 | Complete |
+| SEC-01 | Phase 12 | Complete |
+| SEC-02 | Phase 12 | Complete |
+| SEC-03 | Phase 12 | Complete |
+| SEC-04 | Phase 12 | Complete |
+| SEC-05 | Phase 12 | Complete |
+| TEST-01 | Phase 13 | Complete |
+| TEST-02 | Phase 13 | Complete |
+| TEST-03 | Phase 13 | Complete |
+| TEST-04 | Phase 13 | Complete |
+| TEST-05 | Phase 13 | Complete |
 | UX-01 | Phase 14 | Pending |
 | UX-02 | Phase 14 | Pending |
 | ANLT-01 | Phase 15 | Pending |
@@ -148,4 +148,4 @@ Deferred beyond v1.3:
 
 ---
 *Requirements defined: 2026-01-31*
-*Last updated: 2026-01-31 -- traceability populated after roadmap creation*
+*Last updated: 2026-01-31 -- Phase 12+13 requirements marked Complete*
