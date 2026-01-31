@@ -4,7 +4,7 @@
 
 - **v1.0 MVP** - Phases 1-4 (shipped 2026-01-28)
 - **v1.1 Analytics** - Phases 5-7 (shipped 2026-01-30)
-- **v1.2 UX & Portfolio Polish** - Phases 8-11 (in progress)
+- **v1.2 UX & Portfolio Polish** - Phases 8-11 (shipped 2026-01-31)
 
 ## Phases
 
@@ -124,11 +124,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 11-01-PLAN.md — GitHub Actions CI pipeline (lint, unit test, E2E test, dbt check, gated deploy)
-- [ ] 11-02-PLAN.md — GitHub Pages deployment config (Vite base path, coi-serviceworker)
-- [ ] 11-03-PLAN.md — Portfolio README (architecture diagram, tech stack, data engineering decisions, dbt lineage)
-- [ ] 11-04-PLAN.md — In-app observability dashboard (storage usage, query metrics, event counts)
-- [ ] 11-05-PLAN.md — Data quality display (run compiled dbt test SQL client-side, anomaly counts)
+- [x] 11-01-PLAN.md — GitHub Actions CI pipeline (lint, unit test, E2E test, dbt check, gated deploy)
+- [x] 11-02-PLAN.md — GitHub Pages deployment config (Vite base path, coi-serviceworker)
+- [x] 11-03-PLAN.md — Portfolio README (architecture diagram, tech stack, data engineering decisions, dbt lineage)
+- [x] 11-04-PLAN.md — In-app observability dashboard (storage usage, query metrics, event counts)
+- [x] 11-05-PLAN.md — Data quality display (run compiled dbt test SQL client-side, anomaly counts)
 
 **Success Criteria**:
 1. GitHub Actions pipeline runs tests and deploys to GitHub Pages automatically on every merge to main
@@ -152,8 +152,8 @@ Plans:
 | 8. Testing & Design Foundation | v1.2 | 7/7 | Complete | 2026-01-31 |
 | 9. Batch Logging & Visual Polish | v1.2 | 5/5 | Complete | 2026-01-31 |
 | 10. Workout Features & Demo Data | v1.2 | 4/4 | Complete | 2026-01-31 |
-| 11. CI/CD & Portfolio | v1.2 | 0/5 | Pending | — |
+| 11. CI/CD & Portfolio | v1.2 | 5/5 | Complete | 2026-01-31 |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-31 — Phase 11 planned (5 plans in 2 waves)*
+*Last updated: 2026-01-31 — Phase 11 complete (5/5 plans, v1.2 milestone complete)*
