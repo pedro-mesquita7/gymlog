@@ -5,6 +5,7 @@ import { EstimatedMaxDisplay } from '../history/EstimatedMaxDisplay';
 import { useExerciseMax } from '../../hooks/useHistory';
 import { ProgressionAlert } from './ProgressionAlert';
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
+import { Button } from '../ui/Button';
 
 interface SetLoggerProps {
   exerciseId: string;
@@ -190,13 +191,14 @@ export function SetLogger({
       </div>
 
       {/* Log button */}
-      <button
+      <Button
         onClick={handleSubmit}
         disabled={!canLog}
-        className="w-full py-4 bg-accent hover:bg-accent/90 text-black font-bold text-lg rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        variant="primary"
+        size="lg"
       >
         Log Set
-      </button>
+      </Button>
     </div>
   );
 }
