@@ -58,7 +58,7 @@ export function SetRow({
     onBlur();
   };
 
-  // Calculate delta vs previous session (ghost vs previousGhost)
+  // Calculate delta: last session (ghost) vs second-to-last session (previousGhost)
   const getDelta = (
     field: 'weight_kg' | 'reps' | 'rir'
   ): 'up' | 'down' | null => {

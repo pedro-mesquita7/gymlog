@@ -30,7 +30,7 @@ export function SetGrid({
   onRemoveRow,
 }: SetGridProps) {
   // Fetch ghost data using original exercise ID (before any substitution)
-  const { data: ghostData, isLoading } = useLastSessionData(
+  const { data: ghostData, previousData, isLoading } = useLastSessionData(
     originalExerciseId,
     gymId
   );
@@ -114,9 +114,8 @@ export function SetGrid({
         {rows.map((row, index) => {
           // Get ghost data for this row index (1-indexed in data, 0-indexed in array)
           const setGhostData = ghostData?.[index] ?? null;
-          // Get previous ghost data (one row before for delta)
-          const previousSetGhostData =
-            index > 0 ? ghostData?.[index - 1] ?? null : null;
+          // Get same set index from previous session for delta comparison
+          const previousSetGhostData = previousData?.[index] ?? null;
 
           return (
             <SetRow
