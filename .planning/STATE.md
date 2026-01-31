@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 8 - Testing & Design Foundation
-Plan: 08-02 of 7 complete
+Plan: 2 of 7 complete (08-01, 08-02)
 Status: Phase 8 in progress
-Last activity: 2026-01-31 — Completed 08-02-PLAN.md (Design Token System & Geist Fonts)
+Last activity: 2026-01-31 — Completed 08-01-PLAN.md (Testing Infrastructure Setup)
 
-Progress: [░░░░░░░░░░░░░░░░░░░░░░░░] 2/7 plans (Phase 8)
+Progress: [██████░░░░░░░░░░░░░░░░░░] 2/7 plans (Phase 8)
 
 ## Milestones
 
@@ -92,8 +92,11 @@ v1.2 roadmap decisions:
 - CI/CD and portfolio documentation last (documents completed work)
 
 v1.2 Phase 8 (Testing & Design) decisions:
-- Vitest + happy-dom for unit tests (fast, jsdom-compatible)
-- Playwright for e2e tests (industry standard, cross-browser)
+- Vitest + happy-dom for unit tests (5-10x faster than jsdom, sufficient DOM APIs)
+- Playwright for e2e tests (Chromium-only for SharedArrayBuffer support)
+- DuckDB mock factory pattern for isolating database in unit tests
+- Separate vitest.config.ts from vite.config.ts for clarity
+- Test globals enabled (describe, test, expect) for cleaner syntax
 - Geist Sans + Geist Mono fonts (Vercel aesthetic, self-hosted)
 - OKLCH color space for accent/semantic colors (better vibrancy, perceptual uniformity)
 - Tailwind CSS 4 @theme directive for design tokens (systematic, maintainable)
@@ -111,7 +114,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 08-02-PLAN.md (Design Token System & Geist Fonts)
+Stopped at: Completed 08-01-PLAN.md (Testing Infrastructure Setup)
 Resume file: None
 
-**Next action:** Continue with 08-03-PLAN.md (Button Primitives) or next plan in phase 8.
+**Next action:** Continue with 08-03-PLAN.md or remaining plans in phase 8.
