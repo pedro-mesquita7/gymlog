@@ -28,3 +28,20 @@ dbt/dbt_packages/
 *.njsproj
 *.sln
 *.sw?
+
+# Test output
+coverage/
+playwright-report/
+test-results/
+
+# AI/agent cache
+claude/
+
+# dbt user config
+dbt/.user.yml
+
+# Environment variants
+.env.*
+
+# Build artifacts
+*.tgz
