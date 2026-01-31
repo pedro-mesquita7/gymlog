@@ -5,6 +5,7 @@ import { useBackupStore } from '../../stores/useBackupStore';
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { useDuckDB } from '../../hooks/useDuckDB';
 import { Input } from '../ui/Input';
+import { RotationSection } from '../settings/RotationSection';
 
 export function BackupSettings() {
   const { exportBackup, isExporting, error: exportError } = useBackupExport();
@@ -48,6 +49,11 @@ export function BackupSettings() {
 
   return (
     <div className="space-y-8">
+      {/* Workout Rotations */}
+      <RotationSection />
+
+      <hr className="border-border-primary" />
+
       {/* Workout Preferences */}
       <section>
         <h2 className="text-lg font-semibold mb-4 text-text-primary">Workout Preferences</h2>
