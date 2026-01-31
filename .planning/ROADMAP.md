@@ -129,8 +129,8 @@ Plans:
 - [x] 11-03-PLAN.md — Portfolio README (architecture diagram, tech stack, data engineering decisions, dbt lineage)
 - [x] 11-04-PLAN.md — In-app observability dashboard (storage usage, query metrics, event counts)
 - [x] 11-05-PLAN.md — Data quality display (run compiled dbt test SQL client-side, anomaly counts)
-- [ ] 11-06-PLAN.md — Fix production fonts and chunk splitting (gap closure)
-- [ ] 11-07-PLAN.md — Fix data quality test SQL to use CTEs (gap closure)
+- [x] 11-06-PLAN.md — Fix production fonts and chunk splitting (gap closure)
+- [x] 11-07-PLAN.md — Fix data quality test SQL to use CTEs (gap closure)
 
 **Success Criteria**:
 1. GitHub Actions pipeline runs tests and deploys to GitHub Pages automatically on every merge to main
@@ -154,8 +154,8 @@ Plans:
 | 8. Testing & Design Foundation | v1.2 | 7/7 | Complete | 2026-01-31 |
 | 9. Batch Logging & Visual Polish | v1.2 | 5/5 | Complete | 2026-01-31 |
 | 10. Workout Features & Demo Data | v1.2 | 4/4 | Complete | 2026-01-31 |
-| 11. CI/CD & Portfolio | v1.2 | 5/7 | Gap closure | 2026-01-31 |
+| 11. CI/CD & Portfolio | v1.2 | 7/7 | Complete | 2026-01-31 |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-31 — Phase 11 gap closure (2 fix plans added for UAT issues)*
+*Last updated: 2026-01-31 — Phase 11 complete (7/7 plans, gap closure done, v1.2 milestone complete)*

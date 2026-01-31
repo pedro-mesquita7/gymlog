@@ -1,5 +1,5 @@
 ---
-status: complete
+status: diagnosed
 phase: 11-cicd-portfolio
 source: [11-01-SUMMARY.md, 11-02-SUMMARY.md, 11-03-SUMMARY.md, 11-04-SUMMARY.md, 11-05-SUMMARY.md]
 started: 2026-01-31T16:00:00Z
@@ -79,16 +79,32 @@ skipped: 0
   reason: "User reported: Build completes but with warnings: coi-serviceworker.js can't be bundled without type=module, 26 font files didn't resolve at build time, chunk size warnings"
   severity: minor
   test: 2
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "Three warning categories: (1) coi-serviceworker.js lacks type=module — cosmetic, script works from public/. (2) CRITICAL: @fontsource CSS @import paths not resolved by Vite — font files NOT copied to dist/assets/files/, fonts broken in production. (3) Large chunks — DuckDB in main bundle (745KB), AnalyticsPage already lazy-loaded (556KB)."
+  artifacts:
+    - path: "src/styles/fonts.css"
+      issue: "CSS @import of @fontsource files — Vite cannot follow nested url() paths in imported node_modules CSS"
+    - path: "index.html"
+      issue: "coi-serviceworker script tag lacks type=module (cosmetic warning)"
+    - path: "vite.config.ts"
+      issue: "No manualChunks config for DuckDB, no chunkSizeWarningLimit"
+  missing:
+    - "Import @fontsource from JS (main.tsx) instead of CSS @import for proper Vite bundling"
+    - "Add manualChunks for duckdb-wasm and chunkSizeWarningLimit to vite.config.ts"
+  debug_session: ".planning/debug/build-warnings-vite.md"
 - truth: "Custom dbt tests (Weight Positive, Reps Reasonable) pass with demo data loaded, and anomaly detection shows count"
   status: failed
   reason: "User reported: Weight Positive and Reps Reasonable custom tests show error status after importing demo data. Anomaly detection shows No data. Only 2/4 schema tests pass."
   severity: major
   test: 9
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "Tests query fact_sets and int_sets__with_anomalies tables that don't exist at runtime. Only the events table is created in DuckDB-WASM. dbt models are embedded as CTEs in src/db/compiled-queries.ts (FACT_SETS_SQL), not materialized as tables/views."
+  artifacts:
+    - path: "src/hooks/useDataQuality.ts"
+      issue: "Lines 36-92: test SQL references non-existent tables (fact_sets, int_sets__with_anomalies)"
+    - path: "src/db/compiled-queries.ts"
+      issue: "Contains FACT_SETS_SQL with embedded anomaly logic as CTEs"
+    - path: "src/db/duckdb-init.ts"
+      issue: "Only creates events table (line 8), no views materialized"
+  missing:
+    - "Wrap test SQL with CTEs from FACT_SETS_SQL constant instead of querying non-existent tables"
+    - "Extract anomaly CTE or use FACT_SETS_SQL with WHERE is_anomaly filter"
+  debug_session: ".planning/debug/data-quality-tests-error.md"
