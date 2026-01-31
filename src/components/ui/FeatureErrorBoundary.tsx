@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorCard } from './ErrorCard';
 
@@ -49,13 +49,13 @@ export function FeatureErrorBoundary({ children, feature }: FeatureErrorBoundary
     <ErrorBoundary
       fallbackRender={({ error, resetErrorBoundary }) => (
         <ErrorCard
-          error={error}
+          error={error as Error}
           resetErrorBoundary={resetErrorBoundary}
           title={`${feature} Error`}
           context={feature}
         />
       )}
-      onError={(error) => logError(feature, error)}
+      onError={(error) => logError(feature, error as Error)}
     >
       {children}
     </ErrorBoundary>

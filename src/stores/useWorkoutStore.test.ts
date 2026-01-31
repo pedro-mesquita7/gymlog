@@ -1,6 +1,5 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest';
 import { useWorkoutStore, selectSetsForExercise } from './useWorkoutStore';
-import { makeLoggedSet } from '../tests/__fixtures__/test-data';
 
 // Mock uuidv7 to return predictable IDs
 let mockIdCounter = 0;
