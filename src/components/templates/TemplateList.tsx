@@ -75,12 +75,12 @@ export function TemplateList() {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg font-semibold">Templates</h2>
         <div className="flex items-center gap-3">
-          <label className="flex items-center gap-2 text-sm text-zinc-500">
+          <label className="flex items-center gap-2 text-sm text-text-muted">
             <input
               type="checkbox"
               checked={showArchived}
               onChange={(e) => setShowArchived(e.target.checked)}
-              className="rounded border-zinc-600"
+              className="rounded border-border-secondary"
             />
             Show archived
           </label>
@@ -94,10 +94,10 @@ export function TemplateList() {
       </div>
 
       {isLoading ? (
-        <div className="text-center py-8 text-zinc-500">Loading templates...</div>
+        <div className="text-center py-8 text-text-muted">Loading templates...</div>
       ) : displayTemplates.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-zinc-500 mb-4">
+          <p className="text-text-muted mb-4">
             {showArchived ? 'No templates yet' : 'No active templates'}
           </p>
           <button

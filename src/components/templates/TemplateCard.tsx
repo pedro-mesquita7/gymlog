@@ -34,14 +34,14 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
           <h3 className="font-medium flex items-center gap-2">
             {template.name}
             {template.is_archived && (
-              <span className="text-xs bg-zinc-700 px-2 py-0.5 rounded">Archived</span>
+              <span className="text-xs bg-bg-tertiary px-2 py-0.5 rounded">Archived</span>
             )}
           </h3>
-          <p className="text-sm text-zinc-500 mt-1">
+          <p className="text-sm text-text-muted mt-1">
             {template.exercises.length} exercise{template.exercises.length !== 1 ? 's' : ''}
           </p>
           {exercisePreview.length > 0 && (
-            <p className="text-xs text-zinc-600 mt-2">
+            <p className="text-xs text-text-muted mt-2">
               {exercisePreview.join(', ')}
               {moreCount > 0 && ` +${moreCount} more`}
             </p>
@@ -52,7 +52,7 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
         <div className="relative">
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="p-2 text-zinc-500 hover:text-zinc-300"
+            className="p-2 text-text-muted hover:text-text-secondary"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
@@ -68,7 +68,7 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
               />
 
               {/* Menu */}
-              <div className="absolute right-0 mt-1 w-40 bg-zinc-700 rounded-lg shadow-lg z-20 py-1">
+              <div className="absolute right-0 mt-1 w-40 bg-bg-tertiary rounded-lg shadow-lg z-20 py-1">
                 <Button
                   onClick={() => { setShowMenu(false); onEdit(); }}
                   variant="ghost"

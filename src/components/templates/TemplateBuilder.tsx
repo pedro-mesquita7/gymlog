@@ -129,24 +129,24 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
       {/* Template name */}
       <div>
-        <label className="block text-sm font-medium text-zinc-400 mb-2">
+        <label className="block text-sm font-medium text-text-secondary mb-2">
           Template Name
         </label>
         <input
           {...register('name')}
           type="text"
           placeholder="e.g., Upper A, Push Day"
-          className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent"
+          className="w-full bg-bg-tertiary border border-border-secondary rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent"
         />
         {errors.name && (
-          <p className="mt-1 text-sm text-red-400">{errors.name.message}</p>
+          <p className="mt-1 text-sm text-error">{errors.name.message}</p>
         )}
       </div>
 
       {/* Exercise list with drag-drop */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <label className="text-sm font-medium text-zinc-400">
+          <label className="text-sm font-medium text-text-secondary">
             Exercises ({fieldArray.fields.length})
           </label>
           <button
@@ -159,7 +159,7 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
         </div>
 
         {errors.exercises && typeof errors.exercises.message === 'string' && (
-          <p className="mb-2 text-sm text-red-400">{errors.exercises.message}</p>
+          <p className="mb-2 text-sm text-error">{errors.exercises.message}</p>
         )}
 
         {/* CRITICAL: ExerciseList component renders here */}
@@ -174,12 +174,12 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
 
       {/* Exercise picker (checkbox list) */}
       {showExercisePicker && (
-        <div className="bg-zinc-800/50 rounded-lg p-4 max-h-64 overflow-y-auto">
+        <div className="bg-bg-tertiary/50 rounded-lg p-4 max-h-64 overflow-y-auto">
           <div className="space-y-2">
             {sortedExercises.map(exercise => (
               <label
                 key={exercise.exercise_id}
-                className="flex items-center gap-3 p-2 rounded hover:bg-zinc-700/50 cursor-pointer"
+                className="flex items-center gap-3 p-2 rounded hover:bg-bg-tertiary cursor-pointer"
               >
                 <input
                   type="checkbox"
@@ -192,10 +192,10 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
                       if (index >= 0) fieldArray.remove(index);
                     }
                   }}
-                  className="rounded border-zinc-600 text-accent focus:ring-accent"
+                  className="rounded border-border-secondary text-accent focus:ring-accent"
                 />
                 <span>{exercise.name}</span>
-                <span className="text-xs text-zinc-500">{exercise.muscle_group}</span>
+                <span className="text-xs text-text-muted">{exercise.muscle_group}</span>
               </label>
             ))}
           </div>
@@ -207,7 +207,7 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors"
+          className="flex-1 px-4 py-3 bg-bg-tertiary hover:bg-bg-tertiary/80 rounded-lg transition-colors"
         >
           Cancel
         </button>

@@ -51,38 +51,38 @@ export function GymList({
     <section>
       <div className="flex items-baseline justify-between mb-6">
         <div>
-          <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-1">
+          <h2 className="text-xs font-mono uppercase tracking-widest text-text-muted mb-1">
             Locations
           </h2>
           <p className="text-xl font-semibold">Your Gyms</p>
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="text-sm font-medium text-accent hover:text-orange-400 transition-colors"
+          className="text-sm font-medium text-accent hover:text-accent/80 transition-colors"
         >
           + Add
         </button>
       </div>
 
       {isLoading ? (
-        <div className="text-zinc-600 text-sm">Loading...</div>
+        <div className="text-text-muted text-sm">Loading...</div>
       ) : gyms.length === 0 ? (
-        <div className="border border-dashed border-zinc-800 py-8 px-6">
-          <p className="text-zinc-500 text-sm">No gyms added yet</p>
+        <div className="border border-dashed border-border-primary py-8 px-6">
+          <p className="text-text-muted text-sm">No gyms added yet</p>
         </div>
       ) : (
         <div className="space-y-px">
           {gyms.map((gym) => (
             <div
               key={gym.gym_id}
-              className="group flex items-center justify-between py-4 border-b border-zinc-800/50 hover:bg-zinc-900/30 -mx-3 px-3 transition-colors"
+              className="group flex items-center justify-between py-4 border-b border-border-primary/50 hover:bg-bg-secondary/30 -mx-3 px-3 transition-colors"
             >
               <div>
                 <h3 className="font-medium">{gym.name}</h3>
                 {gym.location && (
-                  <p className="text-sm text-zinc-500 mt-0.5">{gym.location}</p>
+                  <p className="text-sm text-text-muted mt-0.5">{gym.location}</p>
                 )}
-                <p className="text-xs text-zinc-600 mt-0.5">
+                <p className="text-xs text-text-muted mt-0.5">
                   {gym.exercise_count} {gym.exercise_count === 1 ? 'exercise' : 'exercises'}
                 </p>
               </div>
@@ -90,13 +90,13 @@ export function GymList({
               <div className="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
                   onClick={() => setEditingGym(gym)}
-                  className="text-xs text-zinc-500 hover:text-white transition-colors"
+                  className="text-xs text-text-muted hover:text-text-primary transition-colors"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => setDeletingGym(gym)}
-                  className="text-xs text-zinc-500 hover:text-red-500 transition-colors"
+                  className="text-xs text-text-muted hover:text-error transition-colors"
                 >
                   Delete
                 </button>

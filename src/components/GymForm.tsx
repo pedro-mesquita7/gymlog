@@ -24,7 +24,7 @@ export function GymForm({ gym, onSubmit, onCancel }: GymFormProps) {
     e.preventDefault();
 
     if (!name.trim()) {
-      setError('Gym name is required');
+      setError('Name is required');
       return;
     }
 
@@ -37,73 +37,79 @@ export function GymForm({ gym, onSubmit, onCancel }: GymFormProps) {
         location: location.trim() || null,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save gym');
+      setError(err instanceof Error ? err.message : 'Failed to save');
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          {isEditing ? 'Edit Gym' : 'New Gym'}
-        </h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/80"
+        onClick={onCancel}
+      />
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name */}
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-              Gym Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="e.g., Downtown Fitness"
-              autoFocus
-            />
-          </div>
+      {/* Modal */}
+      <div className="relative w-full max-w-md bg-bg-secondary border border-border-primary">
+        <div className="p-6">
+          <h2 className="text-lg font-semibold mb-6">
+            {isEditing ? 'Edit Gym' : 'Add Gym'}
+          </h2>
 
-          {/* Location */}
-          <div>
-            <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
-              Location <span className="text-gray-400">(optional)</span>
-            </label>
-            <input
-              type="text"
-              id="location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="e.g., 123 Main Street"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label htmlFor="name" className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full bg-transparent border-b border-border-secondary pb-2 text-text-primary focus:outline-none focus:border-accent transition-colors"
+                placeholder="Downtown Fitness"
+                autoFocus
+              />
+            </div>
 
-          {error && (
-            <div className="p-3 bg-red-50 text-red-700 rounded text-sm">{error}</div>
-          )}
+            <div>
+              <label htmlFor="location" className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">
+                Location <span className="text-text-muted">(optional)</span>
+              </label>
+              <input
+                type="text"
+                id="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                className="w-full bg-transparent border-b border-border-secondary pb-2 text-text-primary focus:outline-none focus:border-accent transition-colors"
+                placeholder="123 Main Street"
+              />
+            </div>
 
-          {/* Actions */}
-          <div className="flex justify-end gap-3 pt-4">
-            <button
-              type="button"
-              onClick={onCancel}
-              disabled={isSubmitting}
-              className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
-            >
-              {isSubmitting ? 'Saving...' : isEditing ? 'Update' : 'Create'}
-            </button>
-          </div>
-        </form>
+            {error && (
+              <p className="text-error text-sm">{error}</p>
+            )}
+
+            <div className="flex justify-end gap-4 pt-4">
+              <button
+                type="button"
+                onClick={onCancel}
+                disabled={isSubmitting}
+                className="text-sm text-text-muted hover:text-text-primary transition-colors disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="text-sm font-medium text-accent hover:text-accent/80 transition-colors disabled:opacity-50"
+              >
+                {isSubmitting ? 'Saving...' : isEditing ? 'Update' : 'Add Gym'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

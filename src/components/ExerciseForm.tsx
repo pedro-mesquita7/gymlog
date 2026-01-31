@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MUSCLE_GROUPS, type MuscleGroup } from '../types/events';
-import type { Exercise, Gym } from '../types/database';
+import type { Exercise } from '../types/database';
 
 interface ExerciseFormProps {
   exercise?: Exercise | null;
-  gyms: Gym[];
   onSubmit: (data: ExerciseFormData) => Promise<void>;
   onCancel: () => void;
 }
@@ -13,16 +12,14 @@ export interface ExerciseFormData {
   name: string;
   muscle_group: MuscleGroup;
   is_global: boolean;
-  gym_id: string | null;
 }
 
-export function ExerciseForm({ exercise, gyms, onSubmit, onCancel }: ExerciseFormProps) {
+export function ExerciseForm({ exercise, onSubmit, onCancel }: ExerciseFormProps) {
   const [name, setName] = useState(exercise?.name ?? '');
   const [muscleGroup, setMuscleGroup] = useState<MuscleGroup>(
     (exercise?.muscle_group as MuscleGroup) ?? 'Chest'
   );
   const [isGlobal, setIsGlobal] = useState(exercise?.is_global ?? true);
-  const [gymId, setGymId] = useState<string | null>(exercise?.gym_id ?? null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,12 +29,7 @@ export function ExerciseForm({ exercise, gyms, onSubmit, onCancel }: ExerciseFor
     e.preventDefault();
 
     if (!name.trim()) {
-      setError('Exercise name is required');
-      return;
-    }
-
-    if (!isGlobal && !gymId) {
-      setError('Please select a gym for gym-specific exercises');
+      setError('Name is required');
       return;
     }
 
@@ -49,139 +41,121 @@ export function ExerciseForm({ exercise, gyms, onSubmit, onCancel }: ExerciseFor
         name: name.trim(),
         muscle_group: muscleGroup,
         is_global: isGlobal,
-        gym_id: isGlobal ? null : gymId,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save exercise');
+      setError(err instanceof Error ? err.message : 'Failed to save');
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          {isEditing ? 'Edit Exercise' : 'New Exercise'}
-        </h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/80"
+        onClick={onCancel}
+      />
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name */}
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-              Exercise Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="e.g., Bench Press"
-              autoFocus
-            />
-          </div>
+      {/* Modal */}
+      <div className="relative w-full max-w-md bg-bg-secondary border border-border-primary">
+        <div className="p-6">
+          <h2 className="text-lg font-semibold mb-6">
+            {isEditing ? 'Edit Exercise' : 'Add Exercise'}
+          </h2>
 
-          {/* Muscle Group */}
-          <div>
-            <label htmlFor="muscleGroup" className="block text-sm font-medium text-gray-700 mb-1">
-              Primary Muscle Group
-            </label>
-            <select
-              id="muscleGroup"
-              value={muscleGroup}
-              onChange={(e) => setMuscleGroup(e.target.value as MuscleGroup)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              {MUSCLE_GROUPS.map((group) => (
-                <option key={group} value={group}>
-                  {group}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Global vs Gym-Specific */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Exercise Type
-            </label>
-            <div className="space-y-2">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  checked={isGlobal}
-                  onChange={() => setIsGlobal(true)}
-                  className="mr-2"
-                />
-                <span className="text-sm text-gray-700">
-                  Global (comparable across all gyms)
-                </span>
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  checked={!isGlobal}
-                  onChange={() => setIsGlobal(false)}
-                  className="mr-2"
-                />
-                <span className="text-sm text-gray-700">
-                  Gym-specific (equipment varies)
-                </span>
-              </label>
-            </div>
-          </div>
-
-          {/* Gym Selection (only for gym-specific) */}
-          {!isGlobal && (
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="gym" className="block text-sm font-medium text-gray-700 mb-1">
-                Associated Gym
+              <label htmlFor="name" className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">
+                Name
               </label>
-              {gyms.length === 0 ? (
-                <p className="text-sm text-yellow-600">
-                  No gyms available. Create a gym first before adding gym-specific exercises.
-                </p>
-              ) : (
-                <select
-                  id="gym"
-                  value={gymId ?? ''}
-                  onChange={(e) => setGymId(e.target.value || null)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="">Select a gym...</option>
-                  {gyms.map((gym) => (
-                    <option key={gym.gym_id} value={gym.gym_id}>
-                      {gym.name}
-                    </option>
-                  ))}
-                </select>
-              )}
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full bg-transparent border-b border-border-secondary pb-2 text-text-primary focus:outline-none focus:border-accent transition-colors"
+                placeholder="Bench Press"
+                autoFocus
+              />
             </div>
-          )}
 
-          {error && (
-            <div className="p-3 bg-red-50 text-red-700 rounded text-sm">{error}</div>
-          )}
+            <div>
+              <label htmlFor="muscleGroup" className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-2">
+                Muscle Group
+              </label>
+              <select
+                id="muscleGroup"
+                value={muscleGroup}
+                onChange={(e) => setMuscleGroup(e.target.value as MuscleGroup)}
+                className="w-full bg-transparent border-b border-border-secondary pb-2 text-text-primary focus:outline-none focus:border-accent transition-colors cursor-pointer"
+              >
+                {MUSCLE_GROUPS.map((group) => (
+                  <option key={group} value={group} className="bg-bg-secondary">
+                    {group}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* Actions */}
-          <div className="flex justify-end gap-3 pt-4">
-            <button
-              type="button"
-              onClick={onCancel}
-              disabled={isSubmitting}
-              className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
-            >
-              {isSubmitting ? 'Saving...' : isEditing ? 'Update' : 'Create'}
-            </button>
-          </div>
-        </form>
+            <div>
+              <label className="block text-xs font-mono uppercase tracking-widest text-text-muted mb-3">
+                Weight Tracking
+              </label>
+              <div className="flex gap-1">
+                <button
+                  type="button"
+                  onClick={() => setIsGlobal(true)}
+                  className={`flex-1 py-3 text-sm font-medium border transition-colors ${
+                    isGlobal
+                      ? 'border-border-secondary text-text-primary bg-bg-tertiary'
+                      : 'border-border-primary text-text-muted hover:text-text-secondary'
+                  }`}
+                >
+                  Global
+                  <span className="block text-xs font-normal text-text-muted mt-0.5">
+                    Same everywhere
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsGlobal(false)}
+                  className={`flex-1 py-3 text-sm font-medium border transition-colors ${
+                    !isGlobal
+                      ? 'border-accent text-accent bg-orange-950/30'
+                      : 'border-border-primary text-text-muted hover:text-text-secondary'
+                  }`}
+                >
+                  Per-Gym
+                  <span className="block text-xs font-normal text-text-muted mt-0.5">
+                    Different per gym
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {error && (
+              <p className="text-error text-sm">{error}</p>
+            )}
+
+            <div className="flex justify-end gap-4 pt-4">
+              <button
+                type="button"
+                onClick={onCancel}
+                disabled={isSubmitting}
+                className="text-sm text-text-muted hover:text-text-primary transition-colors disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="text-sm font-medium text-accent hover:text-accent/80 transition-colors disabled:opacity-50"
+              >
+                {isSubmitting ? 'Saving...' : isEditing ? 'Update' : 'Add Exercise'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

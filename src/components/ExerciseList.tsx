@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { MUSCLE_GROUPS } from '../types/events';
-import type { Exercise, Gym } from '../types/database';
+import type { Exercise } from '../types/database';
 import { ExerciseForm, type ExerciseFormData } from './ExerciseForm';
 import { DeleteConfirmation } from './DeleteConfirmation';
 
 interface ExerciseListProps {
   exercises: Exercise[];
-  gyms: Gym[];
   isLoading: boolean;
   onCreateExercise: (data: ExerciseFormData) => Promise<void>;
   onUpdateExercise: (id: string, data: ExerciseFormData) => Promise<void>;
@@ -15,7 +14,6 @@ interface ExerciseListProps {
 
 export function ExerciseList({
   exercises,
-  gyms,
   isLoading,
   onCreateExercise,
   onUpdateExercise,
@@ -30,11 +28,6 @@ export function ExerciseList({
   const filteredExercises = filterMuscleGroup
     ? exercises.filter((e) => e.muscle_group === filterMuscleGroup)
     : exercises;
-
-  const getGymName = (gymId: string | null) => {
-    if (!gymId) return null;
-    return gyms.find((g) => g.gym_id === gymId)?.name ?? 'Unknown Gym';
-  };
 
   const handleCreateSubmit = async (data: ExerciseFormData) => {
     await onCreateExercise(data);
@@ -61,119 +54,115 @@ export function ExerciseList({
   };
 
   return (
-    <div className="bg-white shadow rounded-lg">
-      {/* Header */}
-      <div className="p-4 border-b border-gray-200">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <h2 className="text-lg font-semibold text-gray-900">Exercises</h2>
-
-          <div className="flex flex-col sm:flex-row gap-2">
-            {/* Filter */}
-            <select
-              value={filterMuscleGroup}
-              onChange={(e) => setFilterMuscleGroup(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">All Muscle Groups</option>
-              {MUSCLE_GROUPS.map((group) => (
-                <option key={group} value={group}>
-                  {group}
-                </option>
-              ))}
-            </select>
-
-            {/* Add Button */}
-            <button
-              onClick={() => setShowForm(true)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium"
-            >
-              + Add Exercise
-            </button>
-          </div>
+    <section>
+      <div className="flex items-baseline justify-between mb-6">
+        <div>
+          <h2 className="text-xs font-mono uppercase tracking-widest text-text-muted mb-1">
+            Library
+          </h2>
+          <p className="text-xl font-semibold">Exercises</p>
         </div>
+        <button
+          onClick={() => setShowForm(true)}
+          className="text-sm font-medium text-accent hover:text-accent/80 transition-colors"
+        >
+          + Add
+        </button>
       </div>
 
-      {/* Content */}
-      <div className="p-4">
-        {isLoading ? (
-          <div className="text-center py-8 text-gray-500">Loading exercises...</div>
-        ) : filteredExercises.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            {exercises.length === 0
-              ? 'No exercises yet. Create your first exercise!'
-              : 'No exercises match the selected filter.'}
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {filteredExercises.map((exercise) => (
-              <div
-                key={exercise.exercise_id}
-                className="flex items-center justify-between p-3 bg-gray-50 rounded-md hover:bg-gray-100"
-              >
-                <div>
-                  <div className="font-medium text-gray-900">{exercise.name}</div>
-                  <div className="text-sm text-gray-500">
-                    {exercise.muscle_group}
-                    {exercise.is_global ? (
-                      <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs">
-                        Global
-                      </span>
-                    ) : (
-                      <span className="ml-2 px-2 py-0.5 bg-gray-200 text-gray-600 rounded text-xs">
-                        {getGymName(exercise.gym_id)}
-                      </span>
-                    )}
-                  </div>
-                </div>
+      {/* Filter */}
+      <div className="mb-6">
+        <select
+          value={filterMuscleGroup}
+          onChange={(e) => setFilterMuscleGroup(e.target.value)}
+          className="bg-transparent border border-border-primary px-3 py-2 text-sm text-text-secondary focus:outline-none focus:border-border-secondary"
+        >
+          <option value="" className="bg-bg-secondary">All muscles</option>
+          {MUSCLE_GROUPS.map((group) => (
+            <option key={group} value={group} className="bg-bg-secondary">
+              {group}
+            </option>
+          ))}
+        </select>
+      </div>
 
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setEditingExercise(exercise)}
-                    className="px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 rounded"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => setDeletingExercise(exercise)}
-                    className="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded"
-                  >
-                    Delete
-                  </button>
+      {isLoading ? (
+        <div className="text-text-muted text-sm">Loading...</div>
+      ) : filteredExercises.length === 0 ? (
+        <div className="border border-dashed border-border-primary py-8 px-6">
+          <p className="text-text-muted text-sm">
+            {exercises.length === 0
+              ? 'No exercises added yet'
+              : 'No exercises match this filter'}
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-px">
+          {filteredExercises.map((exercise) => (
+            <div
+              key={exercise.exercise_id}
+              className="group flex items-center justify-between py-4 border-b border-border-primary/50 hover:bg-bg-secondary/30 -mx-3 px-3 transition-colors"
+            >
+              <div className="flex items-center gap-4">
+                <div
+                  className={`w-1 h-8 ${
+                    exercise.is_global ? 'bg-zinc-600' : 'bg-accent'
+                  }`}
+                />
+                <div>
+                  <h3 className="font-medium">{exercise.name}</h3>
+                  <p className="text-sm text-text-muted mt-0.5">
+                    {exercise.muscle_group}
+                    <span className="mx-2 text-zinc-700">·</span>
+                    <span className={exercise.is_global ? 'text-text-muted' : 'text-accent'}>
+                      {exercise.is_global ? 'Global' : 'Per-gym'}
+                    </span>
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-      </div>
 
-      {/* Create Form */}
+              <div className="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button
+                  onClick={() => setEditingExercise(exercise)}
+                  className="text-xs text-text-muted hover:text-text-primary transition-colors"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => setDeletingExercise(exercise)}
+                  className="text-xs text-text-muted hover:text-error transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {showForm && (
         <ExerciseForm
-          gyms={gyms}
           onSubmit={handleCreateSubmit}
           onCancel={() => setShowForm(false)}
         />
       )}
 
-      {/* Edit Form */}
       {editingExercise && (
         <ExerciseForm
           exercise={editingExercise}
-          gyms={gyms}
           onSubmit={handleUpdateSubmit}
           onCancel={() => setEditingExercise(null)}
         />
       )}
 
-      {/* Delete Confirmation */}
       <DeleteConfirmation
         isOpen={!!deletingExercise}
         title="Delete Exercise"
-        message={`Are you sure you want to delete "${deletingExercise?.name}"? This action cannot be undone.`}
+        message={`Delete "${deletingExercise?.name}"? This cannot be undone.`}
         onConfirm={handleDeleteConfirm}
         onCancel={() => setDeletingExercise(null)}
         isDeleting={isDeleting}
       />
-    </div>
+    </section>
   );
 }
