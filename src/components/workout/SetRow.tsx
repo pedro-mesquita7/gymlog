@@ -1,0 +1,181 @@
+import { useState, useEffect } from 'react';
+import { Input } from '../ui/Input';
+
+interface GhostData {
+  weight_kg: number;
+  reps: number;
+  rir: number | null;
+}
+
+interface SetData {
+  weight_kg: number | null;
+  reps: number | null;
+  rir: number | null;
+}
+
+interface SetRowProps {
+  setNumber: number;
+  ghostData: GhostData | null;
+  previousGhostData: GhostData | null;
+  onChange: (data: SetData) => void;
+  onBlur: () => void;
+  onRemove: () => void;
+  initialData?: SetData;
+}
+
+export function SetRow({
+  setNumber,
+  ghostData,
+  previousGhostData,
+  onChange,
+  onBlur,
+  onRemove,
+  initialData,
+}: SetRowProps) {
+  const [weightKg, setWeightKg] = useState<string>(
+    initialData?.weight_kg?.toString() ?? ''
+  );
+  const [reps, setReps] = useState<string>(
+    initialData?.reps?.toString() ?? ''
+  );
+  const [rir, setRir] = useState<string>(
+    initialData?.rir?.toString() ?? ''
+  );
+
+  // Update parent on every change
+  useEffect(() => {
+    onChange({
+      weight_kg: weightKg ? parseFloat(weightKg) : null,
+      reps: reps ? parseInt(reps, 10) : null,
+      rir: rir ? parseInt(rir, 10) : null,
+    });
+  }, [weightKg, reps, rir, onChange]);
+
+  const handleBlur = () => {
+    onBlur();
+  };
+
+  // Calculate delta vs previous session (ghost vs previousGhost)
+  const getDelta = (
+    field: 'weight_kg' | 'reps' | 'rir'
+  ): 'up' | 'down' | null => {
+    if (!ghostData || !previousGhostData) return null;
+    const current = ghostData[field];
+    const previous = previousGhostData[field];
+    if (current === null || previous === null) return null;
+    if (current > previous) return 'up';
+    if (current < previous) return 'down';
+    return null;
+  };
+
+  const weightDelta = getDelta('weight_kg');
+  const repsDelta = getDelta('reps');
+  const rirDelta = getDelta('rir');
+
+  return (
+    <div className="bg-zinc-900 rounded-lg p-4 space-y-3">
+      {/* Header: set number and remove button */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-sm font-medium text-zinc-300">
+            {setNumber}
+          </div>
+        </div>
+        <button
+          onClick={onRemove}
+          className="text-zinc-500 hover:text-red-400 transition-colors text-sm"
+          aria-label="Remove set"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Input grid: 3 columns */}
+      <div className="grid grid-cols-3 gap-3">
+        {/* Weight */}
+        <div className="space-y-1">
+          <label className="text-xs text-zinc-400">Weight (kg)</label>
+          <div className="relative">
+            <Input
+              type="number"
+              step="0.1"
+              placeholder={ghostData ? ghostData.weight_kg.toFixed(1) : ''}
+              value={weightKg}
+              onChange={(e) => setWeightKg(e.target.value)}
+              onFocus={(e) => e.target.select()}
+              onBlur={handleBlur}
+              className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            />
+            {weightDelta && (
+              <span
+                className={`absolute right-2 top-1/2 -translate-y-1/2 text-xs ${
+                  weightDelta === 'up' ? 'text-green-400' : 'text-zinc-500'
+                }`}
+              >
+                {weightDelta === 'up' ? '↑' : '↓'}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Reps */}
+        <div className="space-y-1">
+          <label className="text-xs text-zinc-400">Reps</label>
+          <div className="relative">
+            <Input
+              type="number"
+              step="1"
+              placeholder={ghostData ? ghostData.reps.toString() : ''}
+              value={reps}
+              onChange={(e) => setReps(e.target.value)}
+              onFocus={(e) => e.target.select()}
+              onBlur={handleBlur}
+              className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            />
+            {repsDelta && (
+              <span
+                className={`absolute right-2 top-1/2 -translate-y-1/2 text-xs ${
+                  repsDelta === 'up' ? 'text-green-400' : 'text-zinc-500'
+                }`}
+              >
+                {repsDelta === 'up' ? '↑' : '↓'}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* RIR */}
+        <div className="space-y-1">
+          <label className="text-xs text-zinc-400">RIR</label>
+          <div className="relative">
+            <Input
+              type="number"
+              step="1"
+              min="0"
+              max="5"
+              placeholder={
+                ghostData && ghostData.rir !== null
+                  ? ghostData.rir.toString()
+                  : ''
+              }
+              value={rir}
+              onChange={(e) => setRir(e.target.value)}
+              onFocus={(e) => e.target.select()}
+              onBlur={handleBlur}
+              className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            />
+            {rirDelta && ghostData && ghostData.rir !== null && (
+              <span
+                className={`absolute right-2 top-1/2 -translate-y-1/2 text-xs ${
+                  rirDelta === 'up' ? 'text-green-400' : 'text-zinc-500'
+                }`}
+              >
+                {rirDelta === 'up' ? '↑' : '↓'}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
