@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 11 - CI/CD & Portfolio
-Plan: 4 of ? complete (11-04)
+Plan: 5 of ? complete (11-03)
 Status: In progress
-Last activity: 2026-01-31 — Completed 11-04-PLAN.md (Observability Dashboard)
+Last activity: 2026-01-31 — Completed 11-03-PLAN.md (Portfolio README)
 
-Progress: [████] 4/? plans (Phase 11)
+Progress: [█████] 5/? plans (Phase 11)
 
 ## Milestones
 
@@ -35,8 +35,8 @@ Progress: [████] 4/? plans (Phase 11)
 - Total execution time (v1.2 Phase 9): 37min 6s
 - Average duration (v1.2 Phase 10): 4min 1s
 - Total execution time (v1.2 Phase 10): 16min 7s
-- Average duration (v1.2 Phase 11): 4min 49s
-- Total execution time (v1.2 Phase 11): 19min 17s (4/? plans)
+- Average duration (v1.2 Phase 11): 4min 11s
+- Total execution time (v1.2 Phase 11): 20min 57s (5/? plans)
 
 **By Phase (v1.0):**
 
@@ -62,7 +62,7 @@ Progress: [████] 4/? plans (Phase 11)
 | 8. Testing & Design Foundation | 7/7 | Complete |
 | 9. Batch Logging & Visual Polish | 5/5 | Complete |
 | 10. Workout Features & Demo Data | 4/4 | Complete |
-| 11. CI/CD & Portfolio | 4/? | In Progress |
+| 11. CI/CD & Portfolio | 5/? | In Progress |
 
 ## Accumulated Context
 
@@ -181,6 +181,9 @@ v1.2 Phase 11 (CI/CD & Portfolio) decisions:
 - Storage API graceful fallback returns 0 for unsupported browsers (Firefox <51, Safari <10)
 - Single queryTimeMs metric for all DuckDB queries combined (sufficient for portfolio)
 - Two-column grid layout for event type breakdown (compact, scannable)
+- Portfolio README with 2 Mermaid diagrams (architecture + data lineage)
+- README documents 4 key decisions with tradeoffs (Event Sourcing, DuckDB-WASM, dbt, OPFS)
+- Tech stack table and CI/CD pipeline overview for hiring manager quick scan
 
 ### Pending Todos
 
@@ -188,12 +191,12 @@ None.
 
 ### Blockers/Concerns
 
-None. Phase 11 Plan 04 complete. Observability dashboard added to Settings.
+None. Phase 11 Plan 03 complete. Portfolio README published.
 
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 11-04-PLAN.md (Observability Dashboard)
+Stopped at: Completed 11-03-PLAN.md (Portfolio README)
 Resume file: None
 
 **Next action:** Proceed to next Phase 11 plan (if any).
