@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 ## Current Position
 
 Phase: 11 - CI/CD & Portfolio
-Plan: 5 of ? complete (11-05)
+Plan: 7 of ? complete (11-07)
 Status: In progress
-Last activity: 2026-01-31 — Completed 11-05-PLAN.md (Data Quality Display)
+Last activity: 2026-01-31 — Completed 11-07-PLAN.md (Data Quality SQL Fix)
 
-Progress: [█████] 5/? plans (Phase 11)
+Progress: [███████] 7/? plans (Phase 11)
 
 ## Milestones
 
@@ -35,8 +35,8 @@ Progress: [█████] 5/? plans (Phase 11)
 - Total execution time (v1.2 Phase 9): 37min 6s
 - Average duration (v1.2 Phase 10): 4min 1s
 - Total execution time (v1.2 Phase 10): 16min 7s
-- Average duration (v1.2 Phase 11): 3min 52s
-- Total execution time (v1.2 Phase 11): 19min 22s (5/? plans)
+- Average duration (v1.2 Phase 11): 3min 17s
+- Total execution time (v1.2 Phase 11): 22min 56s (7/? plans)
 
 **By Phase (v1.0):**
 
@@ -62,7 +62,7 @@ Progress: [█████] 5/? plans (Phase 11)
 | 8. Testing & Design Foundation | 7/7 | Complete |
 | 9. Batch Logging & Visual Polish | 5/5 | Complete |
 | 10. Workout Features & Demo Data | 4/4 | Complete |
-| 11. CI/CD & Portfolio | 5/? | In Progress |
+| 11. CI/CD & Portfolio | 7/? | In Progress |
 
 ## Accumulated Context
 
@@ -187,6 +187,7 @@ v1.2 Phase 11 (CI/CD & Portfolio) decisions:
 - Client-side dbt test execution pattern for data quality monitoring
 - On-demand data quality checks (user-triggered, not automatic)
 - 5 test categories: custom, schema, anomaly detection
+- Data quality tests use FACT_SETS_SQL CTE wrapper (query dbt marts without tables)
 
 ### Pending Todos
 
@@ -194,12 +195,12 @@ None.
 
 ### Blockers/Concerns
 
-None. Phase 11 Plan 05 complete. Data quality monitoring added to Settings.
+None. Phase 11 Plan 07 complete. Data quality tests now execute successfully.
 
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 11-05-PLAN.md (Data Quality Display)
+Stopped at: Completed 11-07-PLAN.md (Data Quality SQL Fix)
 Resume file: None
 
 **Next action:** Proceed to next Phase 11 plan (if any).
