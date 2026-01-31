@@ -13,6 +13,7 @@ import { ActiveWorkout } from './components/workout/ActiveWorkout';
 import { BackupReminder } from './components/backup/BackupReminder';
 import { BackupSettings } from './components/backup/BackupSettings';
 import { Navigation, type Tab } from './components/Navigation';
+import { FeatureErrorBoundary } from './components/ui/FeatureErrorBoundary';
 import type { DatabaseStatus } from './types/database';
 
 // Lazy load Analytics page to keep Recharts out of main bundle
@@ -201,13 +202,25 @@ function AppContent({ status, eventCount, refreshEventCount }: {
 
       {/* Main Content */}
       <main className="max-w-2xl mx-auto px-6 py-10">
-        {activeTab === 'settings' ? <BackupSettings /> :
-         activeTab === 'analytics' ? (
-           <Suspense fallback={<div className="text-center py-12 text-zinc-500">Loading analytics...</div>}>
-             <AnalyticsPage />
-           </Suspense>
-         ) :
-         activeTab === 'workouts' ? renderWorkoutsContent() : <TemplateList />}
+        {activeTab === 'settings' ? (
+          <FeatureErrorBoundary feature="Settings">
+            <BackupSettings />
+          </FeatureErrorBoundary>
+        ) : activeTab === 'analytics' ? (
+          <FeatureErrorBoundary feature="Analytics">
+            <Suspense fallback={<div className="text-center py-12 text-zinc-500">Loading analytics...</div>}>
+              <AnalyticsPage />
+            </Suspense>
+          </FeatureErrorBoundary>
+        ) : activeTab === 'workouts' ? (
+          <FeatureErrorBoundary feature="Workouts">
+            {renderWorkoutsContent()}
+          </FeatureErrorBoundary>
+        ) : (
+          <FeatureErrorBoundary feature="Templates">
+            <TemplateList />
+          </FeatureErrorBoundary>
+        )}
       </main>
 
       {/* Bottom Navigation */}
