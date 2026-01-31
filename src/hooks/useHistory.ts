@@ -159,24 +159,19 @@ export function useExerciseMax(exerciseId: string): ExerciseMax | null {
 
   useEffect(() => {
     async function fetchMax() {
-      console.log('[useExerciseMax] Called with exerciseId:', exerciseId);
       if (!exerciseId) {
-        console.log('[useExerciseMax] No exerciseId, returning');
         return;
       }
 
       const db = getDuckDB();
-      console.log('[useExerciseMax] DB:', db ? 'connected' : 'null');
       if (!db) return;
 
       try {
         const conn = await db.connect();
-        console.log('[useExerciseMax] Running query...');
         // Replace $1 parameter with actual value (DuckDB-WASM doesn't support parameterized queries via query())
         const sql = CURRENT_MAX_SQL.replace('$1', `'${exerciseId}'`);
         const result = await conn.query(sql);
         const rows = result.toArray();
-        console.log('[useExerciseMax] Query result rows:', rows);
 
         if (rows.length > 0) {
           const row = rows[0] as any;
@@ -184,10 +179,8 @@ export function useExerciseMax(exerciseId: string): ExerciseMax | null {
             max_weight: row.max_weight !== null ? Number(row.max_weight) : null,
             max_1rm: row.max_1rm !== null ? Number(row.max_1rm) : null,
           };
-          console.log('[useExerciseMax] Setting max:', maxData);
           setMax(maxData);
         } else {
-          console.log('[useExerciseMax] No rows, setting nulls');
           setMax({ max_weight: null, max_1rm: null });
         }
         await conn.close();
@@ -199,6 +192,5 @@ export function useExerciseMax(exerciseId: string): ExerciseMax | null {
     fetchMax();
   }, [exerciseId]);
 
-  console.log('[useExerciseMax] Returning max:', max);
   return max;
 }

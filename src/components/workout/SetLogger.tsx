@@ -39,7 +39,6 @@ export function SetLogger({
 
   // Get current max weight and 1RM for PR detection
   const maxData = useExerciseMax(originalExerciseId);
-  console.log('[SetLogger] maxData:', maxData, 'for exercise:', originalExerciseId);
 
   // Calculate estimated 1RM for current inputs (Epley formula)
   const currentEstimated1RM = useMemo(() => {
