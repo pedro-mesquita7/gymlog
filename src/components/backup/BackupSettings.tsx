@@ -6,6 +6,7 @@ import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { useDuckDB } from '../../hooks/useDuckDB';
 import { Input } from '../ui/Input';
 import { RotationSection } from '../settings/RotationSection';
+import { DemoDataSection } from '../settings/DemoDataSection';
 
 export function BackupSettings() {
   const { exportBackup, isExporting, error: exportError } = useBackupExport();
@@ -183,6 +184,11 @@ export function BackupSettings() {
           </div>
         )}
       </section>
+
+      <hr className="border-border-primary" />
+
+      {/* Demo Data & Clear All */}
+      <DemoDataSection eventCount={eventCount} />
     </div>
   );
 }
