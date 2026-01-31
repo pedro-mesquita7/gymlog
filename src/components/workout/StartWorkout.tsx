@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import type { Template } from '../../types/template';
 import type { Gym } from '../../types/database';
+import { Button } from '../ui/Button';
+import { Select } from '../ui/Input';
 
 interface StartWorkoutProps {
   templates: Template[];
@@ -42,10 +44,9 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
             No gyms yet. Add a gym below.
           </p>
         ) : (
-          <select
+          <Select
             value={selectedGymId}
             onChange={e => setSelectedGymId(e.target.value)}
-            className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-accent"
           >
             <option value="">Select gym...</option>
             {gyms.map(gym => (
@@ -53,7 +54,7 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
                 {gym.name}{gym.location ? ` — ${gym.location}` : ''}
               </option>
             ))}
-          </select>
+          </Select>
         )}
       </div>
 
@@ -67,10 +68,9 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
             No templates yet. Create one in the Templates tab.
           </p>
         ) : (
-          <select
+          <Select
             value={selectedTemplateId}
             onChange={e => setSelectedTemplateId(e.target.value)}
-            className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-accent"
           >
             <option value="">Select template...</option>
             {activeTemplates.map(template => (
@@ -78,18 +78,19 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
                 {template.name} ({template.exercises.length} exercises)
               </option>
             ))}
-          </select>
+          </Select>
         )}
       </div>
 
       {/* Start button */}
-      <button
+      <Button
         onClick={handleStart}
         disabled={!canStart}
-        className="w-full py-4 bg-accent hover:bg-accent/90 text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        variant="primary"
+        size="lg"
       >
         Start Workout
-      </button>
+      </Button>
     </div>
   );
 }
