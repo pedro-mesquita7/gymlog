@@ -15,11 +15,11 @@
   /* Text hierarchy */
   --color-text-primary: oklch(90% 0.005 270);   /* primary text - soft white */
   --color-text-secondary: oklch(72% 0.01 270);  /* labels, secondary info */
-  --color-text-muted: oklch(55% 0.01 270);      /* placeholders, hints */
+  --color-text-muted: oklch(59% 0.01 270);      /* placeholders, hints — bumped from 55% for WCAG AA 4.5:1 */
 
   /* Borders - subtle separation */
   --color-border-primary: oklch(27% 0.01 270);  /* subtle card borders */
-  --color-border-secondary: oklch(35% 0.01 270); /* focus states, stronger separation */
+  --color-border-secondary: oklch(38% 0.01 270); /* focus states, stronger separation — bumped from 35% for visibility */
 
   /* Accent - vibrant orange */
   --color-accent: oklch(72% 0.19 45);           /* primary orange */
