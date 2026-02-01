@@ -75,22 +75,22 @@ export function ProgressionDashboard({ days }: ProgressionDashboardProps) {
     <div className="space-y-6">
       {/* Summary counts */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-success/10 border border-success/30 rounded-lg p-4 text-center">
+        <div className="bg-success/10 border border-success/30 rounded-2xl p-4 text-center">
           <div className="text-3xl font-bold text-success">{summary.progressing}</div>
           <div className="text-sm text-success/80 mt-1">Progressing</div>
         </div>
-        <div className="bg-warning/10 border border-warning/30 rounded-lg p-4 text-center">
+        <div className="bg-warning/10 border border-warning/30 rounded-2xl p-4 text-center">
           <div className="text-3xl font-bold text-warning">{summary.plateau}</div>
           <div className="text-sm text-warning/80 mt-1">Plateaued</div>
         </div>
-        <div className="bg-error/10 border border-error/30 rounded-lg p-4 text-center">
+        <div className="bg-error/10 border border-error/30 rounded-2xl p-4 text-center">
           <div className="text-3xl font-bold text-error">{summary.regressing}</div>
           <div className="text-sm text-error/80 mt-1">Regressing</div>
         </div>
       </div>
 
       {days !== null && days < 63 && (
-        <p className="text-xs text-text-muted bg-bg-secondary rounded-lg p-3">
+        <p className="text-xs text-text-muted bg-bg-secondary rounded-2xl p-3">
           Progression analysis uses at least 9 weeks of data for accurate detection, regardless of the selected time range.
         </p>
       )}

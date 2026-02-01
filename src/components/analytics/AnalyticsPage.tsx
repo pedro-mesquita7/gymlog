@@ -110,7 +110,7 @@ export function AnalyticsPage() {
       ) : (
         <div className="space-y-4">
           <FeatureErrorBoundary feature="Volume Chart">
-            <div className="bg-bg-tertiary/30 rounded-lg p-4">
+            <div className="bg-bg-tertiary/30 rounded-2xl p-4">
               <VolumeBarChart data={volumeAvgData} />
             </div>
           </FeatureErrorBoundary>
@@ -129,7 +129,7 @@ export function AnalyticsPage() {
         <div className="text-center py-8 text-text-muted">Loading heat map...</div>
       ) : (
         <FeatureErrorBoundary feature="Muscle Heat Map">
-          <div className="bg-bg-tertiary/30 rounded-lg p-4">
+          <div className="bg-bg-tertiary/30 rounded-2xl p-4">
             <MuscleHeatMap data={heatMapData} getThresholds={getThresholds} />
           </div>
         </FeatureErrorBoundary>
@@ -145,7 +145,7 @@ export function AnalyticsPage() {
           id="exercise-select"
           value={selectedExerciseId}
           onChange={(e) => setSelectedExerciseId(e.target.value)}
-          className="w-full bg-bg-tertiary border border-border-primary rounded-lg px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+          className="w-full bg-bg-tertiary border border-border-primary rounded-xl px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
           aria-label="Select exercise"
         >
           {exercises.map((exercise) => (
@@ -163,7 +163,7 @@ export function AnalyticsPage() {
         <div className="text-center py-8 text-text-muted">Loading chart...</div>
       ) : (
         <FeatureErrorBoundary feature="Exercise Progress Chart">
-          <div className="bg-bg-tertiary/30 rounded-lg p-4">
+          <div className="bg-bg-tertiary/30 rounded-2xl p-4">
             <ExerciseProgressChart
               data={progressData}
               exerciseName={selectedExercise?.name || 'Exercise'}

@@ -15,7 +15,7 @@ export function TimeRangePicker({ value, onChange }: TimeRangePickerProps) {
           key={option}
           onClick={() => onChange(option)}
           aria-pressed={value === option}
-          className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+          className={`px-3 py-1.5 rounded-xl text-sm font-medium transition-colors ${
             value === option
               ? 'bg-accent text-white'
               : 'bg-bg-tertiary text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
