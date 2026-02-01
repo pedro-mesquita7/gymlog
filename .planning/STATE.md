@@ -68,6 +68,7 @@ v1.3 decisions:
 - 16-03: ToonExportSection uses segmented control scope picker; rotation data captured at render time for async safety; Unicode checkmark for copy feedback
 - 17-01: injectManifest strategy with script-defer; static manifest.webmanifest; sw.ts excluded from tsconfig.app.json
 - 17-02: README leads with DE narrative; for-the-badge badges; placeholder URLs for user to update; Performance section references PERFORMANCE.md (17-03)
+- 17-03: Bundle size budgets ~15% above actual (main 660KB, analytics 600KB, duckdb 215KB, total 1480KB); Lighthouse perf target 85+ due to DuckDB WASM CDN download
 - 17-04: Hover-only edit/delete in GymList/ExerciseList noted as known mobile limitation (beyond polish scope); SummaryStatsCards skeleton shimmer intentionally different from text loading
 
 ### Pending Todos
