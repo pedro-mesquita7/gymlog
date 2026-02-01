@@ -25,18 +25,14 @@ export function BackupSettings() {
   const soundEnabled = useWorkoutStore((state) => state.soundEnabled);
   const setSoundEnabled = useWorkoutStore((state) => state.setSoundEnabled);
 
-  const [restInput, setRestInput] = useState(defaultRestSeconds.toString());
-
-  const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m}:${s.toString().padStart(2, '0')}`;
-  };
+  const [restInput, setRestInput] = useState((defaultRestSeconds / 60).toString());
 
   const handleRestBlur = () => {
-    const val = Math.min(600, Math.max(30, parseInt(restInput, 10) || 120));
-    setRestInput(val.toString());
-    setDefaultRestSeconds(val);
+    const minutes = parseFloat(restInput) || 2;
+    const clamped = Math.min(10, Math.max(0.5, minutes));
+    const seconds = Math.round(clamped * 60);
+    setRestInput((seconds / 60).toString());
+    setDefaultRestSeconds(seconds);
   };
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,19 +89,22 @@ export function BackupSettings() {
           <div className="flex items-center justify-between">
             <div>
               <label className="text-sm text-text-primary">Default Rest Timer</label>
-              <p className="text-xs text-text-secondary mt-0.5">{formatTime(parseInt(restInput, 10) || 120)}</p>
+              <p className="text-xs text-text-secondary mt-0.5">{Math.round(defaultRestSeconds / 60 * 10) / 10} min</p>
             </div>
-            <div className="w-20">
-              <Input
-                type="number"
-                min="30"
-                max="600"
-                step="15"
-                value={restInput}
-                onChange={(e) => setRestInput(e.target.value)}
-                onBlur={handleRestBlur}
-                className="text-center text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              />
+            <div className="flex items-center gap-2">
+              <div className="w-16">
+                <Input
+                  type="number"
+                  min="0.5"
+                  max="10"
+                  step="0.5"
+                  value={restInput}
+                  onChange={(e) => setRestInput(e.target.value)}
+                  onBlur={handleRestBlur}
+                  className="text-center text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+              </div>
+              <span className="text-xs text-text-muted">min</span>
             </div>
           </div>
 
