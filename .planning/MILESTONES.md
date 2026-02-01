@@ -1,5 +1,38 @@
 # Project Milestones: GymLog
 
+## v1.3 Production Polish & Deploy Readiness (Shipped: 2026-02-01)
+
+**Delivered:** Deploy-ready PWA with bug fixes, security hardening, comprehensive E2E tests, redesigned analytics with time-range filtering and research-backed volume zones, OKLCH color system, TOON export, PWA offline support, and performance budgets -- completing GymLog as a production-grade portfolio piece
+
+**Phases completed:** 12-17 (29 plans total)
+
+**Key accomplishments:**
+- Exercise history bug fix (DIM_EXERCISE_ALL_SQL) with 9 sub-component error boundaries
+- Security audit (secrets scan, CSP headers, npm audit) with SECURITY-AUDIT.md portfolio artifact
+- 13 Playwright E2E tests covering plan CRUD, batch logging, rotation, demo data, and Parquet roundtrip
+- Complete OKLCH color token system (18 tokens) with WCAG AA compliance across all components
+- Analytics redesign: single scrollable dashboard with time-range filtering (1M/3M/6M/1Y/All) and 5-zone volume recommendations based on Schoenfeld et al. research
+- TOON export via @toon-format/toon (3 scopes: last workout, rotation cycle, time range)
+- Demo data UX: gradient import button, selective historical data clear, Dialog confirmations
+- Combined service worker (Workbox precaching + DuckDB CDN caching + COI headers)
+- Bundle size budgets enforced in CI (main 576KB/660KB, analytics 522KB/600KB, total 1286KB/1480KB)
+- Portfolio README with badges, Mermaid diagrams, Getting Started, and PERFORMANCE.md
+
+**Stats:**
+- 394 total commits (project lifetime)
+- 14,826 lines of TypeScript
+- 3,255 lines of SQL/YAML (dbt)
+- 6 phases, 29 plans
+- 38/38 requirements satisfied
+- 9/9 cross-phase integration points verified
+- 176 files changed, +26,013/-5,198 lines in milestone
+
+**Git range:** `20408ce` (v1.3 start) → `7011689` (phase 17 complete)
+
+**What's next:** Project complete through v1.3. Future work would be v2+ features (chart export, multi-exercise comparison, supersets, plate calculator).
+
+---
+
 ## v1.2 UX & Portfolio Polish (Shipped: 2026-01-31)
 
 **Delivered:** Production-grade workout app with batch logging, workout rotation, design system, testing infrastructure, CI/CD pipeline, and portfolio-ready documentation — transforming GymLog from functional tool into impressive DE portfolio piece

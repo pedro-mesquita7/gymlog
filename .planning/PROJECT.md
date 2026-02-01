@@ -27,9 +27,9 @@ Track workout performance with proper data engineering — both usable as a pers
 - GitHub Actions CI/CD
 
 **Codebase:**
-- ~13,000 lines of TypeScript
+- ~14,826 lines of TypeScript
 - ~3,255 lines of SQL/YAML (dbt)
-- 391 commits, 17 phases, 97 plans across 4 milestones
+- 394 commits, 17 phases, 97 plans across 4 milestones
 
 **What's Working:**
 - Exercise and gym management with full CRUD
@@ -124,25 +124,16 @@ None -- all planned requirements delivered through v1.3.
 - Plate calculator for barbell loading
 - Progress summary notifications
 
-## Completed Milestone: v1.3 Production Polish & Deploy Readiness (shipped 2026-02-01)
+## Completed Milestones
 
-**Goal:** Harden the app for real-world use and portfolio presentation -- fix data bugs, improve UX flows, redesign analytics, add TOON export, expand test coverage, and audit security/PWA/performance.
+See `.planning/MILESTONES.md` for full history and `.planning/milestones/` for archived details.
 
-**Delivered (6 phases, 29 plans):**
-- Bug fix: exercise history survives plan deletion (plan_id FK issue)
-- Security & portfolio audit (secrets, CSP, npm audit, PII)
-- Comprehensive Playwright E2E test suite
-- Workouts tab: merge Quick Start + manual into compact UI
-- Analytics: single scrollable dashboard with summary, drill-down
-- OKLCH color scheme audit for cohesion and WCAG AA
-- Custom time ranges (3mo, 6mo, 1yr, all time) for charts
-- Volume recommendations vs Schoenfeld et al. research targets
-- Demo data UX: gradient import button, selective data clear
-- AI export via @toon-format/toon (last workout, rotation cycle, N months)
-- PWA audit (service worker, offline, manifest, installability)
-- Performance budget (bundle size, Lighthouse, FMP)
-- README polish (live demo link, architecture diagrams, local dev)
-- General UX polish and risk sweep
+| Version | Name | Shipped |
+|---------|------|---------|
+| v1.0 | MVP | 2026-01-28 |
+| v1.1 | Analytics | 2026-01-30 |
+| v1.2 | UX & Portfolio Polish | 2026-01-31 |
+| v1.3 | Production Polish & Deploy Readiness | 2026-02-01 |
 
 ## Constraints
 
@@ -177,4 +168,4 @@ None -- all planned requirements delivered through v1.3.
 | Bundle size budgets with CI check | ~15% headroom above actual; script in CI catches regressions | Good |
 
 ---
-*Last updated: 2026-02-01 after v1.3 milestone shipped*
+*Last updated: 2026-02-01 after v1.3 milestone archived*
