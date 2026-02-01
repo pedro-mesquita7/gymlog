@@ -38,7 +38,12 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
     // --- Navigate to Workouts tab (gym + exercise forms are here) ---
     await page.click(SEL.navWorkouts);
 
-    // --- Create gym: click "+ Add" in the "Your Gyms" section ---
+    // --- Create gym: expand Gyms section then click "+ Add" ---
+    const gymsCollapsed = page.locator('button[aria-expanded="false"]', { hasText: 'Gyms' });
+    if (await gymsCollapsed.count() > 0) {
+      await gymsCollapsed.click();
+      await page.waitForTimeout(300);
+    }
     const gymSection = page.locator('section').filter({ hasText: 'Your Gyms' });
     await gymSection.locator('button:has-text("+ Add")').click();
     await page.fill(SEL.gymNameInput, 'Rotation Gym');
@@ -46,7 +51,12 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
     await page.click(SEL.btnAddGym);
     await page.waitForSelector('text="Rotation Gym"', { timeout: 5000 });
 
-    // --- Create exercise A: click "+ Add" in the "Library / Exercises" section ---
+    // --- Create exercise A: expand Exercises section then click "+ Add" ---
+    const exercisesCollapsed = page.locator('button[aria-expanded="false"]', { hasText: 'Exercises' });
+    if (await exercisesCollapsed.count() > 0) {
+      await exercisesCollapsed.click();
+      await page.waitForTimeout(300);
+    }
     const exerciseSection = page.locator('section').filter({ hasText: 'Library' });
     await exerciseSection.locator('button:has-text("+ Add")').click();
     await page.fill(SEL.exerciseNameInput, 'Rotation OHP');
