@@ -58,11 +58,11 @@ export function BackupSettings() {
       <section>
         <h2 className="text-lg font-semibold mb-4 text-text-primary">Workout Preferences</h2>
 
-        <div className="bg-bg-secondary rounded-lg p-4 space-y-5">
+        <div className="bg-bg-secondary rounded-2xl p-4 space-y-5">
           {/* Weight Unit */}
           <div className="flex items-center justify-between">
             <label className="text-sm text-text-primary">Weight Unit</label>
-            <div className="flex rounded-lg overflow-hidden">
+            <div className="flex rounded-xl overflow-hidden">
               <button
                 onClick={() => setWeightUnit('kg')}
                 className={`px-4 py-1.5 text-sm font-medium transition-colors ${
@@ -148,7 +148,7 @@ export function BackupSettings() {
           data-testid="btn-export-backup"
           onClick={exportBackup}
           disabled={isExporting}
-          className="w-full py-3 px-4 bg-accent hover:bg-accent/90 disabled:bg-bg-tertiary rounded-lg font-medium transition-colors"
+          className="w-full py-3 px-4 bg-accent hover:bg-accent/90 disabled:bg-bg-tertiary rounded-xl font-medium transition-colors"
         >
           {isExporting ? 'Exporting...' : 'Export Backup'}
         </button>
@@ -175,14 +175,14 @@ export function BackupSettings() {
           data-testid="btn-import-backup"
           onClick={() => fileInputRef.current?.click()}
           disabled={isImporting}
-          className="w-full py-3 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 disabled:bg-bg-tertiary/50 rounded-lg font-medium transition-colors"
+          className="w-full py-3 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 disabled:bg-bg-tertiary/50 rounded-xl font-medium transition-colors"
         >
           {isImporting ? 'Importing...' : 'Import Backup'}
         </button>
 
         {/* Import result feedback */}
         {lastResult && (
-          <div data-testid="import-result" className={`mt-4 p-3 rounded-lg ${lastResult.success ? 'bg-success/20 text-success' : 'bg-error/20 text-error'}`}>
+          <div data-testid="import-result" className={`mt-4 p-3 rounded-xl ${lastResult.success ? 'bg-success/20 text-success' : 'bg-error/20 text-error'}`}>
             {lastResult.success
               ? `Imported ${lastResult.eventsImported} events (${lastResult.eventsSkipped} duplicates skipped)`
               : lastResult.error}
