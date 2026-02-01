@@ -118,13 +118,13 @@ Plans:
   2. Workouts tab uses compact layout with less vertical space per element, showing more content above the fold
   3. All OKLCH color tokens are cohesive across every tab and state (active, hover, disabled, error)
   4. All text passes WCAG AA contrast ratio (4.5:1 for normal text, 3:1 for large text and UI components) while retaining orange as primary brand accent
-**Plans**: 5 plans
+**Plans**: 5 plans (complete)
 Plans:
-- [ ] 14-01-PLAN.md -- OKLCH color token system + UI primitives migration
-- [ ] 14-02-PLAN.md -- Workout component color migration (12 files)
-- [ ] 14-03-PLAN.md -- Analytics, history, templates, settings color migration (~20 files)
-- [ ] 14-04-PLAN.md -- Workouts tab UX redesign (Quick Start hero, recent workout, accordion)
-- [ ] 14-05-PLAN.md -- WCAG AA contrast verification + visual checkpoint
+- [x] 14-01-PLAN.md -- OKLCH color token system + UI primitives migration
+- [x] 14-02-PLAN.md -- Workout component color migration (12 files)
+- [x] 14-03-PLAN.md -- Analytics, history, templates, settings color migration (~20 files)
+- [x] 14-04-PLAN.md -- Workouts tab UX redesign (Quick Start hero, recent workout, accordion)
+- [x] 14-05-PLAN.md -- WCAG AA contrast verification + visual checkpoint
 
 #### Phase 15: Analytics Redesign
 **Goal**: Users see a single, scrollable analytics dashboard with time-range filtering and research-backed volume recommendations that tell them if their training is on track
@@ -177,11 +177,11 @@ Plans:
 | 11. CI/CD & Portfolio | v1.2 | 7/7 | Complete | 2026-01-31 |
 | 12. Bug Fix & Security Hardening | v1.3 | 4/4 | Complete | 2026-01-31 |
 | 13. E2E Test Suite | v1.3 | 7/7 | Complete | 2026-01-31 |
-| 14. Workouts UX & Color Scheme | v1.3 | 0/5 | Not started | - |
+| 14. Workouts UX & Color Scheme | v1.3 | 5/5 | Complete | 2026-02-01 |
 | 15. Analytics Redesign | v1.3 | 0/TBD | Not started | - |
 | 16. Demo Data UX & TOON Export | v1.3 | 0/TBD | Not started | - |
 | 17. PWA, Performance, README & Final Polish | v1.3 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-31 -- Phase 13 complete (7/7 plans, 5/5 criteria verified)*
+*Last updated: 2026-02-01 -- Phase 14 complete (5/5 plans, 4/4 criteria verified)*

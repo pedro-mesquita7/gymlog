@@ -28,8 +28,8 @@
 
 ### Workouts UX
 
-- [ ] **UX-01**: Quick Start is primary CTA on Workouts tab, manual template selection collapsed/secondary
-- [ ] **UX-02**: Workouts tab uses less vertical space with compact layout
+- [x] **UX-01**: Quick Start is primary CTA on Workouts tab, manual template selection collapsed/secondary
+- [x] **UX-02**: Workouts tab uses less vertical space with compact layout
 
 ### Analytics
 
@@ -40,9 +40,9 @@
 
 ### Color Scheme
 
-- [ ] **CLR-01**: OKLCH color tokens audited for cohesion across all tabs and states
-- [ ] **CLR-02**: All text meets WCAG AA contrast ratio (4.5:1 text, 3:1 large text/UI components)
-- [ ] **CLR-03**: Orange accent retained as primary brand color
+- [x] **CLR-01**: OKLCH color tokens audited for cohesion across all tabs and states
+- [x] **CLR-02**: All text meets WCAG AA contrast ratio (4.5:1 text, 3:1 large text/UI components)
+- [x] **CLR-03**: Orange accent retained as primary brand color
 
 ### Demo Data
 
@@ -114,15 +114,15 @@ Deferred beyond v1.3:
 | TEST-03 | Phase 13 | Complete |
 | TEST-04 | Phase 13 | Complete |
 | TEST-05 | Phase 13 | Complete |
-| UX-01 | Phase 14 | Pending |
-| UX-02 | Phase 14 | Pending |
+| UX-01 | Phase 14 | Complete |
+| UX-02 | Phase 14 | Complete |
 | ANLT-01 | Phase 15 | Pending |
 | ANLT-02 | Phase 15 | Pending |
 | ANLT-03 | Phase 15 | Pending |
 | ANLT-04 | Phase 15 | Pending |
-| CLR-01 | Phase 14 | Pending |
-| CLR-02 | Phase 14 | Pending |
-| CLR-03 | Phase 14 | Pending |
+| CLR-01 | Phase 14 | Complete |
+| CLR-02 | Phase 14 | Complete |
+| CLR-03 | Phase 14 | Complete |
 | DEMO-01 | Phase 16 | Pending |
 | DEMO-02 | Phase 16 | Pending |
 | DEMO-03 | Phase 16 | Pending |
@@ -148,4 +148,4 @@ Deferred beyond v1.3:
 
 ---
 *Requirements defined: 2026-01-31*
-*Last updated: 2026-01-31 -- Phase 12+13 requirements marked Complete*
+*Last updated: 2026-02-01 -- Phase 14 requirements (UX-01, UX-02, CLR-01, CLR-02, CLR-03) marked Complete*
