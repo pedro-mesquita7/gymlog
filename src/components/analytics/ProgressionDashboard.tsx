@@ -3,13 +3,17 @@ import { useProgressionStatus } from '../../hooks/useProgressionStatus';
 import { useExercises } from '../../hooks/useExercises';
 import { ProgressionStatusCard } from './ProgressionStatusCard';
 
+interface ProgressionDashboardProps {
+  days: number | null;
+}
+
 /**
  * Progression Intelligence Dashboard
  * Shows summary counts (progressing/plateaued/regressing) and status cards per exercise
  * Cards sorted problems-first: regressing > plateau > progressing > unknown, then alphabetical
  */
-export function ProgressionDashboard() {
-  const { data: progressionData, isLoading, error } = useProgressionStatus();
+export function ProgressionDashboard({ days }: ProgressionDashboardProps) {
+  const { data: progressionData, isLoading, error } = useProgressionStatus(days);
   const { exercises } = useExercises();
 
   // Calculate summary counts
@@ -84,6 +88,12 @@ export function ProgressionDashboard() {
           <div className="text-sm text-error/80 mt-1">Regressing</div>
         </div>
       </div>
+
+      {days !== null && days < 63 && (
+        <p className="text-xs text-text-muted bg-bg-secondary rounded-lg p-3">
+          Progression analysis uses at least 9 weeks of data for accurate detection, regardless of the selected time range.
+        </p>
+      )}
 
       {/* Status cards */}
       <div className="space-y-3">
