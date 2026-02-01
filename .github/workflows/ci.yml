@@ -138,6 +138,9 @@ jobs:
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
 
+      - name: Check bundle size budget
+        run: bash scripts/check-bundle-size.sh dist
+
       - name: Install dbt dependencies
         run: pip install -r dbt/requirements.txt
 
