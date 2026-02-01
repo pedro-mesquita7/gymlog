@@ -29,15 +29,15 @@ Progress: [██████░░░░░░░░░░░░░░] 17% (4/
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3 (this milestone)
-- Average duration: ~7 min
-- Total execution time: ~21 min
+- Total plans completed: 4 (this milestone)
+- Average duration: ~8 min
+- Total execution time: ~31 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 18. Theme Redesign | 3/6 | ~21 min | ~7 min |
+| 18. Theme Redesign | 4/6 | ~31 min | ~8 min |
 | 19. Plans Rename | 0/TBD | -- | -- |
 | 20. UX Restructure | 0/TBD | -- | -- |
 | 21. Comparison Analytics | 0/TBD | -- | -- |
@@ -52,6 +52,8 @@ Progress: [██████░░░░░░░░░░░░░░] 17% (4/
 - Tailwind v4 auto-generates shadow-* utilities from @theme --shadow-* tokens (no arbitrary values needed)
 - Card gradient applied via inline style (no Tailwind gradient token utility)
 - Navigation active indicator: rounded pill bg-accent/15 instead of border-top; shadow-nav for elevation
+- MuscleHeatMap defaultFill uses inline oklch(0.25 0.012 60) since SVG fill needs direct color values
+- Zone OKLCH colors kept saturated (semantic meaning > warm hue consistency)
 
 ### Pending Todos
 
@@ -66,7 +68,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 18-03-PLAN.md (Templates, History & Rotation Sweep)
+Stopped at: Completed 18-04-PLAN.md (Analytics Charts)
 Resume file: None
 
-**Next action:** Execute 18-04-PLAN.md
+**Next action:** Execute 18-05-PLAN.md
