@@ -25,7 +25,7 @@ export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps
   // Case 1: No rotation configured
   if (!nextTemplate) {
     return (
-      <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
+      <div className="bg-bg-secondary border border-border-primary rounded-2xl p-6">
         <p className="text-sm text-text-muted">
           No workout plan yet. Set up a rotation in Settings.
         </p>
@@ -36,7 +36,7 @@ export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps
   // Case 2: Rotation exists but no default gym
   if (!defaultGymId) {
     return (
-      <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
+      <div className="bg-bg-secondary border border-border-primary rounded-2xl p-6">
         <p className="text-sm text-text-muted">
           Set a default gym in Settings to enable quick-start.
         </p>
@@ -50,7 +50,7 @@ export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps
 
   if (!template || !gym) {
     return (
-      <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
+      <div className="bg-bg-secondary border border-border-primary rounded-2xl p-6">
         <p className="text-sm text-text-muted">
           Rotation configured but template or gym not found.
         </p>
@@ -74,7 +74,7 @@ export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps
   };
 
   return (
-    <div data-testid="quick-start-card" className="border-2 border-accent bg-accent/5 rounded-lg p-6 space-y-3 relative">
+    <div data-testid="quick-start-card" className="border-2 border-accent bg-accent/5 rounded-2xl p-6 space-y-3 relative">
       {/* Edit toggle */}
       <button
         data-testid="btn-edit-quick-start"
