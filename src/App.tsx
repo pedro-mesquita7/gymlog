@@ -8,6 +8,7 @@ import { useWorkoutStore, selectIsWorkoutActive } from './stores/useWorkoutStore
 import { useBackupStore, selectShouldShowReminder } from './stores/useBackupStore';
 import { ExerciseList } from './components/ExerciseList';
 import { GymList } from './components/GymList';
+import { CollapsibleSection } from './components/ui/CollapsibleSection';
 import { PlanList } from './components/plans/PlanList';
 import { StartWorkout } from './components/workout/StartWorkout';
 import { ActiveWorkout } from './components/workout/ActiveWorkout';
@@ -132,8 +133,8 @@ function AppContent({ status, eventCount, refreshEventCount }: {
 
     // No active workout - show start workout and management views
     return (
-      <div className="space-y-8">
-        {/* Start Workout section */}
+      <div className="space-y-4">
+        {/* Quick Start - always prominent at top */}
         <StartWorkout
           plans={plans}
           gyms={gyms}
@@ -143,22 +144,28 @@ function AppContent({ status, eventCount, refreshEventCount }: {
           }}
         />
 
-        {/* Gym and exercise management */}
-        <GymList
-          gyms={gyms}
-          isLoading={gymsLoading}
-          onCreateGym={handleCreateGym}
-          onUpdateGym={handleUpdateGym}
-          onDeleteGym={handleDeleteGym}
-        />
+        {/* Collapsible sections */}
+        <div className="space-y-3 pt-2">
+          <CollapsibleSection title="Exercises" count={exercises.length}>
+            <ExerciseList
+              exercises={exercises}
+              isLoading={exercisesLoading}
+              onCreateExercise={handleCreateExercise}
+              onUpdateExercise={handleUpdateExercise}
+              onDeleteExercise={handleDeleteExercise}
+            />
+          </CollapsibleSection>
 
-        <ExerciseList
-          exercises={exercises}
-          isLoading={exercisesLoading}
-          onCreateExercise={handleCreateExercise}
-          onUpdateExercise={handleUpdateExercise}
-          onDeleteExercise={handleDeleteExercise}
-        />
+          <CollapsibleSection title="Gyms" count={gyms.length}>
+            <GymList
+              gyms={gyms}
+              isLoading={gymsLoading}
+              onCreateGym={handleCreateGym}
+              onUpdateGym={handleUpdateGym}
+              onDeleteGym={handleDeleteGym}
+            />
+          </CollapsibleSection>
+        </div>
       </div>
     );
   };
