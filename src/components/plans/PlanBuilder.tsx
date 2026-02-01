@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { useState } from 'react';
 import { ExerciseList } from './ExerciseList';
 import type { Exercise } from '../../types/database';
-import type { Template } from '../../types/template';
+import type { Plan } from '../../types/plan';
 
 // Coerce NaN/empty to null for optional numeric fields
 const nanToNull = z.preprocess(
@@ -19,7 +19,7 @@ const emptyToNull = z.preprocess(
 );
 
 // Zod schema for validation
-const templateExerciseSchema = z.object({
+const planExerciseSchema = z.object({
   exercise_id: z.string().min(1),
   order_index: z.number(),
   target_reps_min: z.number().min(1),
@@ -29,9 +29,9 @@ const templateExerciseSchema = z.object({
   replacement_exercise_id: emptyToNull,
 });
 
-const templateSchema = z.object({
-  name: z.string().min(1, 'Template name is required'),
-  exercises: z.array(templateExerciseSchema).min(1, 'Add at least one exercise'),
+const planSchema = z.object({
+  name: z.string().min(1, 'Plan name is required'),
+  exercises: z.array(planExerciseSchema).min(1, 'Add at least one exercise'),
 }).superRefine((data, ctx) => {
   // Validate each exercise appears only once
   const exerciseIds = data.exercises.map(e => e.exercise_id);
@@ -39,7 +39,7 @@ const templateSchema = z.object({
   if (duplicates.length > 0) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
-      message: 'Each exercise can only appear once in template',
+      message: 'Each exercise can only appear once in plan',
       path: ['exercises'],
     });
   }
@@ -56,20 +56,20 @@ const templateSchema = z.object({
   });
 });
 
-export type TemplateFormData = z.infer<typeof templateSchema>;
+export type PlanFormData = z.infer<typeof planSchema>;
 
-interface TemplateBuilderProps {
+interface PlanBuilderProps {
   exercises: Exercise[];  // Available exercises to add
-  template?: Template;    // Existing template for edit mode
-  onSubmit: (data: TemplateFormData) => Promise<void>;
+  plan?: Plan;    // Existing plan for edit mode
+  onSubmit: (data: PlanFormData) => Promise<void>;
   onCancel: () => void;
 }
 
-export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: TemplateBuilderProps) {
+export function PlanBuilder({ exercises, plan, onSubmit, onCancel }: PlanBuilderProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showExercisePicker, setShowExercisePicker] = useState(false);
 
-  const defaultExercises: TemplateFormData['exercises'] = template?.exercises.map((e, i) => ({
+  const defaultExercises: PlanFormData['exercises'] = plan?.exercises.map((e, i) => ({
     exercise_id: e.exercise_id,
     order_index: i,
     target_reps_min: e.target_reps_min,
@@ -79,10 +79,10 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
     replacement_exercise_id: e.replacement_exercise_id,
   })) ?? [];
 
-  const { control, register, handleSubmit, setValue, watch, formState: { errors } } = useForm<TemplateFormData>({
-    resolver: zodResolver(templateSchema) as any,
+  const { control, register, handleSubmit, setValue, watch, formState: { errors } } = useForm<PlanFormData>({
+    resolver: zodResolver(planSchema) as any,
     defaultValues: {
-      name: template?.name ?? '',
+      name: plan?.name ?? '',
       exercises: defaultExercises,
     },
   });
@@ -108,7 +108,7 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
     });
   };
 
-  const handleFormSubmit = async (data: TemplateFormData) => {
+  const handleFormSubmit = async (data: PlanFormData) => {
     setIsSubmitting(true);
     try {
       // Update order_index based on current position
@@ -127,14 +127,14 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-      {/* Template name */}
+      {/* Plan name */}
       <div>
         <label className="block text-sm font-medium text-text-secondary mb-2">
-          Template Name
+          Plan Name
         </label>
         <input
           {...register('name')}
-          data-testid="template-name-input"
+          data-testid="plan-name-input"
           type="text"
           placeholder="e.g., Upper A, Push Day"
           className="w-full bg-bg-tertiary border border-border-secondary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent"
@@ -213,12 +213,12 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
           Cancel
         </button>
         <button
-          data-testid="btn-create-template"
+          data-testid="btn-create-plan"
           type="submit"
           disabled={isSubmitting}
           className="flex-1 px-4 py-3 bg-accent hover:bg-accent/90 text-black font-medium rounded-xl transition-colors disabled:opacity-50"
         >
-          {isSubmitting ? 'Saving...' : template ? 'Update Template' : 'Create Template'}
+          {isSubmitting ? 'Saving...' : plan ? 'Update Plan' : 'Create Plan'}
         </button>
       </div>
     </form>

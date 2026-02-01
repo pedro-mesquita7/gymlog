@@ -4,14 +4,14 @@ import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrate
 import type { UseFieldArrayReturn, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { ExerciseRow } from './ExerciseRow';
 import type { Exercise } from '../../types/database';
-import type { TemplateFormData } from './TemplateBuilder';
+import type { PlanFormData } from './PlanBuilder';
 
 interface ExerciseListProps {
-  fieldArray: UseFieldArrayReturn<TemplateFormData, 'exercises'>;
+  fieldArray: UseFieldArrayReturn<PlanFormData, 'exercises'>;
   exercises: Exercise[];  // Full exercise list for lookups
-  register: UseFormRegister<TemplateFormData>;
-  setValue: UseFormSetValue<TemplateFormData>;
-  watch: UseFormWatch<TemplateFormData>;
+  register: UseFormRegister<PlanFormData>;
+  setValue: UseFormSetValue<PlanFormData>;
+  watch: UseFormWatch<PlanFormData>;
 }
 
 export function ExerciseList({ fieldArray, exercises, register, setValue, watch }: ExerciseListProps) {

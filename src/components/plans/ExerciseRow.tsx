@@ -3,16 +3,16 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import type { Exercise } from '../../types/database';
-import type { TemplateFormData } from './TemplateBuilder';
+import type { PlanFormData } from './PlanBuilder';
 
 interface ExerciseRowProps {
   id: string;           // field.id from useFieldArray
   index: number;
   exercise: Exercise | undefined;  // Looked up from exercises list
   exercises: Exercise[];  // Full list for replacement picker
-  register: UseFormRegister<TemplateFormData>;
-  setValue: UseFormSetValue<TemplateFormData>;
-  watch: UseFormWatch<TemplateFormData>;
+  register: UseFormRegister<PlanFormData>;
+  setValue: UseFormSetValue<PlanFormData>;
+  watch: UseFormWatch<PlanFormData>;
   onRemove: () => void;
 }
 

@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import type { Template } from '../../types/template';
+import type { Plan } from '../../types/plan';
 import type { Exercise } from '../../types/database';
 import { DeleteConfirmation } from '../DeleteConfirmation';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 
-interface TemplateCardProps {
-  template: Template;
+interface PlanCardProps {
+  plan: Plan;
   exercises: Exercise[];  // For name lookup
   onEdit: () => void;
   onDuplicate: () => void;
@@ -14,7 +14,7 @@ interface TemplateCardProps {
   onDelete: () => void;
 }
 
-export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchive, onDelete }: TemplateCardProps) {
+export function PlanCard({ plan, exercises, onEdit, onDuplicate, onArchive, onDelete }: PlanCardProps) {
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
@@ -22,23 +22,23 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
     exercises.find(e => e.exercise_id === exerciseId)?.name ?? 'Unknown';
 
   // Preview first 3 exercises
-  const exercisePreview = template.exercises
+  const exercisePreview = plan.exercises
     .slice(0, 3)
     .map(e => getExerciseName(e.exercise_id));
-  const moreCount = Math.max(0, template.exercises.length - 3);
+  const moreCount = Math.max(0, plan.exercises.length - 3);
 
   return (
-    <Card className={template.is_archived ? 'opacity-60' : ''}>
+    <Card className={plan.is_archived ? 'opacity-60' : ''}>
       <div className="flex items-start justify-between">
         <div className="flex-1 cursor-pointer" onClick={onEdit}>
           <h3 className="font-medium flex items-center gap-2">
-            {template.name}
-            {template.is_archived && (
+            {plan.name}
+            {plan.is_archived && (
               <span className="text-xs bg-bg-tertiary px-2 py-0.5 rounded">Archived</span>
             )}
           </h3>
           <p className="text-sm text-text-muted mt-1">
-            {template.exercises.length} exercise{template.exercises.length !== 1 ? 's' : ''}
+            {plan.exercises.length} exercise{plan.exercises.length !== 1 ? 's' : ''}
           </p>
           {exercisePreview.length > 0 && (
             <p className="text-xs text-text-muted mt-2">
@@ -51,7 +51,7 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
         {/* Actions menu */}
         <div className="relative">
           <button
-            data-testid="btn-template-menu"
+            data-testid="btn-plan-menu"
             onClick={() => setShowMenu(!showMenu)}
             className="p-2 text-text-muted hover:text-text-secondary"
           >
@@ -87,15 +87,15 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
                   Duplicate
                 </Button>
                 <Button
-                  onClick={() => { setShowMenu(false); onArchive(!template.is_archived); }}
+                  onClick={() => { setShowMenu(false); onArchive(!plan.is_archived); }}
                   variant="ghost"
                   size="sm"
                   className="w-full px-4 py-2 text-left text-sm rounded-none"
                 >
-                  {template.is_archived ? 'Restore' : 'Archive'}
+                  {plan.is_archived ? 'Restore' : 'Archive'}
                 </Button>
                 <Button
-                  data-testid="btn-template-delete"
+                  data-testid="btn-plan-delete"
                   onClick={() => { setShowMenu(false); setShowDeleteConfirm(true); }}
                   variant="danger"
                   size="sm"
@@ -109,11 +109,11 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
         </div>
       </div>
 
-      {/* Delete confirmation - uses existing DeleteConfirmation with isOpen prop */}
+      {/* Delete confirmation */}
       <DeleteConfirmation
         isOpen={showDeleteConfirm}
-        title="Delete Template"
-        message={`Are you sure you want to delete "${template.name}"? This cannot be undone.`}
+        title="Delete Plan"
+        message={`Are you sure you want to delete "${plan.name}"? This cannot be undone.`}
         onConfirm={() => { setShowDeleteConfirm(false); onDelete(); }}
         onCancel={() => setShowDeleteConfirm(false)}
       />
