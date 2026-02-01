@@ -29,7 +29,7 @@ export interface WorkoutSummaryData {
  */
 export function useWorkoutSummary(
   sets: LoggedSet[],
-  templateId: string,
+  planId: string,
   currentVolumeKg: number,
   enabled: boolean
 ): WorkoutSummaryData {
@@ -152,7 +152,7 @@ export function useWorkoutSummary(
         //    Since this runs before the current workout is saved, the most recent
         //    completed workout IS the previous one we want to compare against.
         let comparisonData: SessionComparison | null = null;
-        if (templateId) {
+        if (planId) {
           try {
             // Use CTEs to pre-filter by event_type before extracting payload fields
             // (DuckDB may evaluate payload->> across all rows before WHERE filters)
@@ -184,7 +184,7 @@ export function useWorkoutSummary(
               FROM started s
               JOIN completed c ON c.workout_id = s.workout_id
               JOIN sets st ON st.workout_id = s.workout_id
-              WHERE s.template_id = '${templateId}'
+              WHERE s.template_id = '${planId}'
               GROUP BY s.workout_id, s._created_at
               ORDER BY s._created_at DESC
               LIMIT 1
@@ -229,7 +229,7 @@ export function useWorkoutSummary(
       mounted = false;
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [enabled, templateId, sets.length]);
+  }, [enabled, planId, sets.length]);
 
   return { prs, comparison, isLoading };
 }

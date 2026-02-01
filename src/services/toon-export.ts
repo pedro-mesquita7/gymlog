@@ -46,7 +46,7 @@ interface GymRow {
   name: string;
 }
 
-interface TemplateRow {
+interface PlanRow {
   template_id: string;
   name: string;
 }
@@ -268,18 +268,18 @@ async function queryWorkoutData(
       name: row.name as string,
     })) as GymRow[];
 
-    // 6. Query template names
-    const templatesResult = await conn.query(TEMPLATES_SQL);
-    const templates = templatesResult.toArray().map(row => ({
+    // 6. Query plan names
+    const plansResult = await conn.query(TEMPLATES_SQL);
+    const plans = plansResult.toArray().map(row => ({
       template_id: row.template_id as string,
       name: row.name as string,
-    })) as TemplateRow[];
+    })) as PlanRow[];
 
     // ── Build lookup maps ──
 
     const exerciseMap = new Map(exercises.map(e => [e.exercise_id, e]));
     const gymMap = new Map(gyms.map(g => [g.gym_id, g]));
-    const templateMap = new Map(templates.map(t => [t.template_id, t]));
+    const planMap = new Map(plans.map(t => [t.template_id, t]));
 
     // ── Collect unique exercise IDs referenced by sets ──
 
@@ -324,7 +324,7 @@ async function queryWorkoutData(
       return {
         date: w.started_at.split('T')[0] ?? w.started_at,
         gym: gymMap.get(w.gym_id)?.name ?? 'Unknown Gym',
-        template: templateMap.get(w.template_id)?.name ?? 'Unknown Template',
+        template: planMap.get(w.template_id)?.name ?? 'Unknown Plan',
         sets: workoutSets.map(s => {
           setNumber += 1;
           const prType = derivePrType(s.is_weight_pr, s.is_1rm_pr);

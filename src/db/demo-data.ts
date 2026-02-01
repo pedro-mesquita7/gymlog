@@ -142,8 +142,8 @@ export async function loadDemoData(): Promise<void> {
       currentTimestamp = addMinutes(currentTimestamp, 1);
     }
 
-    // 3. Create templates
-    const templates = [
+    // 3. Create plans
+    const plans = [
       {
         name: 'Upper A',
         exercises: ['Bench Press', 'Barbell Row', 'Overhead Press', 'Dumbbell Curl'],
@@ -162,12 +162,12 @@ export async function loadDemoData(): Promise<void> {
       },
     ];
 
-    const templateIds: string[] = [];
-    for (const template of templates) {
-      const templateId = uuidv7();
-      templateIds.push(templateId);
+    const planIds: string[] = [];
+    for (const plan of plans) {
+      const planId = uuidv7();
+      planIds.push(planId);
 
-      const templateExercises = template.exercises.map((exerciseName, index) => ({
+      const planExercises = plan.exercises.map((exerciseName, index) => ({
         exercise_id: exerciseMap[exerciseName],
         sort_order: index,
         target_sets: 3,
@@ -178,9 +178,9 @@ export async function loadDemoData(): Promise<void> {
         conn,
         'template_created',
         {
-          template_id: templateId,
-          name: template.name,
-          exercises: templateExercises,
+          template_id: planId,
+          name: plan.name,
+          exercises: planExercises,
         },
         currentTimestamp
       );
@@ -190,7 +190,7 @@ export async function loadDemoData(): Promise<void> {
     // === WORKOUT GENERATION: 6 weeks, 4 sessions/week ===
 
     const workoutHours = [7, 18, 10, 19]; // 7am, 6pm, 10am, 7pm
-    let templateIndex = 0;
+    let planIndex = 0;
 
     for (const scheduleWeek of DEMO_SCHEDULE) {
       const weekMultiplier = scheduleWeek.multiplier;
@@ -204,10 +204,10 @@ export async function loadDemoData(): Promise<void> {
         const workoutHour = workoutHours[dayIndex % workoutHours.length];
         let workoutTimestamp = addHours(workoutDate, workoutHour);
 
-        // Get template for this workout
-        const templateId = templateIds[templateIndex % templateIds.length];
-        const templateExercises = templates[templateIndex % templates.length].exercises;
-        templateIndex++;
+        // Get plan for this workout
+        const planId = planIds[planIndex % planIds.length];
+        const planExercises = plans[planIndex % plans.length].exercises;
+        planIndex++;
 
         // Start workout
         const workoutId = uuidv7();
@@ -216,7 +216,7 @@ export async function loadDemoData(): Promise<void> {
           'workout_started',
           {
             workout_id: workoutId,
-            template_id: templateId,
+            template_id: planId,
             gym_id: gymId,
             started_at: workoutTimestamp.toISOString(),
           },
@@ -225,7 +225,7 @@ export async function loadDemoData(): Promise<void> {
         workoutTimestamp = addMinutes(workoutTimestamp, 2);
 
         // Log sets for each exercise
-        for (const exerciseName of templateExercises) {
+        for (const exerciseName of planExercises) {
           const exerciseId = exerciseMap[exerciseName];
           const baseWeight = BASE_WEIGHTS[exerciseName];
           const weight = roundWeight(baseWeight * weekMultiplier);
@@ -280,7 +280,7 @@ export async function loadDemoData(): Promise<void> {
           {
             rotation_id: rotationId,
             name: 'Upper Lower 4x',
-            template_ids: templateIds,
+            template_ids: planIds,
             current_position: 2, // Start at Upper B (position 2)
           },
         ],

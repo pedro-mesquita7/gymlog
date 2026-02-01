@@ -1,7 +1,7 @@
 import { getDuckDB } from './duckdb-init';
 import { DIM_EXERCISE_SQL, DIM_GYM_SQL } from './compiled-queries';
 import type { Exercise } from '../types/database';
-import type { Template, TemplateExercise } from '../types/template';
+import type { Plan, PlanExercise } from '../types/plan';
 
 // Get current state of all exercises using dbt-equivalent SQL
 export async function getExercises(): Promise<Exercise[]> {
@@ -66,8 +66,8 @@ export async function getEventCount(): Promise<number> {
   }
 }
 
-// Get current state of all templates using event replay pattern
-export async function getTemplates(): Promise<Template[]> {
+// Get current state of all plans using event replay pattern
+export async function getPlans(): Promise<Plan[]> {
   const db = getDuckDB();
   if (!db) {
     throw new Error('Database not initialized');
@@ -76,7 +76,7 @@ export async function getTemplates(): Promise<Template[]> {
   const conn = await db.connect();
 
   try {
-    // Get latest template state using event replay
+    // Get latest plan state using event replay
     const result = await conn.query(`
       WITH template_events AS (
         SELECT
@@ -117,7 +117,7 @@ export async function getTemplates(): Promise<Template[]> {
     return result.toArray().map(row => ({
       template_id: row.template_id as string,
       name: row.name as string,
-      exercises: JSON.parse(row.exercises as string) as TemplateExercise[],
+      exercises: JSON.parse(row.exercises as string) as PlanExercise[],
       is_archived: row.is_archived as boolean,
     }));
   } finally {

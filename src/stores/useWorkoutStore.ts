@@ -18,7 +18,7 @@ interface WorkoutState {
   soundEnabled: boolean;
 
   // Actions
-  startWorkout: (templateId: string, gymId: string) => void;
+  startWorkout: (planId: string, gymId: string) => void;
   logSet: (
     exerciseId: string,
     originalExerciseId: string,
@@ -62,11 +62,11 @@ export const useWorkoutStore = create<WorkoutState>()(
       weightUnit: 'kg' as const,
       soundEnabled: true,
 
-      startWorkout: (templateId, gymId) => {
+      startWorkout: (planId, gymId) => {
         set({
           session: {
             workout_id: uuidv7(),
-            template_id: templateId,
+            template_id: planId,
             gym_id: gymId,
             started_at: new Date().toISOString(),
             current_exercise_index: 0,

@@ -3,7 +3,7 @@ import { getDuckDB } from '../db/duckdb-init';
 import { formatDistanceToNow } from 'date-fns';
 
 export interface RecentWorkoutData {
-  templateName: string;
+  planName: string;
   date: string;
   exerciseCount: number;
   totalVolume: number;
@@ -36,7 +36,7 @@ export function useRecentWorkout(): {
 
       const query = `
         SELECT
-          COALESCE(t.name, 'Unknown Template') as template_name,
+          COALESCE(t.name, 'Unknown Plan') as plan_name,
           fw.started_at,
           fw.completed_at,
           COUNT(DISTINCT fs.exercise_id) as exercise_count,
@@ -85,7 +85,7 @@ export function useRecentWorkout(): {
           : 'Unknown date';
 
         setData({
-          templateName: String(row.template_name),
+          planName: String(row.plan_name),
           date: dateStr,
           exerciseCount: Number(row.exercise_count),
           totalVolume: Math.round(Number(row.total_volume)),

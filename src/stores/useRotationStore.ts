@@ -121,9 +121,9 @@ export const useRotationStore = create<RotationState>()(
   )
 );
 
-// Selector: Get next template info from active rotation
-export const selectNextTemplate = (state: RotationState): {
-  templateId: string;
+// Selector: Get next plan info from active rotation
+export const selectNextPlan = (state: RotationState): {
+  planId: string;
   position: number;
   total: number;
   rotationName: string;
@@ -136,10 +136,10 @@ export const selectNextTemplate = (state: RotationState): {
 
   if (!activeRotation || activeRotation.template_ids.length === 0) return null;
 
-  const templateId = activeRotation.template_ids[activeRotation.current_position];
+  const planId = activeRotation.template_ids[activeRotation.current_position];
 
   return {
-    templateId,
+    planId,
     position: activeRotation.current_position,
     total: activeRotation.template_ids.length,
     rotationName: activeRotation.name,

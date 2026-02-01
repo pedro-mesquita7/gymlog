@@ -24,14 +24,12 @@ interface CreateExerciseData {
   name: string;
   muscle_group: MuscleGroup;
   is_global: boolean;
-  gym_id: string | null;
 }
 
 interface UpdateExerciseData {
   name: string;
   muscle_group: MuscleGroup;
   is_global: boolean;
-  gym_id: string | null;
 }
 
 export function useExercises(): UseExercisesReturn {
@@ -63,7 +61,6 @@ export function useExercises(): UseExercisesReturn {
       name: data.name,
       muscle_group: data.muscle_group,
       is_global: data.is_global,
-      gym_id: data.is_global ? null : data.gym_id,
     };
 
     await writeEvent(event);
@@ -77,7 +74,6 @@ export function useExercises(): UseExercisesReturn {
       name: data.name,
       muscle_group: data.muscle_group,
       is_global: data.is_global,
-      gym_id: data.is_global ? null : data.gym_id,
     };
 
     await writeEvent(event);
