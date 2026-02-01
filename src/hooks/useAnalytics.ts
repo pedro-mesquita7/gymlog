@@ -1,20 +1,25 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { getDuckDB } from '../db/duckdb-init';
-import { EXERCISE_PROGRESS_SQL, WEEKLY_COMPARISON_SQL } from '../db/compiled-queries';
+import { exerciseProgressSQL, WEEKLY_COMPARISON_SQL } from '../db/compiled-queries';
 import type { ProgressPoint, WeeklyComparison, UseExerciseProgressReturn, UseWeeklyComparisonReturn } from '../types/analytics';
 
 interface UseExerciseProgressOptions {
   exerciseId: string;
+  days?: number | null;  // null = all time, undefined = default 28
 }
 
 /**
  * Hook for fetching exercise progress data for charts (CHART-01, CHART-02, CHART-03)
- * Returns daily aggregates: max weight, estimated 1RM, volume for last 28 days
+ * Returns daily aggregates: max weight, estimated 1RM, volume for given time range
  */
-export function useExerciseProgress({ exerciseId }: UseExerciseProgressOptions): UseExerciseProgressReturn {
+export function useExerciseProgress({ exerciseId, days }: UseExerciseProgressOptions): UseExerciseProgressReturn {
   const [data, setData] = useState<ProgressPoint[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const abortRef = useRef(false);
+
+  // Resolve undefined to default 28 days; null = all time
+  const resolvedDays = days === undefined ? 28 : days;
 
   const fetchData = useCallback(async () => {
     if (!exerciseId) {
@@ -36,12 +41,11 @@ export function useExerciseProgress({ exerciseId }: UseExerciseProgressOptions):
     try {
       const conn = await db.connect();
 
-      // Replace $1 parameter with actual value (DuckDB-WASM limitation)
-      const sql = EXERCISE_PROGRESS_SQL.replace('$1', `'${exerciseId}'`);
+      // Generate SQL dynamically with days parameter
+      const sql = exerciseProgressSQL(resolvedDays).replace('$1', `'${exerciseId}'`);
       const result = await conn.query(sql);
 
       const rawRows = result.toArray();
-      console.log('[useExerciseProgress] raw rows:', rawRows.length, 'first row:', rawRows[0], 'date type:', typeof rawRows[0]?.date, 'date value:', rawRows[0]?.date);
       const rows = rawRows.map((row: any) => {
         // DuckDB-WASM DATE returns millisecond-epoch integers (number or BigInt)
         const dateVal = row.date;
@@ -64,18 +68,26 @@ export function useExerciseProgress({ exerciseId }: UseExerciseProgressOptions):
         };
       }) as ProgressPoint[];
 
-      setData(rows);
+      if (!abortRef.current) {
+        setData(rows);
+      }
       await conn.close();
     } catch (err) {
-      console.error('Error fetching exercise progress:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch progress data');
+      if (!abortRef.current) {
+        console.error('Error fetching exercise progress:', err);
+        setError(err instanceof Error ? err.message : 'Failed to fetch progress data');
+      }
     } finally {
-      setIsLoading(false);
+      if (!abortRef.current) {
+        setIsLoading(false);
+      }
     }
-  }, [exerciseId]);
+  }, [exerciseId, resolvedDays]);
 
   useEffect(() => {
+    abortRef.current = false;
     fetchData();
+    return () => { abortRef.current = true; };
   }, [fetchData]);
 
   return { data, isLoading, error, refresh: fetchData };
@@ -84,6 +96,7 @@ export function useExerciseProgress({ exerciseId }: UseExerciseProgressOptions):
 /**
  * Hook for fetching week-over-week comparison data (CHART-04)
  * Returns current week vs previous week metrics with percentage changes
+ * Always uses 14-day window (WEEKLY_COMPARISON_SQL constant)
  */
 export function useWeeklyComparison(): UseWeeklyComparisonReturn {
   const [data, setData] = useState<WeeklyComparison[]>([]);
@@ -106,7 +119,6 @@ export function useWeeklyComparison(): UseWeeklyComparisonReturn {
       const result = await conn.query(WEEKLY_COMPARISON_SQL);
 
       const rawRows = result.toArray();
-      console.log('[useWeeklyComparison] raw rows:', rawRows.length, 'first row:', rawRows[0], 'week_start type:', typeof rawRows[0]?.week_start, 'week_start value:', rawRows[0]?.week_start);
       const rows = rawRows.map((row: any) => {
         // DuckDB-WASM DATE returns millisecond-epoch integers (number or BigInt)
         const wsVal = row.week_start;
