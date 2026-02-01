@@ -9,6 +9,7 @@ import { RotationSection } from '../settings/RotationSection';
 import { DemoDataSection } from '../settings/DemoDataSection';
 import { ObservabilitySection } from '../settings/ObservabilitySection';
 import { DataQualitySection } from '../settings/DataQualitySection';
+import { ToonExportSection } from '../settings/ToonExportSection';
 
 export function BackupSettings() {
   const { exportBackup, isExporting, error: exportError } = useBackupExport();
@@ -188,6 +189,11 @@ export function BackupSettings() {
           </div>
         )}
       </section>
+
+      <hr className="border-border-primary" />
+
+      {/* TOON Export */}
+      <ToonExportSection />
 
       <hr className="border-border-primary" />
 
