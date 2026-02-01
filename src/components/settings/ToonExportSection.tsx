@@ -139,13 +139,13 @@ export function ToonExportSection() {
         Export TOON
       </h2>
 
-      <div className="bg-bg-secondary rounded-lg p-4">
+      <div className="bg-bg-secondary rounded-2xl p-4">
         <p className="text-sm text-text-secondary mb-3">
           Export workout data in LLM-optimized format for AI analysis
         </p>
 
         {/* Scope picker */}
-        <div className="flex rounded-lg overflow-hidden mb-4">
+        <div className="flex rounded-xl overflow-hidden mb-4">
           {scopeOptions.map((opt) => {
             const isActive = scope === opt.value;
             const isDisabled =
@@ -174,7 +174,7 @@ export function ToonExportSection() {
             <label className="text-xs text-text-secondary mb-1.5 block">
               Cycles
             </label>
-            <div className="flex rounded-lg overflow-hidden w-fit">
+            <div className="flex rounded-xl overflow-hidden w-fit">
               {rotationCountOptions.map((count) => (
                 <button
                   key={count}
@@ -197,7 +197,7 @@ export function ToonExportSection() {
             <label className="text-xs text-text-secondary mb-1.5 block">
               Range
             </label>
-            <div className="flex rounded-lg overflow-hidden w-fit">
+            <div className="flex rounded-xl overflow-hidden w-fit">
               {timeRangeOptions.map((opt) => (
                 <button
                   key={opt.label}
@@ -220,14 +220,14 @@ export function ToonExportSection() {
           <button
             onClick={handleCopy}
             disabled={isExporting}
-            className="flex-1 py-2.5 px-4 bg-accent hover:bg-accent/90 disabled:bg-bg-tertiary disabled:text-text-muted rounded-lg font-medium text-sm transition-colors"
+            className="flex-1 py-2.5 px-4 bg-accent hover:bg-accent/90 disabled:bg-bg-tertiary disabled:text-text-muted rounded-xl font-medium text-sm transition-colors"
           >
             {copySuccess ? '\u2713 Copied!' : 'Copy to Clipboard'}
           </button>
           <button
             onClick={handleDownload}
             disabled={isExporting}
-            className="flex-1 py-2.5 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 disabled:bg-bg-tertiary/50 disabled:text-text-muted rounded-lg font-medium text-sm text-text-primary transition-colors"
+            className="flex-1 py-2.5 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 disabled:bg-bg-tertiary/50 disabled:text-text-muted rounded-xl font-medium text-sm text-text-primary transition-colors"
           >
             {isExporting ? 'Exporting...' : 'Download .toon'}
           </button>

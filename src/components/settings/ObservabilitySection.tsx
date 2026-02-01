@@ -25,7 +25,7 @@ export function ObservabilitySection() {
     return (
       <section>
         <h2 className="text-lg font-semibold mb-4 text-text-primary">System Observability</h2>
-        <div className="bg-bg-secondary rounded-lg p-4">
+        <div className="bg-bg-secondary rounded-2xl p-4">
           <p className="text-sm text-text-muted">Loading metrics...</p>
         </div>
       </section>
@@ -36,7 +36,7 @@ export function ObservabilitySection() {
     return (
       <section>
         <h2 className="text-lg font-semibold mb-4 text-text-primary">System Observability</h2>
-        <div className="bg-bg-secondary rounded-lg p-4">
+        <div className="bg-bg-secondary rounded-2xl p-4">
           <p className="text-sm text-error">{error}</p>
         </div>
       </section>
@@ -47,7 +47,7 @@ export function ObservabilitySection() {
     <section>
       <h2 className="text-lg font-semibold mb-4 text-text-primary">System Observability</h2>
 
-      <div className="bg-bg-secondary rounded-lg p-4 space-y-5">
+      <div className="bg-bg-secondary rounded-2xl p-4 space-y-5">
         {/* Storage Usage */}
         <div>
           <div className="flex items-center justify-between mb-2">
@@ -100,7 +100,7 @@ export function ObservabilitySection() {
         {/* Refresh Button */}
         <button
           onClick={refresh}
-          className="w-full py-2 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 rounded-lg text-sm font-medium transition-colors"
+          className="w-full py-2 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 rounded-xl text-sm font-medium transition-colors"
         >
           Refresh Metrics
         </button>

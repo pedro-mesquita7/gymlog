@@ -77,7 +77,7 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
 
       <div className="space-y-4">
         {/* Load Demo Data */}
-        <div className="bg-bg-secondary rounded-lg p-4">
+        <div className="bg-bg-secondary rounded-2xl p-4">
           <h3 className="font-medium text-text-primary mb-1">Load Demo Data</h3>
           <p className="text-sm text-text-secondary mb-3">
             Load 6 weeks of sample workouts to explore all features
@@ -86,14 +86,14 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
             data-testid="btn-load-demo"
             onClick={handleLoadDemoData}
             disabled={isLoadingDemo}
-            className="w-full py-3 px-4 bg-gradient-to-r from-[oklch(0.65_0.18_60)] to-[oklch(0.60_0.15_35)] hover:opacity-90 disabled:bg-bg-tertiary disabled:bg-none text-white rounded-lg font-medium transition-all"
+            className="w-full py-3 px-4 bg-gradient-to-r from-[oklch(0.65_0.12_60)] to-[oklch(0.60_0.10_45)] hover:opacity-90 disabled:bg-bg-tertiary disabled:bg-none text-white rounded-xl font-medium transition-all"
           >
             {isLoadingDemo ? 'Loading demo data...' : 'Import Demo Data'}
           </button>
         </div>
 
         {/* Clear Historical Data */}
-        <div className="bg-error/10 border border-error/30 rounded-lg p-4">
+        <div className="bg-error/10 border border-error/30 rounded-2xl p-4">
           <h3 className="font-medium text-error mb-1">Clear Historical Data</h3>
           <p className="text-sm text-error/80 mb-3">
             Remove all workout logs, plans, and templates. Exercises and gyms will be kept.
@@ -101,7 +101,7 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
           <button
             data-testid="btn-clear-data"
             onClick={() => setShowClearDialog(true)}
-            className="w-full py-3 px-4 bg-error/20 hover:bg-error/30 text-error border border-error/30 rounded-lg font-medium transition-colors"
+            className="w-full py-3 px-4 bg-error/20 hover:bg-error/30 text-error border border-error/30 rounded-xl font-medium transition-colors"
           >
             Clear Historical Data
           </button>
@@ -118,13 +118,13 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
         <div className="flex gap-2 mt-4">
           <button
             onClick={() => setShowImportDialog(false)}
-            className="flex-1 py-2.5 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 text-text-primary rounded-lg font-medium transition-colors"
+            className="flex-1 py-2.5 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 text-text-primary rounded-xl font-medium transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={executeImportDemoData}
-            className="flex-1 py-2.5 px-4 bg-gradient-to-r from-[oklch(0.65_0.18_60)] to-[oklch(0.60_0.15_35)] hover:opacity-90 text-white rounded-lg font-medium transition-all"
+            className="flex-1 py-2.5 px-4 bg-gradient-to-r from-[oklch(0.65_0.12_60)] to-[oklch(0.60_0.10_45)] hover:opacity-90 text-white rounded-xl font-medium transition-all"
           >
             Confirm
           </button>
@@ -141,13 +141,13 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
         <div className="flex gap-2 mt-4">
           <button
             onClick={() => setShowClearDialog(false)}
-            className="flex-1 py-2.5 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 text-text-primary rounded-lg font-medium transition-colors"
+            className="flex-1 py-2.5 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 text-text-primary rounded-xl font-medium transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={handleClearHistoricalData}
-            className="flex-1 py-2.5 px-4 bg-error hover:bg-error/90 text-white rounded-lg font-medium transition-colors"
+            className="flex-1 py-2.5 px-4 bg-error hover:bg-error/90 text-white rounded-xl font-medium transition-colors"
           >
             Clear Data
           </button>

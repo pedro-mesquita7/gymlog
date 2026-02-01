@@ -71,7 +71,7 @@ export function RotationSection() {
 
       <div className="space-y-6">
         {/* Create Rotation Form */}
-        <div className="bg-bg-secondary rounded-lg p-4 space-y-3">
+        <div className="bg-bg-secondary rounded-2xl p-4 space-y-3">
           <h3 className="text-sm font-medium text-text-primary">Create New Rotation</h3>
 
           <Input
@@ -118,7 +118,7 @@ export function RotationSection() {
 
         {/* Default Gym Selection */}
         {gyms.length > 0 && (
-          <div className="bg-bg-secondary rounded-lg p-4">
+          <div className="bg-bg-secondary rounded-2xl p-4">
             <label htmlFor="default-gym" className="text-sm font-medium text-text-primary block mb-2">
               Default Gym
             </label>
@@ -126,7 +126,7 @@ export function RotationSection() {
               id="default-gym"
               value={defaultGymId || ''}
               onChange={(e) => setDefaultGym(e.target.value || null)}
-              className="w-full px-3 py-2 rounded-lg bg-bg-tertiary border border-border-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full px-3 py-2 rounded-xl bg-bg-tertiary border border-border-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <option value="">None</option>
               {gyms.map((gym) => (
@@ -146,7 +146,7 @@ export function RotationSection() {
             {rotations.map((rotation) => (
               <div
                 key={rotation.rotation_id}
-                className="bg-bg-secondary rounded-lg p-4 space-y-3"
+                className="bg-bg-secondary rounded-2xl p-4 space-y-3"
               >
                 {/* Rotation Header */}
                 <div className="flex items-start justify-between">
@@ -221,7 +221,7 @@ export function RotationSection() {
 
                 {/* Delete Confirmation */}
                 {deleteConfirmId === rotation.rotation_id && (
-                  <div className="bg-bg-tertiary rounded-lg p-3 border border-error/20">
+                  <div className="bg-bg-tertiary rounded-xl p-3 border border-error/20">
                     <p className="text-sm text-text-primary mb-3">
                       Delete "{rotation.name}"? This cannot be undone.
                     </p>
