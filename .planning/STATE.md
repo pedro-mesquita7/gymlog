@@ -6,16 +6,16 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
-**Current focus:** v1.3 Production Polish & Deploy Readiness -- Phase 15 Analytics Redesign
+**Current focus:** v1.3 Production Polish & Deploy Readiness -- Phase 15 Analytics Redesign COMPLETE
 
 ## Current Position
 
 Phase: 15 of 17 (Analytics Redesign)
-Plan: 4 of 5 in current phase
-Status: In progress
-Last activity: 2026-02-01 -- Completed 15-04-PLAN.md (chart components)
+Plan: 5 of 5 in current phase
+Status: Phase complete
+Last activity: 2026-02-01 -- Completed 15-05-PLAN.md (dashboard integration)
 
-Progress: [================░░░░] 80% (88/~110 plans lifetime)
+Progress: [=================░░░] 81% (89/~110 plans lifetime)
 
 ## Milestones
 
@@ -29,8 +29,8 @@ Progress: [================░░░░] 80% (88/~110 plans lifetime)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 88 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 4 v1.3-p15)
-- Total commits: ~337
+- Total plans completed: 89 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15)
+- Total commits: ~339
 - Project duration: 6 days (2026-01-27 to 2026-02-01)
 
 **By Phase (v1.3 -- current):**
@@ -40,7 +40,7 @@ Progress: [================░░░░] 80% (88/~110 plans lifetime)
 | 12. Security & Bug Fixes | 4/4 | Complete |
 | 13. E2E Test Suite | 7/7 | Complete |
 | 14. Workouts UX & Color Scheme | 5/5 | Complete |
-| 15. Analytics Redesign | 4/5 | In progress |
+| 15. Analytics Redesign | 5/5 | Complete |
 
 ## Accumulated Context
 
@@ -60,6 +60,7 @@ v1.3 decisions:
 - 15-01: SQL constants converted to factory functions with days param; WEEKLY_COMPARISON_SQL stays constant; progressionStatusSQL uses max(days, 63/28); volumeByMuscleGroupSQL returns AVG weekly sets
 - 15-02: hooks accept optional days param (undefined=default, null=all-time); abortRef pattern for stale data; useVolumeZoneThresholds for 5-zone system; useSummaryStats for dashboard cards; streak in JS not SQL
 - 15-04: VolumeBarChart uses Cell for per-bar zone coloring; MuscleHeatMap uses direct OKLCH in SVG fill; getThresholds function prop replaces UseVolumeThresholdsReturn
+- 15-05: Sticky TimeRangePicker at top; exercise selector scoped to Exercise Detail section; ProgressionDashboard shows info note for <63 days; default time range 3M; localStorage key gymlog-analytics-timerange
 
 ### Pending Todos
 
@@ -67,12 +68,12 @@ None.
 
 ### Blockers/Concerns
 
-- Phase 15: SQL layer (15-01), hook layer (15-02), UI components (15-03), chart components (15-04) complete. Remaining: 15-05 (integration testing).
+- Phase 15 complete. Ready to proceed to Phase 16.
 
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 15-04-PLAN.md (chart components)
+Stopped at: Completed 15-05-PLAN.md (dashboard integration) -- Phase 15 complete
 Resume file: None
 
-**Next action:** `/gsd:execute-phase 15` -- continue with 15-05-PLAN.md (integration testing)
+**Next action:** Proceed to Phase 16
