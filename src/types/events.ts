@@ -1,4 +1,4 @@
-import type { TemplateExercise } from './template';
+import type { PlanExercise } from './plan';
 
 // Base event type with required audit columns (DATA-07)
 export interface BaseEvent {
@@ -49,27 +49,27 @@ export interface GymDeletedEvent extends BaseEvent {
   gym_id: string;
 }
 
-// Template events (TMPL-01 through TMPL-07)
-export interface TemplateCreatedEvent extends BaseEvent {
+// Plan events (TMPL-01 through TMPL-07)
+export interface PlanCreatedEvent extends BaseEvent {
   event_type: 'template_created';
   template_id: string;
   name: string;
-  exercises: TemplateExercise[];
+  exercises: PlanExercise[];
 }
 
-export interface TemplateUpdatedEvent extends BaseEvent {
+export interface PlanUpdatedEvent extends BaseEvent {
   event_type: 'template_updated';
   template_id: string;
   name: string;
-  exercises: TemplateExercise[];
+  exercises: PlanExercise[];
 }
 
-export interface TemplateDeletedEvent extends BaseEvent {
+export interface PlanDeletedEvent extends BaseEvent {
   event_type: 'template_deleted';
   template_id: string;
 }
 
-export interface TemplateArchivedEvent extends BaseEvent {
+export interface PlanArchivedEvent extends BaseEvent {
   event_type: 'template_archived';
   template_id: string;
   is_archived: boolean;  // true = archive, false = restore
@@ -115,10 +115,10 @@ export type GymLogEvent =
   | GymCreatedEvent
   | GymUpdatedEvent
   | GymDeletedEvent
-  | TemplateCreatedEvent
-  | TemplateUpdatedEvent
-  | TemplateDeletedEvent
-  | TemplateArchivedEvent
+  | PlanCreatedEvent
+  | PlanUpdatedEvent
+  | PlanDeletedEvent
+  | PlanArchivedEvent
   | WorkoutStartedEvent
   | SetLoggedEvent
   | WorkoutCompletedEvent
