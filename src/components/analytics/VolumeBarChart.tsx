@@ -1,59 +1,31 @@
-import { useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceArea } from 'recharts';
-import { format, parseISO } from 'date-fns';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import { ChartContainer } from './ChartContainer';
-import type { VolumeByMuscleGroup, UseVolumeThresholdsReturn } from '../../types/analytics';
+import { getVolumeZone, VOLUME_ZONE_DEFAULTS, type VolumeByMuscleGroupAvg, type VolumeZone } from '../../types/analytics';
 
 interface VolumeBarChartProps {
-  data: VolumeByMuscleGroup[];
-  thresholds: UseVolumeThresholdsReturn;
+  data: VolumeByMuscleGroupAvg[];
 }
 
-// Transform flat volume data into Recharts-friendly grouped format
-function transformVolumeData(data: VolumeByMuscleGroup[]) {
-  // Group by muscle group
-  const byMuscle = new Map<string, Record<string, number>>();
-  const weeks = new Set<string>();
+const ZONE_COLORS: Record<VolumeZone, string> = {
+  under: 'var(--color-chart-zone-under)',
+  minimum: 'var(--color-chart-zone-minimum)',
+  optimal: 'var(--color-chart-zone-optimal)',
+  high: 'var(--color-chart-zone-high)',
+  over: 'var(--color-chart-zone-over)',
+};
 
-  data.forEach(({ muscleGroup, weekStart, setCount }) => {
-    if (!byMuscle.has(muscleGroup)) {
-      byMuscle.set(muscleGroup, {});
-    }
-    const weekLabel = format(parseISO(weekStart), 'MMM d');
-    byMuscle.get(muscleGroup)![weekLabel] = setCount;
-    weeks.add(weekLabel);
-  });
-
-  // Convert to array of objects for Recharts
-  return {
-    chartData: Array.from(byMuscle.entries()).map(([muscleGroup, weekData]) => ({
-      muscleGroup,
-      ...weekData
-    })),
-    weekLabels: Array.from(weeks).sort()
-  };
+function getBarColor(muscleGroup: string, avgWeeklySets: number): string {
+  const thresholds = VOLUME_ZONE_DEFAULTS[muscleGroup] || VOLUME_ZONE_DEFAULTS['Chest'];
+  const zone = getVolumeZone(avgWeeklySets, thresholds);
+  return ZONE_COLORS[zone];
 }
 
 /**
- * Grouped bar chart showing sets per week by muscle group (VOL-01)
- * With color-coded background zones for training volume (VOL-02)
+ * Bar chart showing average weekly sets per muscle group with per-bar 5-zone coloring.
+ * Each bar is colored based on its muscle group's specific volume zone thresholds.
  */
-export function VolumeBarChart({ data, thresholds }: VolumeBarChartProps) {
-  // Memoize transformed data to prevent unnecessary re-renders
-  const { chartData, weekLabels } = useMemo(() => transformVolumeData(data), [data]);
-
-  // Get default thresholds for zone backgrounds
-  const { low, optimal } = thresholds.defaultThresholds;
-
-  // Calculate max value for yellow zone upper bound
-  const maxValue = Math.max(
-    ...chartData.flatMap(row =>
-      weekLabels.map(week => ((row as any)[week] as number) || 0)
-    ),
-    optimal + 5
-  );
-
-  if (chartData.length === 0) {
+export function VolumeBarChart({ data }: VolumeBarChartProps) {
+  if (data.length === 0) {
     return (
       <div className="text-center py-8 text-text-muted">
         No volume data yet. Log workouts to see muscle group training volume.
@@ -61,86 +33,39 @@ export function VolumeBarChart({ data, thresholds }: VolumeBarChartProps) {
     );
   }
 
-  // Color palette for weeks (using CSS variables pattern from ExerciseProgressChart)
-  const weekColors = [
-    'hsl(var(--chart-1, 173 80% 40%))',     // cyan-ish
-    'hsl(var(--chart-2, 197 71% 73%))',     // blue-ish
-    'hsl(var(--chart-3, 43 74% 66%))',      // yellow-ish
-    'hsl(var(--chart-4, 27 87% 67%))'       // orange-ish
-  ];
-
   return (
     <ChartContainer height={350}>
-      <BarChart
-        data={chartData}
-        margin={{ top: 20, right: 20, left: 0, bottom: 5 }}
-      >
-        {/* Background zones (render first so bars appear on top) */}
-        <ReferenceArea
-          y1={0}
-          y2={low}
-          fill="var(--color-danger, #ef4444)"
-          fillOpacity={0.08}
-          ifOverflow="extendDomain"
-        />
-        <ReferenceArea
-          y1={low}
-          y2={optimal}
-          fill="var(--color-success, #22c55e)"
-          fillOpacity={0.08}
-          ifOverflow="extendDomain"
-        />
-        <ReferenceArea
-          y1={optimal}
-          y2={maxValue}
-          fill="var(--color-warning, #eab308)"
-          fillOpacity={0.08}
-          ifOverflow="extendDomain"
-        />
-
-        <CartesianGrid
-          strokeDasharray="3 3"
-          stroke="hsl(var(--chart-muted) / 0.3)"
-        />
+      <BarChart data={data} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="var(--color-chart-muted)" strokeOpacity={0.3} />
         <XAxis
           dataKey="muscleGroup"
-          stroke="hsl(var(--chart-muted))"
+          stroke="var(--color-chart-muted)"
           fontSize={12}
           tickLine={false}
-          angle={-45}
-          textAnchor="end"
-          height={80}
         />
         <YAxis
-          label={{ value: 'Sets', angle: -90, position: 'insideLeft', style: { fill: 'hsl(var(--chart-muted))' } }}
-          stroke="hsl(var(--chart-muted))"
+          label={{ value: 'Avg Sets/Week', angle: -90, position: 'insideLeft', style: { fill: 'var(--color-chart-muted)' } }}
+          stroke="var(--color-chart-muted)"
           fontSize={12}
-          width={45}
+          width={55}
           tickLine={false}
           axisLine={false}
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: 'hsl(240 6% 10%)',
-            border: '1px solid hsl(240 4% 16%)',
+            backgroundColor: 'var(--color-chart-tooltip-bg)',
+            border: '1px solid var(--color-chart-tooltip-border)',
             borderRadius: '8px',
+            color: 'var(--color-text-primary)',
           }}
-          formatter={(value: number | undefined) => [`${value || 0} sets`, '']}
+          formatter={(value: number | undefined) => [`${value ?? 0} sets/week`, 'Avg Weekly Volume']}
+          cursor={{ fill: 'var(--color-bg-elevated)', fillOpacity: 0.3 }}
         />
-        <Legend
-          wrapperStyle={{ paddingTop: '10px' }}
-          iconType="rect"
-        />
-
-        {/* One Bar per week */}
-        {weekLabels.map((week, idx) => (
-          <Bar
-            key={week}
-            dataKey={week}
-            fill={weekColors[idx % weekColors.length]}
-            minPointSize={3}
-          />
-        ))}
+        <Bar dataKey="avgWeeklySets" radius={[4, 4, 0, 0]}>
+          {data.map((entry, index) => (
+            <Cell key={index} fill={getBarColor(entry.muscleGroup, entry.avgWeeklySets)} />
+          ))}
+        </Bar>
       </BarChart>
     </ChartContainer>
   );

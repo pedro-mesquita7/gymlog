@@ -36,7 +36,7 @@ export function AnalyticsPage() {
   const { data: weeklyData, isLoading: weeklyLoading, error: weeklyError } = useWeeklyComparison();
 
   // Fetch volume analytics data
-  const { volumeData, heatMapData, isLoading: volumeLoading, error: volumeError } = useVolumeAnalytics();
+  const { volumeAvgData, heatMapData, isLoading: volumeLoading, error: volumeError } = useVolumeAnalytics();
   const volumeThresholds = useVolumeThresholds();
 
   // Filter weekly data for selected exercise
@@ -164,7 +164,7 @@ export function AnalyticsPage() {
             </FeatureErrorBoundary>
             <FeatureErrorBoundary feature="Volume Chart">
               <div className="bg-bg-tertiary/30 rounded-lg p-4">
-                <VolumeBarChart data={volumeData} thresholds={volumeThresholds} />
+                <VolumeBarChart data={volumeAvgData} />
               </div>
             </FeatureErrorBoundary>
           </div>
