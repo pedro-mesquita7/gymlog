@@ -21,7 +21,7 @@ Previous milestone roadmaps archived in `.planning/milestones/`.
 ### Overview
 
 - [x] **Phase 18: Theme Redesign** - Evolve OKLCH tokens to soft/modern dark aesthetic with rounded corners, shadows, and verified contrast
-- [ ] **Phase 19: Plans Rename** - Rename "Templates" to "Plans" across all UI text while preserving event type backward compatibility
+- [x] **Phase 19: Plans Rename** - Rename "Templates" to "Plans" across all UI text while preserving event type backward compatibility
 - [ ] **Phase 20: UX Restructure** - Collapsible sections on Workouts tab and settings reorder for streamlined navigation
 - [ ] **Phase 21: Comparison Analytics** - Side-by-side exercise comparison with PRs, volume, frequency, and progression status
 
@@ -57,9 +57,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 19-01-PLAN.md -- Foundation rename: types, events, data layer, hooks, stores (Wave 1)
-- [ ] 19-02-PLAN.md -- Component directory rename + all consumer component updates (Wave 2)
-- [ ] 19-03-PLAN.md -- Test updates + grep audit + full verification (Wave 3)
+- [x] 19-01-PLAN.md -- Foundation rename: types, events, data layer, hooks, stores (Wave 1)
+- [x] 19-02-PLAN.md -- Component directory rename + all consumer component updates (Wave 2)
+- [x] 19-03-PLAN.md -- Test updates + grep audit + full verification (Wave 3)
 
 ### Phase 20: UX Restructure
 **Goal**: Users navigate Workouts and Settings tabs with less clutter and faster access to primary actions
@@ -99,7 +99,7 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 18. Theme Redesign | v1.4 | 6/6 | Complete | 2026-02-01 |
-| 19. Plans Rename | v1.4 | 0/3 | Planned | - |
+| 19. Plans Rename | v1.4 | 3/3 | Complete | 2026-02-01 |
 | 20. UX Restructure | v1.4 | 0/TBD | Not started | - |
 | 21. Comparison Analytics | v1.4 | 0/TBD | Not started | - |
 
