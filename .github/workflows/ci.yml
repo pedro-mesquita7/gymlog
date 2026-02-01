@@ -147,9 +147,6 @@ jobs:
       - name: Copy dbt docs to dist
         run: cp dbt/target/index.html dist/dbt-docs.html || echo "dbt docs generation skipped"
 
-      - name: Copy COI serviceworker
-        run: cp public/coi-serviceworker.js dist/ || echo "coi-serviceworker.js not found, will be added in 11-02"
-
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
