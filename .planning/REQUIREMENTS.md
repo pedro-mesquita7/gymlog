@@ -46,17 +46,17 @@
 
 ### Demo Data
 
-- [ ] **DEMO-01**: Import button has gradient/warning styling indicating destructive one-time action
-- [ ] **DEMO-02**: "Clear Historical Data" button wipes workout/set logs but preserves exercises, gyms, and plans
-- [ ] **DEMO-03**: Confirmation dialog before both import and clear actions
+- [x] **DEMO-01**: Import button has gradient/warning styling indicating destructive one-time action
+- [x] **DEMO-02**: "Clear Historical Data" button wipes workout/set logs but preserves exercises, gyms, and plans
+- [x] **DEMO-03**: Confirmation dialog before both import and clear actions
 
 ### TOON Export
 
-- [ ] **TOON-01**: Export last workout as TOON format to clipboard
-- [ ] **TOON-02**: Export last workout as .toon file download
-- [ ] **TOON-03**: Export current rotation cycle (completed workouts only) as TOON
-- [ ] **TOON-04**: Export all data from configurable time range (last N months/year) as TOON
-- [ ] **TOON-05**: TOON export includes context headers (exercise definitions, date range, muscle groups)
+- [x] **TOON-01**: Export last workout as TOON format to clipboard
+- [x] **TOON-02**: Export last workout as .toon file download
+- [x] **TOON-03**: Export current rotation cycle (completed workouts only) as TOON
+- [x] **TOON-04**: Export all data from configurable time range (last N months/year) as TOON
+- [x] **TOON-05**: TOON export includes context headers (exercise definitions, date range, muscle groups)
 
 ### PWA & Performance
 
@@ -123,14 +123,14 @@ Deferred beyond v1.3:
 | CLR-01 | Phase 14 | Complete |
 | CLR-02 | Phase 14 | Complete |
 | CLR-03 | Phase 14 | Complete |
-| DEMO-01 | Phase 16 | Pending |
-| DEMO-02 | Phase 16 | Pending |
-| DEMO-03 | Phase 16 | Pending |
-| TOON-01 | Phase 16 | Pending |
-| TOON-02 | Phase 16 | Pending |
-| TOON-03 | Phase 16 | Pending |
-| TOON-04 | Phase 16 | Pending |
-| TOON-05 | Phase 16 | Pending |
+| DEMO-01 | Phase 16 | Complete |
+| DEMO-02 | Phase 16 | Complete |
+| DEMO-03 | Phase 16 | Complete |
+| TOON-01 | Phase 16 | Complete |
+| TOON-02 | Phase 16 | Complete |
+| TOON-03 | Phase 16 | Complete |
+| TOON-04 | Phase 16 | Complete |
+| TOON-05 | Phase 16 | Complete |
 | PWA-01 | Phase 17 | Pending |
 | PWA-02 | Phase 17 | Pending |
 | PWA-03 | Phase 17 | Pending |
@@ -148,4 +148,4 @@ Deferred beyond v1.3:
 
 ---
 *Requirements defined: 2026-01-31*
-*Last updated: 2026-02-01 -- Phase 15 requirements (ANLT-01, ANLT-02, ANLT-03, ANLT-04) marked Complete*
+*Last updated: 2026-02-01 -- Phase 16 requirements (DEMO-01 through TOON-05) marked Complete*

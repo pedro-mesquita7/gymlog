@@ -6,7 +6,7 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
-**Current focus:** v1.3 Production Polish & Deploy Readiness -- Phase 16 Demo Data & TOON Export IN PROGRESS
+**Current focus:** v1.3 Production Polish & Deploy Readiness -- Phase 16 Demo Data & TOON Export COMPLETE
 
 ## Current Position
 
