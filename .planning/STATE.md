@@ -13,9 +13,9 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 Phase: 17 of 17 (PWA, Performance, README Polish)
 Plan: 2 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-01 -- Completed 17-02-PLAN.md (README polish)
+Last activity: 2026-02-01 -- Completed 17-01-PLAN.md (PWA service worker & manifest)
 
-Progress: [==================░░] 85% (93/~110 plans lifetime)
+Progress: [==================░░] 85% (94/~110 plans lifetime)
 
 ## Milestones
 
@@ -29,8 +29,8 @@ Progress: [==================░░] 85% (93/~110 plans lifetime)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 93 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15 + 3 v1.3-p16 + 1 v1.3-p17)
-- Total commits: ~348
+- Total plans completed: 94 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15 + 3 v1.3-p16 + 2 v1.3-p17)
+- Total commits: ~350
 - Project duration: 6 days (2026-01-27 to 2026-02-01)
 
 **By Phase (v1.3 -- current):**
@@ -42,7 +42,7 @@ Progress: [==================░░] 85% (93/~110 plans lifetime)
 | 14. Workouts UX & Color Scheme | 5/5 | Complete |
 | 15. Analytics Redesign | 5/5 | Complete |
 | 16. Demo Data & TOON Export | 3/3 | Complete |
-| 17. PWA, Performance, README Polish | 1/5 | In progress |
+| 17. PWA, Performance, README Polish | 2/5 | In progress |
 
 ## Accumulated Context
 
@@ -66,6 +66,7 @@ v1.3 decisions:
 - 16-01: Dialog confirmations for destructive actions (no window.confirm); clearHistoricalData whitelist preserves exercise/gym events; OKLCH amber gradient for warning buttons
 - 16-02: TOON export uses keyFolding:'safe'; equipment field placeholder (not tracked); PR detection via window functions; set numbers sequential per-workout
 - 16-03: ToonExportSection uses segmented control scope picker; rotation data captured at render time for async safety; Unicode checkmark for copy feedback
+- 17-01: injectManifest strategy with script-defer; static manifest.webmanifest; sw.ts excluded from tsconfig.app.json
 - 17-02: README leads with DE narrative; for-the-badge badges; placeholder URLs for user to update; Performance section references PERFORMANCE.md (17-03)
 
 ### Pending Todos
@@ -74,12 +75,12 @@ None.
 
 ### Blockers/Concerns
 
-- Phase 17 in progress. 17-02 (README) complete.
+- Phase 17 in progress. 17-01 (PWA) and 17-02 (README) complete.
 
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 17-02-PLAN.md (README polish)
+Stopped at: Completed 17-01-PLAN.md (PWA service worker & manifest)
 Resume file: None
 
 **Next action:** Continue phase 17 (17-03 performance budget)
