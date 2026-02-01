@@ -1,9 +1,9 @@
 import Body, { type ExtendedBodyPart, type Slug } from 'react-muscle-highlighter';
-import type { MuscleHeatMapData, UseVolumeThresholdsReturn } from '../../types/analytics';
+import { getVolumeZone, type MuscleHeatMapData, type VolumeZoneThresholds } from '../../types/analytics';
 
 interface MuscleHeatMapProps {
   data: MuscleHeatMapData[];
-  thresholds: UseVolumeThresholdsReturn;
+  getThresholds: (muscleGroup: string) => VolumeZoneThresholds;
 }
 
 // Map our 6 standard muscle groups to react-muscle-highlighter slugs
@@ -17,36 +17,33 @@ const MUSCLE_GROUP_SLUGS: Record<string, Slug[]> = {
 };
 
 /**
- * Calculate color for muscle group based on training volume relative to thresholds.
- * Returns HSL color with opacity for visual heat map effect.
+ * Calculate color for muscle group based on 5-zone volume thresholds.
+ * Uses direct OKLCH values for SVG compatibility (CSS variables may not work in SVG fill).
  */
-function getColorForVolume(totalSets: number, low: number, optimal: number): string {
-  if (totalSets === 0) {
-    // No training - neutral gray
-    return 'rgba(100, 100, 100, 0.3)';
-  }
+function getColorForVolume(totalSets: number, thresholds: VolumeZoneThresholds): string {
+  if (totalSets === 0) return 'rgba(100, 100, 100, 0.3)'; // No data - neutral gray
 
-  if (totalSets < low) {
-    // Under-training - red tint, opacity based on how close to low threshold
-    const ratio = totalSets / low;
-    const opacity = 0.3 + ratio * 0.5; // 0.3 to 0.8
-    return `hsla(0, 70%, 50%, ${opacity})`;
-  }
-
-  if (totalSets <= optimal) {
-    // Optimal zone - green tint, full opacity
-    const ratio = (totalSets - low) / (optimal - low);
-    const opacity = 0.5 + ratio * 0.4; // 0.5 to 0.9
-    return `hsla(142, 70%, 45%, ${opacity})`;
-  }
-
-  // Over-training - yellow/orange tint
-  const excessRatio = Math.min((totalSets - optimal) / optimal, 1);
-  const opacity = 0.6 + excessRatio * 0.3; // 0.6 to 0.9
-  return `hsla(45, 80%, 50%, ${opacity})`;
+  const zone = getVolumeZone(totalSets, thresholds);
+  const colors = {
+    under:   'oklch(63% 0.22 25 / 0.7)',    // red
+    minimum: 'oklch(75% 0.15 85 / 0.7)',    // yellow
+    optimal: 'oklch(65% 0.17 145 / 0.8)',   // green
+    high:    'oklch(70% 0.15 65 / 0.7)',    // orange
+    over:    'oklch(63% 0.22 25 / 0.8)',    // red
+  };
+  return colors[zone];
 }
 
-export function MuscleHeatMap({ data, thresholds }: MuscleHeatMapProps) {
+// Zone legend colors matching the body diagram
+const ZONE_LEGEND = [
+  { zone: 'under', label: 'Under MEV', color: 'oklch(63% 0.22 25 / 0.7)' },
+  { zone: 'minimum', label: 'MEV-MAV (Minimum)', color: 'oklch(75% 0.15 85 / 0.7)' },
+  { zone: 'optimal', label: 'MAV Range (Optimal)', color: 'oklch(65% 0.17 145 / 0.8)' },
+  { zone: 'high', label: 'MAV-MRV (High)', color: 'oklch(70% 0.15 65 / 0.7)' },
+  { zone: 'over', label: 'Over MRV', color: 'oklch(63% 0.22 25 / 0.8)' },
+];
+
+export function MuscleHeatMap({ data, getThresholds }: MuscleHeatMapProps) {
   // Build heat map data by mapping our muscle groups to package slugs
   const bodyData: ExtendedBodyPart[] = [];
 
@@ -57,12 +54,8 @@ export function MuscleHeatMap({ data, thresholds }: MuscleHeatMapProps) {
       return;
     }
 
-    const groupThreshold = thresholds.getThreshold(muscleData.muscleGroup);
-    const color = getColorForVolume(
-      muscleData.totalSets,
-      groupThreshold.low,
-      groupThreshold.optimal
-    );
+    const thresholds = getThresholds(muscleData.muscleGroup);
+    const color = getColorForVolume(muscleData.totalSets, thresholds);
 
     // Apply color to all slugs for this muscle group
     slugs.forEach((slug) => {
@@ -107,21 +100,14 @@ export function MuscleHeatMap({ data, thresholds }: MuscleHeatMapProps) {
 
       {/* Legend with muscle group totals */}
       <div className="bg-bg-secondary rounded-lg p-4">
-        <h3 className="text-sm font-medium text-text-primary mb-3">Training Volume (Last 28 Days)</h3>
+        <h3 className="text-sm font-medium text-text-primary mb-3">Training Volume</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {data.map((muscleData) => {
-            const groupThreshold = thresholds.getThreshold(muscleData.muscleGroup);
-            const color = getColorForVolume(
-              muscleData.totalSets,
-              groupThreshold.low,
-              groupThreshold.optimal
-            );
-
-            let zoneLabel = '';
-            if (muscleData.totalSets === 0) zoneLabel = 'No data';
-            else if (muscleData.totalSets < groupThreshold.low) zoneLabel = 'Under';
-            else if (muscleData.totalSets <= groupThreshold.optimal) zoneLabel = 'Optimal';
-            else zoneLabel = 'High';
+            const thresholds = getThresholds(muscleData.muscleGroup);
+            const color = getColorForVolume(muscleData.totalSets, thresholds);
+            const zone = muscleData.totalSets === 0
+              ? 'No data'
+              : getVolumeZone(muscleData.totalSets, thresholds).replace(/^\w/, c => c.toUpperCase());
 
             return (
               <div key={muscleData.muscleGroup} className="flex items-center gap-2">
@@ -134,7 +120,7 @@ export function MuscleHeatMap({ data, thresholds }: MuscleHeatMapProps) {
                     {muscleData.muscleGroup}
                   </div>
                   <div className="text-xs text-text-muted">
-                    {muscleData.totalSets} sets · {zoneLabel}
+                    {muscleData.totalSets} sets · {zone}
                   </div>
                 </div>
               </div>
@@ -142,21 +128,15 @@ export function MuscleHeatMap({ data, thresholds }: MuscleHeatMapProps) {
           })}
         </div>
 
-        {/* Zone explanation */}
+        {/* Zone explanation — 5-zone legend */}
         <div className="mt-4 pt-4 border-t border-border-primary">
           <div className="text-xs text-text-muted space-y-1">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded" style={{ backgroundColor: 'hsla(0, 70%, 50%, 0.7)' }} />
-              <span>Under-training (&lt; {thresholds.defaultThresholds.low} sets/week)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded" style={{ backgroundColor: 'hsla(142, 70%, 45%, 0.7)' }} />
-              <span>Optimal ({thresholds.defaultThresholds.low}-{thresholds.defaultThresholds.optimal} sets/week)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded" style={{ backgroundColor: 'hsla(45, 80%, 50%, 0.7)' }} />
-              <span>High volume (&gt; {thresholds.defaultThresholds.optimal} sets/week)</span>
-            </div>
+            {ZONE_LEGEND.map(({ zone, label, color }) => (
+              <div key={zone} className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: color }} />
+                <span>{label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

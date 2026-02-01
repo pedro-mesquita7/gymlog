@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { useExercises } from '../../hooks/useExercises';
 import { useExerciseProgress, useWeeklyComparison } from '../../hooks/useAnalytics';
 import { useVolumeAnalytics } from '../../hooks/useVolumeAnalytics';
-import { useVolumeThresholds } from '../../hooks/useVolumeThresholds';
+import { useVolumeThresholds, useVolumeZoneThresholds } from '../../hooks/useVolumeThresholds';
 import { ExerciseProgressChart } from './ExerciseProgressChart';
 import { WeekComparisonCard } from './WeekComparisonCard';
 import { PRListCard } from './PRListCard';
@@ -38,6 +38,7 @@ export function AnalyticsPage() {
   // Fetch volume analytics data
   const { volumeAvgData, heatMapData, isLoading: volumeLoading, error: volumeError } = useVolumeAnalytics();
   const volumeThresholds = useVolumeThresholds();
+  const { getThresholds } = useVolumeZoneThresholds();
 
   // Filter weekly data for selected exercise
   const selectedWeeklyData = useMemo(
@@ -180,7 +181,7 @@ export function AnalyticsPage() {
         ) : (
           <FeatureErrorBoundary feature="Muscle Heat Map">
             <div className="bg-bg-tertiary/30 rounded-lg p-4">
-              <MuscleHeatMap data={heatMapData} thresholds={volumeThresholds} />
+              <MuscleHeatMap data={heatMapData} getThresholds={getThresholds} />
             </div>
           </FeatureErrorBoundary>
         )}

@@ -37,7 +37,8 @@ export function ExerciseProgressChart({
         <LineChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
           <CartesianGrid
             strokeDasharray="3 3"
-            stroke="hsl(var(--chart-muted) / 0.3)"
+            stroke="var(--color-chart-muted)"
+            strokeOpacity={0.3}
           />
           <XAxis
             dataKey="date"
@@ -45,12 +46,12 @@ export function ExerciseProgressChart({
               const d = new Date(date);
               return isNaN(d.getTime()) ? String(date) : format(d, 'MMM d');
             }}
-            stroke="hsl(var(--chart-muted))"
+            stroke="var(--color-chart-muted)"
             fontSize={12}
             tickLine={false}
           />
           <YAxis
-            stroke="hsl(var(--chart-muted))"
+            stroke="var(--color-chart-muted)"
             fontSize={12}
             width={45}
             tickLine={false}
@@ -58,9 +59,10 @@ export function ExerciseProgressChart({
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: 'hsl(240 6% 10%)',
-              border: '1px solid hsl(240 4% 16%)',
+              backgroundColor: 'var(--color-chart-tooltip-bg)',
+              border: '1px solid var(--color-chart-tooltip-border)',
               borderRadius: '8px',
+              color: 'var(--color-text-primary)',
             }}
             labelFormatter={(date) => {
               const d = new Date(date);
