@@ -10,7 +10,7 @@ Track workout performance with proper data engineering — both usable as a pers
 
 ## Current State
 
-**Version:** v1.2 UX & Portfolio Polish (shipped 2026-01-31)
+**Version:** v1.3 Production Polish & Deploy Readiness (shipped 2026-02-01)
 
 **Tech Stack:**
 - React 18 + TypeScript + Vite
@@ -21,14 +21,15 @@ Track workout performance with proper data engineering — both usable as a pers
 - Recharts 3.7.0 + date-fns 4.1.0 + framer-motion (LazyMotion)
 - react-muscle-highlighter for anatomical diagrams
 - @toon-format/toon for LLM-optimized data export
+- vite-plugin-pwa + Workbox (injectManifest strategy)
 - Vitest + React Testing Library + Playwright
 - Geist Sans + Geist Mono fonts
 - GitHub Actions CI/CD
 
 **Codebase:**
-- ~12,537 lines of TypeScript
+- ~13,000 lines of TypeScript
 - ~3,255 lines of SQL/YAML (dbt)
-- 287 commits, 11 phases, 68 plans across 3 milestones
+- 391 commits, 17 phases, 97 plans across 4 milestones
 
 **What's Working:**
 - Exercise and gym management with full CRUD
@@ -54,6 +55,9 @@ Track workout performance with proper data engineering — both usable as a pers
 - In-app observability and data quality monitoring
 - CI/CD pipeline with GitHub Pages deployment
 - Portfolio README with architecture diagram and dbt lineage
+- PWA with offline support (Workbox service worker, manifest, installability)
+- Performance budgets with CI enforcement (bundle size checker)
+- Consistent loading/empty states across all tabs
 
 ## Requirements
 
@@ -78,23 +82,24 @@ Track workout performance with proper data engineering — both usable as a pers
 - Testing & quality (TEST-01 to TEST-04) — v1.2
 - CI/CD (CICD-01 to CICD-03) — v1.2
 - Portfolio & demo (PORT-01 to PORT-05) — v1.2
+- Bug fix: exercise history after plan deletion — v1.3
+- Security & portfolio audit — v1.3
+- Comprehensive E2E tests — v1.3
+- Workouts tab UX streamlining — v1.3
+- Analytics tab redesign (single scrollable dashboard) — v1.3
+- Color scheme refinement (OKLCH audit, WCAG AA) — v1.3
+- Custom time range selection for analytics — v1.3
+- Volume recommendations vs research-backed targets — v1.3
+- Demo data UX improvements — v1.3
+- AI export via TOON notation (@toon-format/toon) — v1.3
+- PWA audit (service worker, offline, installability) — v1.3
+- Performance budget (bundle size, Lighthouse) — v1.3
+- README polish (live demo, screenshots, run locally) — v1.3
+- General polish & risk sweep — v1.3
 
 ### Active
 
-- Bug fix: exercise history after plan deletion
-- Security & portfolio audit
-- Comprehensive E2E tests
-- Workouts tab UX streamlining
-- Analytics tab redesign (single scrollable dashboard)
-- Color scheme refinement (OKLCH audit, WCAG AA)
-- Custom time range selection for analytics
-- Volume recommendations vs research-backed targets
-- Demo data UX improvements
-- AI export via TOON notation (@toon-format/toon)
-- PWA audit (service worker, offline, installability)
-- Performance budget (bundle size, Lighthouse)
-- README polish (live demo, screenshots, run locally)
-- General polish & risk sweep
+None -- all planned requirements delivered through v1.3.
 
 ### Out of Scope
 
@@ -119,16 +124,16 @@ Track workout performance with proper data engineering — both usable as a pers
 - Plate calculator for barbell loading
 - Progress summary notifications
 
-## Current Milestone: v1.3 Production Polish & Deploy Readiness
+## Completed Milestone: v1.3 Production Polish & Deploy Readiness (shipped 2026-02-01)
 
-**Goal:** Harden the app for real-world use and portfolio presentation — fix data bugs, improve UX flows, redesign analytics, add TOON export, expand test coverage, and audit security/PWA/performance.
+**Goal:** Harden the app for real-world use and portfolio presentation -- fix data bugs, improve UX flows, redesign analytics, add TOON export, expand test coverage, and audit security/PWA/performance.
 
-**Target features:**
+**Delivered (6 phases, 29 plans):**
 - Bug fix: exercise history survives plan deletion (plan_id FK issue)
 - Security & portfolio audit (secrets, CSP, npm audit, PII)
 - Comprehensive Playwright E2E test suite
 - Workouts tab: merge Quick Start + manual into compact UI
-- Analytics: single scrollable dashboard with summary → drill-down
+- Analytics: single scrollable dashboard with summary, drill-down
 - OKLCH color scheme audit for cohesion and WCAG AA
 - Custom time ranges (3mo, 6mo, 1yr, all time) for charts
 - Volume recommendations vs Schoenfeld et al. research targets
@@ -136,7 +141,7 @@ Track workout performance with proper data engineering — both usable as a pers
 - AI export via @toon-format/toon (last workout, rotation cycle, N months)
 - PWA audit (service worker, offline, manifest, installability)
 - Performance budget (bundle size, Lighthouse, FMP)
-- README polish (live demo link, screenshots/GIF, local dev)
+- README polish (live demo link, architecture diagrams, local dev)
 - General UX polish and risk sweep
 
 ## Constraints
@@ -166,8 +171,10 @@ Track workout performance with proper data engineering — both usable as a pers
 | Session-dismissible alerts | 2-hour boundary via Zustand persist, returns if condition persists | Good |
 | Dual-criteria plateau detection | No PR 4+ weeks AND flat weight < 5%, prevents false positives during deload | Good |
 
-| @toon-format/toon for TOON export | Official SDK for Token-Oriented Object Notation; LLM-optimized data format | — Pending |
-| Single scrollable analytics dashboard | Unifies exercise + overall views; no drill-down navigation | — Pending |
+| @toon-format/toon for TOON export | Official SDK for Token-Oriented Object Notation; LLM-optimized data format | Good |
+| Single scrollable analytics dashboard | Unifies exercise + overall views; no drill-down navigation | Good |
+| vite-plugin-pwa + Workbox injectManifest | Full control over caching strategy; combines OPFS + Workbox precaching | Good |
+| Bundle size budgets with CI check | ~15% headroom above actual; script in CI catches regressions | Good |
 
 ---
-*Last updated: 2026-01-31 after v1.3 milestone started*
+*Last updated: 2026-02-01 after v1.3 milestone shipped*
