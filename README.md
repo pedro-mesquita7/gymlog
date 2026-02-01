@@ -1,17 +1,63 @@
-# GymLog - Event-Sourced Workout Tracker
+# GymLog
 
-**A browser-native analytical data platform showcasing modern data engineering patterns in the frontend**
+**Event-sourced workout tracking with DuckDB-WASM -- a complete analytical data stack running entirely in the browser.**
 
-[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://username.github.io/gymlog)
-[![CI/CD](https://img.shields.io/badge/CI/CD-GitHub%20Actions-blue)](https://github.com/username/gymlog/actions)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)](https://www.typescriptlang.org/)
-[![DuckDB](https://img.shields.io/badge/DuckDB--WASM-1.32.0-yellow)](https://duckdb.org/docs/api/wasm)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-success?style=for-the-badge)](https://username.github.io/gymlog)
+[![CI/CD](https://img.shields.io/badge/CI/CD-passing-blue?style=for-the-badge)](https://github.com/username/gymlog/actions)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![DuckDB-WASM](https://img.shields.io/badge/DuckDB--WASM-1.32.0-yellow?style=for-the-badge)](https://duckdb.org/docs/api/wasm)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+
+<!--
+TODO: Add hero screenshot or GIF here
+Recommended: GIF showing workout logging flow + analytics dashboard
+Size: 800px wide, optimize with gifski or similar
+Place file at: docs/demo.gif
+Usage: ![GymLog Demo](docs/demo.gif)
+-->
 
 ---
 
 ## Why This Project
 
-GymLog demonstrates a complete analytical data stack running entirely in the browser—no backend, no database servers. Event sourcing, SQL-based transformations via dbt, and OLAP analytics with DuckDB-WASM deliver the same architectural patterns used in production data warehouses, but in a client-side PWA. This project proves that senior Data Engineering principles (dimensional modeling, incremental materialization, data quality testing) can be implemented in TypeScript as effectively as in Python/Airflow/Snowflake.
+GymLog demonstrates a complete analytical data stack running entirely in the browser -- no backend, no database servers. Event sourcing, SQL-based transformations via dbt, and OLAP analytics with DuckDB-WASM deliver the same architectural patterns used in production data warehouses, but in a client-side PWA. This project proves that senior Data Engineering principles (dimensional modeling, incremental materialization, data quality testing) can be implemented in TypeScript as effectively as in Python/Airflow/Snowflake.
+
+**What makes this a portfolio piece, not just an app:**
+- **Event sourcing** with immutable audit trail and replay semantics
+- **DuckDB-WASM** running vectorized OLAP queries at analytical speed in the browser
+- **dbt** for SQL transformations with lineage tracking and data quality tests
+- **Kimball dimensional modeling** (star schema with fact/dimension tables)
+- **OPFS persistence** using the Origin-Private Filesystem API for Parquet storage
+
+---
+
+## Key Features
+
+**Workout Tracking**
+- Workout templates with drag-drop reordering
+- Batch set logging with grid UI and ghost text from last session
+- Workout rotation with auto-advance and Quick Start
+- Post-workout summary with PRs and volume comparison
+- Exercise history with gym-context filtering
+
+**Analytics**
+- Exercise progress charts (weight, estimated 1RM, volume over time)
+- Volume analytics per muscle group with research-backed zone thresholds (Schoenfeld et al.)
+- Anatomical muscle heat map visualization
+- SQL-based plateau and regression detection with progression dashboard
+
+**Data Engineering**
+- Event sourcing with immutable append-only event store
+- DuckDB-WASM OLAP engine with OPFS persistence
+- dbt SQL transformations (staging, intermediate, marts layers)
+- Parquet export/import for data portability
+
+**Portfolio & Demo**
+- One-click demo data for instant portfolio review (3 months of realistic training)
+- TOON export for AI/LLM-optimized data sharing (@toon-format/toon)
+- OKLCH-based design system with WCAG AA contrast
+- Full CI/CD with GitHub Pages deployment
 
 ---
 
@@ -70,7 +116,7 @@ graph TB
 ### 1. Event Sourcing over CRUD
 **Why:** Immutable audit trail preserves complete workout history. Every weight change, PR, and workout is traceable. Enables time-travel queries and replay scenarios.
 
-**Tradeoffs:** More complex query patterns (event deduplication, state reconstruction). Higher storage overhead (offset by browser compression). No direct updates—append-only architecture.
+**Tradeoffs:** More complex query patterns (event deduplication, state reconstruction). Higher storage overhead (offset by browser compression). No direct updates -- append-only architecture.
 
 **Portfolio Value:** Demonstrates understanding of event-driven architectures and CAP theorem tradeoffs.
 
@@ -79,7 +125,7 @@ graph TB
 ### 2. DuckDB-WASM for In-Browser OLAP
 **Why:** 10-100x faster than JavaScript for analytical queries. Native SQL support. Vectorized execution engine. OPFS persistence across sessions. Zero backend infrastructure.
 
-**Tradeoffs:** 9MB WASM bundle (mitigated by CDN caching). Limited to browser APIs (no filesystem access). Requires SharedArrayBuffer (restricts deployment to COI-enabled contexts).
+**Tradeoffs:** ~9MB WASM bundle (mitigated by CDN caching). Limited to browser APIs (no filesystem access). Requires SharedArrayBuffer (restricts deployment to COI-enabled contexts).
 
 **Portfolio Value:** Shows ability to select cutting-edge tools and navigate low-level technical constraints (OPFS bugs, WASM memory limits).
 
@@ -192,42 +238,33 @@ graph LR
 | Category | Technology | Version | Purpose |
 |----------|-----------|---------|---------|
 | **Frontend** | React | 19 | UI framework with concurrent rendering |
-| **Language** | TypeScript | 5.x | Type safety and developer experience |
+| **Language** | TypeScript | 5.9 | Type safety and developer experience |
 | **Database** | DuckDB-WASM | 1.32.0 | In-browser OLAP engine |
 | **Transformations** | dbt-duckdb | Latest | SQL-based ETL framework |
 | **State** | Zustand | 5.x | Lightweight state management |
 | **Storage** | OPFS | Native | Origin-private filesystem API |
-| **Styling** | Tailwind CSS | 4 | Utility-first CSS with OKLCH colors |
+| **Styling** | Tailwind CSS | 4 | Utility-first CSS with OKLCH design tokens |
 | **Charts** | Recharts | 3.7.0 | Declarative React charting |
-| **Testing (Unit)** | Vitest | Latest | Fast test runner with happy-dom |
-| **Testing (E2E)** | Playwright | Latest | Browser automation for integration tests |
-| **Build** | Vite | 6.x | Fast bundler with HMR |
-
----
-
-## CI/CD Pipeline
-
-```yaml
-# .github/workflows/deploy.yml
-Jobs:
-  1. lint        → ESLint + TypeScript type checking
-  2. test-unit   → Vitest unit tests (71 tests)
-  3. test-e2e    → Playwright E2E tests (Chromium)
-  4. dbt-check   → dbt compile (validates SQL + DAG)
-  5. deploy      → Build + GitHub Pages publish
-```
-
-**Pipeline Features:**
-- Parallel job execution (4 checks + 1 deploy)
-- dbt SQL validation ensures query correctness
-- E2E tests verify critical user flows (workout logging, PR detection)
-- Automated deployment to GitHub Pages with COI headers
+| **Animation** | Framer Motion | 12 | Page transitions and micro-interactions |
+| **Validation** | Zod | 4 | Runtime schema validation |
+| **Anatomy** | react-muscle-highlighter | 1.2 | SVG muscle group visualization |
+| **AI Export** | @toon-format/toon | 2.1 | LLM-optimized data export (TOON format) |
+| **Testing (Unit)** | Vitest | 4 | Fast test runner with happy-dom |
+| **Testing (E2E)** | Playwright | 1.58 | Browser automation (Chromium) |
+| **Build** | Vite | 5.4 | Fast bundler with HMR |
+| **CI/CD** | GitHub Actions | -- | Lint, test, dbt compile, deploy |
 
 ---
 
 ## Getting Started
 
+**Prerequisites:** Node.js 18+ and npm
+
 ```bash
+# Clone the repository
+git clone https://github.com/username/gymlog.git
+cd gymlog
+
 # Install dependencies
 npm install
 
@@ -235,13 +272,12 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:5173` and click **"Load Demo Data"** to populate:
-- 3 months of workout history
-- 6 exercises with realistic progression
-- Multiple gyms and templates
-- PRs and plateau detection data
+Visit `http://localhost:5173` and click **"Load Demo Data"** to populate 3 months of realistic workout history with exercises, templates, PRs, and progression data.
 
-**Note:** First load downloads DuckDB-WASM (9MB) and initializes OPFS database.
+**Notes:**
+- First load downloads DuckDB-WASM (~9MB) and initializes the OPFS database
+- Requires a Chromium-based browser (Chrome, Edge, Brave) for SharedArrayBuffer and OPFS support
+- Firefox and Safari are not supported due to missing OPFS APIs
 
 ---
 
@@ -251,11 +287,12 @@ Visit `http://localhost:5173` and click **"Load Demo Data"** to populate:
 # Unit tests (Vitest)
 npm run test
 
-# E2E tests (Playwright)
+# E2E tests (Playwright -- requires Chromium)
+npx playwright install chromium
 npm run test:e2e
 
-# dbt tests (SQL validation)
-cd dbt && dbt test
+# dbt model compilation check
+cd dbt && pip install -r requirements.txt && dbt compile --target browser
 ```
 
 ---
@@ -265,25 +302,66 @@ cd dbt && dbt test
 ```
 gymlog/
 ├── src/
-│   ├── components/       # React components
-│   │   ├── ui/          # Design system primitives
-│   │   └── templates/   # Feature components
-│   ├── hooks/           # Custom React hooks
-│   ├── stores/          # Zustand state management
-│   ├── lib/             # DuckDB client + utilities
-│   └── pages/           # Route components
+│   ├── components/          # React components
+│   │   ├── analytics/       # Charts, dashboards, heat maps
+│   │   ├── backup/          # Parquet export/import
+│   │   ├── history/         # Exercise history views
+│   │   ├── rotation/        # Workout rotation management
+│   │   ├── settings/        # Demo data, TOON export, observability
+│   │   ├── templates/       # Workout template builder
+│   │   ├── ui/              # Design system primitives
+│   │   └── workout/         # Active workout logging
+│   ├── db/                  # DuckDB-WASM client and queries
+│   ├── hooks/               # Custom React hooks (data fetching)
+│   ├── services/            # Business logic services
+│   ├── stores/              # Zustand state management
+│   ├── styles/              # OKLCH design tokens and globals
+│   ├── types/               # TypeScript type definitions
+│   └── utils/               # Shared utilities
 ├── dbt/
 │   ├── models/
-│   │   ├── staging/     # Raw event parsing
-│   │   ├── intermediate/# Business logic
-│   │   └── marts/       # Dimensional + analytics models
-│   └── tests/           # dbt data quality tests
-├── tests/
-│   ├── unit/            # Vitest unit tests
-│   ├── integration/     # Component integration tests
-│   └── e2e/             # Playwright E2E tests
-└── .github/workflows/   # CI/CD automation
+│   │   ├── staging/         # Raw event parsing (stg_events__*)
+│   │   ├── intermediate/    # Business logic (int_*__*)
+│   │   └── marts/           # Dimensional + analytics (dim_*, fact_*, vw_*)
+│   ├── tests/               # dbt data quality tests
+│   └── macros/              # dbt SQL macros
+├── src/e2e/                 # Playwright E2E test specs
+├── src/tests/               # Vitest unit + integration tests
+├── public/                  # Static assets (COI service worker)
+└── .github/workflows/       # CI/CD pipeline (ci.yml)
 ```
+
+---
+
+## CI/CD Pipeline
+
+```
+Jobs (parallel):
+  1. lint        → ESLint + TypeScript type checking
+  2. test-unit   → Vitest unit tests
+  3. test-e2e    → Playwright E2E tests (Chromium)
+  4. dbt-check   → dbt compile (validates SQL + DAG integrity)
+
+Deploy (after all pass):
+  5. build-deploy → Vite build + GitHub Pages publish with COI headers
+```
+
+**Pipeline Features:**
+- Parallel job execution (4 checks + 1 deploy)
+- dbt SQL validation ensures query correctness before deploy
+- E2E tests verify critical user flows (workout logging, PR detection, demo data)
+- Automated deployment to GitHub Pages with COOP/COEP headers for SharedArrayBuffer
+
+---
+
+## Performance
+
+- **Lazy-loaded Analytics:** Recharts (~110KB) stays out of the main bundle via React.lazy
+- **Code splitting:** Analytics page and heavy components loaded on demand
+- **DuckDB CDN caching:** ~9MB WASM binary cached after first load
+- **OLAP speed:** Analytical queries run 10-100x faster than equivalent JavaScript
+
+See [PERFORMANCE.md](./PERFORMANCE.md) for bundle analysis and Lighthouse scores (coming soon).
 
 ---
 
@@ -293,4 +371,4 @@ MIT
 
 ---
 
-**Built to demonstrate:** Event-driven architecture • Dimensional modeling • Browser-native OLAP • SQL transformation pipelines • Type-safe frontend engineering
+**Built to demonstrate:** Event-driven architecture -- Dimensional modeling -- Browser-native OLAP -- SQL transformation pipelines -- Type-safe frontend engineering
