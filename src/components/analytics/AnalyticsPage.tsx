@@ -4,6 +4,7 @@ import { useExerciseProgress, useWeeklyComparison } from '../../hooks/useAnalyti
 import { useVolumeAnalytics } from '../../hooks/useVolumeAnalytics';
 import { useVolumeZoneThresholds } from '../../hooks/useVolumeThresholds';
 import { useSummaryStats } from '../../hooks/useSummaryStats';
+import { useProgressionStatus } from '../../hooks/useProgressionStatus';
 import { TimeRangePicker } from './TimeRangePicker';
 import { SummaryStatsCards } from './SummaryStatsCards';
 import { SectionHeading } from './SectionHeading';
@@ -14,6 +15,7 @@ import { ExerciseProgressChart } from './ExerciseProgressChart';
 import { WeekComparisonCard } from './WeekComparisonCard';
 import { PRListCard } from './PRListCard';
 import { ProgressionDashboard } from './ProgressionDashboard';
+import { ComparisonSection } from './ComparisonSection';
 import { FeatureErrorBoundary } from '../ui/FeatureErrorBoundary';
 import type { TimeRange } from '../../types/analytics';
 import { TIME_RANGE_DAYS } from '../../types/analytics';
@@ -59,6 +61,9 @@ export function AnalyticsPage() {
     days,
   });
   const { data: weeklyData, isLoading: weeklyLoading, error: weeklyError } = useWeeklyComparison();
+
+  // Progression data for comparison section (DuckDB cache makes this cheap alongside ProgressionDashboard's internal call)
+  const { data: progressionStatusData } = useProgressionStatus(days);
 
   // Derived data
   const selectedExercise = useMemo(
@@ -203,6 +208,13 @@ export function AnalyticsPage() {
 
       <FeatureErrorBoundary feature="Progression Dashboard">
         <ProgressionDashboard days={days} />
+      </FeatureErrorBoundary>
+
+      {/* SECTION 6: Exercise Comparison */}
+      <SectionHeading title="Exercise Comparison" subtitle="Select 2-4 exercises to compare side-by-side" />
+
+      <FeatureErrorBoundary feature="Exercise Comparison">
+        <ComparisonSection days={days} exercises={exercises} progressionData={progressionStatusData} />
       </FeatureErrorBoundary>
     </div>
   );
