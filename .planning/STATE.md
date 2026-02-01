@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 ## Current Position
 
 Phase: 17 of 17 (PWA, Performance, README Polish)
-Plan: 2 of 5 in current phase
+Plan: 4 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-01 -- Completed 17-01-PLAN.md (PWA service worker & manifest)
+Last activity: 2026-02-01 -- Completed 17-04-PLAN.md (UX consistency audit)
 
-Progress: [==================░░] 85% (94/~110 plans lifetime)
+Progress: [===================░] 87% (96/~110 plans lifetime)
 
 ## Milestones
 
@@ -29,7 +29,7 @@ Progress: [==================░░] 85% (94/~110 plans lifetime)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 94 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15 + 3 v1.3-p16 + 2 v1.3-p17)
+- Total plans completed: 96 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15 + 3 v1.3-p16 + 4 v1.3-p17)
 - Total commits: ~350
 - Project duration: 6 days (2026-01-27 to 2026-02-01)
 
@@ -42,7 +42,7 @@ Progress: [==================░░] 85% (94/~110 plans lifetime)
 | 14. Workouts UX & Color Scheme | 5/5 | Complete |
 | 15. Analytics Redesign | 5/5 | Complete |
 | 16. Demo Data & TOON Export | 3/3 | Complete |
-| 17. PWA, Performance, README Polish | 2/5 | In progress |
+| 17. PWA, Performance, README Polish | 4/5 | In progress |
 
 ## Accumulated Context
 
@@ -68,6 +68,7 @@ v1.3 decisions:
 - 16-03: ToonExportSection uses segmented control scope picker; rotation data captured at render time for async safety; Unicode checkmark for copy feedback
 - 17-01: injectManifest strategy with script-defer; static manifest.webmanifest; sw.ts excluded from tsconfig.app.json
 - 17-02: README leads with DE narrative; for-the-badge badges; placeholder URLs for user to update; Performance section references PERFORMANCE.md (17-03)
+- 17-04: Hover-only edit/delete in GymList/ExerciseList noted as known mobile limitation (beyond polish scope); SummaryStatsCards skeleton shimmer intentionally different from text loading
 
 ### Pending Todos
 
@@ -75,12 +76,12 @@ None.
 
 ### Blockers/Concerns
 
-- Phase 17 in progress. 17-01 (PWA) and 17-02 (README) complete.
+- Phase 17 in progress. 17-01 (PWA), 17-02 (README), 17-03 (performance), 17-04 (UX audit) complete.
 
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 17-01-PLAN.md (PWA service worker & manifest)
+Stopped at: Completed 17-04-PLAN.md (UX consistency audit)
 Resume file: None
 
-**Next action:** Continue phase 17 (17-03 performance budget)
+**Next action:** Continue phase 17 (17-05 final plan)
