@@ -72,7 +72,7 @@ export function ExerciseView({
     <div className="space-y-6">
       {/* Exercise header */}
       <div className="text-center">
-        <div className="text-xs text-zinc-500 mb-1">
+        <div className="text-xs text-text-muted mb-1">
           Exercise {exerciseIndex + 1} of {totalExercises}
         </div>
         <div data-testid="active-exercise-name" className="text-2xl font-bold">
@@ -80,19 +80,19 @@ export function ExerciseView({
           {substitutedId && <span className="text-accent text-sm ml-2">(sub)</span>}
         </div>
         {exercise?.muscle_group && (
-          <div className="text-sm text-zinc-500">{exercise.muscle_group}</div>
+          <div className="text-sm text-text-muted">{exercise.muscle_group}</div>
         )}
         {/* Action buttons */}
         <div className="flex gap-2 justify-center mt-2">
           <button
             onClick={() => setShowSubstitution(true)}
-            className="px-3 py-1 text-xs text-zinc-400 hover:text-accent border border-zinc-700 hover:border-accent rounded-full transition-colors"
+            className="px-3 py-1 text-xs text-text-secondary hover:text-accent border border-border-primary hover:border-accent rounded-full transition-colors"
           >
             Swap Exercise
           </button>
           <button
             onClick={() => setShowHistory(true)}
-            className="px-3 py-1 text-xs text-zinc-400 hover:text-blue-400 border border-zinc-700 hover:border-blue-400 rounded-full transition-colors"
+            className="px-3 py-1 text-xs text-text-secondary hover:text-info border border-border-primary hover:border-info rounded-full transition-colors"
           >
             History
           </button>
@@ -107,7 +107,7 @@ export function ExerciseView({
             className={`h-1 w-8 rounded-full ${
               i < exerciseIndex ? 'bg-accent' :
               i === exerciseIndex ? 'bg-accent/50' :
-              'bg-zinc-700'
+              'bg-bg-elevated'
             }`}
           />
         ))}
@@ -131,14 +131,14 @@ export function ExerciseView({
         <button
           onClick={onPrev}
           disabled={exerciseIndex === 0}
-          className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors disabled:opacity-30"
+          className="flex-1 py-3 bg-bg-tertiary hover:bg-bg-elevated rounded-lg transition-colors disabled:opacity-30"
         >
           Previous
         </button>
         <button
           onClick={onNext}
           disabled={exerciseIndex === totalExercises - 1}
-          className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-colors disabled:opacity-30"
+          className="flex-1 py-3 bg-bg-tertiary hover:bg-bg-elevated rounded-lg transition-colors disabled:opacity-30"
         >
           Next
         </button>

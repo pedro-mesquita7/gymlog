@@ -99,11 +99,11 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
       {/* Workout header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <div className="text-sm text-zinc-500">Workout</div>
+          <div className="text-sm text-text-muted">Workout</div>
           <div className="font-semibold">{template.name}</div>
         </div>
         <div className="text-right">
-          <div className="text-sm text-zinc-500">Duration</div>
+          <div className="text-sm text-text-muted">Duration</div>
           <WorkoutTimer startedAt={session.started_at} />
         </div>
       </div>
@@ -123,7 +123,7 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
       </FeatureErrorBoundary>
 
       {/* Finish/Cancel buttons */}
-      <div className="flex gap-3 mt-8 pt-6 border-t border-zinc-800">
+      <div className="flex gap-3 mt-8 pt-6 border-t border-border-primary">
         <Button
           variant="secondary"
           size="md"
@@ -137,7 +137,7 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
           variant="primary"
           size="md"
           onClick={handleFinishWorkout}
-          className="flex-1 bg-green-600 hover:bg-green-500"
+          className="flex-1 bg-success hover:bg-success/90"
         >
           Finish Workout
         </Button>
@@ -169,7 +169,7 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
         title="Cancel Workout?"
       >
         <div className="space-y-4">
-          <p className="text-zinc-300">
+          <p className="text-text-primary">
             This will discard your workout progress. {totalSets} set{totalSets !== 1 ? 's' : ''} will be lost.
           </p>
           <div className="flex gap-3">

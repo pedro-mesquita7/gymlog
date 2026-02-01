@@ -113,7 +113,7 @@ export function SetLogger({
 
       {/* Last session reference */}
       {(lastWeight || lastReps) && (
-        <div className="text-center text-sm text-zinc-500">
+        <div className="text-center text-sm text-text-muted">
           Last: {lastWeight ? `${lastWeight}kg` : '?'}
           {' x '}
           {lastReps ?? '?'} reps
@@ -121,7 +121,7 @@ export function SetLogger({
       )}
 
       {/* Target rep range */}
-      <div className="text-center text-sm text-zinc-400">
+      <div className="text-center text-sm text-text-secondary">
         Target: {targetRepsMin}-{targetRepsMax} reps
       </div>
 
@@ -149,12 +149,12 @@ export function SetLogger({
 
         {showRir && (
           <div className="flex flex-col items-center">
-            <label className="text-xs text-zinc-500 mb-1">RIR</label>
+            <label className="text-xs text-text-muted mb-1">RIR</label>
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setRir(prev => prev === null ? 0 : Math.max(0, prev - 1))}
-                className="w-12 h-12 bg-zinc-700 hover:bg-zinc-600 rounded-lg font-bold text-2xl transition-colors flex items-center justify-center"
+                className="w-12 h-12 bg-bg-elevated hover:bg-bg-elevated/80 rounded-lg font-bold text-2xl transition-colors flex items-center justify-center"
               >
                 -
               </button>
@@ -174,17 +174,17 @@ export function SetLogger({
                 placeholder="-"
                 min={0}
                 max={10}
-                className="w-24 bg-zinc-800 border border-zinc-700 rounded-lg text-center text-lg font-medium py-3 focus:outline-none focus:ring-2 focus:ring-accent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="w-24 bg-bg-tertiary border border-border-primary rounded-lg text-center text-lg font-medium py-3 focus:outline-none focus:ring-2 focus:ring-accent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <button
                 type="button"
                 onClick={() => setRir(prev => prev === null ? 0 : Math.min(10, prev + 1))}
-                className="w-12 h-12 bg-zinc-700 hover:bg-zinc-600 rounded-lg font-bold text-2xl transition-colors flex items-center justify-center"
+                className="w-12 h-12 bg-bg-elevated hover:bg-bg-elevated/80 rounded-lg font-bold text-2xl transition-colors flex items-center justify-center"
               >
                 +
               </button>
             </div>
-            <span className="text-xs text-zinc-500 mt-1">0 = failure</span>
+            <span className="text-xs text-text-muted mt-1">0 = failure</span>
           </div>
         )}
       </div>

@@ -93,15 +93,15 @@ export function SetRow({
   const rirDelta = getDelta('rir');
 
   return (
-    <div className="bg-zinc-900 rounded-lg p-4 space-y-3">
+    <div className="bg-bg-secondary rounded-lg p-4 space-y-3">
       {/* Header: set number, PR badge, and remove button */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-sm font-medium text-zinc-300">
+          <div className="w-8 h-8 rounded-full bg-bg-tertiary flex items-center justify-center text-sm font-medium text-text-primary">
             {setNumber}
           </div>
           {prStatus && (
-            <span data-testid={`set-${setNumber}-pr`} className="bg-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-medium">
+            <span data-testid={`set-${setNumber}-pr`} className="bg-warning text-black text-xs px-2 py-0.5 rounded-full font-medium">
               {prStatus.isWeightPR && prStatus.is1rmPR ? 'PR!' : prStatus.isWeightPR ? 'Weight PR' : '1RM PR'}
             </span>
           )}
@@ -109,7 +109,7 @@ export function SetRow({
         <button
           data-testid={`set-${setNumber}-remove`}
           onClick={onRemove}
-          className="text-zinc-500 hover:text-red-400 transition-colors text-sm"
+          className="text-text-muted hover:text-error transition-colors text-sm"
           aria-label="Remove set"
         >
           ✕
@@ -120,7 +120,7 @@ export function SetRow({
       <div className="grid grid-cols-3 gap-3">
         {/* Weight */}
         <div className="space-y-1">
-          <label className="text-xs text-zinc-400">Weight ({weightUnit})</label>
+          <label className="text-xs text-text-secondary">Weight ({weightUnit})</label>
           <div className="relative">
             <Input
               data-testid={`set-${setNumber}-weight`}
@@ -136,7 +136,7 @@ export function SetRow({
             {weightDelta && (
               <span
                 className={`absolute right-2 top-1/2 -translate-y-1/2 text-xs ${
-                  weightDelta === 'up' ? 'text-green-400' : 'text-zinc-500'
+                  weightDelta === 'up' ? 'text-success' : 'text-text-muted'
                 }`}
               >
                 {weightDelta === 'up' ? '↑' : '↓'}
@@ -147,7 +147,7 @@ export function SetRow({
 
         {/* Reps */}
         <div className="space-y-1">
-          <label className="text-xs text-zinc-400">Reps</label>
+          <label className="text-xs text-text-secondary">Reps</label>
           <div className="relative">
             <Input
               data-testid={`set-${setNumber}-reps`}
@@ -163,7 +163,7 @@ export function SetRow({
             {repsDelta && (
               <span
                 className={`absolute right-2 top-1/2 -translate-y-1/2 text-xs ${
-                  repsDelta === 'up' ? 'text-green-400' : 'text-zinc-500'
+                  repsDelta === 'up' ? 'text-success' : 'text-text-muted'
                 }`}
               >
                 {repsDelta === 'up' ? '↑' : '↓'}
@@ -174,7 +174,7 @@ export function SetRow({
 
         {/* RIR */}
         <div className="space-y-1">
-          <label className="text-xs text-zinc-400">RIR</label>
+          <label className="text-xs text-text-secondary">RIR</label>
           <div className="relative">
             <Input
               data-testid={`set-${setNumber}-rir`}
@@ -196,7 +196,7 @@ export function SetRow({
             {rirDelta && ghostData && ghostData.rir !== null && (
               <span
                 className={`absolute right-2 top-1/2 -translate-y-1/2 text-xs ${
-                  rirDelta === 'up' ? 'text-green-400' : 'text-zinc-500'
+                  rirDelta === 'up' ? 'text-success' : 'text-text-muted'
                 }`}
               >
                 {rirDelta === 'up' ? '↑' : '↓'}

@@ -122,42 +122,42 @@ export function WorkoutComplete({
       <div className="space-y-6">
         <div className="text-center">
           <h2 data-testid="workout-complete-heading" className="text-2xl font-bold mb-2">Workout Complete</h2>
-          <p className="text-zinc-500">{template.name}</p>
+          <p className="text-text-muted">{template.name}</p>
         </div>
 
         {/* Stats summary */}
         <div className="grid grid-cols-3 gap-4 text-center">
-          <div className="bg-zinc-800/50 rounded-lg p-4">
+          <div className="bg-bg-tertiary/50 rounded-lg p-4">
             <div className="text-2xl font-bold text-accent">{totalSets}</div>
-            <div className="text-xs text-zinc-500">Sets</div>
+            <div className="text-xs text-text-muted">Sets</div>
           </div>
-          <div className="bg-zinc-800/50 rounded-lg p-4">
+          <div className="bg-bg-tertiary/50 rounded-lg p-4">
             <div className="text-2xl font-bold text-accent">{uniqueExercises}</div>
-            <div className="text-xs text-zinc-500">Exercises</div>
+            <div className="text-xs text-text-muted">Exercises</div>
           </div>
-          <div className="bg-zinc-800/50 rounded-lg p-4">
+          <div className="bg-bg-tertiary/50 rounded-lg p-4">
             <div className="text-2xl font-bold text-accent">{durationMins}</div>
-            <div className="text-xs text-zinc-500">Minutes</div>
+            <div className="text-xs text-text-muted">Minutes</div>
           </div>
         </div>
 
         {/* Total volume */}
-        <div className="text-center text-zinc-500">
-          Total volume: <span className="text-zinc-300 font-medium">{Math.round(displayVolume).toLocaleString()} {weightUnit}</span>
+        <div className="text-center text-text-muted">
+          Total volume: <span className="text-text-primary font-medium">{Math.round(displayVolume).toLocaleString()} {weightUnit}</span>
         </div>
 
         {/* Warning for partial sets (incomplete data) */}
         {partialSets.length > 0 && (
-          <div className="bg-yellow-600/10 border border-yellow-600/30 rounded-lg p-4">
-            <div className="text-yellow-500 font-medium mb-2">
+          <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
+            <div className="text-warning font-medium mb-2">
               Incomplete sets detected:
             </div>
-            <ul className="text-sm text-zinc-400">
+            <ul className="text-sm text-text-secondary">
               {partialSets.map((ps, i) => (
                 <li key={i}>• {ps.exerciseName}: {ps.issue}</li>
               ))}
             </ul>
-            <p className="text-sm text-zinc-500 mt-2">
+            <p className="text-sm text-text-muted mt-2">
               Partial sets will be discarded. Go back to complete them.
             </p>
           </div>
@@ -165,11 +165,11 @@ export function WorkoutComplete({
 
         {/* Warning for incomplete exercises */}
         {incompleteExercises.length > 0 && (
-          <div className="bg-yellow-600/10 border border-yellow-600/30 rounded-lg p-4">
-            <div className="text-yellow-500 font-medium mb-2">
+          <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
+            <div className="text-warning font-medium mb-2">
               {incompleteExercises.length} exercise{incompleteExercises.length !== 1 ? 's' : ''} with no sets:
             </div>
-            <ul className="text-sm text-zinc-400">
+            <ul className="text-sm text-text-secondary">
               {incompleteExercises.map(te => (
                 <li key={te.exercise_id}>• {getExerciseName(te.exercise_id)}</li>
               ))}
@@ -179,7 +179,7 @@ export function WorkoutComplete({
 
         {/* Error message */}
         {error && (
-          <div className="bg-red-600/10 border border-red-600/30 rounded-lg p-4 text-red-400">
+          <div className="bg-error/10 border border-error/30 rounded-lg p-4 text-error">
             {error}
           </div>
         )}
@@ -202,14 +202,14 @@ export function WorkoutComplete({
             size="md"
             onClick={handleSave}
             disabled={phase === 'saving' || totalSets === 0}
-            className="flex-1 bg-green-600 hover:bg-green-500"
+            className="flex-1 bg-success hover:bg-success/90"
           >
             {phase === 'saving' ? 'Saving...' : 'Save Workout'}
           </Button>
         </div>
 
         {totalSets === 0 && (
-          <p data-testid="no-sets-warning" className="text-center text-sm text-zinc-500">
+          <p data-testid="no-sets-warning" className="text-center text-sm text-text-muted">
             Log at least one set to save this workout
           </p>
         )}
@@ -226,35 +226,35 @@ export function WorkoutComplete({
     <div className="space-y-6">
       <div className="text-center">
         <h2 data-testid="workout-saved-heading" className="text-2xl font-bold mb-2">Workout Saved!</h2>
-        <p className="text-zinc-500">{template.name}</p>
+        <p className="text-text-muted">{template.name}</p>
       </div>
 
       {/* Stats summary */}
       <div className="grid grid-cols-3 gap-4 text-center">
-        <div className="bg-zinc-800/50 rounded-lg p-4">
+        <div className="bg-bg-tertiary/50 rounded-lg p-4">
           <div className="text-2xl font-bold text-accent">{totalSets}</div>
-          <div className="text-xs text-zinc-500">Sets</div>
+          <div className="text-xs text-text-muted">Sets</div>
         </div>
-        <div className="bg-zinc-800/50 rounded-lg p-4">
+        <div className="bg-bg-tertiary/50 rounded-lg p-4">
           <div className="text-2xl font-bold text-accent">{uniqueExercises}</div>
-          <div className="text-xs text-zinc-500">Exercises</div>
+          <div className="text-xs text-text-muted">Exercises</div>
         </div>
-        <div className="bg-zinc-800/50 rounded-lg p-4">
+        <div className="bg-bg-tertiary/50 rounded-lg p-4">
           <div className="text-2xl font-bold text-accent">{durationMins}</div>
-          <div className="text-xs text-zinc-500">Minutes</div>
+          <div className="text-xs text-text-muted">Minutes</div>
         </div>
       </div>
 
       {/* Total volume with comparison */}
       <div className="text-center">
-        <div className="text-zinc-500">
-          Total volume: <span className="text-zinc-300 font-medium">{Math.round(displayVolume).toLocaleString()} {weightUnit}</span>
+        <div className="text-text-muted">
+          Total volume: <span className="text-text-primary font-medium">{Math.round(displayVolume).toLocaleString()} {weightUnit}</span>
         </div>
         {displayComparison && !summaryLoading && (
           <div className={`text-sm mt-1 ${
-            displayComparison.volume_delta_kg > 0 ? 'text-green-500' :
-            displayComparison.volume_delta_kg < 0 ? 'text-red-500' :
-            'text-zinc-500'
+            displayComparison.volume_delta_kg > 0 ? 'text-success' :
+            displayComparison.volume_delta_kg < 0 ? 'text-error' :
+            'text-text-muted'
           }`}>
             vs last {template.name}: {displayComparison.volume_delta_kg > 0 ? '+' : ''}{Math.round(displayComparison.volume_delta_kg).toLocaleString()} {weightUnit}
           </div>
@@ -263,20 +263,20 @@ export function WorkoutComplete({
 
       {/* Personal Records section */}
       {!summaryLoading && prs.length > 0 && (
-        <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
-          <div className="font-bold mb-3 text-yellow-500">Personal Records</div>
+        <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
+          <div className="font-bold mb-3 text-warning">Personal Records</div>
           <div className="space-y-2">
             {prs.map((pr) => (
               <div key={pr.exercise_id} className="flex items-center justify-between">
-                <span className="text-sm text-zinc-300">{pr.exercise_name}</span>
+                <span className="text-sm text-text-primary">{pr.exercise_name}</span>
                 <div className="flex gap-2">
                   {pr.weight_prs > 0 && (
-                    <span className="bg-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-medium">
+                    <span className="bg-warning text-black text-xs px-2 py-0.5 rounded-full font-medium">
                       Weight PR
                     </span>
                   )}
                   {pr.estimated_1rm_prs > 0 && (
-                    <span className="bg-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-medium">
+                    <span className="bg-warning text-black text-xs px-2 py-0.5 rounded-full font-medium">
                       Est. 1RM PR
                     </span>
                   )}

@@ -51,12 +51,12 @@ export function ExerciseSubstitution({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-end justify-center z-50">
-      <div className="bg-zinc-900 rounded-t-2xl w-full max-w-lg max-h-[70vh] overflow-hidden">
-        <div className="p-4 border-b border-zinc-800 flex items-center justify-between">
+      <div className="bg-bg-secondary rounded-t-2xl w-full max-w-lg max-h-[70vh] overflow-hidden">
+        <div className="p-4 border-b border-border-primary flex items-center justify-between">
           <h3 className="font-semibold">Substitute Exercise</h3>
           <button
             onClick={onClose}
-            className="text-zinc-500 hover:text-zinc-300"
+            className="text-text-muted hover:text-text-primary"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -66,8 +66,8 @@ export function ExerciseSubstitution({
 
         <div className="p-4 space-y-4 overflow-y-auto max-h-[50vh]">
           {/* Current selection */}
-          <div className="text-sm text-zinc-500">
-            Original: <span className="text-zinc-300">{originalExerciseName}</span>
+          <div className="text-sm text-text-muted">
+            Original: <span className="text-text-primary">{originalExerciseName}</span>
             {currentSubstitution && (
               <span className="text-accent ml-2">(substituted)</span>
             )}
@@ -77,30 +77,30 @@ export function ExerciseSubstitution({
           {currentSubstitution && (
             <button
               onClick={handleRevert}
-              className="w-full p-3 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-left transition-colors"
+              className="w-full p-3 bg-bg-tertiary hover:bg-bg-elevated rounded-lg text-left transition-colors"
             >
               <div className="font-medium">Revert to Original</div>
-              <div className="text-sm text-zinc-500">{originalExerciseName}</div>
+              <div className="text-sm text-text-muted">{originalExerciseName}</div>
             </button>
           )}
 
           {/* Predefined replacement */}
           {replacementExercise && (
             <div>
-              <div className="text-xs text-zinc-500 mb-2">Suggested Replacement</div>
+              <div className="text-xs text-text-muted mb-2">Suggested Replacement</div>
               <button
                 onClick={() => handleSelectReplacement(replacementExercise.exercise_id)}
                 className="w-full p-3 bg-accent/10 border border-accent/30 hover:bg-accent/20 rounded-lg text-left transition-colors"
               >
                 <div className="font-medium">{replacementExercise.name}</div>
-                <div className="text-sm text-zinc-500">{replacementExercise.muscle_group}</div>
+                <div className="text-sm text-text-muted">{replacementExercise.muscle_group}</div>
               </button>
             </div>
           )}
 
           {/* Other exercises from library */}
           <div>
-            <div className="text-xs text-zinc-500 mb-2">From Exercise Library</div>
+            <div className="text-xs text-text-muted mb-2">From Exercise Library</div>
             <div className="space-y-1 max-h-40 overflow-y-auto">
               {exercises
                 .filter(e => e.exercise_id !== originalExerciseId && e.exercise_id !== replacementExerciseId)
@@ -108,10 +108,10 @@ export function ExerciseSubstitution({
                   <button
                     key={exercise.exercise_id}
                     onClick={() => handleSelectReplacement(exercise.exercise_id)}
-                    className="w-full p-2 bg-zinc-800/50 hover:bg-zinc-700 rounded-lg text-left text-sm transition-colors"
+                    className="w-full p-2 bg-bg-tertiary/50 hover:bg-bg-elevated rounded-lg text-left text-sm transition-colors"
                   >
                     <span className="font-medium">{exercise.name}</span>
-                    <span className="text-zinc-500 ml-2">{exercise.muscle_group}</span>
+                    <span className="text-text-muted ml-2">{exercise.muscle_group}</span>
                   </button>
                 ))}
             </div>
@@ -119,7 +119,7 @@ export function ExerciseSubstitution({
 
           {/* Custom one-off exercise */}
           <div>
-            <div className="text-xs text-zinc-500 mb-2">Or add custom (one-time only)</div>
+            <div className="text-xs text-text-muted mb-2">Or add custom (one-time only)</div>
             {showCustom ? (
               <div className="flex gap-2">
                 <input
@@ -127,7 +127,7 @@ export function ExerciseSubstitution({
                   value={customName}
                   onChange={(e) => setCustomName(e.target.value)}
                   placeholder="Exercise name"
-                  className="flex-1 bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="flex-1 bg-bg-tertiary border border-border-primary rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
                   autoFocus
                 />
                 <button
@@ -141,7 +141,7 @@ export function ExerciseSubstitution({
             ) : (
               <button
                 onClick={() => setShowCustom(true)}
-                className="w-full p-2 bg-zinc-800/50 hover:bg-zinc-700 rounded-lg text-sm text-zinc-400 transition-colors"
+                className="w-full p-2 bg-bg-tertiary/50 hover:bg-bg-elevated rounded-lg text-sm text-text-secondary transition-colors"
               >
                 + Add custom exercise
               </button>
