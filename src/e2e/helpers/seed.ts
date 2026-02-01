@@ -2,13 +2,19 @@ import type { Page } from '@playwright/test';
 import { SEL, setRow } from './selectors';
 
 /**
- * Create a gym via the Settings UI.
- * Navigates to Settings, fills form, and waits for confirmation.
+ * Create a gym via the Workouts tab UI.
+ * Navigates to Workouts, expands Gyms section, fills form, and waits for confirmation.
  */
 export async function createGym(page: Page, name: string, location: string) {
   await page.click(SEL.navWorkouts);
-  // Scroll to the "Your Gyms" section and click "+ Add"
-  await page.locator('text="+ Add"').first().click();
+  // Expand Gyms section (collapsed by default)
+  const gymsHeader = page.locator('button[aria-expanded="false"]', { hasText: 'Gyms' });
+  if (await gymsHeader.count() > 0) {
+    await gymsHeader.click();
+    await page.waitForTimeout(300);
+  }
+  // Click "+ Add" inside the Gyms section content
+  await page.locator('section').filter({ hasText: 'Your Gyms' }).locator('button:has-text("+ Add")').click();
   await page.fill(SEL.gymNameInput, name);
   await page.fill(SEL.gymLocationInput, location);
   await page.click(SEL.btnAddGym);
@@ -16,13 +22,19 @@ export async function createGym(page: Page, name: string, location: string) {
 }
 
 /**
- * Create an exercise via the Settings UI.
- * Navigates to Settings, fills form, and waits for confirmation.
+ * Create an exercise via the Workouts tab UI.
+ * Navigates to Workouts, expands Exercises section, fills form, and waits for confirmation.
  */
 export async function createExercise(page: Page, name: string, muscleGroup: string) {
   await page.click(SEL.navWorkouts);
-  // Click the second "+ Add" link on the page (the one in the Exercises section)
-  await page.locator('text="+ Add"').nth(1).click();
+  // Expand Exercises section (collapsed by default)
+  const exercisesHeader = page.locator('button[aria-expanded="false"]', { hasText: 'Exercises' });
+  if (await exercisesHeader.count() > 0) {
+    await exercisesHeader.click();
+    await page.waitForTimeout(300);
+  }
+  // Click "+ Add" inside the Exercises section content
+  await page.locator('section').filter({ hasText: 'Library' }).locator('button:has-text("+ Add")').click();
   await page.fill(SEL.exerciseNameInput, name);
   await page.locator(SEL.exerciseMuscleSelect).selectOption(muscleGroup);
   await page.click(SEL.btnAddExercise);
