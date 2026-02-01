@@ -132,7 +132,7 @@ function AppContent({ status, eventCount, refreshEventCount }: {
 
     // No active workout - show start workout and management views
     return (
-      <div className="space-y-12">
+      <div className="space-y-8">
         {/* Start Workout section */}
         <StartWorkout
           templates={templates}
