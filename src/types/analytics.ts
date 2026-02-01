@@ -107,6 +107,7 @@ export interface MuscleGroupThresholds {
 // Hook return types
 export interface UseVolumeAnalyticsReturn {
   volumeData: VolumeByMuscleGroup[];
+  volumeAvgData: VolumeByMuscleGroupAvg[];
   heatMapData: MuscleHeatMapData[];
   isLoading: boolean;
   error: string | null;

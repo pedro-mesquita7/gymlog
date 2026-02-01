@@ -1,20 +1,25 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { getDuckDB } from '../db/duckdb-init';
-import { VOLUME_BY_MUSCLE_GROUP_SQL, MUSCLE_HEAT_MAP_SQL } from '../db/compiled-queries';
-import type { VolumeByMuscleGroup, MuscleHeatMapData, UseVolumeAnalyticsReturn } from '../types/analytics';
+import { volumeByMuscleGroupSQL, muscleHeatMapSQL } from '../db/compiled-queries';
+import type { VolumeByMuscleGroup, VolumeByMuscleGroupAvg, MuscleHeatMapData, UseVolumeAnalyticsReturn } from '../types/analytics';
 
 // Standard muscle groups to always include (even with zero data)
 const STANDARD_MUSCLE_GROUPS = ['Chest', 'Back', 'Shoulders', 'Legs', 'Arms', 'Core'];
 
 /**
  * Hook for fetching volume analytics data (VOL-01, VOL-02, VOL-03)
- * Returns weekly sets per muscle group and 4-week aggregate heat map data
+ * Returns averaged weekly sets per muscle group and heat map data for given time range
  */
-export function useVolumeAnalytics(): UseVolumeAnalyticsReturn {
+export function useVolumeAnalytics(days?: number | null): UseVolumeAnalyticsReturn {
   const [volumeData, setVolumeData] = useState<VolumeByMuscleGroup[]>([]);
+  const [volumeAvgData, setVolumeAvgData] = useState<VolumeByMuscleGroupAvg[]>([]);
   const [heatMapData, setHeatMapData] = useState<MuscleHeatMapData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const abortRef = useRef(false);
+
+  // Resolve undefined to default 28 days; null = all time
+  const resolvedDays = days === undefined ? 28 : days;
 
   const fetchData = useCallback(async () => {
     const db = getDuckDB();
@@ -30,59 +35,38 @@ export function useVolumeAnalytics(): UseVolumeAnalyticsReturn {
     try {
       const conn = await db.connect();
 
-      // Fetch volume by muscle group (weekly sets per muscle group)
-      const volumeResult = await conn.query(VOLUME_BY_MUSCLE_GROUP_SQL);
+      // Fetch averaged volume by muscle group (new schema: muscle_group, avg_weekly_sets)
+      const volumeSQL = volumeByMuscleGroupSQL(resolvedDays);
+      const volumeResult = await conn.query(volumeSQL);
       const rawVolumeRows = volumeResult.toArray();
-      console.log('[useVolumeAnalytics] volume raw rows:', rawVolumeRows.length, 'first row:', rawVolumeRows[0], 'week_start type:', typeof rawVolumeRows[0]?.week_start, 'week_start value:', rawVolumeRows[0]?.week_start);
 
-      const volumeRows = rawVolumeRows.map((row: any) => {
-        // DuckDB-WASM DATE returns millisecond-epoch integers (number or BigInt)
-        const wsVal = row.week_start;
-        let weekStartStr: string;
-        if (typeof wsVal === 'number') {
-          weekStartStr = new Date(wsVal).toISOString().split('T')[0];
-        } else if (typeof wsVal === 'bigint') {
-          weekStartStr = new Date(Number(wsVal)).toISOString().split('T')[0];
-        } else {
-          const d = new Date(wsVal);
-          weekStartStr = !isNaN(d.getTime()) ? d.toISOString().split('T')[0] : String(wsVal).split('T')[0];
-        }
-        return {
-          muscleGroup: String(row.muscle_group),
-          weekStart: weekStartStr,
-          setCount: Number(row.set_count),
-        };
-      }) as VolumeByMuscleGroup[];
+      // Map to averaged data (new format from Plan 01 SQL)
+      const avgRows = rawVolumeRows.map((row: any) => ({
+        muscleGroup: String(row.muscle_group),
+        avgWeeklySets: Number(row.avg_weekly_sets),
+      })) as VolumeByMuscleGroupAvg[];
 
-      // Backfill zero-data muscle groups for each week
-      const weeks = Array.from(new Set(volumeRows.map(r => r.weekStart)));
-      const backfilledVolumeData: VolumeByMuscleGroup[] = [];
-
-      for (const week of weeks) {
-        const weekData = volumeRows.filter(r => r.weekStart === week);
-        const presentGroups = new Set(weekData.map(r => r.muscleGroup));
-
-        // Add existing data
-        backfilledVolumeData.push(...weekData);
-
-        // Add missing standard muscle groups with zero sets
-        for (const muscleGroup of STANDARD_MUSCLE_GROUPS) {
-          if (!presentGroups.has(muscleGroup)) {
-            backfilledVolumeData.push({
-              muscleGroup,
-              weekStart: week,
-              setCount: 0,
-            });
-          }
+      // Backfill zero-data muscle groups for avg data
+      const avgGroups = new Set(avgRows.map(r => r.muscleGroup));
+      const backfilledAvgData: VolumeByMuscleGroupAvg[] = [...avgRows];
+      for (const muscleGroup of STANDARD_MUSCLE_GROUPS) {
+        if (!avgGroups.has(muscleGroup)) {
+          backfilledAvgData.push({ muscleGroup, avgWeeklySets: 0 });
         }
       }
 
-      setVolumeData(backfilledVolumeData);
+      // Also maintain backward-compat volumeData (convert avg to single-week format)
+      // This keeps existing components working until they migrate to volumeAvgData
+      const backfilledVolumeData: VolumeByMuscleGroup[] = backfilledAvgData.map(r => ({
+        muscleGroup: r.muscleGroup,
+        weekStart: new Date().toISOString().split('T')[0], // placeholder
+        setCount: Math.round(r.avgWeeklySets),
+      }));
 
-      // Fetch muscle heat map (4-week aggregate)
-      const heatMapResult = await conn.query(MUSCLE_HEAT_MAP_SQL);
+      // Fetch muscle heat map
+      const heatMapSQL = muscleHeatMapSQL(resolvedDays);
+      const heatMapResult = await conn.query(heatMapSQL);
       const rawHeatMapRows = heatMapResult.toArray();
-      console.log('[useVolumeAnalytics] heat map raw rows:', rawHeatMapRows.length, 'first row:', rawHeatMapRows[0]);
 
       const heatMapRows = rawHeatMapRows.map((row: any) => ({
         muscleGroup: String(row.muscle_group),
@@ -102,20 +86,30 @@ export function useVolumeAnalytics(): UseVolumeAnalyticsReturn {
         }
       }
 
-      setHeatMapData(backfilledHeatMapData);
+      if (!abortRef.current) {
+        setVolumeData(backfilledVolumeData);
+        setVolumeAvgData(backfilledAvgData);
+        setHeatMapData(backfilledHeatMapData);
+      }
 
       await conn.close();
     } catch (err) {
-      console.error('Error fetching volume analytics:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch volume analytics');
+      if (!abortRef.current) {
+        console.error('Error fetching volume analytics:', err);
+        setError(err instanceof Error ? err.message : 'Failed to fetch volume analytics');
+      }
     } finally {
-      setIsLoading(false);
+      if (!abortRef.current) {
+        setIsLoading(false);
+      }
     }
-  }, []);
+  }, [resolvedDays]);
 
   useEffect(() => {
+    abortRef.current = false;
     fetchData();
+    return () => { abortRef.current = true; };
   }, [fetchData]);
 
-  return { volumeData, heatMapData, isLoading, error, refresh: fetchData };
+  return { volumeData, volumeAvgData, heatMapData, isLoading, error, refresh: fetchData };
 }
