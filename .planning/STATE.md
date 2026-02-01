@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-01)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
-**Current focus:** Phase 19 complete -- Plans Rename done
+**Current focus:** Phase 20 in progress -- UX Restructure (collapsible sections)
 
 ## Current Position
 
-Phase: 19 of 21 (Plans Rename)
-Plan: 3 of 3
-Status: Phase complete
-Last activity: 2026-02-01 -- Completed 19-03-PLAN.md (Test updates + grep audit)
+Phase: 20 of 21 (UX Restructure)
+Plan: 1 of 5
+Status: In progress
+Last activity: 2026-02-01 -- Completed 20-01-PLAN.md (Collapsible sections on Workouts tab)
 
-Progress: [████████████░░░░░░░░] 38% (9/24 plans)
+Progress: [████████████░░░░░░░░] 42% (10/24 plans)
 
 ## Milestones
 
@@ -29,9 +29,9 @@ Progress: [████████████░░░░░░░░] 38% (9/
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9 (this milestone)
+- Total plans completed: 10 (this milestone)
 - Average duration: ~8 min
-- Total execution time: ~75 min
+- Total execution time: ~81 min
 
 **By Phase:**
 
@@ -39,7 +39,7 @@ Progress: [████████████░░░░░░░░] 38% (9/
 |-------|-------|-------|----------|
 | 18. Theme Redesign | 6/6 | ~51 min | ~9 min |
 | 19. Plans Rename | 3/3 | ~24 min | ~8 min |
-| 20. UX Restructure | 0/TBD | -- | -- |
+| 20. UX Restructure | 1/5 | ~6 min | ~6 min |
 | 21. Comparison Analytics | 0/TBD | -- | -- |
 
 ## Accumulated Context
@@ -59,6 +59,8 @@ Progress: [████████████░░░░░░░░] 38% (9/
 - selectNextPlan return field keeps templateId (backward compat with rotation store)
 - PlanFormData replaces TemplateFormData (Zod schema renamed)
 - toon-export interface property renamed template->plan (export format, not stored data)
+- CollapsibleSection overflow set to visible after expand (forms/dropdowns not clipped)
+- prefers-reduced-motion evaluated once at module scope (not per-render)
 
 ### Pending Todos
 
@@ -66,13 +68,13 @@ None.
 
 ### Blockers/Concerns
 
-- CRITICAL: "Templates" rename must NOT change event_type strings or payload keys (breaks existing user data) -- VERIFIED SAFE across all 3 plans
+- Pre-existing TS build errors: QuickStartCard.tsx and StartWorkout.tsx reference templateId instead of planId (from Phase 19 rename incomplete)
 - Grep audit PASSED: zero unprotected Template references in src/ (19-03 verified)
 
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 19-03-PLAN.md (Phase 19 complete)
+Stopped at: Completed 20-01-PLAN.md (Collapsible sections on Workouts tab)
 Resume file: None
 
-**Next action:** Begin Phase 20 (UX Restructure) or Phase 21 (Comparison Analytics)
+**Next action:** Continue Phase 20 (UX Restructure) -- Plan 20-02
