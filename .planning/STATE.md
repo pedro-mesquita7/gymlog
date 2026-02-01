@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 ## Current Position
 
 Phase: 14 of 17 (Workouts UX & Color Scheme)
-Plan: 4 of 5 in current phase
-Status: In progress
-Last activity: 2026-02-01 -- Completed 14-04-PLAN.md (Workouts tab UX redesign)
+Plan: 5 of 5 in current phase
+Status: Phase complete
+Last activity: 2026-02-01 -- Completed 14-05-PLAN.md (WCAG AA verification + visual checkpoint)
 
-Progress: [===============░░░░░] 75% (83/~110 plans lifetime)
+Progress: [===============░░░░░] 76% (84/~110 plans lifetime)
 
 ## Milestones
 
@@ -29,7 +29,7 @@ Progress: [===============░░░░░] 75% (83/~110 plans lifetime)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 83 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 4 v1.3-p14)
+- Total plans completed: 84 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14)
 - Total commits: ~325
 - Project duration: 6 days (2026-01-27 to 2026-02-01)
 
@@ -39,7 +39,7 @@ Progress: [===============░░░░░] 75% (83/~110 plans lifetime)
 |-------|-------|--------|
 | 12. Security & Bug Fixes | 4/4 | Complete |
 | 13. E2E Test Suite | 7/7 | Complete |
-| 14. Workouts UX & Color Scheme | 4/5 | In progress |
+| 14. Workouts UX & Color Scheme | 5/5 | Complete |
 
 ## Accumulated Context
 
@@ -55,6 +55,7 @@ v1.3 decisions:
 - 14-02: PR badges use warning token; save/finish buttons use success token; ProgressionAlert maps status to success/warning/error
 - 14-03: PRList badges use chart-primary/chart-success; Recharts inline HSL left untouched; full components/ directory clean of hardcoded colors
 - 14-04: QuickStartCard edit mode uses local state (not rotation); native details/summary accordion for Browse Templates; RecentWorkoutCard returns null when no data
+- 14-05: text-muted adjusted 55%->59%, border-secondary 35%->38% for WCAG AA; rest timer input changed to minutes; accordion renamed "Manual select workout"
 
 ### Pending Todos
 
@@ -67,7 +68,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 14-04-PLAN.md
+Stopped at: Completed 14-05-PLAN.md (Phase 14 complete)
 Resume file: None
 
-**Next action:** Execute 14-05-PLAN.md
+**Next action:** Begin Phase 15 planning or next priority
