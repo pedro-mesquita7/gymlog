@@ -6,7 +6,7 @@ import { useRotationStore } from '../../stores/useRotationStore';
 import { useWorkoutSummary } from '../../hooks/useWorkoutSummary';
 import { Button } from '../ui/Button';
 import type { WorkoutSession } from '../../types/workout-session';
-import type { Template } from '../../types/template';
+import type { Plan } from '../../types/plan';
 import type { Exercise } from '../../types/database';
 import type {
   WorkoutStartedEvent,
@@ -16,7 +16,7 @@ import type {
 
 interface WorkoutCompleteProps {
   session: WorkoutSession;
-  template: Template;
+  plan: Plan;
   exercises: Exercise[];
   onSaved: () => void;
   onCancel: () => void;
@@ -25,7 +25,7 @@ interface WorkoutCompleteProps {
 
 export function WorkoutComplete({
   session,
-  template,
+  plan,
   exercises,
   onSaved,
   onCancel,
@@ -52,7 +52,7 @@ export function WorkoutComplete({
 
   // Find exercises with no logged sets
   const exercisesWithSets = new Set(session.sets.map(s => s.original_exercise_id));
-  const incompleteExercises = template.exercises.filter(
+  const incompleteExercises = plan.exercises.filter(
     te => !exercisesWithSets.has(te.exercise_id)
   );
 
@@ -122,7 +122,7 @@ export function WorkoutComplete({
       <div className="space-y-6">
         <div className="text-center">
           <h2 data-testid="workout-complete-heading" className="text-2xl font-bold mb-2">Workout Complete</h2>
-          <p className="text-text-muted">{template.name}</p>
+          <p className="text-text-muted">{plan.name}</p>
         </div>
 
         {/* Stats summary */}
@@ -226,7 +226,7 @@ export function WorkoutComplete({
     <div className="space-y-6">
       <div className="text-center">
         <h2 data-testid="workout-saved-heading" className="text-2xl font-bold mb-2">Workout Saved!</h2>
-        <p className="text-text-muted">{template.name}</p>
+        <p className="text-text-muted">{plan.name}</p>
       </div>
 
       {/* Stats summary */}
@@ -256,7 +256,7 @@ export function WorkoutComplete({
             displayComparison.volume_delta_kg < 0 ? 'text-error' :
             'text-text-muted'
           }`}>
-            vs last {template.name}: {displayComparison.volume_delta_kg > 0 ? '+' : ''}{Math.round(displayComparison.volume_delta_kg).toLocaleString()} {weightUnit}
+            vs last {plan.name}: {displayComparison.volume_delta_kg > 0 ? '+' : ''}{Math.round(displayComparison.volume_delta_kg).toLocaleString()} {weightUnit}
           </div>
         )}
       </div>

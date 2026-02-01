@@ -4,7 +4,7 @@ import { useAudioNotification, useVibration } from '../../hooks/useAudioNotifica
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
 
 interface RestTimerProps {
-  restSeconds?: number | null;  // Override from template exercise
+  restSeconds?: number | null;  // Override from plan exercise
   autoStartTrigger: number;      // Increment to trigger auto-start
   onComplete?: () => void;
 }

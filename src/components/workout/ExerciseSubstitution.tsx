@@ -6,7 +6,7 @@ import type { Exercise } from '../../types/database';
 interface ExerciseSubstitutionProps {
   originalExerciseId: string;
   originalExerciseName: string;
-  replacementExerciseId: string | null;  // Predefined replacement from template
+  replacementExerciseId: string | null;  // Predefined replacement from plan
   exercises: Exercise[];  // Full exercise library
   onClose: () => void;
 }

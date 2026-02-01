@@ -36,7 +36,7 @@ export function ToonExportSection() {
     !!activeRotation && activeRotation.template_ids.length > 0;
 
   // Capture rotation data for async use
-  const rotationTemplateIds = activeRotation?.template_ids ?? [];
+  const rotationPlanIds = activeRotation?.template_ids ?? [];
   const rotationCurrentPosition = activeRotation?.current_position ?? 0;
 
   const handleExport = useCallback(async (): Promise<string> => {
@@ -46,13 +46,13 @@ export function ToonExportSection() {
       case 'rotation_cycle':
         return exportRotationCycleToon(
           rotationCount,
-          rotationTemplateIds,
+          rotationPlanIds,
           rotationCurrentPosition
         );
       case 'time_range':
         return exportTimeRangeToon(timeRangeDays);
     }
-  }, [scope, rotationCount, rotationTemplateIds, rotationCurrentPosition, timeRangeDays]);
+  }, [scope, rotationCount, rotationPlanIds, rotationCurrentPosition, timeRangeDays]);
 
   const handleCopy = useCallback(async () => {
     setIsExporting(true);

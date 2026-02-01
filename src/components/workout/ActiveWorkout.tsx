@@ -7,17 +7,17 @@ import { RestTimer } from './RestTimer';
 import { Dialog } from '../ui/Dialog';
 import { Button } from '../ui/Button';
 import { FeatureErrorBoundary } from '../ui/FeatureErrorBoundary';
-import type { Template } from '../../types/template';
+import type { Plan } from '../../types/plan';
 import type { Exercise } from '../../types/database';
 
 interface ActiveWorkoutProps {
-  template: Template;
+  plan: Plan;
   exercises: Exercise[];  // For name lookup
   onFinish: () => void;
   onCancel: () => void;
 }
 
-export function ActiveWorkout({ template, exercises, onFinish, onCancel }: ActiveWorkoutProps) {
+export function ActiveWorkout({ plan, exercises, onFinish, onCancel }: ActiveWorkoutProps) {
   const session = useWorkoutStore(state => state.session);
   const currentIndex = useWorkoutStore(state => state.session?.current_exercise_index ?? 0);
   const setCurrentExerciseIndex = useWorkoutStore(state => state.setCurrentExerciseIndex);
@@ -28,8 +28,8 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [restTimerTrigger, setRestTimerTrigger] = useState(0);
 
-  const templateExercises = template.exercises;
-  const totalExercises = templateExercises.length;
+  const planExercises = plan.exercises;
+  const totalExercises = planExercises.length;
 
   const goToPrev = () => {
     if (currentIndex > 0) {
@@ -72,9 +72,9 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
   if (!session) return null;
 
   // Main workout view
-  const currentTemplateExercise = templateExercises[currentIndex];
-  const substitutedId = session.exerciseSubstitutions[currentTemplateExercise.exercise_id];
-  const actualExerciseId = substitutedId ?? currentTemplateExercise.exercise_id;
+  const currentPlanExercise = planExercises[currentIndex];
+  const substitutedId = session.exerciseSubstitutions[currentPlanExercise.exercise_id];
+  const actualExerciseId = substitutedId ?? currentPlanExercise.exercise_id;
 
   // Look up exercise (check custom exercises first, then library)
   const exerciseData = session.customExercises[actualExerciseId]
@@ -92,15 +92,16 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
     <div {...swipeHandlers} className="min-h-[60vh]">
       {/* Rest timer banner - sticky at top */}
       <RestTimer
-        restSeconds={currentTemplateExercise.rest_seconds}
+        restSeconds={currentPlanExercise.rest_seconds}
         autoStartTrigger={restTimerTrigger}
       />
+
 
       {/* Workout header */}
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="text-sm text-text-muted">Workout</div>
-          <div className="font-semibold">{template.name}</div>
+          <div className="font-semibold">{plan.name}</div>
         </div>
         <div className="text-right">
           <div className="text-sm text-text-muted">Duration</div>
@@ -111,7 +112,7 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
       {/* Exercise view */}
       <FeatureErrorBoundary feature="Set Logger" key={actualExerciseId}>
         <ExerciseView
-          templateExercise={currentTemplateExercise}
+          planExercise={currentPlanExercise}
           exercise={exerciseData}
           exercises={exercises}
           exerciseIndex={currentIndex}
@@ -151,7 +152,7 @@ export function ActiveWorkout({ template, exercises, onFinish, onCancel }: Activ
       >
         <WorkoutComplete
           session={session}
-          template={template}
+          plan={plan}
           exercises={exercises}
           partialSets={partialSets}
           onSaved={() => {

@@ -14,7 +14,7 @@ interface SetData {
 interface SetGridProps {
   exerciseId: string;
   originalExerciseId: string;
-  templateSetCount: number;
+  planSetCount: number;
   gymId: string;
   sets: LoggedSet[];
   onSaveSet: (data: SetData, index: number) => void;
@@ -24,7 +24,7 @@ interface SetGridProps {
 export function SetGrid({
   exerciseId: _exerciseId,
   originalExerciseId,
-  templateSetCount,
+  planSetCount,
   gymId,
   sets,
   onSaveSet,
@@ -39,14 +39,14 @@ export function SetGrid({
   // Get historical max for inline PR detection
   const maxData = useExerciseMax(originalExerciseId);
 
-  // Initialize rows state based on template set count
+  // Initialize rows state based on plan set count
   const [rows, setRows] = useState<SetData[]>([]);
 
   // Initialize rows when component mounts or dependencies change
   useEffect(() => {
     const initialRows: SetData[] = [];
 
-    for (let i = 0; i < templateSetCount; i++) {
+    for (let i = 0; i < planSetCount; i++) {
       // Check if we have a logged set for this row index
       const loggedSet = sets[i];
       if (loggedSet) {
@@ -66,7 +66,7 @@ export function SetGrid({
     }
 
     setRows(initialRows);
-  }, [templateSetCount, sets]);
+  }, [planSetCount, sets]);
 
   const handleRowChange = (data: SetData, index: number) => {
     setRows((prev) => {

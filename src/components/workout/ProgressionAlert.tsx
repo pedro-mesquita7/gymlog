@@ -4,7 +4,7 @@ import { useProgressionAlertStore } from '../../stores/useProgressionAlertStore'
 
 interface ProgressionAlertProps {
   exerciseId: string;  // Currently used exercise (may be substituted)
-  originalExerciseId: string;  // Template exercise (used for progression lookup)
+  originalExerciseId: string;  // Plan exercise (used for progression lookup)
   currentGymId: string;
 }
 

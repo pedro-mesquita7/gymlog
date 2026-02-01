@@ -4,11 +4,11 @@ import { SetGrid } from './SetGrid';
 import { ExerciseSubstitution } from './ExerciseSubstitution';
 import { ExerciseHistory } from '../history/ExerciseHistory';
 import { FeatureErrorBoundary } from '../ui/FeatureErrorBoundary';
-import type { TemplateExercise } from '../../types/template';
+import type { PlanExercise } from '../../types/plan';
 import type { Exercise } from '../../types/database';
 
 interface ExerciseViewProps {
-  templateExercise: TemplateExercise;
+  planExercise: PlanExercise;
   exercise: Exercise | undefined;  // Looked up from exercises list
   exercises: Exercise[];  // Full exercise library for substitution
   exerciseIndex: number;
@@ -19,7 +19,7 @@ interface ExerciseViewProps {
 }
 
 export function ExerciseView({
-  templateExercise,
+  planExercise,
   exercise,
   exercises,
   exerciseIndex,
@@ -35,15 +35,15 @@ export function ExerciseView({
   const [showHistory, setShowHistory] = useState(false);
 
   // Get substituted exercise ID if any
-  const substitutedId = session?.exerciseSubstitutions[templateExercise.exercise_id];
-  const actualExerciseId = substitutedId ?? templateExercise.exercise_id;
+  const substitutedId = session?.exerciseSubstitutions[planExercise.exercise_id];
+  const actualExerciseId = substitutedId ?? planExercise.exercise_id;
 
-  // Get sets for this exercise (by original template exercise ID)
+  // Get sets for this exercise (by original plan exercise ID)
   // Select raw array from store (referentially stable), filter with useMemo to avoid infinite loop
   const allSets = useWorkoutStore(state => state.session?.sets);
   const sets = useMemo(
-    () => allSets?.filter(s => s.original_exercise_id === templateExercise.exercise_id) ?? [],
-    [allSets, templateExercise.exercise_id]
+    () => allSets?.filter(s => s.original_exercise_id === planExercise.exercise_id) ?? [],
+    [allSets, planExercise.exercise_id]
   );
 
   const handleSaveSet = (
@@ -51,7 +51,7 @@ export function ExerciseView({
     index: number
   ) => {
     // Auto-save on blur
-    updateSet(actualExerciseId, templateExercise.exercise_id, index, data);
+    updateSet(actualExerciseId, planExercise.exercise_id, index, data);
 
     // Trigger rest timer if set has valid data
     if (data.weight_kg !== null && data.reps !== null && onSetComplete) {
@@ -60,13 +60,13 @@ export function ExerciseView({
   };
 
   const handleRemoveRow = (index: number) => {
-    removeSetsByExercise(templateExercise.exercise_id, index);
+    removeSetsByExercise(planExercise.exercise_id, index);
   };
 
   const exerciseName = exercise?.name ?? 'Unknown Exercise';
 
-  // Determine template set count (use suggested_sets from template, default to 3)
-  const templateSetCount = templateExercise.suggested_sets ?? 3;
+  // Determine plan set count (use suggested_sets from plan, default to 3)
+  const planSetCount = planExercise.suggested_sets ?? 3;
 
   return (
     <div className="space-y-6">
@@ -117,8 +117,8 @@ export function ExerciseView({
       {session && (
         <SetGrid
           exerciseId={actualExerciseId}
-          originalExerciseId={templateExercise.exercise_id}
-          templateSetCount={templateSetCount}
+          originalExerciseId={planExercise.exercise_id}
+          planSetCount={planSetCount}
           gymId={session.gym_id}
           sets={sets}
           onSaveSet={handleSaveSet}
@@ -147,9 +147,9 @@ export function ExerciseView({
       {/* Substitution modal */}
       {showSubstitution && (
         <ExerciseSubstitution
-          originalExerciseId={templateExercise.exercise_id}
-          originalExerciseName={exercises.find(e => e.exercise_id === templateExercise.exercise_id)?.name ?? 'Unknown'}
-          replacementExerciseId={templateExercise.replacement_exercise_id}
+          originalExerciseId={planExercise.exercise_id}
+          originalExerciseName={exercises.find(e => e.exercise_id === planExercise.exercise_id)?.name ?? 'Unknown'}
+          replacementExerciseId={planExercise.replacement_exercise_id}
           exercises={exercises}
           onClose={() => setShowSubstitution(false)}
         />
@@ -161,7 +161,7 @@ export function ExerciseView({
           <div className="w-full max-w-md">
             <FeatureErrorBoundary feature="Exercise History">
               <ExerciseHistory
-                exerciseId={templateExercise.exercise_id}
+                exerciseId={planExercise.exercise_id}
                 exerciseName={exerciseName}
                 currentGymId={session.gym_id}
                 onClose={() => setShowHistory(false)}

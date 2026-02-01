@@ -1,29 +1,29 @@
 import { useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import { useRotationStore, selectNextTemplate } from '../../stores/useRotationStore';
-import type { Template } from '../../types/template';
+import { useRotationStore, selectNextPlan } from '../../stores/useRotationStore';
+import type { Plan } from '../../types/plan';
 import type { Gym } from '../../types/database';
 import { Button } from '../ui/Button';
 import { Select } from '../ui/Input';
 
 interface QuickStartCardProps {
-  templates: Template[];
+  plans: Plan[];
   gyms: Gym[];
-  onStart: (templateId: string, gymId: string) => void;
+  onStart: (planId: string, gymId: string) => void;
 }
 
-export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps) {
-  const nextTemplate = useRotationStore(useShallow(selectNextTemplate));
+export function QuickStartCard({ plans, gyms, onStart }: QuickStartCardProps) {
+  const nextPlan = useRotationStore(useShallow(selectNextPlan));
   const defaultGymId = useRotationStore(state => state.defaultGymId);
   const [isEditing, setIsEditing] = useState(false);
-  const [editTemplateId, setEditTemplateId] = useState('');
+  const [editPlanId, setEditPlanId] = useState('');
   const [editGymId, setEditGymId] = useState('');
 
-  // Filter to only active (non-archived) templates
-  const activeTemplates = templates.filter(t => !t.is_archived);
+  // Filter to only active (non-archived) plans
+  const activePlans = plans.filter(t => !t.is_archived);
 
   // Case 1: No rotation configured
-  if (!nextTemplate) {
+  if (!nextPlan) {
     return (
       <div className="bg-bg-secondary border border-border-primary rounded-2xl p-6">
         <p className="text-sm text-text-muted">
@@ -45,29 +45,29 @@ export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps
   }
 
   // Case 3: Rotation and default gym both configured
-  const template = templates.find(t => t.template_id === nextTemplate.templateId);
+  const plan = plans.find(t => t.template_id === nextPlan.templateId);
   const gym = gyms.find(g => g.gym_id === defaultGymId);
 
-  if (!template || !gym) {
+  if (!plan || !gym) {
     return (
       <div className="bg-bg-secondary border border-border-primary rounded-2xl p-6">
         <p className="text-sm text-text-muted">
-          Rotation configured but template or gym not found.
+          Rotation configured but plan or gym not found.
         </p>
       </div>
     );
   }
 
   // Determine effective IDs (edit overrides or rotation defaults)
-  const effectiveTemplateId = editTemplateId || nextTemplate.templateId;
+  const effectivePlanId = editPlanId || nextPlan.templateId;
   const effectiveGymId = editGymId || defaultGymId;
-  const effectiveTemplate = templates.find(t => t.template_id === effectiveTemplateId) || template;
+  const effectivePlan = plans.find(t => t.template_id === effectivePlanId) || plan;
   const effectiveGym = gyms.find(g => g.gym_id === effectiveGymId) || gym;
 
   const handleToggleEdit = () => {
     if (!isEditing) {
       // Entering edit mode — pre-fill with current values
-      setEditTemplateId(nextTemplate.templateId);
+      setEditPlanId(nextPlan.templateId);
       setEditGymId(defaultGymId);
     }
     setIsEditing(!isEditing);
@@ -95,12 +95,12 @@ export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps
       </button>
 
       <div data-testid="rotation-info" className="text-sm text-text-secondary">
-        Workout {nextTemplate.position + 1} of {nextTemplate.total} in {nextTemplate.rotationName}
+        Workout {nextPlan.position + 1} of {nextPlan.total} in {nextPlan.rotationName}
       </div>
-      <div className="text-2xl font-bold">{effectiveTemplate.name}</div>
+      <div className="text-2xl font-bold">{effectivePlan.name}</div>
       <div className="text-text-secondary">at {effectiveGym.name}</div>
 
-      {/* Edit mode: gym and template selectors */}
+      {/* Edit mode: gym and plan selectors */}
       {isEditing && (
         <div className="space-y-3 pt-1">
           <Select
@@ -115,11 +115,11 @@ export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps
             ))}
           </Select>
           <Select
-            value={editTemplateId}
-            onChange={e => setEditTemplateId(e.target.value)}
-            aria-label="Select template"
+            value={editPlanId}
+            onChange={e => setEditPlanId(e.target.value)}
+            aria-label="Select plan"
           >
-            {activeTemplates.map(t => (
+            {activePlans.map(t => (
               <option key={t.template_id} value={t.template_id}>
                 {t.name} ({t.exercises.length} exercises)
               </option>
@@ -133,7 +133,7 @@ export function QuickStartCard({ templates, gyms, onStart }: QuickStartCardProps
         variant="primary"
         size="lg"
         className="w-full"
-        onClick={() => onStart(effectiveTemplateId, effectiveGymId)}
+        onClick={() => onStart(effectivePlanId, effectiveGymId)}
       >
         Start Workout
       </Button>

@@ -3,12 +3,12 @@ import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion';
 import { useDuckDB } from './hooks/useDuckDB';
 import { useExercises } from './hooks/useExercises';
 import { useGyms } from './hooks/useGyms';
-import { useTemplates } from './hooks/useTemplates';
+import { usePlans } from './hooks/usePlans';
 import { useWorkoutStore, selectIsWorkoutActive } from './stores/useWorkoutStore';
 import { useBackupStore, selectShouldShowReminder } from './stores/useBackupStore';
 import { ExerciseList } from './components/ExerciseList';
 import { GymList } from './components/GymList';
-import { TemplateList } from './components/templates/TemplateList';
+import { PlanList } from './components/plans/PlanList';
 import { StartWorkout } from './components/workout/StartWorkout';
 import { ActiveWorkout } from './components/workout/ActiveWorkout';
 import { BackupReminder } from './components/backup/BackupReminder';
@@ -43,20 +43,20 @@ function AppContent({ status, eventCount, refreshEventCount }: {
     deleteGym,
   } = useGyms();
 
-  const { templates, isLoading: templatesLoading, refresh: refreshTemplates } = useTemplates();
+  const { plans, isLoading: plansLoading, refresh: refreshPlans } = usePlans();
 
   const isWorkoutActive = useWorkoutStore(selectIsWorkoutActive);
   const session = useWorkoutStore(state => state.session);
   const cancelWorkout = useWorkoutStore(state => state.cancelWorkout);
   const shouldShowReminder = useBackupStore(selectShouldShowReminder);
 
-  // Refresh templates when switching to workouts tab (templates may have been
-  // created/modified on the templates tab which uses its own hook instance)
+  // Refresh plans when switching to workouts tab (plans may have been
+  // created/modified on the plans tab which uses its own hook instance)
   useEffect(() => {
     if (activeTab === 'workouts') {
-      refreshTemplates();
+      refreshPlans();
     }
-  }, [activeTab, refreshTemplates]);
+  }, [activeTab, refreshPlans]);
 
   const handleCreateExercise = async (data: Parameters<typeof createExercise>[0]) => {
     await createExercise(data);
@@ -92,20 +92,20 @@ function AppContent({ status, eventCount, refreshEventCount }: {
   const renderWorkoutsContent = () => {
     // If workout is active, show active workout view
     if (isWorkoutActive && session) {
-      // Wait for templates to load before deciding if template is missing
-      if (templatesLoading) {
+      // Wait for plans to load before deciding if plan is missing
+      if (plansLoading) {
         return (
           <div className="text-center py-12 text-text-muted">Loading workout...</div>
         );
       }
 
-      const currentTemplate = templates.find(t => t.template_id === session.template_id);
+      const currentPlan = plans.find(t => t.template_id === session.template_id);
 
-      if (!currentTemplate) {
-        // Template data lost (e.g. in-memory DB after reload) or deleted
+      if (!currentPlan) {
+        // Plan data lost (e.g. in-memory DB after reload) or deleted
         return (
           <div className="text-center py-12 space-y-4">
-            <p className="text-error">Template not found. Session data may have been lost.</p>
+            <p className="text-error">Plan not found. Session data may have been lost.</p>
             <button
               onClick={() => cancelWorkout()}
               className="px-6 py-3 bg-bg-tertiary hover:bg-bg-elevated rounded-2xl transition-colors"
@@ -118,7 +118,7 @@ function AppContent({ status, eventCount, refreshEventCount }: {
 
       return (
         <ActiveWorkout
-          template={currentTemplate}
+          plan={currentPlan}
           exercises={exercises}
           onFinish={() => {
             refreshEventCount();
@@ -135,7 +135,7 @@ function AppContent({ status, eventCount, refreshEventCount }: {
       <div className="space-y-8">
         {/* Start Workout section */}
         <StartWorkout
-          templates={templates}
+          plans={plans}
           gyms={gyms}
           onStarted={() => {
             // Session is already set by startWorkout action
@@ -235,8 +235,8 @@ function AppContent({ status, eventCount, refreshEventCount }: {
                   {renderWorkoutsContent()}
                 </FeatureErrorBoundary>
               ) : (
-                <FeatureErrorBoundary feature="Templates">
-                  <TemplateList />
+                <FeatureErrorBoundary feature="Plans">
+                  <PlanList />
                 </FeatureErrorBoundary>
               )}
             </m.div>

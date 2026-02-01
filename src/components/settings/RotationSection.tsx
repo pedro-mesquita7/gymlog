@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useRotationStore } from '../../stores/useRotationStore';
-import { useTemplates } from '../../hooks/useTemplates';
+import { usePlans } from '../../hooks/usePlans';
 import { useGyms } from '../../hooks/useGyms';
 import { RotationEditor } from '../rotation/RotationEditor';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 
 export function RotationSection() {
-  const { activeTemplates } = useTemplates();
+  const { activePlans } = usePlans();
   const { gyms } = useGyms();
 
   const rotations = useRotationStore((state) => state.rotations);
@@ -21,41 +21,41 @@ export function RotationSection() {
   const resetPosition = useRotationStore((state) => state.resetPosition);
 
   const [newRotationName, setNewRotationName] = useState('');
-  const [selectedTemplateIds, setSelectedTemplateIds] = useState<string[]>([]);
+  const [selectedPlanIds, setSelectedPlanIds] = useState<string[]>([]);
   const [editingRotationId, setEditingRotationId] = useState<string | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   const handleCreateRotation = () => {
-    if (!newRotationName.trim() || selectedTemplateIds.length === 0) return;
+    if (!newRotationName.trim() || selectedPlanIds.length === 0) return;
 
-    createRotation(newRotationName.trim(), selectedTemplateIds);
+    createRotation(newRotationName.trim(), selectedPlanIds);
     setNewRotationName('');
-    setSelectedTemplateIds([]);
+    setSelectedPlanIds([]);
   };
 
-  const handleToggleTemplateSelection = (templateId: string) => {
-    setSelectedTemplateIds((prev) =>
-      prev.includes(templateId)
-        ? prev.filter((id) => id !== templateId)
-        : [...prev, templateId]
+  const handleTogglePlanSelection = (planId: string) => {
+    setSelectedPlanIds((prev) =>
+      prev.includes(planId)
+        ? prev.filter((id) => id !== planId)
+        : [...prev, planId]
     );
   };
 
-  const handleReorder = (rotationId: string, newTemplateIds: string[]) => {
-    updateRotation(rotationId, { template_ids: newTemplateIds });
+  const handleReorder = (rotationId: string, newPlanIds: string[]) => {
+    updateRotation(rotationId, { template_ids: newPlanIds });
   };
 
-  const handleRemoveTemplate = (rotationId: string, templateId: string) => {
+  const handleRemovePlan = (rotationId: string, planId: string) => {
     const rotation = rotations.find((r) => r.rotation_id === rotationId);
     if (!rotation) return;
 
-    const newTemplateIds = rotation.template_ids.filter((id) => id !== templateId);
-    if (newTemplateIds.length === 0) {
-      // If no templates left, delete the rotation
+    const newPlanIds = rotation.template_ids.filter((id) => id !== planId);
+    if (newPlanIds.length === 0) {
+      // If no plans left, delete the rotation
       deleteRotation(rotationId);
       setEditingRotationId(null);
     } else {
-      updateRotation(rotationId, { template_ids: newTemplateIds });
+      updateRotation(rotationId, { template_ids: newPlanIds });
     }
   };
 
@@ -80,26 +80,26 @@ export function RotationSection() {
             onChange={(e) => setNewRotationName(e.target.value)}
           />
 
-          {/* Template Selection */}
+          {/* Plan Selection */}
           <div>
             <label className="text-xs text-text-secondary mb-2 block">
-              Select Templates (in order)
+              Select Plans (in order)
             </label>
             <div className="space-y-1.5 max-h-48 overflow-y-auto">
-              {activeTemplates.map((template) => (
+              {activePlans.map((plan) => (
                 <label
-                  key={template.template_id}
+                  key={plan.template_id}
                   className="flex items-center gap-2 p-2 rounded hover:bg-bg-tertiary cursor-pointer"
                 >
                   <input
                     type="checkbox"
-                    checked={selectedTemplateIds.includes(template.template_id)}
-                    onChange={() => handleToggleTemplateSelection(template.template_id)}
+                    checked={selectedPlanIds.includes(plan.template_id)}
+                    onChange={() => handleTogglePlanSelection(plan.template_id)}
                     className="w-4 h-4"
                   />
-                  <span className="text-sm text-text-primary">{template.name}</span>
+                  <span className="text-sm text-text-primary">{plan.name}</span>
                   <span className="text-xs text-text-secondary ml-auto">
-                    {template.exercises.length} exercises
+                    {plan.exercises.length} exercises
                   </span>
                 </label>
               ))}
@@ -108,7 +108,7 @@ export function RotationSection() {
 
           <Button
             onClick={handleCreateRotation}
-            disabled={!newRotationName.trim() || selectedTemplateIds.length === 0}
+            disabled={!newRotationName.trim() || selectedPlanIds.length === 0}
             size="md"
             variant="primary"
           >
@@ -153,7 +153,7 @@ export function RotationSection() {
                   <div className="flex-1">
                     <h4 className="font-medium text-text-primary">{rotation.name}</h4>
                     <p className="text-xs text-text-secondary mt-1">
-                      {rotation.template_ids.length} templates · Position {rotation.current_position + 1}/{rotation.template_ids.length}
+                      {rotation.template_ids.length} plans · Position {rotation.current_position + 1}/{rotation.template_ids.length}
                     </p>
                   </div>
 
@@ -212,9 +212,9 @@ export function RotationSection() {
                   <div className="pt-2">
                     <RotationEditor
                       templateIds={rotation.template_ids}
-                      templates={activeTemplates}
+                      plans={activePlans}
                       onReorder={(newIds) => handleReorder(rotation.rotation_id, newIds)}
-                      onRemove={(templateId) => handleRemoveTemplate(rotation.rotation_id, templateId)}
+                      onRemove={(planId) => handleRemovePlan(rotation.rotation_id, planId)}
                     />
                   </div>
                 )}

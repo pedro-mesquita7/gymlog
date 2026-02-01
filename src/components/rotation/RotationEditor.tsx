@@ -15,22 +15,22 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import type { Template } from '../../types/template';
+import type { Plan } from '../../types/plan';
 
 interface RotationEditorProps {
   templateIds: string[];
-  templates: Template[];
+  plans: Plan[];
   onReorder: (ids: string[]) => void;
   onRemove: (id: string) => void;
 }
 
 interface SortableItemProps {
   id: string;
-  templateName: string;
+  planName: string;
   onRemove: () => void;
 }
 
-function SortableItem({ id, templateName, onRemove }: SortableItemProps) {
+function SortableItem({ id, planName, onRemove }: SortableItemProps) {
   const {
     attributes,
     listeners,
@@ -58,11 +58,11 @@ function SortableItem({ id, templateName, onRemove }: SortableItemProps) {
       >
         ⠿
       </button>
-      <span className="flex-1 text-text-primary">{templateName}</span>
+      <span className="flex-1 text-text-primary">{planName}</span>
       <button
         onClick={onRemove}
         className="text-text-secondary hover:text-error transition-colors"
-        aria-label="Remove template"
+        aria-label="Remove plan"
       >
         ✕
       </button>
@@ -70,7 +70,7 @@ function SortableItem({ id, templateName, onRemove }: SortableItemProps) {
   );
 }
 
-export function RotationEditor({ templateIds, templates, onReorder, onRemove }: RotationEditorProps) {
+export function RotationEditor({ templateIds, plans, onReorder, onRemove }: RotationEditorProps) {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -90,8 +90,8 @@ export function RotationEditor({ templateIds, templates, onReorder, onRemove }: 
     }
   };
 
-  // Create a lookup map for quick template name resolution
-  const templateMap = new Map(templates.map(t => [t.template_id, t.name]));
+  // Create a lookup map for quick plan name resolution
+  const planMap = new Map(plans.map(t => [t.template_id, t.name]));
 
   return (
     <DndContext
@@ -108,7 +108,7 @@ export function RotationEditor({ templateIds, templates, onReorder, onRemove }: 
             <SortableItem
               key={templateId}
               id={templateId}
-              templateName={templateMap.get(templateId) || 'Unknown Template'}
+              planName={planMap.get(templateId) || 'Unknown Plan'}
               onRemove={() => onRemove(templateId)}
             />
           ))}

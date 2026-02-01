@@ -96,7 +96,7 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
         <div className="bg-error/10 border border-error/30 rounded-2xl p-4">
           <h3 className="font-medium text-error mb-1">Clear Historical Data</h3>
           <p className="text-sm text-error/80 mb-3">
-            Remove all workout logs, plans, and templates. Exercises and gyms will be kept.
+            Remove all workout logs and plans. Exercises and gyms will be kept.
           </p>
           <button
             data-testid="btn-clear-data"
