@@ -99,7 +99,7 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 18. Theme Redesign | v1.4 | 6/6 | Complete | 2026-02-01 |
-| 19. Plans Rename | v1.4 | 0/TBD | Not started | - |
+| 19. Plans Rename | v1.4 | 0/3 | Planned | - |
 | 20. UX Restructure | v1.4 | 0/TBD | Not started | - |
 | 21. Comparison Analytics | v1.4 | 0/TBD | Not started | - |
 
