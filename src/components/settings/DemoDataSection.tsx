@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { loadDemoData } from '../../db/demo-data';
-import { clearAllData } from '../../utils/clearAllData';
+import { clearHistoricalData } from '../../utils/clearAllData';
 import { getDuckDB, checkpoint } from '../../db/duckdb-init';
+import { Dialog } from '../ui/Dialog';
 
 interface DemoDataSectionProps {
   eventCount: number;
@@ -9,16 +10,11 @@ interface DemoDataSectionProps {
 
 export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
   const [isLoadingDemo, setIsLoadingDemo] = useState(false);
+  const [showImportDialog, setShowImportDialog] = useState(false);
+  const [showClearDialog, setShowClearDialog] = useState(false);
 
-  const handleLoadDemoData = async () => {
-    // Warn if there's existing data
-    if (eventCount > 0) {
-      const confirmed = window.confirm(
-        'This will replace all existing data. Continue?'
-      );
-      if (!confirmed) return;
-    }
-
+  const executeImportDemoData = async () => {
+    setShowImportDialog(false);
     setIsLoadingDemo(true);
 
     try {
@@ -40,6 +36,7 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
         'gymlog-backup',
         'gymlog-progression-alerts',
         'gymlog-volume-thresholds',
+        'gymlog-analytics-timerange',
       ];
 
       for (const key of keysToRemove) {
@@ -61,13 +58,17 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
     }
   };
 
-  const handleClearAllData = async () => {
-    const confirmed = window.confirm(
-      'Are you sure? This cannot be undone.'
-    );
-    if (!confirmed) return;
+  const handleLoadDemoData = () => {
+    if (eventCount > 0) {
+      setShowImportDialog(true);
+    } else {
+      executeImportDemoData();
+    }
+  };
 
-    await clearAllData();
+  const handleClearHistoricalData = async () => {
+    setShowClearDialog(false);
+    await clearHistoricalData();
   };
 
   return (
@@ -85,27 +86,73 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
             data-testid="btn-load-demo"
             onClick={handleLoadDemoData}
             disabled={isLoadingDemo}
-            className="w-full py-3 px-4 bg-accent hover:bg-accent/90 disabled:bg-bg-tertiary rounded-lg font-medium transition-colors"
+            className="w-full py-3 px-4 bg-gradient-to-r from-[oklch(0.65_0.18_60)] to-[oklch(0.60_0.15_35)] hover:opacity-90 disabled:bg-bg-tertiary disabled:bg-none text-white rounded-lg font-medium transition-all"
           >
-            {isLoadingDemo ? 'Loading demo data...' : 'Load Demo Data'}
+            {isLoadingDemo ? 'Loading demo data...' : 'Import Demo Data'}
           </button>
         </div>
 
-        {/* Clear All Data */}
+        {/* Clear Historical Data */}
         <div className="bg-error/10 border border-error/30 rounded-lg p-4">
-          <h3 className="font-medium text-error mb-1">Clear All Data</h3>
+          <h3 className="font-medium text-error mb-1">Clear Historical Data</h3>
           <p className="text-sm text-error/80 mb-3">
-            Remove all workouts, exercises, gyms, and settings
+            Remove all workout logs, plans, and templates. Exercises and gyms will be kept.
           </p>
           <button
             data-testid="btn-clear-data"
-            onClick={handleClearAllData}
+            onClick={() => setShowClearDialog(true)}
             className="w-full py-3 px-4 bg-error/20 hover:bg-error/30 text-error border border-error/30 rounded-lg font-medium transition-colors"
           >
-            Clear All Data
+            Clear Historical Data
           </button>
         </div>
       </div>
+
+      {/* Import confirmation dialog */}
+      <Dialog
+        isOpen={showImportDialog}
+        onClose={() => setShowImportDialog(false)}
+        title="Replace All Data?"
+      >
+        <p>This will replace all your data with demo data. This cannot be undone.</p>
+        <div className="flex gap-2 mt-4">
+          <button
+            onClick={() => setShowImportDialog(false)}
+            className="flex-1 py-2.5 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 text-text-primary rounded-lg font-medium transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={executeImportDemoData}
+            className="flex-1 py-2.5 px-4 bg-gradient-to-r from-[oklch(0.65_0.18_60)] to-[oklch(0.60_0.15_35)] hover:opacity-90 text-white rounded-lg font-medium transition-all"
+          >
+            Confirm
+          </button>
+        </div>
+      </Dialog>
+
+      {/* Clear confirmation dialog */}
+      <Dialog
+        isOpen={showClearDialog}
+        onClose={() => setShowClearDialog(false)}
+        title="Clear Historical Data?"
+      >
+        <p>This will delete all workout data. Exercises and gyms will be kept. Cannot be undone.</p>
+        <div className="flex gap-2 mt-4">
+          <button
+            onClick={() => setShowClearDialog(false)}
+            className="flex-1 py-2.5 px-4 bg-bg-tertiary hover:bg-bg-tertiary/80 text-text-primary rounded-lg font-medium transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleClearHistoricalData}
+            className="flex-1 py-2.5 px-4 bg-error hover:bg-error/90 text-white rounded-lg font-medium transition-colors"
+          >
+            Clear Data
+          </button>
+        </div>
+      </Dialog>
     </section>
   );
 }
