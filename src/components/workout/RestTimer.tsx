@@ -76,11 +76,11 @@ export function RestTimer({ restSeconds, autoStartTrigger, onComplete }: RestTim
   // Timer complete - show message briefly
   if (showCompleteMessage) {
     return (
-      <div className="sticky top-0 z-10 bg-green-600 text-white px-4 py-3 rounded-b-lg flex items-center justify-between">
+      <div className="sticky top-0 z-10 bg-success text-text-primary px-4 py-3 rounded-b-lg flex items-center justify-between">
         <span className="font-bold">Rest Complete!</span>
         <button
           onClick={handleSkip}
-          className="text-white/80 hover:text-white text-sm"
+          className="text-text-primary/80 hover:text-text-primary text-sm"
         >
           Dismiss
         </button>

@@ -53,16 +53,16 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
 
       <div className="text-center py-8">
         <h2 className="text-2xl font-bold mb-2">Start Workout</h2>
-        <p className="text-zinc-500">Select gym and template to begin</p>
+        <p className="text-text-muted">Select gym and template to begin</p>
       </div>
 
       {/* Gym selection */}
       <div>
-        <label htmlFor="gym-select" className="block text-sm font-medium text-zinc-400 mb-2">
+        <label htmlFor="gym-select" className="block text-sm font-medium text-text-secondary mb-2">
           Where are you training?
         </label>
         {gyms.length === 0 ? (
-          <p className="text-zinc-500 text-sm">
+          <p className="text-text-muted text-sm">
             No gyms yet. Add a gym below.
           </p>
         ) : (
@@ -84,11 +84,11 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
 
       {/* Template selection */}
       <div>
-        <label htmlFor="template-select" className="block text-sm font-medium text-zinc-400 mb-2">
+        <label htmlFor="template-select" className="block text-sm font-medium text-text-secondary mb-2">
           What workout?
         </label>
         {activeTemplates.length === 0 ? (
-          <p className="text-zinc-500 text-sm">
+          <p className="text-text-muted text-sm">
             No templates yet. Create one in the Templates tab.
           </p>
         ) : (

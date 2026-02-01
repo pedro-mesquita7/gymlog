@@ -46,27 +46,27 @@ export function ProgressionAlert({
   const statusConfig = {
     progressing: {
       icon: '↗',
-      bgColor: 'bg-green-900/30',
-      borderColor: 'border-green-700/50',
-      textColor: 'text-green-200',
+      bgColor: 'bg-success/10',
+      borderColor: 'border-success/30',
+      textColor: 'text-success',
       title: 'Progressing',
       message: 'Keep up the great work! You hit a PR recently.',
       dismissible: false,
     },
     plateau: {
       icon: '→',
-      bgColor: 'bg-yellow-900/30',
-      borderColor: 'border-yellow-700/50',
-      textColor: 'text-yellow-200',
+      bgColor: 'bg-warning/10',
+      borderColor: 'border-warning/30',
+      textColor: 'text-warning',
       title: 'Plateau Detected',
       message: 'No PR in 4+ weeks. Try varying rep ranges or increasing weight by 2.5kg.',
       dismissible: true,
     },
     regressing: {
       icon: '↘',
-      bgColor: 'bg-red-900/30',
-      borderColor: 'border-red-700/50',
-      textColor: 'text-red-200',
+      bgColor: 'bg-error/10',
+      borderColor: 'border-error/30',
+      textColor: 'text-error',
       title: 'Regression Alert',
       message: `Weight or volume down ${
         data.weightDropPct

@@ -61,7 +61,7 @@ function SortableItem({ id, templateName, onRemove }: SortableItemProps) {
       <span className="flex-1 text-text-primary">{templateName}</span>
       <button
         onClick={onRemove}
-        className="text-text-secondary hover:text-red-400 transition-colors"
+        className="text-text-secondary hover:text-error transition-colors"
         aria-label="Remove template"
       >
         ✕

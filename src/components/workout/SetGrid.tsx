@@ -97,7 +97,7 @@ export function SetGrid({
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <div data-testid="loading-ghost-data" className="text-zinc-400 text-sm">Loading last session...</div>
+        <div data-testid="loading-ghost-data" className="text-text-secondary text-sm">Loading last session...</div>
       </div>
     );
   }
@@ -108,7 +108,7 @@ export function SetGrid({
   return (
     <div className="space-y-4">
       {showFirstTimeHint && (
-        <div data-testid="first-time-hint" className="text-zinc-500 text-sm italic text-center py-2">
+        <div data-testid="first-time-hint" className="text-text-muted text-sm italic text-center py-2">
           First time - no previous data
         </div>
       )}
