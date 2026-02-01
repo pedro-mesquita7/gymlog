@@ -153,7 +153,11 @@ Plans:
   3. Both import and clear actions require explicit confirmation dialog before executing
   4. User can copy last workout as TOON text to clipboard or download as .toon file
   5. User can export current rotation cycle or a configurable time range as TOON with context headers (exercise definitions, date range, muscle groups)
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 16-01-PLAN.md -- Demo data UX: Dialog confirmations, gradient styling, selective clear
+- [ ] 16-02-PLAN.md -- TOON export service: DuckDB queries + TOON encoding for 3 scopes
+- [ ] 16-03-PLAN.md -- TOON export UI: scope picker, clipboard copy, file download
 
 #### Phase 17: PWA, Performance, README & Final Polish
 **Goal**: App is deploy-ready with verified offline support, documented performance budgets, a portfolio-grade README, and no rough edges remaining
@@ -185,9 +189,9 @@ Plans:
 | 13. E2E Test Suite | v1.3 | 7/7 | Complete | 2026-01-31 |
 | 14. Workouts UX & Color Scheme | v1.3 | 5/5 | Complete | 2026-02-01 |
 | 15. Analytics Redesign | v1.3 | 5/5 | Complete | 2026-02-01 |
-| 16. Demo Data UX & TOON Export | v1.3 | 0/TBD | Not started | - |
+| 16. Demo Data UX & TOON Export | v1.3 | 0/3 | Not started | - |
 | 17. PWA, Performance, README & Final Polish | v1.3 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-02-01 -- Phase 15 complete (5/5 plans, 4/4 criteria verified)*
+*Last updated: 2026-02-01 -- Phase 16 planned (3 plans in 2 waves)*
