@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-01)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
-**Current focus:** Phase 20 complete -- UX Restructure done
+**Current focus:** Phase 21 in progress -- Comparison Analytics data layer complete
 
 ## Current Position
 
-Phase: 20 of 21 (UX Restructure)
-Plan: 3 of 3
-Status: Phase complete
-Last activity: 2026-02-01 -- Phase 20 verified and complete
+Phase: 21 of 21 (Comparison Analytics)
+Plan: 1 of 2
+Status: In progress
+Last activity: 2026-02-01 -- Completed 21-01-PLAN.md
 
-Progress: [█████████████░░░░░░░] 50% (12/24 plans)
+Progress: [█████████████░░░░░░░] 54% (13/24 plans)
 
 ## Milestones
 
@@ -40,7 +40,7 @@ Progress: [█████████████░░░░░░░] 50% (12
 | 18. Theme Redesign | 6/6 | ~51 min | ~9 min |
 | 19. Plans Rename | 3/3 | ~24 min | ~8 min |
 | 20. UX Restructure | 3/3 | ~18 min | ~6 min |
-| 21. Comparison Analytics | 0/TBD | -- | -- |
+| 21. Comparison Analytics | 1/2 | ~2 min | ~2 min |
 
 ## Accumulated Context
 
@@ -63,6 +63,9 @@ Progress: [█████████████░░░░░░░] 50% (12
 - prefers-reduced-motion evaluated once at module scope (not per-render)
 - E2E defensive expansion pattern: check aria-expanded="false" count before clicking to avoid toggling open sections
 - E2E section-specific locators replace brittle nth() selectors
+- Comparison progression status merged from prop data, not re-queried (avoids duplicate 9-week SQL)
+- UUID validation via regex before SQL interpolation in comparisonStatsSQL
+- exerciseIds.join(',') as useCallback dependency key for stable reference
 
 ### Pending Todos
 
@@ -76,7 +79,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Phase 20 complete (UX Restructure verified)
+Stopped at: Completed 21-01-PLAN.md (Comparison data layer)
 Resume file: None
 
-**Next action:** Begin Phase 21 (Comparison Analytics)
+**Next action:** Execute 21-02-PLAN.md (Comparison UI components)
