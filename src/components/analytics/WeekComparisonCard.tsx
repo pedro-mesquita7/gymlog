@@ -22,7 +22,7 @@ export function WeekComparisonCard({ data }: WeekComparisonCardProps) {
   };
 
   return (
-    <div className="bg-bg-tertiary/50 rounded-lg p-4 space-y-3">
+    <div className="bg-bg-tertiary/50 rounded-2xl p-4 space-y-3">
       <div className="flex items-center justify-between">
         <h4 className="font-medium text-text-primary">{data.exerciseName}</h4>
         <span className="text-xs text-text-muted">{data.muscleGroup}</span>

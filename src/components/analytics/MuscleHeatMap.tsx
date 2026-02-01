@@ -70,14 +70,14 @@ export function MuscleHeatMap({ data, getThresholds }: MuscleHeatMapProps) {
         {/* Front view */}
         <div className="flex flex-col items-center">
           <h3 className="text-sm font-medium text-text-secondary mb-2">Front</h3>
-          <div className="bg-bg-secondary rounded-lg p-4">
+          <div className="bg-bg-secondary rounded-2xl p-4">
             <Body
               data={bodyData}
               side="front"
               gender="male"
               scale={1.2}
               border="none"
-              defaultFill="#3f3f3f"
+              defaultFill="oklch(0.25 0.012 60)"
             />
           </div>
         </div>
@@ -85,21 +85,21 @@ export function MuscleHeatMap({ data, getThresholds }: MuscleHeatMapProps) {
         {/* Back view */}
         <div className="flex flex-col items-center">
           <h3 className="text-sm font-medium text-text-secondary mb-2">Back</h3>
-          <div className="bg-bg-secondary rounded-lg p-4">
+          <div className="bg-bg-secondary rounded-2xl p-4">
             <Body
               data={bodyData}
               side="back"
               gender="male"
               scale={1.2}
               border="none"
-              defaultFill="#3f3f3f"
+              defaultFill="oklch(0.25 0.012 60)"
             />
           </div>
         </div>
       </div>
 
       {/* Legend with muscle group totals */}
-      <div className="bg-bg-secondary rounded-lg p-4">
+      <div className="bg-bg-secondary rounded-2xl p-4">
         <h3 className="text-sm font-medium text-text-primary mb-3">Training Volume</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {data.map((muscleData) => {
