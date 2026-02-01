@@ -696,6 +696,92 @@ export function summaryStatsSQL(days: number | null): string {
   `;
 }
 
+// Comparison stats — multi-exercise combined query (Phase 21)
+export function comparisonStatsSQL(exerciseIds: string[], days: number | null): string {
+  const uuidPattern = /^[0-9a-f-]+$/i;
+  for (const id of exerciseIds) {
+    if (!uuidPattern.test(id)) {
+      throw new Error(`Invalid exercise ID: ${id}`);
+    }
+  }
+
+  const idList = exerciseIds.map(id => `'${id}'`).join(', ');
+  const timeFilter = days !== null
+    ? `CAST(fs.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '${days} days'`
+    : `1=1`;
+
+  return `
+WITH fact_sets AS (
+    ${FACT_SETS_SQL}
+),
+
+exercise_dim_all AS (
+    ${DIM_EXERCISE_ALL_SQL}
+),
+
+workout_events AS (
+    SELECT
+        payload->>'workout_id' AS workout_id,
+        COALESCE(payload->>'logged_at', CAST(_created_at AS VARCHAR)) AS logged_at
+    FROM events
+    WHERE event_type = 'workout_started'
+),
+
+pr_stats AS (
+    SELECT
+        fs.original_exercise_id,
+        MAX(fs.weight_kg) AS max_weight,
+        MAX(fs.estimated_1rm) AS max_estimated_1rm
+    FROM fact_sets fs
+    WHERE fs.original_exercise_id IN (${idList})
+      AND ${timeFilter}
+    GROUP BY fs.original_exercise_id
+),
+
+volume_stats AS (
+    SELECT
+        fs.original_exercise_id,
+        SUM(fs.weight_kg * fs.reps) AS total_volume,
+        COUNT(*) AS total_sets
+    FROM fact_sets fs
+    WHERE fs.original_exercise_id IN (${idList})
+      AND ${timeFilter}
+    GROUP BY fs.original_exercise_id
+),
+
+frequency_stats AS (
+    SELECT
+        fs.original_exercise_id,
+        COUNT(DISTINCT fs.workout_id) AS session_count,
+        GREATEST(1, EXTRACT(EPOCH FROM (
+            MAX(CAST(w.logged_at AS TIMESTAMPTZ)) - MIN(CAST(w.logged_at AS TIMESTAMPTZ))
+        )) / 604800) AS weeks_span
+    FROM fact_sets fs
+    INNER JOIN workout_events w ON fs.workout_id = w.workout_id
+    WHERE fs.original_exercise_id IN (${idList})
+      AND ${timeFilter}
+    GROUP BY fs.original_exercise_id
+)
+
+SELECT
+    e.exercise_id,
+    e.name AS exercise_name,
+    e.muscle_group,
+    COALESCE(p.max_weight, 0) AS max_weight,
+    COALESCE(p.max_estimated_1rm, 0) AS max_estimated_1rm,
+    COALESCE(v.total_volume, 0) AS total_volume,
+    COALESCE(v.total_sets, 0) AS total_sets,
+    COALESCE(f.session_count, 0) AS session_count,
+    COALESCE(ROUND(f.session_count / f.weeks_span, 1), 0) AS sessions_per_week
+FROM exercise_dim_all e
+LEFT JOIN pr_stats p ON e.exercise_id = p.original_exercise_id
+LEFT JOIN volume_stats v ON e.exercise_id = v.original_exercise_id
+LEFT JOIN frequency_stats f ON e.exercise_id = f.original_exercise_id
+WHERE e.exercise_id IN (${idList})
+ORDER BY e.name
+`;
+}
+
 // DEPRECATED: Use function versions. These will be removed after Plan 02 migrates hooks.
 export const EXERCISE_HISTORY_SQL = exerciseHistorySQL(14);
 export const EXERCISE_PROGRESS_SQL = exerciseProgressSQL(28);

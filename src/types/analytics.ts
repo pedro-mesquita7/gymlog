@@ -200,3 +200,25 @@ export interface VolumeByMuscleGroupAvg {
   muscleGroup: string;
   avgWeeklySets: number;
 }
+
+// Phase 21: Exercise Comparison
+
+export interface ComparisonStats {
+  exerciseId: string;
+  exerciseName: string;
+  muscleGroup: string;
+  maxWeight: number;
+  maxEstimated1rm: number;
+  totalVolume: number;
+  totalSets: number;
+  sessionCount: number;
+  sessionsPerWeek: number;
+  progressionStatus: 'progressing' | 'plateau' | 'regressing' | 'unknown';
+}
+
+export interface UseComparisonStatsReturn {
+  data: ComparisonStats[];
+  isLoading: boolean;
+  error: string | null;
+  refresh: () => Promise<void>;
+}
