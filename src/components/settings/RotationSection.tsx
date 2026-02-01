@@ -1,23 +1,19 @@
 import { useState } from 'react';
 import { useRotationStore } from '../../stores/useRotationStore';
 import { usePlans } from '../../hooks/usePlans';
-import { useGyms } from '../../hooks/useGyms';
+
 import { RotationEditor } from '../rotation/RotationEditor';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 
 export function RotationSection() {
   const { activePlans } = usePlans();
-  const { gyms } = useGyms();
-
   const rotations = useRotationStore((state) => state.rotations);
   const activeRotationId = useRotationStore((state) => state.activeRotationId);
-  const defaultGymId = useRotationStore((state) => state.defaultGymId);
   const createRotation = useRotationStore((state) => state.createRotation);
   const updateRotation = useRotationStore((state) => state.updateRotation);
   const deleteRotation = useRotationStore((state) => state.deleteRotation);
   const setActiveRotation = useRotationStore((state) => state.setActiveRotation);
-  const setDefaultGym = useRotationStore((state) => state.setDefaultGym);
   const resetPosition = useRotationStore((state) => state.resetPosition);
 
   const [newRotationName, setNewRotationName] = useState('');
@@ -115,28 +111,6 @@ export function RotationSection() {
             Create Rotation
           </Button>
         </div>
-
-        {/* Default Gym Selection */}
-        {gyms.length > 0 && (
-          <div className="bg-bg-secondary rounded-2xl p-4">
-            <label htmlFor="default-gym" className="text-sm font-medium text-text-primary block mb-2">
-              Default Gym
-            </label>
-            <select
-              id="default-gym"
-              value={defaultGymId || ''}
-              onChange={(e) => setDefaultGym(e.target.value || null)}
-              className="w-full px-3 py-2 rounded-xl bg-bg-tertiary border border-border-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
-            >
-              <option value="">None</option>
-              {gyms.map((gym) => (
-                <option key={gym.gym_id} value={gym.gym_id}>
-                  {gym.name} {gym.location ? `(${gym.location})` : ''}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
 
         {/* Existing Rotations */}
         {rotations.length > 0 && (
