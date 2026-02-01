@@ -24,7 +24,7 @@ interface ToonExportData {
   workouts: Array<{
     date: string;
     gym: string;
-    template: string;
+    plan: string;
     sets: Array<{
       exercise: string;
       weight: number;
@@ -110,7 +110,7 @@ FROM all_gym_events
 WHERE rn = 1 AND event_type != 'gym_deleted'
 `;
 
-const TEMPLATES_SQL = `
+const PLANS_SQL = `
 WITH template_events AS (
     SELECT
         payload->>'template_id' AS template_id,
@@ -269,7 +269,7 @@ async function queryWorkoutData(
     })) as GymRow[];
 
     // 6. Query plan names
-    const plansResult = await conn.query(TEMPLATES_SQL);
+    const plansResult = await conn.query(PLANS_SQL);
     const plans = plansResult.toArray().map(row => ({
       template_id: row.template_id as string,
       name: row.name as string,
@@ -324,7 +324,7 @@ async function queryWorkoutData(
       return {
         date: w.started_at.split('T')[0] ?? w.started_at,
         gym: gymMap.get(w.gym_id)?.name ?? 'Unknown Gym',
-        template: planMap.get(w.template_id)?.name ?? 'Unknown Plan',
+        plan: planMap.get(w.template_id)?.name ?? 'Unknown Plan',
         sets: workoutSets.map(s => {
           setNumber += 1;
           const prType = derivePrType(s.is_weight_pr, s.is_1rm_pr);
@@ -413,7 +413,7 @@ export async function exportLastWorkoutToon(): Promise<string> {
 
 /**
  * Export rotation cycle data as a TOON-formatted string.
- * Finds the last N complete passes through the template list.
+ * Finds the last N complete passes through the plan list.
  * Returns empty string if no rotation data exists.
  */
 export async function exportRotationCycleToon(
@@ -429,7 +429,7 @@ export async function exportRotationCycleToon(
     .join(',');
 
   // We need a subquery approach: find the N most recent workouts
-  // matching any of the rotation template IDs, then filter the main
+  // matching any of the rotation plan IDs (stored as template_ids), then filter the main
   // queryWorkoutData to just those workout IDs.
   const db = getDuckDB();
   if (!db) return '';

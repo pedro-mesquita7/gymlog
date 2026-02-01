@@ -148,7 +148,7 @@ export function useWorkoutSummary(
           }
         }
 
-        // 6. Session comparison: find most recent completed workout with same template
+        // 6. Session comparison: find most recent completed workout with same plan
         //    Since this runs before the current workout is saved, the most recent
         //    completed workout IS the previous one we want to compare against.
         let comparisonData: SessionComparison | null = null;

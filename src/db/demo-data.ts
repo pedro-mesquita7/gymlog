@@ -94,7 +94,7 @@ export async function loadDemoData(): Promise<void> {
     const now = new Date();
     let currentTimestamp = subDays(now, 43); // Start 43 days ago
 
-    // === SETUP: Gyms, Exercises, Templates ===
+    // === SETUP: Gyms, Exercises, Plans ===
 
     // 1. Create gym
     const gymId = uuidv7();

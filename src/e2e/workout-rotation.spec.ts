@@ -32,7 +32,7 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
     await sharedContext?.close();
   });
 
-  test('set up rotation with two templates and Quick Start appears', async () => {
+  test('set up rotation with two plans and Quick Start appears', async () => {
     const page = sharedPage;
 
     // --- Navigate to Workouts tab (gym + exercise forms are here) ---
@@ -61,31 +61,31 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
     await page.click(SEL.btnAddExercise);
     await page.waitForSelector('text="Rotation Row"', { timeout: 5000 });
 
-    // --- Create Template 1: "Rotation Upper" with OHP ---
-    await page.click(SEL.navTemplates);
-    await page.click('button:has-text("+ New Template")');
-    await page.fill(SEL.templateNameInput, 'Rotation Upper');
+    // --- Create Plan 1: "Rotation Upper" with OHP ---
+    await page.click(SEL.navPlans);
+    await page.click('button:has-text("+ New Plan")');
+    await page.fill(SEL.planNameInput, 'Rotation Upper');
     await page.click('button:has-text("Add Exercises")');
     await page
       .locator('label')
       .filter({ hasText: 'Rotation OHP' })
       .locator('input[type="checkbox"]')
       .check();
-    await page.click(SEL.btnCreateTemplate);
+    await page.click(SEL.btnCreatePlan);
     await expect(page.locator('text=Rotation Upper')).toBeVisible({
       timeout: 5000,
     });
 
-    // --- Create Template 2: "Rotation Lower" with Row ---
-    await page.click('button:has-text("+ New Template")');
-    await page.fill(SEL.templateNameInput, 'Rotation Lower');
+    // --- Create Plan 2: "Rotation Lower" with Row ---
+    await page.click('button:has-text("+ New Plan")');
+    await page.fill(SEL.planNameInput, 'Rotation Lower');
     await page.click('button:has-text("Add Exercises")');
     await page
       .locator('label')
       .filter({ hasText: 'Rotation Row' })
       .locator('input[type="checkbox"]')
       .check();
-    await page.click(SEL.btnCreateTemplate);
+    await page.click(SEL.btnCreatePlan);
     await expect(page.locator('text=Rotation Lower')).toBeVisible({
       timeout: 5000,
     });
@@ -99,7 +99,7 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
       'Test PPL',
     );
 
-    // Check both template checkboxes in the rotation section
+    // Check both plan checkboxes in the rotation section
     const rotationSection = page
       .locator('section')
       .filter({ hasText: 'Workout Rotations' });
@@ -137,7 +137,7 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
     );
   });
 
-  test('Quick Start workout and rotation advances to next template', async () => {
+  test('Quick Start workout and rotation advances to next plan', async () => {
     const page = sharedPage;
 
     // Should already be on Workouts tab with Quick Start visible
@@ -186,7 +186,7 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
     );
   });
 
-  test('rotation wraps around after completing all templates', async () => {
+  test('rotation wraps around after completing all plans', async () => {
     const page = sharedPage;
 
     // Should see Quick Start with Rotation Lower

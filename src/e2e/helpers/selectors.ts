@@ -1,12 +1,12 @@
 export const SEL = {
   // Navigation
   navWorkouts: '[data-testid="nav-workouts"]',
-  navTemplates: '[data-testid="nav-templates"]',
+  navPlans: '[data-testid="nav-plans"]',
   navAnalytics: '[data-testid="nav-analytics"]',
   navSettings: '[data-testid="nav-settings"]',
   // Workout
   gymSelect: '[data-testid="gym-select"]',
-  templateSelect: '[data-testid="template-select"]',
+  planSelect: '[data-testid="plan-select"]',
   btnStartWorkout: '[data-testid="btn-start-workout"]',
   btnFinishWorkout: '[data-testid="btn-finish-workout"]',
   btnSaveWorkout: '[data-testid="btn-save-workout"]',
@@ -32,11 +32,11 @@ export const SEL = {
   fileInputParquet: '[data-testid="file-input-parquet"]',
   eventCount: '[data-testid="event-count"]',
   importResult: '[data-testid="import-result"]',
-  // Templates
-  templateNameInput: '[data-testid="template-name-input"]',
-  btnCreateTemplate: '[data-testid="btn-create-template"]',
-  btnTemplateMenu: '[data-testid="btn-template-menu"]',
-  btnTemplateDelete: '[data-testid="btn-template-delete"]',
+  // Plans
+  planNameInput: '[data-testid="plan-name-input"]',
+  btnCreatePlan: '[data-testid="btn-create-plan"]',
+  btnPlanMenu: '[data-testid="btn-plan-menu"]',
+  btnPlanDelete: '[data-testid="btn-plan-delete"]',
   // Exercises
   exerciseNameInput: '[data-testid="exercise-name-input"]',
   exerciseMuscleSelect: '[data-testid="exercise-muscle-select"]',

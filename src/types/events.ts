@@ -89,7 +89,7 @@ export interface SetLoggedEvent extends BaseEvent {
   workout_id: string;
   set_id: string;
   exercise_id: string;           // Actual exercise used (may be substitution)
-  original_exercise_id: string;  // Template's exercise
+  original_exercise_id: string;  // Plan's exercise
   weight_kg: number;
   reps: number;
   rir: number | null;

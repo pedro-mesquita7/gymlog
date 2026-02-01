@@ -21,7 +21,7 @@ async function selectByLabelSubstring(
 }
 
 test.describe('Plan CRUD with exercise history preservation', () => {
-  test('creates gym + exercise + template, logs workout, deletes template, verifies history persists', async ({ appPage: page }) => {
+  test('creates gym + exercise + plan, logs workout, deletes plan, verifies history persists', async ({ appPage: page }) => {
     // --- Step 0: Clean slate ---
     await clearAllData(page);
 
@@ -29,27 +29,27 @@ test.describe('Plan CRUD with exercise history preservation', () => {
     await createGym(page, 'E2E Test Gym', 'Test Location');
     await createExercise(page, 'E2E Bench Press', 'Chest');
 
-    // --- Step 2: Create template ---
-    await page.click(SEL.navTemplates);
-    await page.click('button:has-text("+ New Template")');
-    await page.fill(SEL.templateNameInput, 'E2E Push Day');
+    // --- Step 2: Create plan ---
+    await page.click(SEL.navPlans);
+    await page.click('button:has-text("+ New Plan")');
+    await page.fill(SEL.planNameInput, 'E2E Push Day');
 
     // Open exercise picker and select "E2E Bench Press"
     await page.click('button:has-text("Add Exercises")');
     await page.locator('label').filter({ hasText: 'E2E Bench Press' }).locator('input[type="checkbox"]').check();
 
-    // Submit template creation
-    await page.click(SEL.btnCreateTemplate);
+    // Submit plan creation
+    await page.click(SEL.btnCreatePlan);
 
-    // Assert template appears in the list
+    // Assert plan appears in the list
     await expect(page.locator('text=E2E Push Day')).toBeVisible({ timeout: 5000 });
 
-    // --- Step 3: Log a workout using the template ---
+    // --- Step 3: Log a workout using the plan ---
     await page.click(SEL.navWorkouts);
 
-    // Select gym and template from dropdowns
+    // Select gym and plan from dropdowns
     await selectByLabelSubstring(page, SEL.gymSelect, 'E2E Test Gym');
-    await selectByLabelSubstring(page, SEL.templateSelect, 'E2E Push Day');
+    await selectByLabelSubstring(page, SEL.planSelect, 'E2E Push Day');
 
     await page.click(SEL.btnStartWorkout);
 
@@ -81,17 +81,17 @@ test.describe('Plan CRUD with exercise history preservation', () => {
     // Verify chart section is visible with data
     await expect(page.locator(SEL.analyticsCharts)).toBeVisible();
 
-    // --- Step 5: Delete the template ---
-    await page.click(SEL.navTemplates);
+    // --- Step 5: Delete the plan ---
+    await page.click(SEL.navPlans);
 
-    // Wait for template card to load
+    // Wait for plan card to load
     await expect(page.locator('text=E2E Push Day')).toBeVisible({ timeout: 5000 });
 
-    // Open the 3-dot menu on the template card
-    await page.click(SEL.btnTemplateMenu);
+    // Open the 3-dot menu on the plan card
+    await page.click(SEL.btnPlanMenu);
 
     // Click delete in the dropdown
-    await page.click(SEL.btnTemplateDelete);
+    await page.click(SEL.btnPlanDelete);
 
     // Confirm deletion in the modal
     await page.click(SEL.btnConfirmDelete);
@@ -106,7 +106,7 @@ test.describe('Plan CRUD with exercise history preservation', () => {
     // Analytics should still show charts, NOT the empty state
     await expect(page.locator(SEL.analyticsCharts)).toBeVisible({ timeout: 15_000 });
 
-    // Select "E2E Bench Press" again to confirm its data survives template deletion
+    // Select "E2E Bench Press" again to confirm its data survives plan deletion
     await selectByLabelSubstring(page, SEL.analyticsExerciseSelect, 'E2E Bench Press');
 
     // The charts container should still be visible (not the "No exercises yet" empty state)

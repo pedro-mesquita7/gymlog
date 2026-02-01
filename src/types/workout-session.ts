@@ -2,7 +2,7 @@
 export interface LoggedSet {
   set_id: string;                // Unique ID for this set
   exercise_id: string;           // Which exercise (may be substituted)
-  original_exercise_id: string;  // Template's exercise (before substitution)
+  original_exercise_id: string;  // Plan's exercise (before substitution)
   weight_kg: number;
   reps: number;
   rir: number | null;            // Reps in reserve (optional)

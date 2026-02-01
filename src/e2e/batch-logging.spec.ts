@@ -8,11 +8,11 @@ import { createGym, createExercise, logSet } from './helpers/seed';
  * Validates batch logging handles edge cases correctly:
  * - Empty sets cannot be saved
  * - Large values are accepted and ghost text appears from previous sessions
- * - Add Set button adds rows beyond template sets
+ * - Add Set button adds rows beyond plan sets
  */
 test.describe('Batch Logging Edge Cases', () => {
   /**
-   * Shared setup: create gym, exercise, template.
+   * Shared setup: create gym, exercise, plan.
    * Called at the start of each test for isolation.
    */
   async function setupTestData(page: import('@playwright/test').Page) {
@@ -21,22 +21,22 @@ test.describe('Batch Logging Edge Cases', () => {
     await createGym(page, 'Batch Gym', 'Test Location');
     await createExercise(page, 'Batch Squat', 'Quads');
 
-    // Create template: navigate to Templates tab
-    await page.click(SEL.navTemplates);
-    await page.click('text="+ New Template"');
-    await page.fill(SEL.templateNameInput, 'Batch Template');
+    // Create plan: navigate to Plans tab
+    await page.click(SEL.navPlans);
+    await page.click('text="+ New Plan"');
+    await page.fill(SEL.planNameInput, 'Batch Plan');
 
     // Open exercise picker and select our exercise
     await page.click('text="Add Exercises"');
     await page.locator('label:has-text("Batch Squat")').click();
 
-    // Submit and wait for template to appear in list
-    await page.click(SEL.btnCreateTemplate);
-    await page.waitForSelector('text="Batch Template"', { timeout: 5000 });
+    // Submit and wait for plan to appear in list
+    await page.click(SEL.btnCreatePlan);
+    await page.waitForSelector('text="Batch Plan"', { timeout: 5000 });
   }
 
   /**
-   * Helper: Start a workout with Batch Gym + Batch Template.
+   * Helper: Start a workout with Batch Gym + Batch Plan.
    */
   async function startWorkout(page: import('@playwright/test').Page) {
     await page.click(SEL.navWorkouts);
@@ -47,11 +47,11 @@ test.describe('Batch Logging Edge Cases', () => {
     const gymValue = await gymOption.getAttribute('value');
     await gymSelect.selectOption(gymValue!);
 
-    // Select template by finding its option value
-    const templateSelect = page.locator(SEL.templateSelect);
-    const templateOption = templateSelect.locator('option', { hasText: 'Batch Template' });
-    const templateValue = await templateOption.getAttribute('value');
-    await templateSelect.selectOption(templateValue!);
+    // Select plan by finding its option value
+    const planSelect = page.locator(SEL.planSelect);
+    const planOption = planSelect.locator('option', { hasText: 'Batch Plan' });
+    const planValue = await planOption.getAttribute('value');
+    await planSelect.selectOption(planValue!);
 
     // Click Start
     await page.click(SEL.btnStartWorkout);
@@ -137,11 +137,11 @@ test.describe('Batch Logging Edge Cases', () => {
     await expect(page.locator(SEL.firstTimeHint)).not.toBeVisible();
   });
 
-  test('Add Set button adds rows beyond template sets', async ({ appPage: page }) => {
+  test('Add Set button adds rows beyond plan sets', async ({ appPage: page }) => {
     await setupTestData(page);
     await startWorkout(page);
 
-    // Count initial set rows (template has suggested_sets=3 by default)
+    // Count initial set rows (plan has suggested_sets=3 by default)
     const initialRowCount = await page.locator('[data-testid^="set-"][data-testid$="-weight"]').count();
     expect(initialRowCount).toBeGreaterThan(0);
 
