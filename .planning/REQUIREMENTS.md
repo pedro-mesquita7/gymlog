@@ -60,21 +60,21 @@
 
 ### PWA & Performance
 
-- [ ] **PWA-01**: Service worker caching verified for offline functionality
-- [ ] **PWA-02**: PWA manifest has correct icons, theme color, and installability metadata
-- [ ] **PWA-03**: Lighthouse performance score documented with targets
-- [ ] **PWA-04**: Bundle size budget established and checked in CI
+- [x] **PWA-01**: Service worker caching verified for offline functionality
+- [x] **PWA-02**: PWA manifest has correct icons, theme color, and installability metadata
+- [x] **PWA-03**: Lighthouse performance score documented with targets
+- [x] **PWA-04**: Bundle size budget established and checked in CI
 
 ### README & Portfolio
 
-- [ ] **README-01**: Live demo link prominently displayed
-- [ ] **README-02**: Screenshots or GIF showing key features
-- [ ] **README-03**: Clear "run locally" instructions that work from clean clone
+- [x] **README-01**: Live demo link prominently displayed
+- [x] **README-02**: Screenshots or GIF showing key features
+- [x] **README-03**: Clear "run locally" instructions that work from clean clone
 
 ### General Polish
 
-- [ ] **POLISH-01**: UX inconsistencies identified and resolved across all tabs
-- [ ] **POLISH-02**: Edge case handling reviewed (empty states, max data, error recovery)
+- [x] **POLISH-01**: UX inconsistencies identified and resolved across all tabs
+- [x] **POLISH-02**: Edge case handling reviewed (empty states, max data, error recovery)
 
 ## Future Requirements
 
@@ -131,15 +131,15 @@ Deferred beyond v1.3:
 | TOON-03 | Phase 16 | Complete |
 | TOON-04 | Phase 16 | Complete |
 | TOON-05 | Phase 16 | Complete |
-| PWA-01 | Phase 17 | Pending |
-| PWA-02 | Phase 17 | Pending |
-| PWA-03 | Phase 17 | Pending |
-| PWA-04 | Phase 17 | Pending |
-| README-01 | Phase 17 | Pending |
-| README-02 | Phase 17 | Pending |
-| README-03 | Phase 17 | Pending |
-| POLISH-01 | Phase 17 | Pending |
-| POLISH-02 | Phase 17 | Pending |
+| PWA-01 | Phase 17 | Complete |
+| PWA-02 | Phase 17 | Complete |
+| PWA-03 | Phase 17 | Complete |
+| PWA-04 | Phase 17 | Complete |
+| README-01 | Phase 17 | Complete |
+| README-02 | Phase 17 | Complete |
+| README-03 | Phase 17 | Complete |
+| POLISH-01 | Phase 17 | Complete |
+| POLISH-02 | Phase 17 | Complete |
 
 **Coverage:**
 - v1.3 requirements: 38 total
@@ -148,4 +148,4 @@ Deferred beyond v1.3:
 
 ---
 *Requirements defined: 2026-01-31*
-*Last updated: 2026-02-01 -- Phase 16 requirements (DEMO-01 through TOON-05) marked Complete*
+*Last updated: 2026-02-01 -- All v1.3 requirements complete (38/38)*

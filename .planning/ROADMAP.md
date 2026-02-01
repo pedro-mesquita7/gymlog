@@ -169,13 +169,13 @@ Plans:
   3. Lighthouse performance score is documented with targets, and bundle size budget is checked in CI
   4. README shows live demo link prominently, includes screenshots/GIF of key features, and provides working "run locally" instructions from clean clone
   5. No UX inconsistencies remain across tabs (empty states, loading states, error states all handled consistently)
-**Plans**: 5 plans
+**Plans**: 5 plans (complete)
 Plans:
-- [ ] 17-01-PLAN.md -- PWA service worker (combined COI + Workbox), manifest, and icons
-- [ ] 17-02-PLAN.md -- README overhaul as portfolio showcase
-- [ ] 17-03-PLAN.md -- Bundle size budget script + CI integration + PERFORMANCE.md
-- [ ] 17-04-PLAN.md -- Tab-by-tab UX consistency audit and polish
-- [ ] 17-05-PLAN.md -- Final verification and v1.3 milestone closure
+- [x] 17-01-PLAN.md -- PWA service worker (combined COI + Workbox), manifest, and icons
+- [x] 17-02-PLAN.md -- README overhaul as portfolio showcase
+- [x] 17-03-PLAN.md -- Bundle size budget script + CI integration + PERFORMANCE.md
+- [x] 17-04-PLAN.md -- Tab-by-tab UX consistency audit and polish
+- [x] 17-05-PLAN.md -- Final verification and v1.3 milestone closure
 
 ## Progress
 
@@ -197,8 +197,8 @@ Plans:
 | 14. Workouts UX & Color Scheme | v1.3 | 5/5 | Complete | 2026-02-01 |
 | 15. Analytics Redesign | v1.3 | 5/5 | Complete | 2026-02-01 |
 | 16. Demo Data UX & TOON Export | v1.3 | 3/3 | Complete | 2026-02-01 |
-| 17. PWA, Performance, README & Final Polish | v1.3 | 0/5 | Planned | - |
+| 17. PWA, Performance, README & Final Polish | v1.3 | 5/5 | Complete | 2026-02-01 |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-02-01 -- Phase 16 complete (3/3 plans, goal verified)*
+*Last updated: 2026-02-01 -- Phase 17 complete (5/5 plans, goal verified). v1.3 milestone complete.*
