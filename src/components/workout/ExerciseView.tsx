@@ -131,14 +131,14 @@ export function ExerciseView({
         <button
           onClick={onPrev}
           disabled={exerciseIndex === 0}
-          className="flex-1 py-3 bg-bg-tertiary hover:bg-bg-elevated rounded-lg transition-colors disabled:opacity-30"
+          className="flex-1 py-3 bg-bg-tertiary hover:bg-bg-elevated rounded-xl transition-colors disabled:opacity-30"
         >
           Previous
         </button>
         <button
           onClick={onNext}
           disabled={exerciseIndex === totalExercises - 1}
-          className="flex-1 py-3 bg-bg-tertiary hover:bg-bg-elevated rounded-lg transition-colors disabled:opacity-30"
+          className="flex-1 py-3 bg-bg-tertiary hover:bg-bg-elevated rounded-xl transition-colors disabled:opacity-30"
         >
           Next
         </button>

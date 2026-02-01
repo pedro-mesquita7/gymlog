@@ -76,7 +76,7 @@ export function RestTimer({ restSeconds, autoStartTrigger, onComplete }: RestTim
   // Timer complete - show message briefly
   if (showCompleteMessage) {
     return (
-      <div className="sticky top-0 z-10 bg-success text-text-primary px-4 py-3 rounded-b-lg flex items-center justify-between">
+      <div className="sticky top-0 z-10 bg-success text-text-primary px-4 py-3 rounded-b-2xl flex items-center justify-between">
         <span className="font-bold">Rest Complete!</span>
         <button
           onClick={handleSkip}
@@ -90,7 +90,7 @@ export function RestTimer({ restSeconds, autoStartTrigger, onComplete }: RestTim
 
   // Timer running - persistent banner
   return (
-    <div className="sticky top-0 z-10 bg-accent text-black px-4 py-3 rounded-b-lg flex items-center justify-between">
+    <div className="sticky top-0 z-10 bg-accent text-black px-4 py-3 rounded-b-2xl flex items-center justify-between">
       <div className="flex items-center gap-3">
         <span className="font-mono font-bold text-lg">{formatTime(seconds)}</span>
         <span className="text-sm opacity-80">Rest Time</span>

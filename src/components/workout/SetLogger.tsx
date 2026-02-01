@@ -154,7 +154,7 @@ export function SetLogger({
               <button
                 type="button"
                 onClick={() => setRir(prev => prev === null ? 0 : Math.max(0, prev - 1))}
-                className="w-12 h-12 bg-bg-elevated hover:bg-bg-elevated/80 rounded-lg font-bold text-2xl transition-colors flex items-center justify-center"
+                className="w-12 h-12 bg-bg-elevated hover:bg-bg-elevated/80 rounded-xl font-bold text-2xl transition-colors flex items-center justify-center"
               >
                 -
               </button>
@@ -174,12 +174,12 @@ export function SetLogger({
                 placeholder="-"
                 min={0}
                 max={10}
-                className="w-24 bg-bg-tertiary border border-border-primary rounded-lg text-center text-lg font-medium py-3 focus:outline-none focus:ring-2 focus:ring-accent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="w-24 bg-bg-tertiary border border-border-primary rounded-xl text-center text-lg font-medium py-3 focus:outline-none focus:ring-2 focus:ring-accent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <button
                 type="button"
                 onClick={() => setRir(prev => prev === null ? 0 : Math.min(10, prev + 1))}
-                className="w-12 h-12 bg-bg-elevated hover:bg-bg-elevated/80 rounded-lg font-bold text-2xl transition-colors flex items-center justify-center"
+                className="w-12 h-12 bg-bg-elevated hover:bg-bg-elevated/80 rounded-xl font-bold text-2xl transition-colors flex items-center justify-center"
               >
                 +
               </button>

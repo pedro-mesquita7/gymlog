@@ -89,7 +89,7 @@ export function ProgressionAlert({
 
   return (
     <div
-      className={`border rounded-lg p-3 mb-4 ${config.bgColor} ${config.borderColor} ${config.textColor}`}
+      className={`border rounded-2xl p-3 mb-4 ${config.bgColor} ${config.borderColor} ${config.textColor}`}
     >
       <div className="flex items-start justify-between gap-3">
         {/* Left side: icon + text */}

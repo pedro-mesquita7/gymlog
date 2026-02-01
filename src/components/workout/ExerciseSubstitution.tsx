@@ -77,7 +77,7 @@ export function ExerciseSubstitution({
           {currentSubstitution && (
             <button
               onClick={handleRevert}
-              className="w-full p-3 bg-bg-tertiary hover:bg-bg-elevated rounded-lg text-left transition-colors"
+              className="w-full p-3 bg-bg-tertiary hover:bg-bg-elevated rounded-xl text-left transition-colors"
             >
               <div className="font-medium">Revert to Original</div>
               <div className="text-sm text-text-muted">{originalExerciseName}</div>
@@ -90,7 +90,7 @@ export function ExerciseSubstitution({
               <div className="text-xs text-text-muted mb-2">Suggested Replacement</div>
               <button
                 onClick={() => handleSelectReplacement(replacementExercise.exercise_id)}
-                className="w-full p-3 bg-accent/10 border border-accent/30 hover:bg-accent/20 rounded-lg text-left transition-colors"
+                className="w-full p-3 bg-accent/10 border border-accent/30 hover:bg-accent/20 rounded-xl text-left transition-colors"
               >
                 <div className="font-medium">{replacementExercise.name}</div>
                 <div className="text-sm text-text-muted">{replacementExercise.muscle_group}</div>
@@ -108,7 +108,7 @@ export function ExerciseSubstitution({
                   <button
                     key={exercise.exercise_id}
                     onClick={() => handleSelectReplacement(exercise.exercise_id)}
-                    className="w-full p-2 bg-bg-tertiary/50 hover:bg-bg-elevated rounded-lg text-left text-sm transition-colors"
+                    className="w-full p-2 bg-bg-tertiary/50 hover:bg-bg-elevated rounded-xl text-left text-sm transition-colors"
                   >
                     <span className="font-medium">{exercise.name}</span>
                     <span className="text-text-muted ml-2">{exercise.muscle_group}</span>
@@ -127,13 +127,13 @@ export function ExerciseSubstitution({
                   value={customName}
                   onChange={(e) => setCustomName(e.target.value)}
                   placeholder="Exercise name"
-                  className="flex-1 bg-bg-tertiary border border-border-primary rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="flex-1 bg-bg-tertiary border border-border-primary rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
                   autoFocus
                 />
                 <button
                   onClick={handleAddCustom}
                   disabled={!customName.trim()}
-                  className="px-4 py-2 bg-accent hover:bg-accent/90 text-black text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
+                  className="px-4 py-2 bg-accent hover:bg-accent/90 text-black text-sm font-medium rounded-xl transition-colors disabled:opacity-50"
                 >
                   Add
                 </button>
@@ -141,7 +141,7 @@ export function ExerciseSubstitution({
             ) : (
               <button
                 onClick={() => setShowCustom(true)}
-                className="w-full p-2 bg-bg-tertiary/50 hover:bg-bg-elevated rounded-lg text-sm text-text-secondary transition-colors"
+                className="w-full p-2 bg-bg-tertiary/50 hover:bg-bg-elevated rounded-xl text-sm text-text-secondary transition-colors"
               >
                 + Add custom exercise
               </button>

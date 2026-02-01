@@ -15,7 +15,7 @@ export function RecentWorkoutCard() {
       : `${data.totalVolume} kg`;
 
   return (
-    <div className="bg-bg-secondary border border-border-primary rounded-lg px-4 py-3">
+    <div className="bg-bg-secondary border border-border-primary rounded-2xl px-4 py-3">
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-sm font-semibold text-text-primary truncate">
           Last: {data.templateName}

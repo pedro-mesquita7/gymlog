@@ -127,15 +127,15 @@ export function WorkoutComplete({
 
         {/* Stats summary */}
         <div className="grid grid-cols-3 gap-4 text-center">
-          <div className="bg-bg-tertiary/50 rounded-lg p-4">
+          <div className="bg-bg-tertiary/50 rounded-2xl p-4">
             <div className="text-2xl font-bold text-accent">{totalSets}</div>
             <div className="text-xs text-text-muted">Sets</div>
           </div>
-          <div className="bg-bg-tertiary/50 rounded-lg p-4">
+          <div className="bg-bg-tertiary/50 rounded-2xl p-4">
             <div className="text-2xl font-bold text-accent">{uniqueExercises}</div>
             <div className="text-xs text-text-muted">Exercises</div>
           </div>
-          <div className="bg-bg-tertiary/50 rounded-lg p-4">
+          <div className="bg-bg-tertiary/50 rounded-2xl p-4">
             <div className="text-2xl font-bold text-accent">{durationMins}</div>
             <div className="text-xs text-text-muted">Minutes</div>
           </div>
@@ -148,7 +148,7 @@ export function WorkoutComplete({
 
         {/* Warning for partial sets (incomplete data) */}
         {partialSets.length > 0 && (
-          <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
+          <div className="bg-warning/10 border border-warning/30 rounded-2xl p-4">
             <div className="text-warning font-medium mb-2">
               Incomplete sets detected:
             </div>
@@ -165,7 +165,7 @@ export function WorkoutComplete({
 
         {/* Warning for incomplete exercises */}
         {incompleteExercises.length > 0 && (
-          <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
+          <div className="bg-warning/10 border border-warning/30 rounded-2xl p-4">
             <div className="text-warning font-medium mb-2">
               {incompleteExercises.length} exercise{incompleteExercises.length !== 1 ? 's' : ''} with no sets:
             </div>
@@ -179,7 +179,7 @@ export function WorkoutComplete({
 
         {/* Error message */}
         {error && (
-          <div className="bg-error/10 border border-error/30 rounded-lg p-4 text-error">
+          <div className="bg-error/10 border border-error/30 rounded-2xl p-4 text-error">
             {error}
           </div>
         )}
@@ -231,15 +231,15 @@ export function WorkoutComplete({
 
       {/* Stats summary */}
       <div className="grid grid-cols-3 gap-4 text-center">
-        <div className="bg-bg-tertiary/50 rounded-lg p-4">
+        <div className="bg-bg-tertiary/50 rounded-2xl p-4">
           <div className="text-2xl font-bold text-accent">{totalSets}</div>
           <div className="text-xs text-text-muted">Sets</div>
         </div>
-        <div className="bg-bg-tertiary/50 rounded-lg p-4">
+        <div className="bg-bg-tertiary/50 rounded-2xl p-4">
           <div className="text-2xl font-bold text-accent">{uniqueExercises}</div>
           <div className="text-xs text-text-muted">Exercises</div>
         </div>
-        <div className="bg-bg-tertiary/50 rounded-lg p-4">
+        <div className="bg-bg-tertiary/50 rounded-2xl p-4">
           <div className="text-2xl font-bold text-accent">{durationMins}</div>
           <div className="text-xs text-text-muted">Minutes</div>
         </div>
@@ -263,7 +263,7 @@ export function WorkoutComplete({
 
       {/* Personal Records section */}
       {!summaryLoading && prs.length > 0 && (
-        <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
+        <div className="bg-warning/10 border border-warning/30 rounded-2xl p-4">
           <div className="font-bold mb-3 text-warning">Personal Records</div>
           <div className="space-y-2">
             {prs.map((pr) => (
