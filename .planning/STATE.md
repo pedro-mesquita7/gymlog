@@ -10,12 +10,12 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 
 ## Current Position
 
-Phase: 14 of 17 (Workouts UX & Color Scheme)
-Plan: 5 of 5 in current phase
-Status: Phase complete
-Last activity: 2026-02-01 -- Completed 14-05-PLAN.md (WCAG AA verification + visual checkpoint)
+Phase: 15 of 17 (Analytics Redesign)
+Plan: 1 of 5 in current phase
+Status: In progress
+Last activity: 2026-02-01 -- Completed 15-01-PLAN.md (analytics data foundation)
 
-Progress: [===============░░░░░] 76% (84/~110 plans lifetime)
+Progress: [================░░░░] 77% (85/~110 plans lifetime)
 
 ## Milestones
 
@@ -29,8 +29,8 @@ Progress: [===============░░░░░] 76% (84/~110 plans lifetime)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 84 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14)
-- Total commits: ~325
+- Total plans completed: 85 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 1 v1.3-p15)
+- Total commits: ~328
 - Project duration: 6 days (2026-01-27 to 2026-02-01)
 
 **By Phase (v1.3 -- current):**
@@ -40,6 +40,7 @@ Progress: [===============░░░░░] 76% (84/~110 plans lifetime)
 | 12. Security & Bug Fixes | 4/4 | Complete |
 | 13. E2E Test Suite | 7/7 | Complete |
 | 14. Workouts UX & Color Scheme | 5/5 | Complete |
+| 15. Analytics Redesign | 1/5 | In progress |
 
 ## Accumulated Context
 
@@ -56,6 +57,7 @@ v1.3 decisions:
 - 14-03: PRList badges use chart-primary/chart-success; Recharts inline HSL left untouched; full components/ directory clean of hardcoded colors
 - 14-04: QuickStartCard edit mode uses local state (not rotation); native details/summary accordion for Browse Templates; RecentWorkoutCard returns null when no data
 - 14-05: text-muted adjusted 55%->59%, border-secondary 35%->38% for WCAG AA; rest timer input changed to minutes; accordion renamed "Manual select workout"
+- 15-01: SQL constants converted to factory functions with days param; WEEKLY_COMPARISON_SQL stays constant; progressionStatusSQL uses max(days, 63/28); volumeByMuscleGroupSQL returns AVG weekly sets
 
 ### Pending Todos
 
@@ -63,12 +65,12 @@ None.
 
 ### Blockers/Concerns
 
-- Phase 15: Time range threading must audit ALL analytics SQL for hardcoded 4-week windows
+- Phase 15: Time range threading audit COMPLETE for SQL layer (15-01). Hooks still need migration (15-02).
 
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 14-05-PLAN.md (Phase 14 complete)
+Stopped at: Completed 15-01-PLAN.md (analytics data foundation)
 Resume file: None
 
-**Next action:** `/gsd:discuss-phase 15` or `/gsd:plan-phase 15`
+**Next action:** `/gsd:execute-phase 15` -- continue with 15-02-PLAN.md (hook migration)
