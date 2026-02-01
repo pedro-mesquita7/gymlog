@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 ## Current Position
 
 Phase: 16 of 17 (Demo Data & TOON Export)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-02-01 -- Completed 16-02-PLAN.md (TOON export service)
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-02-01 -- Completed 16-03-PLAN.md (TOON export UI)
 
-Progress: [==================░░] 83% (91/~110 plans lifetime)
+Progress: [==================░░] 84% (92/~110 plans lifetime)
 
 ## Milestones
 
@@ -29,8 +29,8 @@ Progress: [==================░░] 83% (91/~110 plans lifetime)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 91 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15 + 2 v1.3-p16)
-- Total commits: ~343
+- Total plans completed: 92 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15 + 3 v1.3-p16)
+- Total commits: ~346
 - Project duration: 6 days (2026-01-27 to 2026-02-01)
 
 **By Phase (v1.3 -- current):**
@@ -41,7 +41,7 @@ Progress: [==================░░] 83% (91/~110 plans lifetime)
 | 13. E2E Test Suite | 7/7 | Complete |
 | 14. Workouts UX & Color Scheme | 5/5 | Complete |
 | 15. Analytics Redesign | 5/5 | Complete |
-| 16. Demo Data & TOON Export | 2/3 | In Progress |
+| 16. Demo Data & TOON Export | 3/3 | Complete |
 
 ## Accumulated Context
 
@@ -64,6 +64,7 @@ v1.3 decisions:
 - 15-05: Sticky TimeRangePicker at top; exercise selector scoped to Exercise Detail section; ProgressionDashboard shows info note for <63 days; default time range 3M; localStorage key gymlog-analytics-timerange
 - 16-01: Dialog confirmations for destructive actions (no window.confirm); clearHistoricalData whitelist preserves exercise/gym events; OKLCH amber gradient for warning buttons
 - 16-02: TOON export uses keyFolding:'safe'; equipment field placeholder (not tracked); PR detection via window functions; set numbers sequential per-workout
+- 16-03: ToonExportSection uses segmented control scope picker; rotation data captured at render time for async safety; Unicode checkmark for copy feedback
 
 ### Pending Todos
 
@@ -71,12 +72,12 @@ None.
 
 ### Blockers/Concerns
 
-- Phase 16 in progress. Plan 03 remaining.
+- Phase 16 complete. Ready for phase 17.
 
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 16-02-PLAN.md (TOON export service)
+Stopped at: Completed 16-03-PLAN.md (TOON export UI)
 Resume file: None
 
-**Next action:** Execute 16-03-PLAN.md
+**Next action:** Begin phase 17 or deploy
