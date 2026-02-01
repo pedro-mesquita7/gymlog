@@ -54,7 +54,7 @@ export function StartWorkout({ templates, gyms, onStarted }: StartWorkoutProps) 
       <details className="group">
         <summary className="cursor-pointer text-text-secondary hover:text-text-primary text-sm font-medium py-3 flex items-center gap-2">
           <span className="transition-transform group-open:rotate-90">&#9654;</span>
-          Browse all templates
+          Manual select workout
         </summary>
         <div className="pt-4 space-y-4">
           {/* Gym selection */}
