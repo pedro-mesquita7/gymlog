@@ -24,10 +24,10 @@ Requirements for milestone v1.4: Comparison, UX & Theme.
 
 ### Theme Redesign
 
-- [ ] **THEME-01**: OKLCH token values updated for soft/modern dark aesthetic (muted tones, lower chroma, warmer backgrounds)
-- [ ] **THEME-02**: Border-radius increased across all components (rounded corners)
-- [ ] **THEME-03**: Card shadows and gentle gradients applied
-- [ ] **THEME-04**: WCAG AA contrast maintained after token changes
+- [x] **THEME-01**: OKLCH token values updated for soft/modern dark aesthetic (muted tones, lower chroma, warmer backgrounds)
+- [x] **THEME-02**: Border-radius increased across all components (rounded corners)
+- [x] **THEME-03**: Card shadows and gentle gradients applied
+- [x] **THEME-04**: WCAG AA contrast maintained after token changes
 
 ## Future Requirements
 
@@ -59,10 +59,10 @@ Deferred to v1.5+.
 | UX-02 | Phase 20 | Pending |
 | UX-03 | Phase 19 | Pending |
 | UX-04 | Phase 20 | Pending |
-| THEME-01 | Phase 18 | Pending |
-| THEME-02 | Phase 18 | Pending |
-| THEME-03 | Phase 18 | Pending |
-| THEME-04 | Phase 18 | Pending |
+| THEME-01 | Phase 18 | Complete |
+| THEME-02 | Phase 18 | Complete |
+| THEME-03 | Phase 18 | Complete |
+| THEME-04 | Phase 18 | Complete |
 
 **Coverage:**
 - v1.4 requirements: 13 total
@@ -71,4 +71,4 @@ Deferred to v1.5+.
 
 ---
 *Requirements defined: 2026-02-01*
-*Last updated: 2026-02-01 after roadmap creation*
+*Last updated: 2026-02-01 after Phase 18 completion*
