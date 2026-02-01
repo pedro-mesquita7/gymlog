@@ -36,6 +36,17 @@
   --color-chart-success: oklch(62% 0.15 145);   /* green - 1RM, positive metrics */
   --color-chart-muted: oklch(55% 0.02 270);     /* gray - axes, grid lines */
 
+  /* Volume zone colors - 5-zone research-backed system (Phase 15) */
+  --color-chart-zone-under: oklch(63% 0.22 25);     /* red - not enough stimulus */
+  --color-chart-zone-minimum: oklch(75% 0.15 85);    /* yellow - minimum effective */
+  --color-chart-zone-optimal: oklch(65% 0.17 145);   /* green - optimal growth */
+  --color-chart-zone-high: oklch(70% 0.15 65);       /* orange - approaching limit */
+  --color-chart-zone-over: oklch(63% 0.22 25);       /* red - exceeding recovery */
+
+  /* Chart tooltip (replacing hardcoded HSL in chart components) */
+  --color-chart-tooltip-bg: oklch(15% 0.01 270);
+  --color-chart-tooltip-border: oklch(22% 0.01 270);
+
   /* Legacy HSL chart colors (backward compat until all charts migrated) */
   --chart-primary: 220 70% 50%;
   --chart-success: 142 76% 36%;
