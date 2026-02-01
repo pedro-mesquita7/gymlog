@@ -31,15 +31,15 @@ export function VolumeZoneIndicator({
     <div className="flex items-center gap-6 text-sm">
       {/* Red zone */}
       <div className="flex items-center gap-2">
-        <div className="w-3 h-3 rounded-full bg-red-500" />
-        <span className="text-zinc-400">
+        <div className="w-3 h-3 rounded-full bg-error" />
+        <span className="text-text-secondary">
           Under-training (&lt;
           {onThresholdsChange ? (
             <input
               type="number"
               value={low}
               onChange={(e) => handleLowChange(Number(e.target.value))}
-              className="w-12 mx-1 px-1 bg-zinc-800 border border-zinc-700 rounded text-zinc-200 text-center"
+              className="w-12 mx-1 px-1 bg-bg-tertiary border border-border-primary rounded text-text-primary text-center"
               min="1"
               max={optimal - 1}
             />
@@ -52,15 +52,15 @@ export function VolumeZoneIndicator({
 
       {/* Green zone */}
       <div className="flex items-center gap-2">
-        <div className="w-3 h-3 rounded-full bg-green-500" />
-        <span className="text-zinc-400">
+        <div className="w-3 h-3 rounded-full bg-success" />
+        <span className="text-text-secondary">
           Optimal (
           {onThresholdsChange ? (
             <input
               type="number"
               value={low}
               onChange={(e) => handleLowChange(Number(e.target.value))}
-              className="w-12 mx-1 px-1 bg-zinc-800 border border-zinc-700 rounded text-zinc-200 text-center"
+              className="w-12 mx-1 px-1 bg-bg-tertiary border border-border-primary rounded text-text-primary text-center"
               min="1"
               max={optimal - 1}
             />
@@ -73,7 +73,7 @@ export function VolumeZoneIndicator({
               type="number"
               value={optimal}
               onChange={(e) => handleOptimalChange(Number(e.target.value))}
-              className="w-12 mx-1 px-1 bg-zinc-800 border border-zinc-700 rounded text-zinc-200 text-center"
+              className="w-12 mx-1 px-1 bg-bg-tertiary border border-border-primary rounded text-text-primary text-center"
               min={low + 1}
             />
           ) : (
@@ -85,15 +85,15 @@ export function VolumeZoneIndicator({
 
       {/* Yellow zone */}
       <div className="flex items-center gap-2">
-        <div className="w-3 h-3 rounded-full bg-yellow-500" />
-        <span className="text-zinc-400">
+        <div className="w-3 h-3 rounded-full bg-warning" />
+        <span className="text-text-secondary">
           High-volume (&gt;
           {onThresholdsChange ? (
             <input
               type="number"
               value={optimal}
               onChange={(e) => handleOptimalChange(Number(e.target.value))}
-              className="w-12 mx-1 px-1 bg-zinc-800 border border-zinc-700 rounded text-zinc-200 text-center"
+              className="w-12 mx-1 px-1 bg-bg-tertiary border border-border-primary rounded text-text-primary text-center"
               min={low + 1}
             />
           ) : (

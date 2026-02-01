@@ -55,7 +55,7 @@ export function VolumeBarChart({ data, thresholds }: VolumeBarChartProps) {
 
   if (chartData.length === 0) {
     return (
-      <div className="text-center py-8 text-zinc-500">
+      <div className="text-center py-8 text-text-muted">
         No volume data yet. Log workouts to see muscle group training volume.
       </div>
     );

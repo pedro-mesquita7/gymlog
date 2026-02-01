@@ -28,30 +28,30 @@ export function ProgressionStatusCard({
   const statusConfig = {
     progressing: {
       icon: '↗',
-      bgColor: 'bg-green-900/20',
-      borderColor: 'border-green-700/30',
-      textColor: 'text-green-400',
+      bgColor: 'bg-success/10',
+      borderColor: 'border-success/30',
+      textColor: 'text-success',
       badge: 'Progressing',
     },
     plateau: {
       icon: '→',
-      bgColor: 'bg-yellow-900/20',
-      borderColor: 'border-yellow-700/30',
-      textColor: 'text-yellow-400',
+      bgColor: 'bg-warning/10',
+      borderColor: 'border-warning/30',
+      textColor: 'text-warning',
       badge: 'Plateau',
     },
     regressing: {
       icon: '↘',
-      bgColor: 'bg-red-900/20',
-      borderColor: 'border-red-700/30',
-      textColor: 'text-red-400',
+      bgColor: 'bg-error/10',
+      borderColor: 'border-error/30',
+      textColor: 'text-error',
       badge: 'Regressing',
     },
     unknown: {
       icon: '?',
-      bgColor: 'bg-zinc-800/20',
-      borderColor: 'border-zinc-700/30',
-      textColor: 'text-zinc-400',
+      bgColor: 'bg-bg-tertiary/20',
+      borderColor: 'border-border-primary/30',
+      textColor: 'text-text-secondary',
       badge: 'Unknown',
     },
   };
@@ -63,8 +63,8 @@ export function ProgressionStatusCard({
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-zinc-100">{exerciseName}</h3>
-            <span className="text-xs text-zinc-500">({muscleGroup})</span>
+            <h3 className="font-semibold text-text-primary">{exerciseName}</h3>
+            <span className="text-xs text-text-muted">({muscleGroup})</span>
           </div>
           <div className="flex items-center gap-2 mt-2">
             <span className="text-xl" role="img" aria-label={config.badge}>
@@ -74,7 +74,7 @@ export function ProgressionStatusCard({
               {config.badge}
             </span>
           </div>
-          <div className="mt-2 text-xs text-zinc-400 space-y-1">
+          <div className="mt-2 text-xs text-text-secondary space-y-1">
             {lastPrDate ? (
               <div>
                 Last PR: {formatDistanceToNow(new Date(lastPrDate), { addSuffix: true })}
@@ -84,7 +84,7 @@ export function ProgressionStatusCard({
             )}
             <div>{sessionCount4wk} sessions in last 4 weeks</div>
             {status === 'regressing' && (
-              <div className="text-red-300">
+              <div className="text-error">
                 {weightDropPct && weightDropPct > 0 && `Weight: -${weightDropPct.toFixed(1)}%`}
                 {weightDropPct && weightDropPct > 0 && volumeDropPct && volumeDropPct > 0 && ' / '}
                 {volumeDropPct && volumeDropPct > 0 && `Volume: -${volumeDropPct.toFixed(1)}%`}

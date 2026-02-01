@@ -16,9 +16,9 @@ export function CollapsibleSection({
   children
 }: CollapsibleSectionProps) {
   return (
-    <details open={defaultOpen} className="space-y-4 border-b border-zinc-800 pb-6">
-      <summary className="cursor-pointer text-lg font-semibold text-zinc-200 select-none hover:text-zinc-100 transition-colors list-none flex items-center gap-2">
-        <span className="text-zinc-500 text-sm transition-transform inline-block [details[open]_&]:rotate-90">▶</span>
+    <details open={defaultOpen} className="space-y-4 border-b border-border-primary pb-6">
+      <summary className="cursor-pointer text-lg font-semibold text-text-primary select-none hover:text-text-primary transition-colors list-none flex items-center gap-2">
+        <span className="text-text-muted text-sm transition-transform inline-block [details[open]_&]:rotate-90">▶</span>
         {title}
       </summary>
       <div className="pt-2">

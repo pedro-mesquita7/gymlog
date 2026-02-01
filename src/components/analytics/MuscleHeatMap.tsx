@@ -76,8 +76,8 @@ export function MuscleHeatMap({ data, thresholds }: MuscleHeatMapProps) {
       <div className="flex flex-col sm:flex-row gap-8 justify-center items-start">
         {/* Front view */}
         <div className="flex flex-col items-center">
-          <h3 className="text-sm font-medium text-zinc-400 mb-2">Front</h3>
-          <div className="bg-zinc-900 rounded-lg p-4">
+          <h3 className="text-sm font-medium text-text-secondary mb-2">Front</h3>
+          <div className="bg-bg-secondary rounded-lg p-4">
             <Body
               data={bodyData}
               side="front"
@@ -91,8 +91,8 @@ export function MuscleHeatMap({ data, thresholds }: MuscleHeatMapProps) {
 
         {/* Back view */}
         <div className="flex flex-col items-center">
-          <h3 className="text-sm font-medium text-zinc-400 mb-2">Back</h3>
-          <div className="bg-zinc-900 rounded-lg p-4">
+          <h3 className="text-sm font-medium text-text-secondary mb-2">Back</h3>
+          <div className="bg-bg-secondary rounded-lg p-4">
             <Body
               data={bodyData}
               side="back"
@@ -106,8 +106,8 @@ export function MuscleHeatMap({ data, thresholds }: MuscleHeatMapProps) {
       </div>
 
       {/* Legend with muscle group totals */}
-      <div className="bg-zinc-900 rounded-lg p-4">
-        <h3 className="text-sm font-medium text-zinc-300 mb-3">Training Volume (Last 28 Days)</h3>
+      <div className="bg-bg-secondary rounded-lg p-4">
+        <h3 className="text-sm font-medium text-text-primary mb-3">Training Volume (Last 28 Days)</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {data.map((muscleData) => {
             const groupThreshold = thresholds.getThreshold(muscleData.muscleGroup);
@@ -130,10 +130,10 @@ export function MuscleHeatMap({ data, thresholds }: MuscleHeatMapProps) {
                   style={{ backgroundColor: color }}
                 />
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs text-zinc-300 font-medium">
+                  <div className="text-xs text-text-primary font-medium">
                     {muscleData.muscleGroup}
                   </div>
-                  <div className="text-xs text-zinc-500">
+                  <div className="text-xs text-text-muted">
                     {muscleData.totalSets} sets · {zoneLabel}
                   </div>
                 </div>
@@ -143,8 +143,8 @@ export function MuscleHeatMap({ data, thresholds }: MuscleHeatMapProps) {
         </div>
 
         {/* Zone explanation */}
-        <div className="mt-4 pt-4 border-t border-zinc-800">
-          <div className="text-xs text-zinc-500 space-y-1">
+        <div className="mt-4 pt-4 border-t border-border-primary">
+          <div className="text-xs text-text-muted space-y-1">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded" style={{ backgroundColor: 'hsla(0, 70%, 50%, 0.7)' }} />
               <span>Under-training (&lt; {thresholds.defaultThresholds.low} sets/week)</span>

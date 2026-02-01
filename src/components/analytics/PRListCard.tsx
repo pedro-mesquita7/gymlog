@@ -10,7 +10,7 @@ interface PRListCardProps {
  */
 export function PRListCard({ exerciseId, exerciseName }: PRListCardProps) {
   return (
-    <div className="bg-zinc-800/50 rounded-lg p-4">
+    <div className="bg-bg-tertiary/50 rounded-lg p-4">
       <PRList exerciseId={exerciseId} exerciseName={exerciseName} />
     </div>
   );

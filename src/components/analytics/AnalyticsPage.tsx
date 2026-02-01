@@ -59,7 +59,7 @@ export function AnalyticsPage() {
 
   if (exercisesLoading) {
     return (
-      <div className="text-center py-12 text-zinc-500">
+      <div className="text-center py-12 text-text-muted">
         Loading exercises...
       </div>
     );
@@ -68,8 +68,8 @@ export function AnalyticsPage() {
   if (exercises.length === 0) {
     return (
       <div data-testid="analytics-empty" className="text-center py-12 space-y-4">
-        <p className="text-zinc-500">No exercises yet.</p>
-        <p className="text-sm text-zinc-600">
+        <p className="text-text-muted">No exercises yet.</p>
+        <p className="text-sm text-text-muted">
           Create exercises and log workouts to see analytics.
         </p>
       </div>
@@ -80,7 +80,7 @@ export function AnalyticsPage() {
     <div data-testid="analytics-charts" className="space-y-8">
       {/* Exercise Selector */}
       <div>
-        <label htmlFor="exercise-select" className="block text-sm font-medium text-zinc-400 mb-2">
+        <label htmlFor="exercise-select" className="block text-sm font-medium text-text-secondary mb-2">
           Select Exercise
         </label>
         <select
@@ -88,7 +88,7 @@ export function AnalyticsPage() {
           id="exercise-select"
           value={selectedExerciseId}
           onChange={(e) => setSelectedExerciseId(e.target.value)}
-          className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-accent"
+          className="w-full bg-bg-tertiary border border-border-primary rounded-lg px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
         >
           {exercises.map((exercise) => (
             <option key={exercise.exercise_id} value={exercise.exercise_id}>
@@ -101,12 +101,12 @@ export function AnalyticsPage() {
       {/* Progress Chart Section */}
       <CollapsibleSection title="Progress (Last 4 Weeks)" defaultOpen={true}>
         {progressError ? (
-          <div className="text-center py-8 text-red-400">Error: {progressError}</div>
+          <div className="text-center py-8 text-error">Error: {progressError}</div>
         ) : progressLoading ? (
-          <div className="text-center py-8 text-zinc-500">Loading chart...</div>
+          <div className="text-center py-8 text-text-muted">Loading chart...</div>
         ) : (
           <FeatureErrorBoundary feature="Exercise Progress Chart">
-            <div className="bg-zinc-800/30 rounded-lg p-4">
+            <div className="bg-bg-tertiary/30 rounded-lg p-4">
               <ExerciseProgressChart
                 data={progressData}
                 exerciseName={selectedExercise?.name || 'Exercise'}
@@ -120,15 +120,15 @@ export function AnalyticsPage() {
       {/* Week Comparison Section */}
       <CollapsibleSection title="This Week vs Last Week" defaultOpen={true}>
         {weeklyError ? (
-          <div className="text-center py-8 text-red-400">Error: {weeklyError}</div>
+          <div className="text-center py-8 text-error">Error: {weeklyError}</div>
         ) : weeklyLoading ? (
-          <div className="text-center py-8 text-zinc-500">Loading comparison...</div>
+          <div className="text-center py-8 text-text-muted">Loading comparison...</div>
         ) : currentWeekComparison ? (
           <FeatureErrorBoundary feature="Week Comparison">
             <WeekComparisonCard data={currentWeekComparison} />
           </FeatureErrorBoundary>
         ) : (
-          <div className="text-center py-8 text-zinc-500">
+          <div className="text-center py-8 text-text-muted">
             No data yet for this week. Log a workout to see comparison.
           </div>
         )}
@@ -147,23 +147,23 @@ export function AnalyticsPage() {
       </CollapsibleSection>
 
       {/* Visual Divider between exercise-specific and muscle-group sections */}
-      <div className="border-t-2 border-zinc-700 pt-8 mt-8">
-        <h2 className="text-xl font-bold text-zinc-100 mb-6">Volume Analytics</h2>
+      <div className="border-t-2 border-border-primary pt-8 mt-8">
+        <h2 className="text-xl font-bold text-text-primary mb-6">Volume Analytics</h2>
       </div>
 
       {/* Weekly Volume by Muscle Group Section */}
       <CollapsibleSection title="Weekly Volume by Muscle Group" defaultOpen={true}>
         {volumeError ? (
-          <div className="text-center py-8 text-red-400">Error: {volumeError}</div>
+          <div className="text-center py-8 text-error">Error: {volumeError}</div>
         ) : volumeLoading ? (
-          <div className="text-center py-8 text-zinc-500">Loading volume data...</div>
+          <div className="text-center py-8 text-text-muted">Loading volume data...</div>
         ) : (
           <div className="space-y-4">
             <FeatureErrorBoundary feature="Volume Zones">
               <VolumeZoneIndicator thresholds={volumeThresholds.defaultThresholds} />
             </FeatureErrorBoundary>
             <FeatureErrorBoundary feature="Volume Chart">
-              <div className="bg-zinc-800/30 rounded-lg p-4">
+              <div className="bg-bg-tertiary/30 rounded-lg p-4">
                 <VolumeBarChart data={volumeData} thresholds={volumeThresholds} />
               </div>
             </FeatureErrorBoundary>
@@ -174,12 +174,12 @@ export function AnalyticsPage() {
       {/* Training Balance Heat Map Section */}
       <CollapsibleSection title="Training Balance Heat Map" defaultOpen={true}>
         {volumeError ? (
-          <div className="text-center py-8 text-red-400">Error: {volumeError}</div>
+          <div className="text-center py-8 text-error">Error: {volumeError}</div>
         ) : volumeLoading ? (
-          <div className="text-center py-8 text-zinc-500">Loading heat map...</div>
+          <div className="text-center py-8 text-text-muted">Loading heat map...</div>
         ) : (
           <FeatureErrorBoundary feature="Muscle Heat Map">
-            <div className="bg-zinc-800/30 rounded-lg p-4">
+            <div className="bg-bg-tertiary/30 rounded-lg p-4">
               <MuscleHeatMap data={heatMapData} thresholds={volumeThresholds} />
             </div>
           </FeatureErrorBoundary>
@@ -187,8 +187,8 @@ export function AnalyticsPage() {
       </CollapsibleSection>
 
       {/* Visual Divider between volume and progression sections */}
-      <div className="border-t-2 border-zinc-700 pt-8 mt-8">
-        <h2 className="text-xl font-bold text-zinc-100 mb-6">Progression Intelligence</h2>
+      <div className="border-t-2 border-border-primary pt-8 mt-8">
+        <h2 className="text-xl font-bold text-text-primary mb-6">Progression Intelligence</h2>
       </div>
 
       <CollapsibleSection title="Exercise Progression Status" defaultOpen={true}>

@@ -52,16 +52,16 @@ export function ProgressionDashboard() {
   }, [statusWithNames]);
 
   if (isLoading) {
-    return <div className="text-center py-8 text-zinc-500">Loading progression data...</div>;
+    return <div className="text-center py-8 text-text-muted">Loading progression data...</div>;
   }
 
   if (error) {
-    return <div className="text-center py-8 text-red-400">Error: {error}</div>;
+    return <div className="text-center py-8 text-error">Error: {error}</div>;
   }
 
   if (!progressionData || progressionData.length === 0) {
     return (
-      <div className="text-center py-8 text-zinc-500">
+      <div className="text-center py-8 text-text-muted">
         Not enough workout data yet. Log 2+ sessions per exercise to see progression analysis.
       </div>
     );
@@ -71,17 +71,17 @@ export function ProgressionDashboard() {
     <div className="space-y-6">
       {/* Summary counts */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-green-900/20 border border-green-700/30 rounded-lg p-4 text-center">
-          <div className="text-3xl font-bold text-green-400">{summary.progressing}</div>
-          <div className="text-sm text-green-200 mt-1">Progressing</div>
+        <div className="bg-success/10 border border-success/30 rounded-lg p-4 text-center">
+          <div className="text-3xl font-bold text-success">{summary.progressing}</div>
+          <div className="text-sm text-success/80 mt-1">Progressing</div>
         </div>
-        <div className="bg-yellow-900/20 border border-yellow-700/30 rounded-lg p-4 text-center">
-          <div className="text-3xl font-bold text-yellow-400">{summary.plateau}</div>
-          <div className="text-sm text-yellow-200 mt-1">Plateaued</div>
+        <div className="bg-warning/10 border border-warning/30 rounded-lg p-4 text-center">
+          <div className="text-3xl font-bold text-warning">{summary.plateau}</div>
+          <div className="text-sm text-warning/80 mt-1">Plateaued</div>
         </div>
-        <div className="bg-red-900/20 border border-red-700/30 rounded-lg p-4 text-center">
-          <div className="text-3xl font-bold text-red-400">{summary.regressing}</div>
-          <div className="text-sm text-red-200 mt-1">Regressing</div>
+        <div className="bg-error/10 border border-error/30 rounded-lg p-4 text-center">
+          <div className="text-3xl font-bold text-error">{summary.regressing}</div>
+          <div className="text-sm text-error/80 mt-1">Regressing</div>
         </div>
       </div>
 

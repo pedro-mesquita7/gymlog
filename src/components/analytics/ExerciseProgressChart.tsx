@@ -24,7 +24,7 @@ export function ExerciseProgressChart({
 
   if (chartData.length === 0) {
     return (
-      <div className="text-center py-8 text-zinc-500">
+      <div className="text-center py-8 text-text-muted">
         No data yet. Log workouts to see your {exerciseName} progress.
       </div>
     );
@@ -32,7 +32,7 @@ export function ExerciseProgressChart({
 
   return (
     <div className="space-y-2">
-      <h3 className="text-sm font-medium text-zinc-400">{exerciseName} Progress</h3>
+      <h3 className="text-sm font-medium text-text-secondary">{exerciseName} Progress</h3>
       <ChartContainer height={250}>
         <LineChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
           <CartesianGrid
@@ -113,7 +113,7 @@ export function ExerciseProgressChart({
           )}
         </LineChart>
       </ChartContainer>
-      <div className="flex items-center justify-center gap-4 text-xs text-zinc-500">
+      <div className="flex items-center justify-center gap-4 text-xs text-text-muted">
         <span className="flex items-center gap-1">
           <span className="w-3 h-0.5 bg-accent rounded" />
           Max Weight
