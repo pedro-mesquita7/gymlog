@@ -17,7 +17,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   // Base styles
-  const baseStyles = 'rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent';
+  const baseStyles = 'rounded-2xl font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent';
 
   // Variant styles
   const variantStyles: Record<ButtonVariant, string> = {

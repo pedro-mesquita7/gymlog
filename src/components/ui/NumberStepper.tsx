@@ -59,7 +59,7 @@ export function NumberStepper({
           type="button"
           onClick={decrement}
           disabled={min !== undefined && value <= min}
-          className={`${sizeClasses.button} bg-bg-elevated hover:bg-border-secondary rounded-lg font-bold transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center`}
+          className={`${sizeClasses.button} bg-bg-elevated hover:bg-border-secondary rounded-xl font-bold transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center`}
         >
           -
         </button>
@@ -71,13 +71,13 @@ export function NumberStepper({
           min={min}
           max={max}
           step={step}
-          className={`${sizeClasses.input} bg-bg-tertiary border border-border-secondary rounded-lg text-center font-medium focus:outline-none focus:ring-2 focus:ring-accent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
+          className={`${sizeClasses.input} bg-bg-tertiary border border-border-secondary rounded-xl text-center font-medium focus:outline-none focus:ring-2 focus:ring-accent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
         />
         <button
           type="button"
           onClick={increment}
           disabled={max !== undefined && value >= max}
-          className={`${sizeClasses.button} bg-bg-elevated hover:bg-border-secondary rounded-lg font-bold transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center`}
+          className={`${sizeClasses.button} bg-bg-elevated hover:bg-border-secondary rounded-xl font-bold transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center`}
         >
           +
         </button>

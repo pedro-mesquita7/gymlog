@@ -11,7 +11,7 @@ export function ErrorCard({ error, resetErrorBoundary, title, context }: ErrorCa
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <div className="border border-error bg-secondary rounded-lg p-6 space-y-4">
+    <div className="border border-error bg-secondary rounded-2xl p-6 space-y-4 shadow-card">
       {/* Error header */}
       <div className="space-y-2">
         <h3 className="text-lg font-semibold text-primary">
@@ -62,7 +62,7 @@ export function ErrorCard({ error, resetErrorBoundary, title, context }: ErrorCa
       {/* Retry button */}
       <button
         onClick={resetErrorBoundary}
-        className="px-4 py-2 bg-accent hover:bg-accent/80 text-white rounded-lg transition-colors text-sm font-medium"
+        className="px-4 py-2 bg-accent hover:bg-accent/80 text-white rounded-2xl transition-colors text-sm font-medium"
       >
         Try again
       </button>

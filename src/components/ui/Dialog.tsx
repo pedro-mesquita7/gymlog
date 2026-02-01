@@ -32,7 +32,7 @@ export function Dialog({
     onClose();
   };
 
-  const baseStyles = 'bg-bg-secondary rounded-lg max-w-md w-full p-6 backdrop:bg-black/50';
+  const baseStyles = 'bg-bg-secondary rounded-2xl max-w-md w-full p-6 shadow-dialog backdrop:bg-black/50';
   const classes = [baseStyles, className].filter(Boolean).join(' ');
 
   return (
