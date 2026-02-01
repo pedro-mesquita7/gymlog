@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 ## Current Position
 
 Phase: 14 of 17 (Workouts UX & Color Scheme)
-Plan: 2 of 5 in current phase
+Plan: 3 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-01 -- Completed 14-02-PLAN.md (Workout/rotation components semantic token migration)
+Last activity: 2026-02-01 -- Completed 14-03-PLAN.md (remaining components color migration)
 
-Progress: [===============░░░░░] 74% (81/~110 plans lifetime)
+Progress: [===============░░░░░] 75% (82/~110 plans lifetime)
 
 ## Milestones
 
@@ -29,8 +29,8 @@ Progress: [===============░░░░░] 74% (81/~110 plans lifetime)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 81 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 2 v1.3-p14)
-- Total commits: ~320
+- Total plans completed: 82 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 3 v1.3-p14)
+- Total commits: ~322
 - Project duration: 6 days (2026-01-27 to 2026-02-01)
 
 **By Phase (v1.3 -- current):**
@@ -39,7 +39,7 @@ Progress: [===============░░░░░] 74% (81/~110 plans lifetime)
 |-------|-------|--------|
 | 12. Security & Bug Fixes | 4/4 | Complete |
 | 13. E2E Test Suite | 7/7 | Complete |
-| 14. Workouts UX & Color Scheme | 2/5 | In progress |
+| 14. Workouts UX & Color Scheme | 3/5 | In progress |
 
 ## Accumulated Context
 
@@ -53,6 +53,7 @@ All decisions from v1.0-v1.2 documented in milestone archives:
 v1.3 decisions:
 - 14-01: OKLCH with 0.01 chroma at hue 270 for neutral grays; 18% lightness page bg
 - 14-02: PR badges use warning token; save/finish buttons use success token; ProgressionAlert maps status to success/warning/error
+- 14-03: PRList badges use chart-primary/chart-success; Recharts inline HSL left untouched; full components/ directory clean of hardcoded colors
 
 ### Pending Todos
 
@@ -65,7 +66,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 14-02-PLAN.md
+Stopped at: Completed 14-03-PLAN.md
 Resume file: None
 
-**Next action:** Execute 14-03-PLAN.md
+**Next action:** Execute 14-04-PLAN.md
