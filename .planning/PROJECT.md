@@ -99,7 +99,9 @@ Track workout performance with proper data engineering — both usable as a pers
 
 ### Active
 
-None -- all planned requirements delivered through v1.3.
+- Multi-exercise comparison (side-by-side stat cards with PRs, volume, frequency, progression)
+- UX tightening (collapsible exercises/gyms, Settings reorder, "Templates" → "Plans" rename)
+- Theme redesign (soft/modern dark theme with rounded corners, gentle gradients, muted tones)
 
 ### Out of Scope
 
@@ -118,11 +120,21 @@ None -- all planned requirements delivered through v1.3.
 
 **Potential v2+ Features:**
 - Chart export as image
-- Multi-exercise comparison on one chart
 - Personal volume targets per muscle group
 - Supersets (paired exercises)
 - Plate calculator for barbell loading
 - Progress summary notifications
+
+## Current Milestone: v1.4 Comparison, UX & Theme
+
+**Goal:** Add multi-exercise comparison, tighten UX across tabs, and redesign the visual theme to a soft/modern dark aesthetic.
+
+**Target features:**
+- Side-by-side exercise comparison cards (PRs, volume, frequency, progression status)
+- Collapsible exercises/gyms sections on Workouts tab (collapsed by default)
+- "Templates" renamed to "Plans" app-wide
+- Settings tab reordered: Rotations → Default Gym → Create Rotation (button) → rest
+- Soft/modern dark theme: rounded corners, gentle gradients, muted tones (Apple Health style)
 
 ## Completed Milestones
 
@@ -168,4 +180,4 @@ See `.planning/MILESTONES.md` for full history and `.planning/milestones/` for a
 | Bundle size budgets with CI check | ~15% headroom above actual; script in CI catches regressions | Good |
 
 ---
-*Last updated: 2026-02-01 after v1.3 milestone archived*
+*Last updated: 2026-02-01 after v1.4 milestone started*
