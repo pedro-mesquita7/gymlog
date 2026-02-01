@@ -39,7 +39,7 @@ Previous milestone roadmaps archived in `.planning/milestones/`.
 **Plans**: 6 plans
 
 Plans:
-- [ ] 18-01-PLAN.md -- Token foundation + UI primitives (Wave 1)
+- [x] 18-01-PLAN.md -- Token foundation + UI primitives (Wave 1)
 - [ ] 18-02-PLAN.md -- Navigation + Workout + top-level components (Wave 2)
 - [ ] 18-03-PLAN.md -- Templates + History + Rotation components (Wave 2)
 - [ ] 18-04-PLAN.md -- Analytics + Charts + hardcoded color migration (Wave 2)
@@ -96,7 +96,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 18. Theme Redesign | v1.4 | 0/6 | Not started | - |
+| 18. Theme Redesign | v1.4 | 1/6 | In progress | - |
 | 19. Plans Rename | v1.4 | 0/TBD | Not started | - |
 | 20. UX Restructure | v1.4 | 0/TBD | Not started | - |
 | 21. Comparison Analytics | v1.4 | 0/TBD | Not started | - |
