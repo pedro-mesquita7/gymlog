@@ -54,10 +54,12 @@ Plans:
   1. Every screen, tab label, heading, button, and toast that previously said "Template(s)" now says "Plan(s)"
   2. Existing user data (events, rotations, workout history) continues to load correctly after rename (no data loss)
   3. E2E tests pass with updated selectors and assertions
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 19-01: TBD
+- [ ] 19-01-PLAN.md -- Foundation rename: types, events, data layer, hooks, stores (Wave 1)
+- [ ] 19-02-PLAN.md -- Component directory rename + all consumer component updates (Wave 2)
+- [ ] 19-03-PLAN.md -- Test updates + grep audit + full verification (Wave 3)
 
 ### Phase 20: UX Restructure
 **Goal**: Users navigate Workouts and Settings tabs with less clutter and faster access to primary actions
