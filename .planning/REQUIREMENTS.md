@@ -1,7 +1,7 @@
 # Requirements: GymLog
 
 **Defined:** 2026-02-01
-**Core Value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
+**Core Value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
 ## v1.4 Requirements
 
@@ -48,29 +48,27 @@ Deferred to v1.5+.
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| COMP-01 | Pending | Pending |
-| COMP-02 | Pending | Pending |
-| COMP-03 | Pending | Pending |
-| COMP-04 | Pending | Pending |
-| COMP-05 | Pending | Pending |
-| UX-01 | Pending | Pending |
-| UX-02 | Pending | Pending |
-| UX-03 | Pending | Pending |
-| UX-04 | Pending | Pending |
-| THEME-01 | Pending | Pending |
-| THEME-02 | Pending | Pending |
-| THEME-03 | Pending | Pending |
-| THEME-04 | Pending | Pending |
+| COMP-01 | Phase 21 | Pending |
+| COMP-02 | Phase 21 | Pending |
+| COMP-03 | Phase 21 | Pending |
+| COMP-04 | Phase 21 | Pending |
+| COMP-05 | Phase 21 | Pending |
+| UX-01 | Phase 20 | Pending |
+| UX-02 | Phase 20 | Pending |
+| UX-03 | Phase 19 | Pending |
+| UX-04 | Phase 20 | Pending |
+| THEME-01 | Phase 18 | Pending |
+| THEME-02 | Phase 18 | Pending |
+| THEME-03 | Phase 18 | Pending |
+| THEME-04 | Phase 18 | Pending |
 
 **Coverage:**
 - v1.4 requirements: 13 total
-- Mapped to phases: 0
-- Unmapped: 13 ⚠️
+- Mapped to phases: 13
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-01*
-*Last updated: 2026-02-01 after initial definition*
+*Last updated: 2026-02-01 after roadmap creation*
