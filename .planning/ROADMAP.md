@@ -87,12 +87,11 @@ Plans:
   3. Stat cards show total volume (sets x reps x weight) per exercise for the selected time range
   4. Stat cards show training frequency (sessions per week/month) per exercise
   5. Stat cards show current progression status (progressing / plateau / regressing) per exercise
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 21-01: TBD
-- [ ] 21-02: TBD
-- [ ] 21-03: TBD
+- [ ] 21-01-PLAN.md -- Data layer: types, SQL query, useComparisonStats hook (Wave 1)
+- [ ] 21-02-PLAN.md -- UI: multi-select picker, stat cards, section integration (Wave 2)
 
 ## Progress
 
@@ -103,7 +102,7 @@ Plans:
 | 18. Theme Redesign | v1.4 | 6/6 | Complete | 2026-02-01 |
 | 19. Plans Rename | v1.4 | 3/3 | Complete | 2026-02-01 |
 | 20. UX Restructure | v1.4 | 3/3 | Complete | 2026-02-01 |
-| 21. Comparison Analytics | v1.4 | 0/TBD | Not started | - |
+| 21. Comparison Analytics | v1.4 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-02-01*
