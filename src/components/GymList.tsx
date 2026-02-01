@@ -65,7 +65,7 @@ export function GymList({
       </div>
 
       {isLoading ? (
-        <div className="text-text-muted text-sm">Loading...</div>
+        <div className="text-text-muted text-sm">Loading gyms...</div>
       ) : gyms.length === 0 ? (
         <div className="border border-dashed border-border-primary py-8 px-6">
           <p className="text-text-muted text-sm">No gyms added yet</p>

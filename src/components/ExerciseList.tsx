@@ -87,7 +87,7 @@ export function ExerciseList({
       </div>
 
       {isLoading ? (
-        <div className="text-text-muted text-sm">Loading...</div>
+        <div className="text-text-muted text-sm">Loading exercises...</div>
       ) : filteredExercises.length === 0 ? (
         <div className="border border-dashed border-border-primary py-8 px-6">
           <p className="text-text-muted text-sm">
