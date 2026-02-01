@@ -1,6 +1,7 @@
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import type { DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { UseFieldArrayReturn, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import type { UseFieldArrayReturn, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { ExerciseRow } from './ExerciseRow';
 import type { Exercise } from '../../types/database';
 import type { TemplateFormData } from './TemplateBuilder';
@@ -40,7 +41,7 @@ export function ExerciseList({ fieldArray, exercises, register, setValue, watch 
 
   if (fields.length === 0) {
     return (
-      <div className="text-center py-8 text-zinc-500">
+      <div className="text-center py-8 text-text-muted">
         No exercises added yet. Select exercises below.
       </div>
     );

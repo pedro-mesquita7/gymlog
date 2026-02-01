@@ -106,14 +106,14 @@ export function ExerciseList({
               <div className="flex items-center gap-4">
                 <div
                   className={`w-1 h-8 ${
-                    exercise.is_global ? 'bg-zinc-600' : 'bg-accent'
+                    exercise.is_global ? 'bg-bg-elevated' : 'bg-accent'
                   }`}
                 />
                 <div>
                   <h3 className="font-medium">{exercise.name}</h3>
                   <p className="text-sm text-text-muted mt-0.5">
                     {exercise.muscle_group}
-                    <span className="mx-2 text-zinc-700">·</span>
+                    <span className="mx-2 text-border-primary">·</span>
                     <span className={exercise.is_global ? 'text-text-muted' : 'text-accent'}>
                       {exercise.is_global ? 'Global' : 'Per-gym'}
                     </span>

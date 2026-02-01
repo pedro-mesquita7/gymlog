@@ -221,7 +221,7 @@ export function RotationSection() {
 
                 {/* Delete Confirmation */}
                 {deleteConfirmId === rotation.rotation_id && (
-                  <div className="bg-bg-tertiary rounded-lg p-3 border border-red-400/20">
+                  <div className="bg-bg-tertiary rounded-lg p-3 border border-error/20">
                     <p className="text-sm text-text-primary mb-3">
                       Delete "{rotation.name}"? This cannot be undone.
                     </p>

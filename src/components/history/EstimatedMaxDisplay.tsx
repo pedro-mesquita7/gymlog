@@ -12,17 +12,17 @@ export function EstimatedMaxDisplay({ maxWeight, max1RM }: EstimatedMaxDisplayPr
   }
 
   return (
-    <div className="flex gap-4 justify-center text-sm text-zinc-400">
+    <div className="flex gap-4 justify-center text-sm text-text-secondary">
       {maxWeight && (
         <div>
-          <span className="text-zinc-500">Max:</span>{' '}
-          <span className="text-zinc-300 font-medium">{maxWeight.toFixed(1)}kg</span>
+          <span className="text-text-muted">Max:</span>{' '}
+          <span className="text-text-primary font-medium">{maxWeight.toFixed(1)}kg</span>
         </div>
       )}
       {max1RM && (
         <div>
-          <span className="text-zinc-500">Est 1RM:</span>{' '}
-          <span className="text-zinc-300 font-medium">{max1RM.toFixed(1)}kg</span>
+          <span className="text-text-muted">Est 1RM:</span>{' '}
+          <span className="text-text-primary font-medium">{max1RM.toFixed(1)}kg</span>
         </div>
       )}
     </div>

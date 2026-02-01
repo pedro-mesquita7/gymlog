@@ -13,7 +13,7 @@ export function PRList({ exerciseId, exerciseName }: PRListProps) {
 
   if (isLoading) {
     return (
-      <div className="text-center text-zinc-500 py-8">
+      <div className="text-center text-text-muted py-8">
         Loading PR history...
       </div>
     );
@@ -21,7 +21,7 @@ export function PRList({ exerciseId, exerciseName }: PRListProps) {
 
   if (error) {
     return (
-      <div className="text-center text-red-400 py-8">
+      <div className="text-center text-error py-8">
         Error loading PRs: {error}
       </div>
     );
@@ -29,7 +29,7 @@ export function PRList({ exerciseId, exerciseName }: PRListProps) {
 
   if (prs.length === 0) {
     return (
-      <div className="text-center text-zinc-500 py-8">
+      <div className="text-center text-text-muted py-8">
         No PRs yet for {exerciseName}
       </div>
     );
@@ -62,28 +62,28 @@ export function PRList({ exerciseId, exerciseName }: PRListProps) {
       case 'weight_and_1rm':
         return 'bg-accent text-black';
       case 'weight':
-        return 'bg-blue-500 text-white';
+        return 'bg-chart-primary text-white';
       case '1rm':
-        return 'bg-purple-500 text-white';
+        return 'bg-chart-success text-white';
       default:
-        return 'bg-zinc-600 text-white';
+        return 'bg-bg-elevated text-text-primary';
     }
   };
 
   return (
     <div className="space-y-3">
-      <h3 className="text-lg font-semibold text-zinc-300">
+      <h3 className="text-lg font-semibold text-text-primary">
         PR History - {exerciseName}
       </h3>
       <div className="space-y-2">
         {prs.map((pr) => (
           <div
             key={pr.set_id}
-            className="bg-zinc-800/50 rounded-lg px-4 py-3 space-y-2"
+            className="bg-bg-tertiary/50 rounded-lg px-4 py-3 space-y-2"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="font-bold text-zinc-200">
+                <span className="font-bold text-text-primary">
                   {pr.weight_kg}kg × {pr.reps}
                 </span>
                 <span
@@ -92,12 +92,12 @@ export function PRList({ exerciseId, exerciseName }: PRListProps) {
                   {getPRTypeLabel(pr.pr_type)}
                 </span>
               </div>
-              <span className="text-sm text-zinc-400">
+              <span className="text-sm text-text-secondary">
                 {formatDate(pr.logged_at)}
               </span>
             </div>
             {pr.estimated_1rm && (
-              <div className="text-sm text-zinc-500">
+              <div className="text-sm text-text-muted">
                 Est 1RM: {pr.estimated_1rm.toFixed(1)}kg
               </div>
             )}
