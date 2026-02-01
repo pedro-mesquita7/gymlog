@@ -70,10 +70,12 @@ Plans:
   2. Gyms section on Workouts tab is collapsed by default, expandable with a single tap
   3. Settings tab shows Rotations at top, then Default Gym, then Create Rotation button, then remaining settings
   4. "Start Workout" / Quick Start remains the most prominent element on Workouts tab without scrolling past collapsed sections
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 20-01: TBD
+- [ ] 20-01-PLAN.md -- CollapsibleSection component + Workouts tab restructure (Wave 1)
+- [ ] 20-02-PLAN.md -- Settings tab reorder with collapsible lower sections (Wave 2)
+- [ ] 20-03-PLAN.md -- E2E test updates for collapsed sections (Wave 2)
 
 ### Phase 21: Comparison Analytics
 **Goal**: Users can compare exercises side-by-side to understand relative strength, volume, and progression across their training
@@ -100,7 +102,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 18. Theme Redesign | v1.4 | 6/6 | Complete | 2026-02-01 |
 | 19. Plans Rename | v1.4 | 3/3 | Complete | 2026-02-01 |
-| 20. UX Restructure | v1.4 | 0/TBD | Not started | - |
+| 20. UX Restructure | v1.4 | 0/3 | Not started | - |
 | 21. Comparison Analytics | v1.4 | 0/TBD | Not started | - |
 
 ---
