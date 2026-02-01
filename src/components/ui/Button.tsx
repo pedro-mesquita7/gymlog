@@ -21,10 +21,10 @@ export function Button({
 
   // Variant styles
   const variantStyles: Record<ButtonVariant, string> = {
-    primary: 'bg-accent hover:bg-accent/90 text-black',
-    secondary: 'bg-zinc-800 text-zinc-100 hover:bg-zinc-700',
-    ghost: 'bg-transparent hover:bg-zinc-800 text-zinc-100',
-    danger: 'bg-transparent text-red-400 hover:bg-zinc-800',
+    primary: 'bg-accent hover:bg-accent-hover text-black',
+    secondary: 'bg-bg-tertiary text-text-primary hover:bg-bg-elevated',
+    ghost: 'bg-transparent hover:bg-bg-tertiary text-text-primary',
+    danger: 'bg-transparent text-error hover:bg-bg-tertiary',
   };
 
   // Size styles

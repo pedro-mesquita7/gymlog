@@ -8,7 +8,7 @@ interface SelectProps extends ComponentPropsWithoutRef<'select'> {
   className?: string;
 }
 
-const inputBaseStyles = 'w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:border-accent';
+const inputBaseStyles = 'w-full p-3 bg-bg-tertiary border border-border-secondary rounded-lg text-text-primary focus:outline-none focus:border-accent';
 
 export function Input({ className = '', ...props }: InputProps) {
   const classes = [inputBaseStyles, className].filter(Boolean).join(' ');

@@ -52,14 +52,14 @@ export function NumberStepper({
   return (
     <div className="flex flex-col items-center">
       {label && (
-        <label className="text-xs text-zinc-500 mb-1">{label}</label>
+        <label className="text-xs text-text-muted mb-1">{label}</label>
       )}
       <div className={`flex items-center ${sizeClasses.container}`}>
         <button
           type="button"
           onClick={decrement}
           disabled={min !== undefined && value <= min}
-          className={`${sizeClasses.button} bg-zinc-700 hover:bg-zinc-600 rounded-lg font-bold transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center`}
+          className={`${sizeClasses.button} bg-bg-elevated hover:bg-border-secondary rounded-lg font-bold transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center`}
         >
           -
         </button>
@@ -71,19 +71,19 @@ export function NumberStepper({
           min={min}
           max={max}
           step={step}
-          className={`${sizeClasses.input} bg-zinc-800 border border-zinc-700 rounded-lg text-center font-medium focus:outline-none focus:ring-2 focus:ring-accent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
+          className={`${sizeClasses.input} bg-bg-tertiary border border-border-secondary rounded-lg text-center font-medium focus:outline-none focus:ring-2 focus:ring-accent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
         />
         <button
           type="button"
           onClick={increment}
           disabled={max !== undefined && value >= max}
-          className={`${sizeClasses.button} bg-zinc-700 hover:bg-zinc-600 rounded-lg font-bold transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center`}
+          className={`${sizeClasses.button} bg-bg-elevated hover:bg-border-secondary rounded-lg font-bold transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center`}
         >
           +
         </button>
       </div>
       {unit && (
-        <span className="text-xs text-zinc-500 mt-1">{unit}</span>
+        <span className="text-xs text-text-muted mt-1">{unit}</span>
       )}
     </div>
   );

@@ -12,11 +12,11 @@ export function Card({
   children,
   ...props
 }: CardProps) {
-  const baseStyles = 'bg-zinc-800/50 rounded-lg p-4';
+  const baseStyles = 'bg-bg-secondary rounded-lg p-4';
 
   const variantStyles: Record<CardVariant, string> = {
     default: '',
-    interactive: 'hover:bg-zinc-800/70 cursor-pointer transition-colors',
+    interactive: 'hover:bg-bg-tertiary cursor-pointer transition-colors',
   };
 
   const classes = [baseStyles, variantStyles[variant], className]

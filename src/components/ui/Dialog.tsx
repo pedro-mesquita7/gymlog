@@ -32,7 +32,7 @@ export function Dialog({
     onClose();
   };
 
-  const baseStyles = 'bg-zinc-900 rounded-lg max-w-md w-full p-6 backdrop:bg-black/50';
+  const baseStyles = 'bg-bg-secondary rounded-lg max-w-md w-full p-6 backdrop:bg-black/50';
   const classes = [baseStyles, className].filter(Boolean).join(' ');
 
   return (
@@ -43,8 +43,8 @@ export function Dialog({
       {...props}
     >
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-zinc-100">{title}</h2>
-        <div className="text-zinc-300">{children}</div>
+        <h2 className="text-xl font-semibold text-text-primary">{title}</h2>
+        <div className="text-text-secondary">{children}</div>
       </div>
     </dialog>
   );
