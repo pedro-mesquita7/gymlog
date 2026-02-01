@@ -6,16 +6,16 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
-**Current focus:** v1.3 Production Polish & Deploy Readiness -- Phase 15 Analytics Redesign COMPLETE
+**Current focus:** v1.3 Production Polish & Deploy Readiness -- Phase 16 Demo Data & TOON Export IN PROGRESS
 
 ## Current Position
 
-Phase: 15 of 17 (Analytics Redesign)
-Plan: 5 of 5 in current phase
-Status: Phase complete
-Last activity: 2026-02-01 -- Completed 15-05-PLAN.md (dashboard integration)
+Phase: 16 of 17 (Demo Data & TOON Export)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-02-01 -- Completed 16-01-PLAN.md (demo data UX dialogs)
 
-Progress: [=================░░░] 81% (89/~110 plans lifetime)
+Progress: [=================░░░] 82% (90/~110 plans lifetime)
 
 ## Milestones
 
@@ -29,8 +29,8 @@ Progress: [=================░░░] 81% (89/~110 plans lifetime)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 89 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15)
-- Total commits: ~339
+- Total plans completed: 90 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15 + 1 v1.3-p16)
+- Total commits: ~341
 - Project duration: 6 days (2026-01-27 to 2026-02-01)
 
 **By Phase (v1.3 -- current):**
@@ -41,6 +41,7 @@ Progress: [=================░░░] 81% (89/~110 plans lifetime)
 | 13. E2E Test Suite | 7/7 | Complete |
 | 14. Workouts UX & Color Scheme | 5/5 | Complete |
 | 15. Analytics Redesign | 5/5 | Complete |
+| 16. Demo Data & TOON Export | 1/3 | In Progress |
 
 ## Accumulated Context
 
@@ -61,6 +62,7 @@ v1.3 decisions:
 - 15-02: hooks accept optional days param (undefined=default, null=all-time); abortRef pattern for stale data; useVolumeZoneThresholds for 5-zone system; useSummaryStats for dashboard cards; streak in JS not SQL
 - 15-04: VolumeBarChart uses Cell for per-bar zone coloring; MuscleHeatMap uses direct OKLCH in SVG fill; getThresholds function prop replaces UseVolumeThresholdsReturn
 - 15-05: Sticky TimeRangePicker at top; exercise selector scoped to Exercise Detail section; ProgressionDashboard shows info note for <63 days; default time range 3M; localStorage key gymlog-analytics-timerange
+- 16-01: Dialog confirmations for destructive actions (no window.confirm); clearHistoricalData whitelist preserves exercise/gym events; OKLCH amber gradient for warning buttons
 
 ### Pending Todos
 
@@ -68,12 +70,12 @@ None.
 
 ### Blockers/Concerns
 
-- Phase 15 complete. Ready to proceed to Phase 16.
+- Phase 16 in progress. Plans 02-03 remaining.
 
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 15-05-PLAN.md (dashboard integration) -- Phase 15 complete
+Stopped at: Completed 16-01-PLAN.md (demo data UX dialogs)
 Resume file: None
 
-**Next action:** Proceed to Phase 16
+**Next action:** Execute 16-02-PLAN.md
