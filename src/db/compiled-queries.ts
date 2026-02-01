@@ -222,7 +222,13 @@ FROM sets_with_anomaly_flag
 ORDER BY logged_at DESC
 `;
 
-export const EXERCISE_HISTORY_SQL = `
+// Exercise history — parameterized (Phase 15)
+export function exerciseHistorySQL(days: number | null): string {
+  const timeFilter = days !== null
+    ? `CAST(f.logged_at AS TIMESTAMP) >= CURRENT_DATE - INTERVAL '${days} days'`
+    : `1=1`;
+
+  return `
 WITH workout_events AS (
     SELECT
         payload->>'workout_id' AS workout_id,
@@ -251,7 +257,7 @@ recent_sets AS (
         w.gym_id AS workout_gym_id
     FROM (${FACT_SETS_SQL}) f
     JOIN workout_events w ON f.workout_id = w.workout_id
-    WHERE CAST(f.logged_at AS TIMESTAMP) >= CURRENT_DATE - INTERVAL '14 days'
+    WHERE ${timeFilter}
 )
 
 SELECT
@@ -267,6 +273,7 @@ JOIN exercise_dim_all e ON r.exercise_id = e.exercise_id
 WHERE r.original_exercise_id = $2
 ORDER BY r.logged_at DESC
 `;
+}
 
 export const PR_LIST_SQL = `
 WITH fact_sets AS (
@@ -303,8 +310,13 @@ FROM fact_sets
 WHERE original_exercise_id = $1
 `;
 
-// Exercise progress for charts (mirrors vw_exercise_progress.sql)
-export const EXERCISE_PROGRESS_SQL = `
+// Exercise progress for charts — parameterized (Phase 15)
+export function exerciseProgressSQL(days: number | null): string {
+  const timeFilter = days !== null
+    ? `CAST(logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '${days} days'`
+    : `1=1`;
+
+  return `
 WITH daily_aggregates AS (
     SELECT
         original_exercise_id AS exercise_id,
@@ -314,7 +326,7 @@ WITH daily_aggregates AS (
         SUM(weight_kg * reps) AS total_volume,
         COUNT(*) AS set_count
     FROM (${FACT_SETS_SQL}) fact_sets
-    WHERE CAST(logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '28 days'
+    WHERE ${timeFilter}
     GROUP BY original_exercise_id, DATE_TRUNC('day', CAST(logged_at AS TIMESTAMPTZ))::DATE
 ),
 
@@ -336,6 +348,7 @@ INNER JOIN exercise_dim_all e ON d.exercise_id = e.exercise_id
 WHERE d.exercise_id = $1
 ORDER BY d.date
 `;
+}
 
 // Weekly comparison (mirrors vw_weekly_comparison.sql)
 export const WEEKLY_COMPARISON_SQL = `
@@ -395,8 +408,13 @@ INNER JOIN exercise_dim_all e ON w.exercise_id = e.exercise_id
 ORDER BY week_start DESC, exercise_name
 `;
 
-// Volume by muscle group (mirrors vw_volume_by_muscle_group.sql)
-export const VOLUME_BY_MUSCLE_GROUP_SQL = `
+// Volume by muscle group — parameterized, returns weekly averages (Phase 15)
+export function volumeByMuscleGroupSQL(days: number | null): string {
+  const timeFilter = days !== null
+    ? `WHERE CAST(fs.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '${days} days'`
+    : `WHERE 1=1`;
+
+  return `
 WITH fact_sets AS (
     ${FACT_SETS_SQL}
 ),
@@ -412,22 +430,31 @@ weekly_volume AS (
         COUNT(*) AS set_count
     FROM fact_sets fs
     INNER JOIN exercise_dim_all e ON fs.original_exercise_id = e.exercise_id
-    WHERE CAST(fs.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '28 days'
+    ${timeFilter}
     GROUP BY
         DATE_TRUNC('week', CAST(fs.logged_at AS TIMESTAMPTZ))::DATE,
         e.muscle_group
+),
+
+avg_volume AS (
+    SELECT
+        muscle_group,
+        ROUND(AVG(set_count), 1) AS avg_weekly_sets
+    FROM weekly_volume
+    GROUP BY muscle_group
 )
 
-SELECT
-    week_start,
-    muscle_group,
-    set_count
-FROM weekly_volume
-ORDER BY week_start DESC, muscle_group
+SELECT muscle_group, avg_weekly_sets FROM avg_volume ORDER BY muscle_group
 `;
+}
 
-// Muscle heat map (mirrors vw_muscle_heat_map.sql)
-export const MUSCLE_HEAT_MAP_SQL = `
+// Muscle heat map — parameterized (Phase 15)
+export function muscleHeatMapSQL(days: number | null): string {
+  const timeFilter = days !== null
+    ? `CAST(fs.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '${days} days'`
+    : `1=1`;
+
+  return `
 WITH fact_sets AS (
     ${FACT_SETS_SQL}
 ),
@@ -443,13 +470,19 @@ SELECT
     MAX(fs.logged_at) AS last_logged_at
 FROM fact_sets fs
 INNER JOIN exercise_dim_all e ON fs.original_exercise_id = e.exercise_id
-WHERE CAST(fs.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '28 days'
+WHERE ${timeFilter}
 GROUP BY e.muscle_group
 ORDER BY total_sets DESC
 `;
+}
 
-// Progression status (mirrors vw_progression_status.sql)
-export const PROGRESSION_STATUS_SQL = `
+// Progression status — parameterized (Phase 15)
+// Uses max(days, 63) for 9-week window and max(days, 28) for 4-week window
+export function progressionStatusSQL(days: number | null): string {
+  const sessionWindowDays = days !== null ? Math.max(days, 63) : 63; // 9 weeks minimum
+  const recentWindowDays = days !== null ? Math.max(days, 28) : 28;  // 4 weeks minimum
+
+  return `
 WITH fact_sets AS (
     ${FACT_SETS_SQL}
 ),
@@ -474,7 +507,7 @@ exercise_sessions AS (
         SUM(fs.weight_kg * fs.reps) AS volume_session
     FROM fact_sets fs
     INNER JOIN workout_events w ON fs.workout_id = w.workout_id
-    WHERE CAST(w.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '9 weeks'
+    WHERE CAST(w.logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '${sessionWindowDays} days'
     GROUP BY fs.original_exercise_id, w.gym_id, w.workout_id, w.logged_at
 ),
 
@@ -484,7 +517,7 @@ session_counts AS (
         gym_id,
         COUNT(DISTINCT workout_id) AS session_count_4wk
     FROM exercise_sessions
-    WHERE CAST(session_date AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '4 weeks'
+    WHERE CAST(session_date AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '${recentWindowDays} days'
     GROUP BY original_exercise_id, gym_id
     HAVING COUNT(DISTINCT workout_id) >= 2
 ),
@@ -509,7 +542,7 @@ recent_weight_stats AS (
     INNER JOIN session_counts sc
         ON es.original_exercise_id = sc.original_exercise_id
         AND es.gym_id = sc.gym_id
-    WHERE CAST(es.session_date AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '4 weeks'
+    WHERE CAST(es.session_date AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '${recentWindowDays} days'
     GROUP BY es.original_exercise_id, es.gym_id
 ),
 
@@ -578,7 +611,7 @@ plateau_detection AS (
         lpr.last_pr_date,
         CASE
             WHEN lpr.last_pr_date IS NULL THEN true
-            WHEN CAST(lpr.last_pr_date AS TIMESTAMPTZ) < CURRENT_DATE - INTERVAL '4 weeks' THEN true
+            WHEN CAST(lpr.last_pr_date AS TIMESTAMPTZ) < CURRENT_DATE - INTERVAL '${recentWindowDays} days' THEN true
             ELSE false
         END AS no_pr_4wk,
         CASE
@@ -635,3 +668,37 @@ SELECT
 FROM combined_status
 ORDER BY original_exercise_id, gym_id
 `;
+}
+
+// Summary stats — new query (Phase 15)
+export function summaryStatsSQL(days: number | null): string {
+  const timeFilter = days !== null
+    ? `CAST(COALESCE(payload->>'logged_at', CAST(_created_at AS VARCHAR)) AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '${days} days'`
+    : `1=1`;
+  const setsTimeFilter = days !== null
+    ? `CAST(logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '${days} days'`
+    : `1=1`;
+
+  return `
+    WITH fact_sets AS (${FACT_SETS_SQL}),
+    workout_events AS (
+      SELECT DISTINCT
+        payload->>'workout_id' AS workout_id,
+        COALESCE(payload->>'logged_at', CAST(_created_at AS VARCHAR)) AS logged_at
+      FROM events
+      WHERE event_type = 'workout_started'
+        AND ${timeFilter}
+    )
+    SELECT
+      (SELECT COUNT(DISTINCT workout_id) FROM workout_events) AS total_workouts,
+      (SELECT COALESCE(SUM(weight_kg * reps), 0) FROM fact_sets WHERE ${setsTimeFilter}) AS total_volume_kg,
+      (SELECT COUNT(*) FROM fact_sets WHERE is_pr = true AND ${setsTimeFilter}) AS total_prs
+  `;
+}
+
+// DEPRECATED: Use function versions. These will be removed after Plan 02 migrates hooks.
+export const EXERCISE_HISTORY_SQL = exerciseHistorySQL(14);
+export const EXERCISE_PROGRESS_SQL = exerciseProgressSQL(28);
+export const VOLUME_BY_MUSCLE_GROUP_SQL = volumeByMuscleGroupSQL(28);
+export const MUSCLE_HEAT_MAP_SQL = muscleHeatMapSQL(28);
+export const PROGRESSION_STATUS_SQL = progressionStatusSQL(null);
