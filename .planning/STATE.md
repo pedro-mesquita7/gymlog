@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-01)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
-**Current focus:** Phase 21 in progress -- Comparison Analytics data layer complete
+**Current focus:** Phase 21 complete -- Comparison Analytics delivered
 
 ## Current Position
 
 Phase: 21 of 21 (Comparison Analytics)
-Plan: 1 of 2
-Status: In progress
-Last activity: 2026-02-01 -- Completed 21-01-PLAN.md
+Plan: 2 of 2
+Status: Phase complete
+Last activity: 2026-02-01 -- Completed 21-02-PLAN.md
 
-Progress: [█████████████░░░░░░░] 54% (13/24 plans)
+Progress: [██████████████░░░░░░] 58% (14/24 plans)
 
 ## Milestones
 
@@ -29,9 +29,9 @@ Progress: [█████████████░░░░░░░] 54% (13
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12 (this milestone)
+- Total plans completed: 13 (this milestone)
 - Average duration: ~7 min
-- Total execution time: ~83 min
+- Total execution time: ~88 min
 
 **By Phase:**
 
@@ -40,7 +40,7 @@ Progress: [█████████████░░░░░░░] 54% (13
 | 18. Theme Redesign | 6/6 | ~51 min | ~9 min |
 | 19. Plans Rename | 3/3 | ~24 min | ~8 min |
 | 20. UX Restructure | 3/3 | ~18 min | ~6 min |
-| 21. Comparison Analytics | 1/2 | ~2 min | ~2 min |
+| 21. Comparison Analytics | 2/2 | ~7 min | ~4 min |
 
 ## Accumulated Context
 
@@ -66,6 +66,10 @@ Progress: [█████████████░░░░░░░] 54% (13
 - Comparison progression status merged from prop data, not re-queried (avoids duplicate 9-week SQL)
 - UUID validation via regex before SQL interpolation in comparisonStatsSQL
 - exerciseIds.join(',') as useCallback dependency key for stable reference
+- Click-outside-to-close pattern for multi-select dropdown
+- grid-cols-2 layout for stat cards (2x2 for 4 exercises)
+- ComparisonSection placed after Progression Intelligence as exploratory deep-dive
+- Progression data prop-drilled to ComparisonSection (DuckDB cache covers ProgressionDashboard duplication)
 
 ### Pending Todos
 
@@ -79,7 +83,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 21-01-PLAN.md (Comparison data layer)
+Stopped at: Completed 21-02-PLAN.md (Comparison UI components)
 Resume file: None
 
-**Next action:** Execute 21-02-PLAN.md (Comparison UI components)
+**Next action:** Phase 21 complete. Ready for next milestone planning.
