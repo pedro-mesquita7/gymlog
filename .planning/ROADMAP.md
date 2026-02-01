@@ -137,11 +137,11 @@ Plans:
   4. User sees a volume zone legend explaining MEV/MAV/MRV terms with source citation
 **Plans**: 5 plans
 Plans:
-- [ ] 15-01-PLAN.md -- Types, SQL parameterization, and OKLCH zone tokens (data foundation)
-- [ ] 15-02-PLAN.md -- Hook parameterization and useSummaryStats (data hooks)
-- [ ] 15-03-PLAN.md -- New UI components (TimeRangePicker, SummaryStatsCards, VolumeLegend, SectionHeading)
-- [ ] 15-04-PLAN.md -- VolumeBarChart 5-zone rewrite, MuscleHeatMap update, chart color migration
-- [ ] 15-05-PLAN.md -- AnalyticsPage dashboard assembly and integration
+- [x] 15-01-PLAN.md -- Types, SQL parameterization, and OKLCH zone tokens (data foundation)
+- [x] 15-02-PLAN.md -- Hook parameterization and useSummaryStats (data hooks)
+- [x] 15-03-PLAN.md -- New UI components (TimeRangePicker, SummaryStatsCards, VolumeLegend, SectionHeading)
+- [x] 15-04-PLAN.md -- VolumeBarChart 5-zone rewrite, MuscleHeatMap update, chart color migration
+- [x] 15-05-PLAN.md -- AnalyticsPage dashboard assembly and integration
 
 #### Phase 16: Demo Data UX & TOON Export
 **Goal**: Portfolio reviewers can safely explore and reset demo data, and users can export workout data in LLM-optimized TOON format for sharing or analysis
@@ -184,10 +184,10 @@ Plans:
 | 12. Bug Fix & Security Hardening | v1.3 | 4/4 | Complete | 2026-01-31 |
 | 13. E2E Test Suite | v1.3 | 7/7 | Complete | 2026-01-31 |
 | 14. Workouts UX & Color Scheme | v1.3 | 5/5 | Complete | 2026-02-01 |
-| 15. Analytics Redesign | v1.3 | 0/5 | Planned | - |
+| 15. Analytics Redesign | v1.3 | 5/5 | Complete | 2026-02-01 |
 | 16. Demo Data UX & TOON Export | v1.3 | 0/TBD | Not started | - |
 | 17. PWA, Performance, README & Final Polish | v1.3 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-02-01 -- Phase 15 planned (5 plans in 4 waves)*
+*Last updated: 2026-02-01 -- Phase 15 complete (5/5 plans, 4/4 criteria verified)*

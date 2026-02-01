@@ -33,10 +33,10 @@
 
 ### Analytics
 
-- [ ] **ANLT-01**: Analytics page is single scrollable dashboard: summary stats -> volume overview -> exercise detail
-- [ ] **ANLT-02**: Time range selector (1M/3M/6M/1Y/All) affects all analytics charts globally
-- [ ] **ANLT-03**: Volume per muscle group shows research-backed target ranges (Schoenfeld/RP) with color-coded zones
-- [ ] **ANLT-04**: Volume zone legend explains MEV/MAV/MRV with source citation
+- [x] **ANLT-01**: Analytics page is single scrollable dashboard: summary stats -> volume overview -> exercise detail
+- [x] **ANLT-02**: Time range selector (1M/3M/6M/1Y/All) affects all analytics charts globally
+- [x] **ANLT-03**: Volume per muscle group shows research-backed target ranges (Schoenfeld/RP) with color-coded zones
+- [x] **ANLT-04**: Volume zone legend explains MEV/MAV/MRV with source citation
 
 ### Color Scheme
 
@@ -116,10 +116,10 @@ Deferred beyond v1.3:
 | TEST-05 | Phase 13 | Complete |
 | UX-01 | Phase 14 | Complete |
 | UX-02 | Phase 14 | Complete |
-| ANLT-01 | Phase 15 | Pending |
-| ANLT-02 | Phase 15 | Pending |
-| ANLT-03 | Phase 15 | Pending |
-| ANLT-04 | Phase 15 | Pending |
+| ANLT-01 | Phase 15 | Complete |
+| ANLT-02 | Phase 15 | Complete |
+| ANLT-03 | Phase 15 | Complete |
+| ANLT-04 | Phase 15 | Complete |
 | CLR-01 | Phase 14 | Complete |
 | CLR-02 | Phase 14 | Complete |
 | CLR-03 | Phase 14 | Complete |
@@ -148,4 +148,4 @@ Deferred beyond v1.3:
 
 ---
 *Requirements defined: 2026-01-31*
-*Last updated: 2026-02-01 -- Phase 14 requirements (UX-01, UX-02, CLR-01, CLR-02, CLR-03) marked Complete*
+*Last updated: 2026-02-01 -- Phase 15 requirements (ANLT-01, ANLT-02, ANLT-03, ANLT-04) marked Complete*
