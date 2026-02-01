@@ -2,44 +2,46 @@
 
 @theme {
   /* ==========================================================================
-     COLOR SYSTEM - Modern dark theme inspired by Vercel Dashboard
-     Zinc base + vibrant orange accent + semantic state colors
+     COLOR SYSTEM - OKLCH-based dark theme (Linear/Notion aesthetic)
+     Soft dark gray backgrounds, perceptually uniform color space
      ========================================================================== */
 
-  /* Background layers - progressive depth */
-  --color-bg-primary: #09090b;      /* zinc-950 - page background */
-  --color-bg-secondary: #18181b;    /* zinc-900 - card backgrounds */
-  --color-bg-tertiary: #27272a;     /* zinc-800 - input backgrounds, hover states */
-
-  /* Borders - subtle separation */
-  --color-border-primary: #27272a;   /* zinc-800 - primary borders */
-  --color-border-secondary: #3f3f46; /* zinc-700 - secondary borders, focus states */
+  /* Background layers - progressive brightness */
+  --color-bg-primary: oklch(18% 0.01 270);      /* page background - soft dark gray */
+  --color-bg-secondary: oklch(22% 0.01 270);    /* card backgrounds */
+  --color-bg-tertiary: oklch(27% 0.01 270);     /* input backgrounds, hover states */
+  --color-bg-elevated: oklch(30% 0.01 270);     /* elevated surfaces, active states */
 
   /* Text hierarchy */
-  --color-text-primary: #fafafa;     /* zinc-100 - primary text */
-  --color-text-secondary: #a1a1aa;   /* zinc-400 - secondary text, labels */
-  --color-text-muted: #71717a;       /* zinc-500 - muted text, placeholders */
+  --color-text-primary: oklch(90% 0.005 270);   /* primary text - soft white */
+  --color-text-secondary: oklch(72% 0.01 270);  /* labels, secondary info */
+  --color-text-muted: oklch(55% 0.01 270);      /* placeholders, hints */
 
-  /* Accent - vibrant orange (oklch for better vibrancy) */
-  --color-accent: oklch(67% 0.19 35);       /* ~orange-500 vibrant */
-  --color-accent-hover: oklch(62% 0.17 35); /* ~orange-600 dimmed */
+  /* Borders - subtle separation */
+  --color-border-primary: oklch(27% 0.01 270);  /* subtle card borders */
+  --color-border-secondary: oklch(35% 0.01 270); /* focus states, stronger separation */
+
+  /* Accent - vibrant orange */
+  --color-accent: oklch(72% 0.19 45);           /* primary orange */
+  --color-accent-hover: oklch(65% 0.17 45);     /* hover/pressed state */
+  --color-accent-muted: oklch(72% 0.06 45);     /* subtle accent backgrounds */
 
   /* Semantic state colors */
-  --color-success: oklch(62% 0.15 145);  /* ~green-500 - PRs, positive indicators */
-  --color-error: oklch(63% 0.24 25);      /* ~red-500 - errors, destructive actions */
-  --color-warning: oklch(75% 0.15 85);    /* ~amber-500 - warnings */
+  --color-success: oklch(65% 0.17 145);         /* PRs, positive indicators */
+  --color-error: oklch(63% 0.22 25);            /* errors, destructive actions */
+  --color-warning: oklch(75% 0.15 85);          /* warnings */
 
   /* Chart colors - data visualization palette */
   --color-chart-primary: oklch(60% 0.15 250);   /* blue - primary data series */
   --color-chart-success: oklch(62% 0.15 145);   /* green - 1RM, positive metrics */
-  --color-chart-muted: oklch(65% 0.02 240);     /* gray - axes, grid lines */
+  --color-chart-muted: oklch(55% 0.02 270);     /* gray - axes, grid lines */
 
-  /* Legacy HSL chart colors (for compatibility with existing charts) */
-  --chart-primary: 220 70% 50%;   /* Blue for primary data */
-  --chart-success: 142 76% 36%;   /* Green for 1RM/positive */
-  --chart-muted: 240 5% 65%;      /* Gray for axes/grid */
+  /* Legacy HSL chart colors (backward compat until all charts migrated) */
+  --chart-primary: 220 70% 50%;
+  --chart-success: 142 76% 36%;
+  --chart-muted: 240 5% 65%;
 
-  /* Legacy HSL accent (for compatibility) */
+  /* Legacy HSL accent (backward compat) */
   --accent: 16 100% 50%;
 
   /* ==========================================================================
@@ -64,25 +66,10 @@
   }
 
   body {
-    @apply bg-zinc-950 text-zinc-100 antialiased;
+    @apply bg-bg-primary text-text-primary antialiased;
   }
 
   input::placeholder {
     @apply text-text-muted opacity-100;
-  }
-}
-
-@layer components {
-  /* Accent utility classes (legacy compatibility) */
-  .text-accent {
-    color: hsl(var(--accent));
-  }
-
-  .bg-accent {
-    background-color: hsl(var(--accent));
-  }
-
-  .border-accent {
-    border-color: hsl(var(--accent));
   }
 }
