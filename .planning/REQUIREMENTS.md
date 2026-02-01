@@ -17,10 +17,10 @@ Requirements for milestone v1.4: Comparison, UX & Theme.
 
 ### UX Tightening
 
-- [ ] **UX-01**: Exercises section on Workouts tab is collapsible (collapsed by default)
-- [ ] **UX-02**: Gyms section on Workouts tab is collapsible (collapsed by default)
+- [x] **UX-01**: Exercises section on Workouts tab is collapsible (collapsed by default)
+- [x] **UX-02**: Gyms section on Workouts tab is collapsible (collapsed by default)
 - [x] **UX-03**: "Templates" renamed to "Plans" in all UI text (event types unchanged)
-- [ ] **UX-04**: Settings tab reordered: Rotations → Default Gym → Create Rotation → rest
+- [x] **UX-04**: Settings tab reordered: Rotations → Default Gym → Create Rotation → rest
 
 ### Theme Redesign
 
@@ -55,10 +55,10 @@ Deferred to v1.5+.
 | COMP-03 | Phase 21 | Pending |
 | COMP-04 | Phase 21 | Pending |
 | COMP-05 | Phase 21 | Pending |
-| UX-01 | Phase 20 | Pending |
-| UX-02 | Phase 20 | Pending |
+| UX-01 | Phase 20 | Complete |
+| UX-02 | Phase 20 | Complete |
 | UX-03 | Phase 19 | Complete |
-| UX-04 | Phase 20 | Pending |
+| UX-04 | Phase 20 | Complete |
 | THEME-01 | Phase 18 | Complete |
 | THEME-02 | Phase 18 | Complete |
 | THEME-03 | Phase 18 | Complete |
@@ -71,4 +71,4 @@ Deferred to v1.5+.
 
 ---
 *Requirements defined: 2026-02-01*
-*Last updated: 2026-02-01 after Phase 18 completion*
+*Last updated: 2026-02-01 after Phase 20 completion*

@@ -22,7 +22,7 @@ Previous milestone roadmaps archived in `.planning/milestones/`.
 
 - [x] **Phase 18: Theme Redesign** - Evolve OKLCH tokens to soft/modern dark aesthetic with rounded corners, shadows, and verified contrast
 - [x] **Phase 19: Plans Rename** - Rename "Templates" to "Plans" across all UI text while preserving event type backward compatibility
-- [ ] **Phase 20: UX Restructure** - Collapsible sections on Workouts tab and settings reorder for streamlined navigation
+- [x] **Phase 20: UX Restructure** - Collapsible sections on Workouts tab and settings reorder for streamlined navigation
 - [ ] **Phase 21: Comparison Analytics** - Side-by-side exercise comparison with PRs, volume, frequency, and progression status
 
 ## Phase Details
@@ -73,9 +73,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 20-01-PLAN.md -- CollapsibleSection component + Workouts tab restructure (Wave 1)
-- [ ] 20-02-PLAN.md -- Settings tab reorder with collapsible lower sections (Wave 2)
-- [ ] 20-03-PLAN.md -- E2E test updates for collapsed sections (Wave 2)
+- [x] 20-01-PLAN.md -- CollapsibleSection component + Workouts tab restructure (Wave 1)
+- [x] 20-02-PLAN.md -- Settings tab reorder with collapsible lower sections (Wave 2)
+- [x] 20-03-PLAN.md -- E2E test updates for collapsed sections (Wave 2)
 
 ### Phase 21: Comparison Analytics
 **Goal**: Users can compare exercises side-by-side to understand relative strength, volume, and progression across their training
@@ -102,7 +102,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 18. Theme Redesign | v1.4 | 6/6 | Complete | 2026-02-01 |
 | 19. Plans Rename | v1.4 | 3/3 | Complete | 2026-02-01 |
-| 20. UX Restructure | v1.4 | 0/3 | Not started | - |
+| 20. UX Restructure | v1.4 | 3/3 | Complete | 2026-02-01 |
 | 21. Comparison Analytics | v1.4 | 0/TBD | Not started | - |
 
 ---
