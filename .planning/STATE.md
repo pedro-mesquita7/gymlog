@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-01)
 ## Current Position
 
 Phase: 20 of 21 (UX Restructure)
-Plan: 1 of 5
+Plan: 3 of 5
 Status: In progress
-Last activity: 2026-02-01 -- Completed 20-01-PLAN.md (Collapsible sections on Workouts tab)
+Last activity: 2026-02-01 -- Completed 20-03-PLAN.md (E2E test fixes for collapsed sections)
 
-Progress: [████████████░░░░░░░░] 42% (10/24 plans)
+Progress: [█████████████░░░░░░░] 50% (12/24 plans)
 
 ## Milestones
 
@@ -29,9 +29,9 @@ Progress: [████████████░░░░░░░░] 42% (10
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10 (this milestone)
-- Average duration: ~8 min
-- Total execution time: ~81 min
+- Total plans completed: 12 (this milestone)
+- Average duration: ~7 min
+- Total execution time: ~83 min
 
 **By Phase:**
 
@@ -39,7 +39,7 @@ Progress: [████████████░░░░░░░░] 42% (10
 |-------|-------|-------|----------|
 | 18. Theme Redesign | 6/6 | ~51 min | ~9 min |
 | 19. Plans Rename | 3/3 | ~24 min | ~8 min |
-| 20. UX Restructure | 1/5 | ~6 min | ~6 min |
+| 20. UX Restructure | 3/5 | ~8 min | ~3 min |
 | 21. Comparison Analytics | 0/TBD | -- | -- |
 
 ## Accumulated Context
@@ -61,6 +61,8 @@ Progress: [████████████░░░░░░░░] 42% (10
 - toon-export interface property renamed template->plan (export format, not stored data)
 - CollapsibleSection overflow set to visible after expand (forms/dropdowns not clipped)
 - prefers-reduced-motion evaluated once at module scope (not per-render)
+- E2E defensive expansion pattern: check aria-expanded="false" count before clicking to avoid toggling open sections
+- E2E section-specific locators replace brittle nth() selectors
 
 ### Pending Todos
 
@@ -74,7 +76,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 20-01-PLAN.md (Collapsible sections on Workouts tab)
+Stopped at: Completed 20-03-PLAN.md (E2E test fixes for collapsed sections)
 Resume file: None
 
-**Next action:** Continue Phase 20 (UX Restructure) -- Plan 20-02
+**Next action:** Continue Phase 20 (UX Restructure) -- Plan 20-04
