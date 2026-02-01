@@ -86,7 +86,7 @@ export function TemplateList() {
           </label>
           <button
             onClick={() => setView('create')}
-            className="px-4 py-2 bg-accent hover:bg-accent/90 text-black text-sm font-medium rounded-lg transition-colors"
+            className="px-4 py-2 bg-accent hover:bg-accent/90 text-black text-sm font-medium rounded-xl transition-colors"
           >
             + New Template
           </button>

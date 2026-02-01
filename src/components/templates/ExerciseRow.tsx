@@ -38,7 +38,7 @@ export function ExerciseRow({ id, index, exercise, exercises, register, setValue
     <div
       ref={setNodeRef}
       style={style}
-      className={`bg-bg-tertiary/50 rounded-lg p-4 ${isDragging ? 'ring-2 ring-accent' : ''}`}
+      className={`bg-bg-tertiary/50 rounded-xl p-4 ${isDragging ? 'ring-2 ring-accent' : ''}`}
     >
       <div className="flex items-center gap-3">
         {/* Drag handle */}

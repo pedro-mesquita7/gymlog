@@ -51,7 +51,7 @@ export function ExerciseHistory({
   };
 
   return (
-    <div className="bg-bg-secondary rounded-lg">
+    <div className="bg-bg-secondary rounded-2xl">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border-primary">
         <h3 className="text-lg font-semibold">{exerciseName}</h3>
@@ -82,7 +82,7 @@ export function ExerciseHistory({
                   {sets.map((set, idx) => (
                     <div
                       key={set.set_id}
-                      className="flex items-center justify-between py-2 px-3 bg-bg-tertiary rounded-lg"
+                      className="flex items-center justify-between py-2 px-3 bg-bg-tertiary rounded-xl"
                     >
                       <div className="flex items-center gap-3">
                         <span className="text-text-muted text-sm w-6">

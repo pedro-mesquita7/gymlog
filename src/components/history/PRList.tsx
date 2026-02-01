@@ -79,7 +79,7 @@ export function PRList({ exerciseId, exerciseName }: PRListProps) {
         {prs.map((pr) => (
           <div
             key={pr.set_id}
-            className="bg-bg-tertiary/50 rounded-lg px-4 py-3 space-y-2"
+            className="bg-bg-tertiary/50 rounded-xl px-4 py-3 space-y-2"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">

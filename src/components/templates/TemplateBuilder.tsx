@@ -137,7 +137,7 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
           data-testid="template-name-input"
           type="text"
           placeholder="e.g., Upper A, Push Day"
-          className="w-full bg-bg-tertiary border border-border-secondary rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent"
+          className="w-full bg-bg-tertiary border border-border-secondary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent"
         />
         {errors.name && (
           <p className="mt-1 text-sm text-error">{errors.name.message}</p>
@@ -175,7 +175,7 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
 
       {/* Exercise picker (checkbox list) */}
       {showExercisePicker && (
-        <div className="bg-bg-tertiary/50 rounded-lg p-4 max-h-64 overflow-y-auto">
+        <div className="bg-bg-tertiary/50 rounded-xl p-4 max-h-64 overflow-y-auto">
           <div className="space-y-2">
             {sortedExercises.map(exercise => (
               <label
@@ -208,7 +208,7 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 px-4 py-3 bg-bg-tertiary hover:bg-bg-tertiary/80 rounded-lg transition-colors"
+          className="flex-1 px-4 py-3 bg-bg-tertiary hover:bg-bg-tertiary/80 rounded-xl transition-colors"
         >
           Cancel
         </button>
@@ -216,7 +216,7 @@ export function TemplateBuilder({ exercises, template, onSubmit, onCancel }: Tem
           data-testid="btn-create-template"
           type="submit"
           disabled={isSubmitting}
-          className="flex-1 px-4 py-3 bg-accent hover:bg-accent/90 text-black font-medium rounded-lg transition-colors disabled:opacity-50"
+          className="flex-1 px-4 py-3 bg-accent hover:bg-accent/90 text-black font-medium rounded-xl transition-colors disabled:opacity-50"
         >
           {isSubmitting ? 'Saving...' : template ? 'Update Template' : 'Create Template'}
         </button>

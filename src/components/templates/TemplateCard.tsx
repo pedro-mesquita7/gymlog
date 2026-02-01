@@ -69,7 +69,7 @@ export function TemplateCard({ template, exercises, onEdit, onDuplicate, onArchi
               />
 
               {/* Menu */}
-              <div className="absolute right-0 mt-1 w-40 bg-bg-tertiary rounded-lg shadow-lg z-20 py-1">
+              <div className="absolute right-0 mt-1 w-40 bg-bg-tertiary rounded-xl shadow-lg z-20 py-1">
                 <Button
                   onClick={() => { setShowMenu(false); onEdit(); }}
                   variant="ghost"
