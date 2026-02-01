@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-31)
 ## Current Position
 
 Phase: 16 of 17 (Demo Data & TOON Export)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-02-01 -- Completed 16-01-PLAN.md (demo data UX dialogs)
+Last activity: 2026-02-01 -- Completed 16-02-PLAN.md (TOON export service)
 
-Progress: [=================░░░] 82% (90/~110 plans lifetime)
+Progress: [==================░░] 83% (91/~110 plans lifetime)
 
 ## Milestones
 
@@ -29,8 +29,8 @@ Progress: [=================░░░] 82% (90/~110 plans lifetime)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 90 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15 + 1 v1.3-p16)
-- Total commits: ~341
+- Total plans completed: 91 (27 v1.0 + 15 v1.1 + 23 v1.2 + 3 gap closure + 4 v1.3-p12 + 7 v1.3-p13 + 5 v1.3-p14 + 5 v1.3-p15 + 2 v1.3-p16)
+- Total commits: ~343
 - Project duration: 6 days (2026-01-27 to 2026-02-01)
 
 **By Phase (v1.3 -- current):**
@@ -41,7 +41,7 @@ Progress: [=================░░░] 82% (90/~110 plans lifetime)
 | 13. E2E Test Suite | 7/7 | Complete |
 | 14. Workouts UX & Color Scheme | 5/5 | Complete |
 | 15. Analytics Redesign | 5/5 | Complete |
-| 16. Demo Data & TOON Export | 1/3 | In Progress |
+| 16. Demo Data & TOON Export | 2/3 | In Progress |
 
 ## Accumulated Context
 
@@ -63,6 +63,7 @@ v1.3 decisions:
 - 15-04: VolumeBarChart uses Cell for per-bar zone coloring; MuscleHeatMap uses direct OKLCH in SVG fill; getThresholds function prop replaces UseVolumeThresholdsReturn
 - 15-05: Sticky TimeRangePicker at top; exercise selector scoped to Exercise Detail section; ProgressionDashboard shows info note for <63 days; default time range 3M; localStorage key gymlog-analytics-timerange
 - 16-01: Dialog confirmations for destructive actions (no window.confirm); clearHistoricalData whitelist preserves exercise/gym events; OKLCH amber gradient for warning buttons
+- 16-02: TOON export uses keyFolding:'safe'; equipment field placeholder (not tracked); PR detection via window functions; set numbers sequential per-workout
 
 ### Pending Todos
 
@@ -70,12 +71,12 @@ None.
 
 ### Blockers/Concerns
 
-- Phase 16 in progress. Plans 02-03 remaining.
+- Phase 16 in progress. Plan 03 remaining.
 
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: Completed 16-01-PLAN.md (demo data UX dialogs)
+Stopped at: Completed 16-02-PLAN.md (TOON export service)
 Resume file: None
 
-**Next action:** Execute 16-02-PLAN.md
+**Next action:** Execute 16-03-PLAN.md
