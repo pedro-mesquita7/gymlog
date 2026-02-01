@@ -36,11 +36,15 @@ Previous milestone roadmaps archived in `.planning/milestones/`.
   2. All cards and interactive elements have visibly rounded corners (12-16px radius)
   3. Cards display subtle shadows and gentle gradient treatments that create depth without harshness
   4. All text remains legible with WCAG AA contrast ratios maintained (4.5:1 minimum for body text, 3:1 for large text)
-**Plans**: TBD
+**Plans**: 6 plans
 
 Plans:
-- [ ] 18-01: TBD
-- [ ] 18-02: TBD
+- [ ] 18-01-PLAN.md -- Token foundation + UI primitives (Wave 1)
+- [ ] 18-02-PLAN.md -- Navigation + Workout + top-level components (Wave 2)
+- [ ] 18-03-PLAN.md -- Templates + History + Rotation components (Wave 2)
+- [ ] 18-04-PLAN.md -- Analytics + Charts + hardcoded color migration (Wave 2)
+- [ ] 18-05-PLAN.md -- Settings + Backup components (Wave 2)
+- [ ] 18-06-PLAN.md -- WCAG contrast verification + visual checkpoint (Wave 3)
 
 ### Phase 19: Plans Rename
 **Goal**: Users see consistent "Plans" terminology everywhere that previously said "Templates"
@@ -92,7 +96,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 18. Theme Redesign | v1.4 | 0/TBD | Not started | - |
+| 18. Theme Redesign | v1.4 | 0/6 | Not started | - |
 | 19. Plans Rename | v1.4 | 0/TBD | Not started | - |
 | 20. UX Restructure | v1.4 | 0/TBD | Not started | - |
 | 21. Comparison Analytics | v1.4 | 0/TBD | Not started | - |
