@@ -9,11 +9,11 @@ Requirements for milestone v1.4: Comparison, UX & Theme.
 
 ### Comparison Analytics
 
-- [ ] **COMP-01**: User can select 2-4 exercises to compare side-by-side
-- [ ] **COMP-02**: Comparison view shows stat cards with PRs per exercise
-- [ ] **COMP-03**: Comparison view shows volume per exercise
-- [ ] **COMP-04**: Comparison view shows training frequency per exercise
-- [ ] **COMP-05**: Comparison view shows progression status per exercise
+- [x] **COMP-01**: User can select 2-4 exercises to compare side-by-side
+- [x] **COMP-02**: Comparison view shows stat cards with PRs per exercise
+- [x] **COMP-03**: Comparison view shows volume per exercise
+- [x] **COMP-04**: Comparison view shows training frequency per exercise
+- [x] **COMP-05**: Comparison view shows progression status per exercise
 
 ### UX Tightening
 
@@ -50,11 +50,11 @@ Deferred to v1.5+.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| COMP-01 | Phase 21 | Pending |
-| COMP-02 | Phase 21 | Pending |
-| COMP-03 | Phase 21 | Pending |
-| COMP-04 | Phase 21 | Pending |
-| COMP-05 | Phase 21 | Pending |
+| COMP-01 | Phase 21 | Complete |
+| COMP-02 | Phase 21 | Complete |
+| COMP-03 | Phase 21 | Complete |
+| COMP-04 | Phase 21 | Complete |
+| COMP-05 | Phase 21 | Complete |
 | UX-01 | Phase 20 | Complete |
 | UX-02 | Phase 20 | Complete |
 | UX-03 | Phase 19 | Complete |
@@ -71,4 +71,4 @@ Deferred to v1.5+.
 
 ---
 *Requirements defined: 2026-02-01*
-*Last updated: 2026-02-01 after Phase 20 completion*
+*Last updated: 2026-02-01 after Phase 21 completion*

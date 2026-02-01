@@ -6,7 +6,7 @@
 - Archived: **v1.1 Analytics** - Phases 5-7 (shipped 2026-01-30)
 - Archived: **v1.2 UX & Portfolio Polish** - Phases 8-11 (shipped 2026-01-31)
 - Archived: **v1.3 Production Polish & Deploy Readiness** - Phases 12-17 (shipped 2026-02-01)
-- In Progress: **v1.4 Comparison, UX & Theme** - Phases 18-21
+- Complete: **v1.4 Comparison, UX & Theme** - Phases 18-21
 
 Previous milestone roadmaps archived in `.planning/milestones/`.
 
@@ -23,7 +23,7 @@ Previous milestone roadmaps archived in `.planning/milestones/`.
 - [x] **Phase 18: Theme Redesign** - Evolve OKLCH tokens to soft/modern dark aesthetic with rounded corners, shadows, and verified contrast
 - [x] **Phase 19: Plans Rename** - Rename "Templates" to "Plans" across all UI text while preserving event type backward compatibility
 - [x] **Phase 20: UX Restructure** - Collapsible sections on Workouts tab and settings reorder for streamlined navigation
-- [ ] **Phase 21: Comparison Analytics** - Side-by-side exercise comparison with PRs, volume, frequency, and progression status
+- [x] **Phase 21: Comparison Analytics** - Side-by-side exercise comparison with PRs, volume, frequency, and progression status
 
 ## Phase Details
 
@@ -90,8 +90,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 21-01-PLAN.md -- Data layer: types, SQL query, useComparisonStats hook (Wave 1)
-- [ ] 21-02-PLAN.md -- UI: multi-select picker, stat cards, section integration (Wave 2)
+- [x] 21-01-PLAN.md -- Data layer: types, SQL query, useComparisonStats hook (Wave 1)
+- [x] 21-02-PLAN.md -- UI: multi-select picker, stat cards, section integration (Wave 2)
 
 ## Progress
 
@@ -102,7 +102,7 @@ Plans:
 | 18. Theme Redesign | v1.4 | 6/6 | Complete | 2026-02-01 |
 | 19. Plans Rename | v1.4 | 3/3 | Complete | 2026-02-01 |
 | 20. UX Restructure | v1.4 | 3/3 | Complete | 2026-02-01 |
-| 21. Comparison Analytics | v1.4 | 0/2 | Not started | - |
+| 21. Comparison Analytics | v1.4 | 2/2 | Complete | 2026-02-01 |
 
 ---
 *Roadmap created: 2026-02-01*
