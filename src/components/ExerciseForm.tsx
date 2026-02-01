@@ -57,7 +57,7 @@ export function ExerciseForm({ exercise, onSubmit, onCancel }: ExerciseFormProps
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-bg-secondary border border-border-primary">
+      <div className="relative w-full max-w-md bg-bg-secondary rounded-2xl shadow-dialog border border-border-primary">
         <div className="p-6">
           <h2 className="text-lg font-semibold mb-6">
             {isEditing ? 'Edit Exercise' : 'Add Exercise'}
