@@ -2,7 +2,7 @@ import { describe, test, expect, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { StartWorkout } from './StartWorkout';
-import type { Template } from '../../types/template';
+import type { Plan } from '../../types/plan';
 import type { Gym } from '../../types/database';
 
 // Mock the Zustand store
@@ -19,7 +19,7 @@ describe('StartWorkout', () => {
     { gym_id: 'gym-2', name: 'Home Gym', location: null, exercise_count: 5 },
   ];
 
-  const mockTemplates: Template[] = [
+  const mockPlans: Plan[] = [
     {
       template_id: 'template-1',
       name: 'Upper Body A',
@@ -63,7 +63,7 @@ describe('StartWorkout', () => {
     },
     {
       template_id: 'template-3',
-      name: 'Archived Template',
+      name: 'Archived Plan',
       is_archived: true,
       exercises: [],
     },
@@ -75,34 +75,34 @@ describe('StartWorkout', () => {
     vi.clearAllMocks();
   });
 
-  test('Start button disabled when no gym/template selected', () => {
-    render(<StartWorkout templates={mockTemplates} gyms={mockGyms} onStarted={mockOnStarted} />);
+  test('Start button disabled when no gym/plan selected', () => {
+    render(<StartWorkout plans={mockPlans} gyms={mockGyms} onStarted={mockOnStarted} />);
 
     const startButton = screen.getByRole('button', { name: /Start Workout/i });
     expect(startButton).toBeDisabled();
   });
 
-  test('Selecting gym and template enables start button', async () => {
+  test('Selecting gym and plan enables start button', async () => {
     const user = userEvent.setup();
 
-    render(<StartWorkout templates={mockTemplates} gyms={mockGyms} onStarted={mockOnStarted} />);
+    render(<StartWorkout plans={mockPlans} gyms={mockGyms} onStarted={mockOnStarted} />);
 
     const startButton = screen.getByRole('button', { name: /Start Workout/i });
     expect(startButton).toBeDisabled();
 
-    // Get both select elements (gym is first, template is second)
+    // Get both select elements (gym is first, plan is second)
     const selects = screen.getAllByRole('combobox');
     const gymSelect = selects[0];
-    const templateSelect = selects[1];
+    const planSelect = selects[1];
 
     // Select gym
     await user.selectOptions(gymSelect, 'gym-1');
 
-    // Button still disabled (need template too)
+    // Button still disabled (need plan too)
     expect(startButton).toBeDisabled();
 
-    // Select template
-    await user.selectOptions(templateSelect, 'template-1');
+    // Select plan
+    await user.selectOptions(planSelect, 'template-1');
 
     // Button now enabled
     expect(startButton).toBeEnabled();
@@ -111,12 +111,12 @@ describe('StartWorkout', () => {
   test('Clicking start calls startWorkout with correct IDs', async () => {
     const user = userEvent.setup();
 
-    render(<StartWorkout templates={mockTemplates} gyms={mockGyms} onStarted={mockOnStarted} />);
+    render(<StartWorkout plans={mockPlans} gyms={mockGyms} onStarted={mockOnStarted} />);
 
-    // Get both select elements (gym is first, template is second)
+    // Get both select elements (gym is first, plan is second)
     const selects = screen.getAllByRole('combobox');
 
-    // Select gym and template
+    // Select gym and plan
     await user.selectOptions(selects[0], 'gym-2');
     await user.selectOptions(selects[1], 'template-2');
 
@@ -133,44 +133,44 @@ describe('StartWorkout', () => {
   });
 
   test('Empty state message when no gyms', () => {
-    render(<StartWorkout templates={mockTemplates} gyms={[]} onStarted={mockOnStarted} />);
+    render(<StartWorkout plans={mockPlans} gyms={[]} onStarted={mockOnStarted} />);
 
     expect(screen.getByText(/No gyms yet/i)).toBeInTheDocument();
     expect(screen.getByText(/Add a gym below/i)).toBeInTheDocument();
 
-    // Only 1 select should be present (template select, no gym select)
+    // Only 1 select should be present (plan select, no gym select)
     const selects = screen.getAllByRole('combobox');
     expect(selects).toHaveLength(1);
   });
 
-  test('Empty state message when no templates', () => {
-    render(<StartWorkout templates={[]} gyms={mockGyms} onStarted={mockOnStarted} />);
+  test('Empty state message when no plans', () => {
+    render(<StartWorkout plans={[]} gyms={mockGyms} onStarted={mockOnStarted} />);
 
-    expect(screen.getByText(/No templates yet/i)).toBeInTheDocument();
-    expect(screen.getByText(/Create one in the Templates tab/i)).toBeInTheDocument();
+    expect(screen.getByText(/No plans yet/i)).toBeInTheDocument();
+    expect(screen.getByText(/Create one in the Plans tab/i)).toBeInTheDocument();
 
-    // Only 1 select should be present (gym select, no template select)
+    // Only 1 select should be present (gym select, no plan select)
     const selects = screen.getAllByRole('combobox');
     expect(selects).toHaveLength(1);
   });
 
-  test('Empty state when all templates are archived', () => {
-    const archivedOnlyTemplates: Template[] = [
+  test('Empty state when all plans are archived', () => {
+    const archivedOnlyPlans: Plan[] = [
       {
         template_id: 'template-archived',
-        name: 'Old Template',
+        name: 'Old Plan',
         is_archived: true,
         exercises: [],
       },
     ];
 
-    render(<StartWorkout templates={archivedOnlyTemplates} gyms={mockGyms} onStarted={mockOnStarted} />);
+    render(<StartWorkout plans={archivedOnlyPlans} gyms={mockGyms} onStarted={mockOnStarted} />);
 
-    expect(screen.getByText(/No templates yet/i)).toBeInTheDocument();
+    expect(screen.getByText(/No plans yet/i)).toBeInTheDocument();
   });
 
   test('Displays gym with location correctly', () => {
-    render(<StartWorkout templates={mockTemplates} gyms={mockGyms} onStarted={mockOnStarted} />);
+    render(<StartWorkout plans={mockPlans} gyms={mockGyms} onStarted={mockOnStarted} />);
 
     const selects = screen.getAllByRole('combobox');
     const gymSelect = selects[0];
@@ -178,33 +178,33 @@ describe('StartWorkout', () => {
   });
 
   test('Displays gym without location correctly', () => {
-    render(<StartWorkout templates={mockTemplates} gyms={mockGyms} onStarted={mockOnStarted} />);
+    render(<StartWorkout plans={mockPlans} gyms={mockGyms} onStarted={mockOnStarted} />);
 
     const selects = screen.getAllByRole('combobox');
     const gymSelect = selects[0];
     expect(gymSelect).toHaveTextContent('Home Gym');
   });
 
-  test('Displays template with exercise count', () => {
-    render(<StartWorkout templates={mockTemplates} gyms={mockGyms} onStarted={mockOnStarted} />);
+  test('Displays plan with exercise count', () => {
+    render(<StartWorkout plans={mockPlans} gyms={mockGyms} onStarted={mockOnStarted} />);
 
     const selects = screen.getAllByRole('combobox');
-    const templateSelect = selects[1];
-    expect(templateSelect).toHaveTextContent('Upper Body A (2 exercises)');
-    expect(templateSelect).toHaveTextContent('Lower Body (1 exercises)');
+    const planSelect = selects[1];
+    expect(planSelect).toHaveTextContent('Upper Body A (2 exercises)');
+    expect(planSelect).toHaveTextContent('Lower Body (1 exercises)');
   });
 
-  test('Filters out archived templates from dropdown', () => {
-    render(<StartWorkout templates={mockTemplates} gyms={mockGyms} onStarted={mockOnStarted} />);
+  test('Filters out archived plans from dropdown', () => {
+    render(<StartWorkout plans={mockPlans} gyms={mockGyms} onStarted={mockOnStarted} />);
 
     const selects = screen.getAllByRole('combobox');
-    const templateSelect = selects[1];
+    const planSelect = selects[1];
 
-    // Active templates should be visible
-    expect(templateSelect).toHaveTextContent('Upper Body A');
-    expect(templateSelect).toHaveTextContent('Lower Body');
+    // Active plans should be visible
+    expect(planSelect).toHaveTextContent('Upper Body A');
+    expect(planSelect).toHaveTextContent('Lower Body');
 
-    // Archived template should NOT be visible
-    expect(templateSelect).not.toHaveTextContent('Archived Template');
+    // Archived plan should NOT be visible
+    expect(planSelect).not.toHaveTextContent('Archived Plan');
   });
 });

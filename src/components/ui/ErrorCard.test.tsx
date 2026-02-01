@@ -135,20 +135,20 @@ describe('FeatureErrorBoundary', () => {
     let shouldThrow = true;
 
     const { rerender } = render(
-      <FeatureErrorBoundary feature="Templates">
+      <FeatureErrorBoundary feature="Plans">
         <ThrowError shouldThrow={shouldThrow} />
       </FeatureErrorBoundary>
     );
 
     // Error boundary catches the error
-    expect(screen.getByText('Templates Error')).toBeInTheDocument();
+    expect(screen.getByText('Plans Error')).toBeInTheDocument();
 
     // Fix the error
     shouldThrow = false;
 
     // Rerender with the same component (simulates state update)
     rerender(
-      <FeatureErrorBoundary feature="Templates">
+      <FeatureErrorBoundary feature="Plans">
         <ThrowError shouldThrow={shouldThrow} />
       </FeatureErrorBoundary>
     );
@@ -158,7 +158,7 @@ describe('FeatureErrorBoundary', () => {
 
     // Component should render successfully now
     expect(screen.getByText('Success')).toBeInTheDocument();
-    expect(screen.queryByText('Templates Error')).not.toBeInTheDocument();
+    expect(screen.queryByText('Plans Error')).not.toBeInTheDocument();
 
     consoleError.mockRestore();
   });
