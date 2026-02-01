@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-01)
 ## Current Position
 
 Phase: 18 of 21 (Theme Redesign)
-Plan: 3 of 6
+Plan: 4 of 6
 Status: In progress
-Last activity: 2026-02-01 -- Completed 18-03-PLAN.md (Templates, History & Rotation Sweep)
+Last activity: 2026-02-01 -- Completed 18-04-PLAN.md (Analytics Charts)
 
-Progress: [█████░░░░░░░░░░░░░░░] 13% (3/24 plans)
+Progress: [██████░░░░░░░░░░░░░░] 17% (4/24 plans)
 
 ## Milestones
 
@@ -51,6 +51,7 @@ Progress: [█████░░░░░░░░░░░░░░░] 13% (3/
 - Zero new dependencies: Entire v1.4 delivered with existing stack
 - Tailwind v4 auto-generates shadow-* utilities from @theme --shadow-* tokens (no arbitrary values needed)
 - Card gradient applied via inline style (no Tailwind gradient token utility)
+- Navigation active indicator: rounded pill bg-accent/15 instead of border-top; shadow-nav for elevation
 
 ### Pending Todos
 
