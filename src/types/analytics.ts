@@ -145,3 +145,57 @@ export interface UseExerciseProgressionReturn {
   isLoading: boolean;
   error: string | null;
 }
+
+// Phase 15: Analytics Redesign — Time Range
+
+export type TimeRange = '1M' | '3M' | '6M' | '1Y' | 'ALL';
+
+export const TIME_RANGE_DAYS: Record<TimeRange, number | null> = {
+  '1M': 30, '3M': 90, '6M': 180, '1Y': 365, 'ALL': null,
+};
+
+// Phase 15: 5-Zone Volume Threshold System (replaces 2-zone VolumeThresholds)
+
+export interface VolumeZoneThresholds {
+  mev: number;       // Minimum Effective Volume
+  mavLow: number;    // MAV range start
+  mavHigh: number;   // MAV range end
+  mrv: number;       // Maximum Recoverable Volume
+}
+
+export const VOLUME_ZONE_DEFAULTS: Record<string, VolumeZoneThresholds> = {
+  Chest:     { mev: 10, mavLow: 12, mavHigh: 20, mrv: 22 },
+  Back:      { mev: 10, mavLow: 14, mavHigh: 22, mrv: 25 },
+  Shoulders: { mev: 8,  mavLow: 16, mavHigh: 22, mrv: 26 },
+  Legs:      { mev: 8,  mavLow: 12, mavHigh: 18, mrv: 20 },
+  Arms:      { mev: 6,  mavLow: 10, mavHigh: 16, mrv: 20 },
+  Core:      { mev: 0,  mavLow: 16, mavHigh: 20, mrv: 25 },
+};
+
+// Phase 15: Volume Zone Classification
+
+export type VolumeZone = 'under' | 'minimum' | 'optimal' | 'high' | 'over';
+
+export function getVolumeZone(sets: number, thresholds: VolumeZoneThresholds): VolumeZone {
+  if (sets < thresholds.mev) return 'under';
+  if (sets < thresholds.mavLow) return 'minimum';
+  if (sets <= thresholds.mavHigh) return 'optimal';
+  if (sets <= thresholds.mrv) return 'high';
+  return 'over';
+}
+
+// Phase 15: Summary Stats
+
+export interface SummaryStats {
+  totalWorkouts: number;
+  totalVolumeKg: number;
+  totalPrs: number;
+  streakWeeks: number;
+}
+
+// Phase 15: Volume by Muscle Group (averaged)
+
+export interface VolumeByMuscleGroupAvg {
+  muscleGroup: string;
+  avgWeeklySets: number;
+}
