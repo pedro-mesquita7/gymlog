@@ -72,10 +72,7 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
   };
 
   return (
-    <section>
-      <h2 className="text-lg font-semibold mb-4 text-text-primary">Demo & Data Management</h2>
-
-      <div className="space-y-4">
+    <div className="space-y-4">
         {/* Load Demo Data */}
         <div className="bg-bg-secondary rounded-xl p-4">
           <h3 className="font-medium text-text-primary mb-1">Load Demo Data</h3>
@@ -153,6 +150,6 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
           </button>
         </div>
       </Dialog>
-    </section>
+    </div>
   );
 }

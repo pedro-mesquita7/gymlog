@@ -55,13 +55,7 @@ export function ExerciseList({
 
   return (
     <section>
-      <div className="flex items-baseline justify-between mb-6">
-        <div>
-          <h2 className="text-xs font-mono uppercase tracking-widest text-text-muted mb-1">
-            Library
-          </h2>
-          <p className="text-xl font-semibold">Exercises</p>
-        </div>
+      <div className="flex justify-end mb-4">
         <button
           onClick={() => setShowForm(true)}
           className="text-sm font-medium text-accent hover:text-accent/80 transition-colors"

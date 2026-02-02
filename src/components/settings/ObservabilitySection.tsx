@@ -23,31 +23,22 @@ export function ObservabilitySection() {
 
   if (isLoading) {
     return (
-      <section>
-        <h2 className="text-lg font-semibold mb-4 text-text-primary">System Observability</h2>
-        <div className="bg-bg-secondary rounded-xl p-4">
-          <p className="text-sm text-text-muted">Loading metrics...</p>
-        </div>
-      </section>
+      <div className="bg-bg-secondary rounded-xl p-4">
+        <p className="text-sm text-text-muted">Loading metrics...</p>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <section>
-        <h2 className="text-lg font-semibold mb-4 text-text-primary">System Observability</h2>
-        <div className="bg-bg-secondary rounded-xl p-4">
-          <p className="text-sm text-error">{error}</p>
-        </div>
-      </section>
+      <div className="bg-bg-secondary rounded-xl p-4">
+        <p className="text-sm text-error">{error}</p>
+      </div>
     );
   }
 
   return (
-    <section>
-      <h2 className="text-lg font-semibold mb-4 text-text-primary">System Observability</h2>
-
-      <div className="bg-bg-secondary rounded-xl p-4 space-y-5">
+    <div className="bg-bg-secondary rounded-xl p-4 space-y-5">
         {/* Storage Usage */}
         <div>
           <div className="flex items-center justify-between mb-2">
@@ -104,7 +95,6 @@ export function ObservabilitySection() {
         >
           Refresh Metrics
         </button>
-      </div>
-    </section>
+    </div>
   );
 }
