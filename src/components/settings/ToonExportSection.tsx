@@ -158,7 +158,7 @@ export function ToonExportSection() {
                 disabled={isDisabled}
                 className={`flex-1 px-3 py-1.5 text-sm font-medium transition-colors ${
                   isActive
-                    ? 'bg-accent text-black'
+                    ? 'bg-accent text-white'
                     : 'bg-bg-tertiary text-text-secondary'
                 } ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
@@ -181,7 +181,7 @@ export function ToonExportSection() {
                   onClick={() => setRotationCount(count)}
                   className={`px-4 py-1 text-sm font-medium transition-colors ${
                     rotationCount === count
-                      ? 'bg-accent text-black'
+                      ? 'bg-accent text-white'
                       : 'bg-bg-tertiary text-text-secondary'
                   }`}
                 >
@@ -204,7 +204,7 @@ export function ToonExportSection() {
                   onClick={() => setTimeRangeDays(opt.value)}
                   className={`px-3 py-1 text-sm font-medium transition-colors ${
                     timeRangeDays === opt.value
-                      ? 'bg-accent text-black'
+                      ? 'bg-accent text-white'
                       : 'bg-bg-tertiary text-text-secondary'
                   }`}
                 >

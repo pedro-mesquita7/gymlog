@@ -60,7 +60,7 @@ export function PRList({ exerciseId, exerciseName }: PRListProps) {
   const getPRTypeColor = (prType: string) => {
     switch (prType) {
       case 'weight_and_1rm':
-        return 'bg-accent text-black';
+        return 'bg-accent text-white';
       case 'weight':
         return 'bg-chart-primary text-white';
       case '1rm':

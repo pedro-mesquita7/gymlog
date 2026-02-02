@@ -132,7 +132,7 @@ export function RotationSection() {
                   </div>
 
                   {activeRotationId === rotation.rotation_id && (
-                    <span className="text-xs bg-accent text-black px-2 py-1 rounded">
+                    <span className="text-xs bg-accent text-white px-2 py-1 rounded">
                       Active
                     </span>
                   )}

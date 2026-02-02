@@ -101,7 +101,7 @@ export function BackupSettings() {
                 onClick={() => setWeightUnit('kg')}
                 className={`px-4 py-1.5 text-sm font-medium transition-colors ${
                   weightUnit === 'kg'
-                    ? 'bg-accent text-black'
+                    ? 'bg-accent text-white'
                     : 'bg-bg-tertiary text-text-secondary'
                 }`}
               >
@@ -111,7 +111,7 @@ export function BackupSettings() {
                 onClick={() => setWeightUnit('lbs')}
                 className={`px-4 py-1.5 text-sm font-medium transition-colors ${
                   weightUnit === 'lbs'
-                    ? 'bg-accent text-black'
+                    ? 'bg-accent text-white'
                     : 'bg-bg-tertiary text-text-secondary'
                 }`}
               >

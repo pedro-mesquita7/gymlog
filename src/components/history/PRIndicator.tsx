@@ -30,7 +30,7 @@ export function PRIndicator({ isPR, prType = 'weight_and_1rm' }: PRIndicatorProp
 
   return (
     <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 animate-bounce">
-      <div className="bg-accent text-black px-6 py-3 rounded-full font-bold text-lg shadow-lg">
+      <div className="bg-accent text-white px-6 py-3 rounded-full font-bold text-lg shadow-lg">
         {prLabel}
       </div>
     </div>
