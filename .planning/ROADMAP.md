@@ -15,7 +15,7 @@ Transform GymLog from a feature-complete analytics tool into a polished daily-us
 
 ## Phases
 
-- [ ] **Phase 22: Bug Fixes + Theme Overhaul** - Fix rotation/TS bugs and replace orange accent with cool blue/teal palette
+- [x] **Phase 22: Bug Fixes + Theme Overhaul** - Fix rotation/TS bugs and replace orange accent with cool blue/teal palette
 - [ ] **Phase 23: Analytics Simplification** - Remove comparison/progression/plateau, keep exercise progress + volume
 - [ ] **Phase 24: Settings + UI Polish** - Restructure settings, compact logging, rotation UX, clean headers
 - [ ] **Phase 25: Exercise Notes** - Free text notes per exercise per session with history display
@@ -34,13 +34,13 @@ Transform GymLog from a feature-complete analytics tool into a polished daily-us
   3. All accent colors are blue/teal throughout the app (no orange remnants)
   4. Charts and data visualizations use the new blue/teal palette
   5. All text/background combinations pass WCAG AA contrast (4.5:1 ratio)
-**Plans:** 5 plans
+**Plans:** 5 plans (complete)
 Plans:
-- [ ] 22-01-PLAN.md — Fix rotation bug + overhaul index.css color tokens
-- [ ] 22-02-PLAN.md — Migrate hardcoded chart/component colors to teal
-- [ ] 22-03-PLAN.md — Fix text-black contrast on accent backgrounds
-- [ ] 22-04-PLAN.md — Replace rounded-2xl with rounded-xl app-wide
-- [ ] 22-05-PLAN.md — Verification sweep + visual checkpoint
+- [x] 22-01-PLAN.md — Fix rotation bug + overhaul index.css color tokens
+- [x] 22-02-PLAN.md — Migrate hardcoded chart/component colors to teal
+- [x] 22-03-PLAN.md — Fix text-black contrast on accent backgrounds
+- [x] 22-04-PLAN.md — Replace rounded-2xl with rounded-xl app-wide
+- [x] 22-05-PLAN.md — Verification sweep + visual checkpoint
 
 ### Phase 23: Analytics Simplification
 **Goal**: Analytics page is focused on what matters -- exercise progress and volume
@@ -102,7 +102,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
-| 22. Bug Fixes + Theme Overhaul | 0/TBD | Not started | - |
+| 22. Bug Fixes + Theme Overhaul | 5/5 | Complete | 2026-02-02 |
 | 23. Analytics Simplification | 0/TBD | Not started | - |
 | 24. Settings + UI Polish | 0/TBD | Not started | - |
 | 25. Exercise Notes | 0/TBD | Not started | - |
