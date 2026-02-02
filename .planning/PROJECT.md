@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A local-first PWA for tracking strength training performance across multiple gyms, built to showcase modern data engineering practices. Exercises are categorized as globally comparable (e.g., weighted pullups, barbell squats) or gym/equipment-specific (e.g., lat pulldown, chest press machine), enabling context-aware historical analysis. All data is stored and processed locally using DuckDB-WASM and Parquet, with dbt-duckdb powering the transformation layer. Features a soft/modern dark theme with multi-exercise comparison analytics.
+A local-first PWA for tracking strength training performance across multiple gyms, built to showcase modern data engineering practices. Exercises are categorized as globally comparable (e.g., weighted pullups, barbell squats) or gym/equipment-specific (e.g., lat pulldown, chest press machine), enabling context-aware historical analysis. All data is stored and processed locally using DuckDB-WASM and Parquet, with dbt-duckdb powering the transformation layer. Features a cool blue/teal dark theme with exercise progress and volume analytics.
 
 ## Core Value
 
@@ -10,7 +10,7 @@ Track workout performance with proper data engineering — both usable as a pers
 
 ## Current State
 
-**Version:** v1.4 Comparison, UX & Theme (shipped 2026-02-02)
+**Version:** v1.5 Real Workout Polish (in progress)
 
 **Tech Stack:**
 - React 18 + TypeScript + Vite
@@ -104,7 +104,20 @@ Track workout performance with proper data engineering — both usable as a pers
 
 ### Active
 
-None. No active milestone.
+**v1.5 — Real Workout Polish**
+
+- [ ] Fix rotation bug: "plan or gym not found" despite valid default gym and active rotation
+- [ ] Fix TS build errors: QuickStartCard.tsx and StartWorkout.tsx templateId→planId
+- [ ] Remove redundant text in collapsed sections (Exercises/Gyms/Settings headers)
+- [ ] Theme overhaul: cool blue/teal replacing orange accent, WCAG AA compliant
+- [ ] Simplify analytics: keep exercise progress + volume summary, remove comparison/progression/plateau
+- [ ] Settings restructure: Default Gym + Rotation + TOON export visible; everything else behind Developer toggle
+- [ ] Rotation UX: current rotation shown, others expandable, create-new collapsed by default
+- [ ] Exercise notes: free text per exercise per session, visible in next workout history
+- [ ] Warmup toggle per exercise in plans: 2 configurable tiers (default 50% x 5, 75% x 3), auto-calculated from working weight in rep range
+- [ ] Compact set logging: batch grid style for mobile density
+- [ ] README/diagrams update and file cleanup
+- [ ] Final production polish
 
 ### Out of Scope
 
@@ -118,18 +131,20 @@ None. No active milestone.
 **User profile:** Data Engineer building this for personal use and GitHub portfolio. Goes to multiple gyms and wants history to be context-aware (gym-specific equipment shouldn't show cross-gym data).
 
 **Known Issues:**
+- Rotation bug: "plan or gym not found" error despite valid default gym and active rotation
 - Pre-existing TS build errors: QuickStartCard.tsx and StartWorkout.tsx reference templateId instead of planId (Vite build unaffected)
 - Backup reminders only work in persistent mode (by design)
 - dbt vw_progression_status.sql references fw.logged_at but fact_workouts uses started_at (non-blocking — compiled queries bypass dbt at runtime)
+- Redundant text in collapsed sections (Exercises/Gyms headers, some Settings sections)
+- Theme perceived as "orange/white/dark" — needs cool blue/teal overhaul
 
-**Potential v1.5+ Features:**
-- Overlay progress charts (weight/1RM) for compared exercises
-- HSL→OKLCH chart color migration
+**Potential v2+ Features:**
 - Chart export as image
-- Personal volume targets per muscle group
 - Supersets (paired exercises)
 - Plate calculator for barbell loading
 - Progress summary notifications
+- Personal volume targets per muscle group
+- Light mode toggle
 
 ## Completed Milestones
 
@@ -180,5 +195,10 @@ See `.planning/MILESTONES.md` for full history and `.planning/milestones/` for a
 | UUID validation before SQL interpolation | Regex check in comparisonStatsSQL prevents injection for dynamic IN clause | Good |
 | Click-outside-to-close for multi-select | Standard dropdown pattern; avoids modal overhead for exercise picker | Good |
 
+| Simplify analytics (remove comparison) | Comparison feature low value for personal use; exercise progress + volume is what matters | — Pending |
+| Cool blue/teal theme | Orange accent perceived as unpolished; blue/teal is clean modern fitness standard | — Pending |
+| Fixed 2-tier warmup | Covers standard warmup protocol without over-engineering | — Pending |
+| Developer toggle for debug settings | Reduces settings clutter for daily use | — Pending |
+
 ---
-*Last updated: 2026-02-02 after v1.4 milestone completion*
+*Last updated: 2026-02-02 after v1.5 milestone start*

@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-02)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
-**Current focus:** v1.4 milestone archived -- ready for next milestone or idle
+**Current focus:** v1.5 Real Workout Polish -- bug fixes, theme, warmup, notes, analytics simplification, production polish
 
 ## Current Position
 
-Phase: None (between milestones)
-Plan: N/A
-Status: Milestone v1.4 complete and archived
-Last activity: 2026-02-02 -- Archived v1.4 milestone
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-02-02 — Milestone v1.5 started
 
-Progress: [████████████████████] 100% (v1.4 complete)
+Progress: [░░░░░░░░░░░░░░░░░░░░] 0%
 
 ## Milestones
 
@@ -25,23 +25,7 @@ Progress: [████████████████████] 100% (v
 | v1.2 UX & Portfolio Polish | Archived | 2026-01-31 |
 | v1.3 Production Polish & Deploy Readiness | Archived | 2026-02-01 |
 | v1.4 Comparison, UX & Theme | Archived | 2026-02-02 |
-
-## Performance Metrics
-
-**Velocity (v1.4):**
-- Total plans completed: 14
-- Total commits: 39
-- Files changed: 74
-- Lines: +1,468/-824
-
-**By Phase:**
-
-| Phase | Plans | Status |
-|-------|-------|--------|
-| 18. Theme Redesign | 6/6 | Complete |
-| 19. Plans Rename | 3/3 | Complete |
-| 20. UX Restructure | 3/3 | Complete |
-| 21. Comparison Analytics | 2/2 | Complete |
+| v1.5 Real Workout Polish | Active | — |
 
 ## Accumulated Context
 
@@ -55,12 +39,14 @@ None.
 
 ### Blockers/Concerns
 
-- Pre-existing TS build errors: QuickStartCard.tsx and StartWorkout.tsx reference templateId instead of planId (from Phase 19 rename incomplete)
+- Rotation bug needs investigation before planning (root cause unknown)
+- Analytics simplification removes v1.4 comparison feature (code removal)
+- Theme overhaul touches all OKLCH tokens — WCAG contrast must be reverified
 
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Milestone v1.4 archived
+Stopped at: Milestone v1.5 definition in progress
 Resume file: None
 
-**Next action:** Start next milestone with /gsd:new-milestone or idle.
+**Next action:** Complete requirements and roadmap definition.
