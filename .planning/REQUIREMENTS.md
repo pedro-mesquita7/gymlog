@@ -1,7 +1,7 @@
 # Requirements: GymLog
 
 **Defined:** 2026-02-02
-**Core Value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
+**Core Value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
 
 ## v1.5 Requirements
 
@@ -10,7 +10,7 @@ Requirements for v1.5 Real Workout Polish. Each maps to roadmap phases.
 ### Bug Fixes
 
 - [ ] **BUG-01**: Rotation "plan or gym not found" error resolved when default gym and active rotation exist
-- [ ] **BUG-02**: TS build errors fixed in QuickStartCard.tsx and StartWorkout.tsx (templateId→planId)
+- [ ] **BUG-02**: TS build errors fixed in QuickStartCard.tsx and StartWorkout.tsx (templateId->planId)
 
 ### Theme
 
@@ -82,38 +82,38 @@ Deferred to future release. Not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BUG-01 | TBD | Pending |
-| BUG-02 | TBD | Pending |
-| THEME-01 | TBD | Pending |
-| THEME-02 | TBD | Pending |
-| THEME-03 | TBD | Pending |
-| THEME-04 | TBD | Pending |
-| ANLY-01 | TBD | Pending |
-| ANLY-02 | TBD | Pending |
-| ANLY-03 | TBD | Pending |
-| ANLY-04 | TBD | Pending |
-| UIPOL-01 | TBD | Pending |
-| UIPOL-02 | TBD | Pending |
-| UIPOL-03 | TBD | Pending |
-| UIPOL-04 | TBD | Pending |
-| UIPOL-05 | TBD | Pending |
-| NOTE-01 | TBD | Pending |
-| NOTE-02 | TBD | Pending |
-| NOTE-03 | TBD | Pending |
-| WARM-01 | TBD | Pending |
-| WARM-02 | TBD | Pending |
-| WARM-03 | TBD | Pending |
-| WARM-04 | TBD | Pending |
-| WARM-05 | TBD | Pending |
-| PROD-01 | TBD | Pending |
-| PROD-02 | TBD | Pending |
-| PROD-03 | TBD | Pending |
+| BUG-01 | Phase 22 | Pending |
+| BUG-02 | Phase 22 | Pending |
+| THEME-01 | Phase 22 | Pending |
+| THEME-02 | Phase 22 | Pending |
+| THEME-03 | Phase 22 | Pending |
+| THEME-04 | Phase 22 | Pending |
+| ANLY-01 | Phase 23 | Pending |
+| ANLY-02 | Phase 23 | Pending |
+| ANLY-03 | Phase 23 | Pending |
+| ANLY-04 | Phase 23 | Pending |
+| UIPOL-01 | Phase 24 | Pending |
+| UIPOL-02 | Phase 24 | Pending |
+| UIPOL-03 | Phase 24 | Pending |
+| UIPOL-04 | Phase 24 | Pending |
+| UIPOL-05 | Phase 24 | Pending |
+| NOTE-01 | Phase 25 | Pending |
+| NOTE-02 | Phase 25 | Pending |
+| NOTE-03 | Phase 25 | Pending |
+| WARM-01 | Phase 26 | Pending |
+| WARM-02 | Phase 26 | Pending |
+| WARM-03 | Phase 26 | Pending |
+| WARM-04 | Phase 26 | Pending |
+| WARM-05 | Phase 26 | Pending |
+| PROD-01 | Phase 27 | Pending |
+| PROD-02 | Phase 27 | Pending |
+| PROD-03 | Phase 27 | Pending |
 
 **Coverage:**
 - v1.5 requirements: 26 total
-- Mapped to phases: 0
-- Unmapped: 26 (awaiting roadmap)
+- Mapped to phases: 26
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-02*
-*Last updated: 2026-02-02 after initial definition*
+*Last updated: 2026-02-02 after roadmap creation*
