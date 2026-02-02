@@ -2,58 +2,50 @@
 
 @theme {
   /* ==========================================================================
-     COLOR SYSTEM - OKLCH-based warm dark theme (Apple Health aesthetic)
-     Warm neutral backgrounds, soft shadows, perceptually uniform color space
+     COLOR SYSTEM - OKLCH-based cool teal theme (Apple dark mode aesthetic)
+     Cool neutral backgrounds, minimal shadows, perceptually uniform color space
      ========================================================================== */
 
-  /* Background layers - warm dark progression (hue ~60, low chroma) */
-  --color-bg-primary: oklch(16% 0.01 60);       /* page background - warm near-black */
-  --color-bg-secondary: oklch(20% 0.012 60);    /* card backgrounds */
-  --color-bg-tertiary: oklch(25% 0.012 60);     /* input backgrounds, hover states */
-  --color-bg-elevated: oklch(28% 0.012 60);     /* elevated surfaces, active states */
+  /* Background layers - neutral/cool dark gray (hue ~220, very low chroma) */
+  --color-bg-primary: oklch(15% 0.005 220);       /* page background */
+  --color-bg-secondary: oklch(19% 0.005 220);     /* card backgrounds */
+  --color-bg-tertiary: oklch(24% 0.005 220);      /* input backgrounds, hover states */
+  --color-bg-elevated: oklch(27% 0.005 220);      /* elevated surfaces, active states */
 
-  /* Text hierarchy - warm tint, high contrast */
-  --color-text-primary: oklch(92% 0.005 60);    /* primary text - warm white */
-  --color-text-secondary: oklch(72% 0.01 60);   /* labels, secondary info */
-  --color-text-muted: oklch(60% 0.01 60);       /* placeholders, hints — WCAG AA 4.5:1 against bg-primary & bg-secondary */
+  /* Text hierarchy - pure/cool whites (zero chroma for neutral Apple-style) */
+  --color-text-primary: oklch(93% 0 0);           /* pure white primary */
+  --color-text-secondary: oklch(70% 0 0);         /* ~60% secondary */
+  --color-text-muted: oklch(55% 0 0);             /* ~30% muted, WCAG AA against bg-primary */
 
-  /* Borders - warm subtle separation */
-  --color-border-primary: oklch(25% 0.01 60);   /* subtle card borders */
-  --color-border-secondary: oklch(36% 0.01 60); /* focus states, stronger separation */
+  /* Borders - cool neutral */
+  --color-border-primary: oklch(25% 0.005 220);   /* subtle card borders */
+  --color-border-secondary: oklch(36% 0.005 220); /* focus states */
 
-  /* Accent - vibrant orange (unchanged - already warm) */
-  --color-accent: oklch(72% 0.19 45);           /* primary orange */
-  --color-accent-hover: oklch(65% 0.17 45);     /* hover/pressed state */
-  --color-accent-muted: oklch(72% 0.06 45);     /* subtle accent backgrounds */
+  /* Accent - soft muted teal (hue 185, moderate chroma) */
+  --color-accent: oklch(68% 0.10 185);            /* primary teal */
+  --color-accent-hover: oklch(60% 0.09 185);      /* hover/pressed */
+  --color-accent-muted: oklch(68% 0.04 185);      /* subtle accent backgrounds */
 
-  /* Semantic state colors (unchanged - keep saturated) */
-  --color-success: oklch(65% 0.17 145);         /* PRs, positive indicators */
-  --color-error: oklch(63% 0.22 25);            /* errors, destructive actions */
-  --color-warning: oklch(75% 0.15 85);          /* warnings */
+  /* Semantic state colors - standard green/red/yellow */
+  --color-success: oklch(65% 0.17 145);
+  --color-error: oklch(63% 0.22 25);
+  --color-warning: oklch(75% 0.15 85);
 
-  /* Chart colors - data visualization palette */
-  --color-chart-primary: oklch(60% 0.15 250);   /* blue - primary data series */
-  --color-chart-success: oklch(62% 0.15 145);   /* green - 1RM, positive metrics */
-  --color-chart-muted: oklch(55% 0.02 60);      /* warm gray - axes, grid lines */
+  /* Chart colors - teal-aligned */
+  --color-chart-primary: oklch(65% 0.10 185);     /* teal primary series */
+  --color-chart-success: oklch(62% 0.15 145);     /* green - 1RM (unchanged) */
+  --color-chart-muted: oklch(50% 0.005 220);      /* cool gray axes/grid */
 
-  /* Volume zone colors - 5-zone research-backed system (Phase 15) */
-  --color-chart-zone-under: oklch(63% 0.22 25);     /* red - not enough stimulus */
-  --color-chart-zone-minimum: oklch(75% 0.15 85);    /* yellow - minimum effective */
-  --color-chart-zone-optimal: oklch(65% 0.17 145);   /* green - optimal growth */
-  --color-chart-zone-high: oklch(70% 0.15 65);       /* orange - approaching limit */
-  --color-chart-zone-over: oklch(63% 0.22 25);       /* red - exceeding recovery */
+  /* Volume zone colors - teal gradient (light=under, medium=optimal, dark=over) */
+  --color-chart-zone-under: oklch(80% 0.08 185);
+  --color-chart-zone-minimum: oklch(70% 0.10 185);
+  --color-chart-zone-optimal: oklch(60% 0.12 185);
+  --color-chart-zone-high: oklch(48% 0.10 185);
+  --color-chart-zone-over: oklch(38% 0.08 185);
 
-  /* Chart tooltip - warm dark */
-  --color-chart-tooltip-bg: oklch(13% 0.01 60);
-  --color-chart-tooltip-border: oklch(20% 0.01 60);
-
-  /* Legacy HSL chart colors (backward compat until all charts migrated) */
-  --chart-primary: 220 70% 50%;
-  --chart-success: 142 76% 36%;
-  --chart-muted: 40 5% 65%;
-
-  /* Legacy HSL accent (backward compat) */
-  --accent: 16 100% 50%;
+  /* Chart tooltip - cool dark */
+  --color-chart-tooltip-bg: oklch(13% 0.005 220);
+  --color-chart-tooltip-border: oklch(20% 0.005 220);
 
   /* ==========================================================================
      TYPOGRAPHY - Geist font family system
@@ -63,27 +55,27 @@
   --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', monospace;
 
   /* ==========================================================================
-     BORDER RADIUS - Soft rounded system
+     BORDER RADIUS - Apple-subtle system
      ========================================================================== */
 
-  --radius-sm: 0.5rem;    /* 8px - small elements, tags */
-  --radius-md: 0.75rem;   /* 12px - buttons, inputs */
-  --radius-lg: 1rem;      /* 16px - cards, modals */
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.625rem;   /* 10px */
+  --radius-lg: 0.75rem;    /* 12px */
 
   /* ==========================================================================
-     SHADOWS - Elevation system for depth
+     SHADOWS - Minimal (rely on surface color for depth)
      ========================================================================== */
 
-  --shadow-card: 0 2px 8px oklch(0% 0 0 / 0.25), 0 1px 3px oklch(0% 0 0 / 0.15);
-  --shadow-card-hover: 0 4px 16px oklch(0% 0 0 / 0.3), 0 2px 6px oklch(0% 0 0 / 0.2);
-  --shadow-dialog: 0 8px 32px oklch(0% 0 0 / 0.4), 0 4px 12px oklch(0% 0 0 / 0.25);
-  --shadow-nav: 0 -1px 8px oklch(0% 0 0 / 0.2);
+  --shadow-card: 0 1px 4px oklch(0% 0 0 / 0.15), 0 0.5px 2px oklch(0% 0 0 / 0.1);
+  --shadow-card-hover: 0 2px 8px oklch(0% 0 0 / 0.2), 0 1px 3px oklch(0% 0 0 / 0.12);
+  --shadow-dialog: 0 4px 16px oklch(0% 0 0 / 0.3), 0 2px 6px oklch(0% 0 0 / 0.15);
+  --shadow-nav: 0 -1px 4px oklch(0% 0 0 / 0.12);
 
   /* ==========================================================================
-     GRADIENTS - Surface depth
+     GRADIENTS - Cool surface depth
      ========================================================================== */
 
-  --gradient-card-surface: linear-gradient(to bottom, oklch(22% 0.012 60), oklch(20% 0.012 60));
+  --gradient-card-surface: linear-gradient(to bottom, oklch(21% 0.005 220), oklch(19% 0.005 220));
 }
 
 @layer base {
