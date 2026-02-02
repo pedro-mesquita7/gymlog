@@ -90,7 +90,7 @@ export function RestTimer({ restSeconds, autoStartTrigger, onComplete }: RestTim
 
   // Timer running - persistent banner
   return (
-    <div className="sticky top-0 z-10 bg-accent text-black px-4 py-3 rounded-b-2xl flex items-center justify-between">
+    <div className="sticky top-0 z-10 bg-accent text-white px-4 py-3 rounded-b-2xl flex items-center justify-between">
       <div className="flex items-center gap-3">
         <span className="font-mono font-bold text-lg">{formatTime(seconds)}</span>
         <span className="text-sm opacity-80">Rest Time</span>
@@ -99,27 +99,27 @@ export function RestTimer({ restSeconds, autoStartTrigger, onComplete }: RestTim
         {isRunning ? (
           <button
             onClick={pause}
-            className="px-3 py-1 bg-black/10 hover:bg-black/20 rounded text-sm transition-colors"
+            className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-sm transition-colors"
           >
             Pause
           </button>
         ) : (
           <button
             onClick={resume}
-            className="px-3 py-1 bg-black/10 hover:bg-black/20 rounded text-sm transition-colors"
+            className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-sm transition-colors"
           >
             Resume
           </button>
         )}
         <button
           onClick={() => handleExtend(30)}
-          className="px-3 py-1 bg-black/10 hover:bg-black/20 rounded text-sm transition-colors"
+          className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-sm transition-colors"
         >
           +30s
         </button>
         <button
           onClick={handleSkip}
-          className="px-3 py-1 bg-black/10 hover:bg-black/20 rounded text-sm transition-colors"
+          className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-sm transition-colors"
         >
           Skip
         </button>

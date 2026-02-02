@@ -133,7 +133,7 @@ export function ExerciseSubstitution({
                 <button
                   onClick={handleAddCustom}
                   disabled={!customName.trim()}
-                  className="px-4 py-2 bg-accent hover:bg-accent/90 text-black text-sm font-medium rounded-xl transition-colors disabled:opacity-50"
+                  className="px-4 py-2 bg-accent hover:bg-accent/90 text-white text-sm font-medium rounded-xl transition-colors disabled:opacity-50"
                 >
                   Add
                 </button>

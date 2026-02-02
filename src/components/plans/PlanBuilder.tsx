@@ -216,7 +216,7 @@ export function PlanBuilder({ exercises, plan, onSubmit, onCancel }: PlanBuilder
           data-testid="btn-create-plan"
           type="submit"
           disabled={isSubmitting}
-          className="flex-1 px-4 py-3 bg-accent hover:bg-accent/90 text-black font-medium rounded-xl transition-colors disabled:opacity-50"
+          className="flex-1 px-4 py-3 bg-accent hover:bg-accent/90 text-white font-medium rounded-xl transition-colors disabled:opacity-50"
         >
           {isSubmitting ? 'Saving...' : plan ? 'Update Plan' : 'Create Plan'}
         </button>

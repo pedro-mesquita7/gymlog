@@ -45,12 +45,12 @@ export function DataQualitySection() {
     <section>
       <h2 className="text-lg font-semibold mb-4 text-text-primary">Data Quality</h2>
 
-      <div className="bg-bg-secondary rounded-2xl p-4 space-y-4">
+      <div className="bg-bg-secondary rounded-xl p-4 space-y-4">
         {/* Run button */}
         <button
           onClick={runChecks}
           disabled={isRunning}
-          className="w-full py-3 px-4 bg-accent hover:bg-accent/90 disabled:bg-bg-tertiary rounded-xl font-medium transition-colors text-black disabled:text-text-muted"
+          className="w-full py-3 px-4 bg-accent hover:bg-accent/90 disabled:bg-bg-tertiary rounded-xl font-medium transition-colors text-white disabled:text-text-muted"
         >
           {isRunning ? 'Running Checks...' : 'Run Data Quality Checks'}
         </button>

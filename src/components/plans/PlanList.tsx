@@ -86,7 +86,7 @@ export function PlanList() {
           </label>
           <button
             onClick={() => setView('create')}
-            className="px-4 py-2 bg-accent hover:bg-accent/90 text-black text-sm font-medium rounded-xl transition-colors"
+            className="px-4 py-2 bg-accent hover:bg-accent/90 text-white text-sm font-medium rounded-xl transition-colors"
           >
             + New Plan
           </button>

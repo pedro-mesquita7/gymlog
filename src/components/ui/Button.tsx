@@ -17,11 +17,11 @@ export function Button({
   ...props
 }: ButtonProps) {
   // Base styles
-  const baseStyles = 'rounded-2xl font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent';
+  const baseStyles = 'rounded-xl font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent';
 
   // Variant styles
   const variantStyles: Record<ButtonVariant, string> = {
-    primary: 'bg-accent hover:bg-accent-hover text-black',
+    primary: 'bg-accent hover:bg-accent-hover text-white',
     secondary: 'bg-bg-tertiary text-text-primary hover:bg-bg-elevated',
     ghost: 'bg-transparent hover:bg-bg-tertiary text-text-primary',
     danger: 'bg-transparent text-error hover:bg-bg-tertiary',
