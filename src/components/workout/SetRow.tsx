@@ -93,34 +93,16 @@ export function SetRow({
   const rirDelta = getDelta('rir');
 
   return (
-    <div className="bg-bg-secondary rounded-xl p-4 space-y-3">
-      {/* Header: set number, PR badge, and remove button */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-bg-tertiary flex items-center justify-center text-sm font-medium text-text-primary">
-            {setNumber}
-          </div>
-          {prStatus && (
-            <span data-testid={`set-${setNumber}-pr`} className="bg-warning text-black text-xs px-2 py-0.5 rounded-full font-medium">
-              {prStatus.isWeightPR && prStatus.is1rmPR ? 'PR!' : prStatus.isWeightPR ? 'Weight PR' : '1RM PR'}
-            </span>
-          )}
+    <div className="bg-bg-secondary rounded-xl p-2.5">
+      {/* Single-line compact layout: set number + inputs + remove */}
+      <div className="flex items-center gap-2">
+        <div className="w-6 h-6 rounded-full bg-bg-tertiary flex items-center justify-center text-xs font-medium text-text-primary flex-shrink-0">
+          {setNumber}
         </div>
-        <button
-          data-testid={`set-${setNumber}-remove`}
-          onClick={onRemove}
-          className="text-text-muted hover:text-error transition-colors text-sm"
-          aria-label="Remove set"
-        >
-          ✕
-        </button>
-      </div>
 
-      {/* Input grid: 3 columns */}
-      <div className="grid grid-cols-3 gap-3">
-        {/* Weight */}
-        <div className="space-y-1">
-          <label className="text-xs text-text-secondary">Weight ({weightUnit})</label>
+        {/* Input grid: 3 columns */}
+        <div className="grid grid-cols-3 gap-2 flex-1">
+          {/* Weight */}
           <div className="relative">
             <Input
               data-testid={`set-${setNumber}-weight`}
@@ -131,11 +113,11 @@ export function SetRow({
               onChange={(e) => setWeightKg(e.target.value)}
               onFocus={(e) => e.target.select()}
               onBlur={handleBlur}
-              className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              className="py-2 px-2.5 text-sm text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             {weightDelta && (
               <span
-                className={`absolute right-2 top-1/2 -translate-y-1/2 text-xs ${
+                className={`absolute right-1.5 top-1/2 -translate-y-1/2 text-xs ${
                   weightDelta === 'up' ? 'text-success' : 'text-text-muted'
                 }`}
               >
@@ -143,11 +125,8 @@ export function SetRow({
               </span>
             )}
           </div>
-        </div>
 
-        {/* Reps */}
-        <div className="space-y-1">
-          <label className="text-xs text-text-secondary">Reps</label>
+          {/* Reps */}
           <div className="relative">
             <Input
               data-testid={`set-${setNumber}-reps`}
@@ -158,11 +137,11 @@ export function SetRow({
               onChange={(e) => setReps(e.target.value)}
               onFocus={(e) => e.target.select()}
               onBlur={handleBlur}
-              className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              className="py-2 px-2.5 text-sm text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             {repsDelta && (
               <span
-                className={`absolute right-2 top-1/2 -translate-y-1/2 text-xs ${
+                className={`absolute right-1.5 top-1/2 -translate-y-1/2 text-xs ${
                   repsDelta === 'up' ? 'text-success' : 'text-text-muted'
                 }`}
               >
@@ -170,11 +149,8 @@ export function SetRow({
               </span>
             )}
           </div>
-        </div>
 
-        {/* RIR */}
-        <div className="space-y-1">
-          <label className="text-xs text-text-secondary">RIR</label>
+          {/* RIR */}
           <div className="relative">
             <Input
               data-testid={`set-${setNumber}-rir`}
@@ -191,11 +167,11 @@ export function SetRow({
               onChange={(e) => setRir(e.target.value)}
               onFocus={(e) => e.target.select()}
               onBlur={handleBlur}
-              className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              className="py-2 px-2.5 text-sm text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             {rirDelta && ghostData && ghostData.rir !== null && (
               <span
-                className={`absolute right-2 top-1/2 -translate-y-1/2 text-xs ${
+                className={`absolute right-1.5 top-1/2 -translate-y-1/2 text-xs ${
                   rirDelta === 'up' ? 'text-success' : 'text-text-muted'
                 }`}
               >
@@ -204,7 +180,25 @@ export function SetRow({
             )}
           </div>
         </div>
+
+        <button
+          data-testid={`set-${setNumber}-remove`}
+          onClick={onRemove}
+          className="text-text-muted hover:text-error transition-colors text-xs p-1 flex-shrink-0"
+          aria-label="Remove set"
+        >
+          ✕
+        </button>
       </div>
+
+      {/* PR badge below the row */}
+      {prStatus && (
+        <div className="ml-8 mt-1">
+          <span data-testid={`set-${setNumber}-pr`} className="bg-warning text-black text-xs px-2 py-0.5 rounded-full font-medium">
+            {prStatus.isWeightPR && prStatus.is1rmPR ? 'PR!' : prStatus.isWeightPR ? 'Weight PR' : '1RM PR'}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

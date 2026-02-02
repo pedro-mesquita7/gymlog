@@ -114,7 +114,7 @@ export function SetGrid({
       )}
 
       {/* Set rows */}
-      <div className="space-y-3">
+      <div className="space-y-2">
         {rows.map((row, index) => {
           // Get ghost data for this row index (1-indexed in data, 0-indexed in array)
           const setGhostData = ghostData?.[index] ?? null;
