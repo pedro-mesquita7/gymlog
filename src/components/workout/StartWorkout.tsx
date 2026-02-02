@@ -22,7 +22,7 @@ export function StartWorkout({ plans, gyms, onStarted }: StartWorkoutProps) {
 
   // Pre-fill from rotation if available
   const [selectedGymId, setSelectedGymId] = useState<string>(() => defaultGymId || '');
-  const [selectedPlanId, setSelectedPlanId] = useState<string>(() => nextPlan?.templateId || '');
+  const [selectedPlanId, setSelectedPlanId] = useState<string>(() => nextPlan?.planId || '');
   const startWorkout = useWorkoutStore(state => state.startWorkout);
 
   // Filter to only active (non-archived) plans

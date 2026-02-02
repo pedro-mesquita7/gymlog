@@ -45,7 +45,7 @@ export function QuickStartCard({ plans, gyms, onStart }: QuickStartCardProps) {
   }
 
   // Case 3: Rotation and default gym both configured
-  const plan = plans.find(t => t.template_id === nextPlan.templateId);
+  const plan = plans.find(t => t.template_id === nextPlan.planId);
   const gym = gyms.find(g => g.gym_id === defaultGymId);
 
   if (!plan || !gym) {
@@ -59,7 +59,7 @@ export function QuickStartCard({ plans, gyms, onStart }: QuickStartCardProps) {
   }
 
   // Determine effective IDs (edit overrides or rotation defaults)
-  const effectivePlanId = editPlanId || nextPlan.templateId;
+  const effectivePlanId = editPlanId || nextPlan.planId;
   const effectiveGymId = editGymId || defaultGymId;
   const effectivePlan = plans.find(t => t.template_id === effectivePlanId) || plan;
   const effectiveGym = gyms.find(g => g.gym_id === effectiveGymId) || gym;
@@ -67,7 +67,7 @@ export function QuickStartCard({ plans, gyms, onStart }: QuickStartCardProps) {
   const handleToggleEdit = () => {
     if (!isEditing) {
       // Entering edit mode — pre-fill with current values
-      setEditPlanId(nextPlan.templateId);
+      setEditPlanId(nextPlan.planId);
       setEditGymId(defaultGymId);
     }
     setIsEditing(!isEditing);
