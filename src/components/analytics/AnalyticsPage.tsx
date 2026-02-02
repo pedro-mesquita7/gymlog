@@ -1,21 +1,16 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useExercises } from '../../hooks/useExercises';
-import { useExerciseProgress, useWeeklyComparison } from '../../hooks/useAnalytics';
+import { useExerciseProgress } from '../../hooks/useAnalytics';
 import { useVolumeAnalytics } from '../../hooks/useVolumeAnalytics';
 import { useVolumeZoneThresholds } from '../../hooks/useVolumeThresholds';
 import { useSummaryStats } from '../../hooks/useSummaryStats';
-import { useProgressionStatus } from '../../hooks/useProgressionStatus';
 import { TimeRangePicker } from './TimeRangePicker';
 import { SummaryStatsCards } from './SummaryStatsCards';
-import { SectionHeading } from './SectionHeading';
 import { VolumeLegend } from './VolumeLegend';
 import { VolumeBarChart } from './VolumeBarChart';
 import { MuscleHeatMap } from './MuscleHeatMap';
 import { ExerciseProgressChart } from './ExerciseProgressChart';
-import { WeekComparisonCard } from './WeekComparisonCard';
 import { PRListCard } from './PRListCard';
-import { ProgressionDashboard } from './ProgressionDashboard';
-import { ComparisonSection } from './ComparisonSection';
 import { FeatureErrorBoundary } from '../ui/FeatureErrorBoundary';
 import type { TimeRange } from '../../types/analytics';
 import { TIME_RANGE_DAYS } from '../../types/analytics';
@@ -25,7 +20,7 @@ const STORAGE_KEY = 'gymlog-analytics-timerange';
 /**
  * Main Analytics page — single scrollable dashboard
  * Global time range state drives all hooks and charts
- * Layout: time range pills -> summary stats -> volume overview + legend -> heat map -> exercise detail -> progression
+ * Layout: time range pills -> summary stats -> exercise progress -> PRs -> volume -> heat map
  */
 export function AnalyticsPage() {
   // Time range state - persisted in localStorage
@@ -60,20 +55,12 @@ export function AnalyticsPage() {
     exerciseId: selectedExerciseId,
     days,
   });
-  const { data: weeklyData, isLoading: weeklyLoading, error: weeklyError } = useWeeklyComparison();
-
-  // Progression data for comparison section (DuckDB cache makes this cheap alongside ProgressionDashboard's internal call)
-  const { data: progressionStatusData } = useProgressionStatus(days);
 
   // Derived data
   const selectedExercise = useMemo(
     () => exercises.find(e => e.exercise_id === selectedExerciseId),
     [exercises, selectedExerciseId]
   );
-  const currentWeekComparison = useMemo(() => {
-    const filtered = weeklyData.filter(w => w.exerciseId === selectedExerciseId);
-    return filtered.length > 0 ? filtered[0] : null;
-  }, [weeklyData, selectedExerciseId]);
 
   // Auto-select first exercise when loaded
   if (!selectedExerciseId && exercises.length > 0 && !exercisesLoading) {
@@ -106,8 +93,6 @@ export function AnalyticsPage() {
       </FeatureErrorBoundary>
 
       {/* SECTION 2: Volume Overview */}
-      <SectionHeading title="Volume Overview" subtitle="Average weekly sets per muscle group" />
-
       {volumeError ? (
         <div className="text-center py-8 text-error">Error: {volumeError}</div>
       ) : volumeLoading ? (
@@ -126,8 +111,6 @@ export function AnalyticsPage() {
       )}
 
       {/* SECTION 3: Training Balance Heat Map */}
-      <SectionHeading title="Training Balance" />
-
       {volumeError ? (
         <div className="text-center py-8 text-error">Error: {volumeError}</div>
       ) : volumeLoading ? (
@@ -141,9 +124,6 @@ export function AnalyticsPage() {
       )}
 
       {/* SECTION 4: Exercise Detail */}
-      <SectionHeading title="Exercise Detail" subtitle="Select an exercise to view progress" />
-
-      {/* Exercise Selector - scoped to this section */}
       <div>
         <select
           data-testid="analytics-exercise-select"
@@ -178,21 +158,6 @@ export function AnalyticsPage() {
         </FeatureErrorBoundary>
       )}
 
-      {/* Week Comparison */}
-      {weeklyError ? (
-        <div className="text-center py-8 text-error">Error: {weeklyError}</div>
-      ) : weeklyLoading ? (
-        <div className="text-center py-8 text-text-muted">Loading comparison...</div>
-      ) : currentWeekComparison ? (
-        <FeatureErrorBoundary feature="Week Comparison">
-          <WeekComparisonCard data={currentWeekComparison} />
-        </FeatureErrorBoundary>
-      ) : (
-        <div className="text-center py-8 text-text-muted">
-          No data yet for this week. Log a workout to see comparison.
-        </div>
-      )}
-
       {/* PR List */}
       {selectedExercise && (
         <FeatureErrorBoundary feature="Personal Records">
@@ -202,20 +167,6 @@ export function AnalyticsPage() {
           />
         </FeatureErrorBoundary>
       )}
-
-      {/* SECTION 5: Progression Intelligence */}
-      <SectionHeading title="Progression Intelligence" subtitle="Exercise-level progression detection" />
-
-      <FeatureErrorBoundary feature="Progression Dashboard">
-        <ProgressionDashboard days={days} />
-      </FeatureErrorBoundary>
-
-      {/* SECTION 6: Exercise Comparison */}
-      <SectionHeading title="Exercise Comparison" subtitle="Select 2-4 exercises to compare side-by-side" />
-
-      <FeatureErrorBoundary feature="Exercise Comparison">
-        <ComparisonSection days={days} exercises={exercises} progressionData={progressionStatusData} />
-      </FeatureErrorBoundary>
     </div>
   );
 }

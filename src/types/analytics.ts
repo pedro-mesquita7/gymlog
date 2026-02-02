@@ -48,32 +48,9 @@ export interface ProgressPoint {
   setCount: number;       // Number of sets
 }
 
-// Weekly comparison data (CHART-04)
-export interface WeeklyComparison {
-  exerciseId: string;
-  exerciseName: string;
-  muscleGroup: string;
-  weekStart: string;      // ISO date string
-  maxWeight: number;
-  max1rm: number;
-  totalVolume: number;
-  setCount: number;
-  prevMaxWeight: number | null;
-  prevVolume: number | null;
-  weightChangePct: number | null;
-  volumeChangePct: number | null;
-}
-
 // Hook return types
 export interface UseExerciseProgressReturn {
   data: ProgressPoint[];
-  isLoading: boolean;
-  error: string | null;
-  refresh: () => Promise<void>;
-}
-
-export interface UseWeeklyComparisonReturn {
-  data: WeeklyComparison[];
   isLoading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
@@ -134,13 +111,6 @@ export interface ProgressionStatus {
 }
 
 // Hook return types for progression
-export interface UseProgressionStatusReturn {
-  data: ProgressionStatus[];
-  isLoading: boolean;
-  error: string | null;
-  refresh: () => Promise<void>;
-}
-
 export interface UseExerciseProgressionReturn {
   data: ProgressionStatus | null;
   isLoading: boolean;
@@ -201,24 +171,3 @@ export interface VolumeByMuscleGroupAvg {
   avgWeeklySets: number;
 }
 
-// Phase 21: Exercise Comparison
-
-export interface ComparisonStats {
-  exerciseId: string;
-  exerciseName: string;
-  muscleGroup: string;
-  maxWeight: number;
-  maxEstimated1rm: number;
-  totalVolume: number;
-  totalSets: number;
-  sessionCount: number;
-  sessionsPerWeek: number;
-  progressionStatus: 'progressing' | 'plateau' | 'regressing' | 'unknown';
-}
-
-export interface UseComparisonStatsReturn {
-  data: ComparisonStats[];
-  isLoading: boolean;
-  error: string | null;
-  refresh: () => Promise<void>;
-}
