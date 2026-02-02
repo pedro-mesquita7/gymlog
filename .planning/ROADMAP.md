@@ -66,7 +66,11 @@ Plans:
   3. Settings top level shows Default Gym, Rotation, and TOON Export only
   4. Debug sections (observability, data quality, demo data) are hidden behind a Developer toggle
   5. Rotation section shows current rotation prominently, others are expandable, create-new is collapsed
-**Plans**: TBD
+**Plans:** 3 plans
+Plans:
+- [ ] 24-01-PLAN.md — Clean redundant inner titles + compact set logging grid
+- [ ] 24-02-PLAN.md — Settings restructure with developer toggle + simplified export
+- [ ] 24-03-PLAN.md — Rotation UX redesign (active prominent, others collapsed, create collapsed)
 
 ### Phase 25: Exercise Notes
 **Goal**: Users can write and review notes about exercises across workout sessions
@@ -107,7 +111,7 @@ Plans:
 |-------|---------------|--------|-----------|
 | 22. Bug Fixes + Theme Overhaul | 5/5 | Complete | 2026-02-02 |
 | 23. Analytics Simplification | 2/2 | Complete | 2026-02-02 |
-| 24. Settings + UI Polish | 0/TBD | Not started | - |
+| 24. Settings + UI Polish | 0/3 | Not started | - |
 | 25. Exercise Notes | 0/TBD | Not started | - |
 | 26. Warmup System | 0/TBD | Not started | - |
 | 27. Production Polish | 0/TBD | Not started | - |
