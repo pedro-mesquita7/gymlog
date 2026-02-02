@@ -1,5 +1,39 @@
 # Project Milestones: GymLog
 
+## v1.4 Comparison, UX & Theme (Shipped: 2026-02-02)
+
+**Delivered:** Multi-exercise comparison analytics, soft/modern dark theme redesign with OKLCH tokens and rounded corners, "Templates" → "Plans" rename across all UI, and UX restructure with collapsible sections and settings reorder — zero new dependencies added
+
+**Phases completed:** 18-21 (14 plans total)
+
+**Key accomplishments:**
+- Soft/modern dark theme: OKLCH token evolution to warm muted tones (hue 60), 12-16px rounded corners, card shadows and gentle gradients, WCAG AA contrast verified
+- "Templates" → "Plans" rename across 40+ files preserving backward compatibility with stored event types and rotation data
+- Collapsible sections on Workouts tab (exercises/gyms collapsed by default) and Settings tab reorder (Rotations first)
+- CollapsibleSection reusable component with prefers-reduced-motion support and overflow handling for forms/dropdowns
+- Multi-exercise comparison: side-by-side stat cards for 2-4 exercises showing PRs, volume, frequency, and progression status
+- ExerciseMultiSelect dropdown with chip UI, click-outside-to-close, and maxSelections enforcement
+- Single combined SQL query with IN clause for comparison (not N separate queries)
+- Progression status reuse via prop-drilling (avoids duplicate 9-week baseline query)
+- UUID validation before SQL interpolation in comparison query
+- E2E test updates with defensive expansion pattern for collapsed sections
+
+**Stats:**
+- 39 commits in milestone
+- 74 files changed, +1,468/-824 lines
+- 15,538 total lines of code in codebase
+- 4 phases, 14 plans
+- 13/13 requirements satisfied
+- 15/15 cross-phase integration points verified
+- 3/3 E2E user flows verified
+- Zero new dependencies
+
+**Git range:** `38b0ea3` (v1.4 start) → `266e9b2` (milestone audit)
+
+**What's next:** Future work deferred to v1.5+: overlay progress charts for comparison, HSL→OKLCH chart color migration.
+
+---
+
 ## v1.3 Production Polish & Deploy Readiness (Shipped: 2026-02-01)
 
 **Delivered:** Deploy-ready PWA with bug fixes, security hardening, comprehensive E2E tests, redesigned analytics with time-range filtering and research-backed volume zones, OKLCH color system, TOON export, PWA offline support, and performance budgets -- completing GymLog as a production-grade portfolio piece

@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A local-first PWA for tracking strength training performance across multiple gyms, built to showcase modern data engineering practices. Exercises are categorized as globally comparable (e.g., weighted pullups, barbell squats) or gym/equipment-specific (e.g., lat pulldown, chest press machine), enabling context-aware historical analysis. All data is stored and processed locally using DuckDB-WASM and Parquet, with dbt-duckdb powering the transformation layer.
+A local-first PWA for tracking strength training performance across multiple gyms, built to showcase modern data engineering practices. Exercises are categorized as globally comparable (e.g., weighted pullups, barbell squats) or gym/equipment-specific (e.g., lat pulldown, chest press machine), enabling context-aware historical analysis. All data is stored and processed locally using DuckDB-WASM and Parquet, with dbt-duckdb powering the transformation layer. Features a soft/modern dark theme with multi-exercise comparison analytics.
 
 ## Core Value
 
@@ -10,7 +10,7 @@ Track workout performance with proper data engineering — both usable as a pers
 
 ## Current State
 
-**Version:** v1.3 Production Polish & Deploy Readiness (shipped 2026-02-01)
+**Version:** v1.4 Comparison, UX & Theme (shipped 2026-02-02)
 
 **Tech Stack:**
 - React 18 + TypeScript + Vite
@@ -27,13 +27,12 @@ Track workout performance with proper data engineering — both usable as a pers
 - GitHub Actions CI/CD
 
 **Codebase:**
-- ~14,826 lines of TypeScript
-- ~3,255 lines of SQL/YAML (dbt)
-- 394 commits, 17 phases, 97 plans across 4 milestones
+- ~15,538 lines of code
+- 433 commits, 21 phases, 111 plans across 5 milestones
 
 **What's Working:**
 - Exercise and gym management with full CRUD
-- Workout templates with drag-drop reordering
+- Workout plans with drag-drop reordering (renamed from "templates")
 - Batch set logging with grid UI and ghost text from last session
 - Workout rotation with auto-advance and Quick Start
 - Post-workout summary with PRs and volume comparison
@@ -46,9 +45,12 @@ Track workout performance with proper data engineering — both usable as a pers
 - Anatomical muscle heat map
 - SQL-based plateau and regression detection
 - Progression dashboard with problems-first sorting
+- Multi-exercise comparison (2-4 exercises, stat cards with PRs/volume/frequency/progression)
 - Session-dismissible contextual alerts during workouts
 - Lazy-loaded Analytics page (Recharts out of main bundle)
-- Design system with OKLCH tokens and UI primitives
+- Design system with OKLCH tokens (warm muted dark theme) and UI primitives
+- Soft/modern dark theme with rounded corners, gentle gradients, and shadows
+- Collapsible sections on Workouts tab (exercises/gyms collapsed by default)
 - Error boundaries with graceful fallback UI
 - 71+ tests (unit, integration, E2E)
 - One-click demo data for portfolio reviewers
@@ -96,12 +98,13 @@ Track workout performance with proper data engineering — both usable as a pers
 - Performance budget (bundle size, Lighthouse) — v1.3
 - README polish (live demo, screenshots, run locally) — v1.3
 - General polish & risk sweep — v1.3
+- Theme redesign: soft/modern dark with OKLCH warm tones (THEME-01 to THEME-04) — v1.4
+- UX tightening: collapsible sections, settings reorder, Plans rename (UX-01 to UX-04) — v1.4
+- Multi-exercise comparison analytics (COMP-01 to COMP-05) — v1.4
 
 ### Active
 
-- Multi-exercise comparison (side-by-side stat cards with PRs, volume, frequency, progression)
-- UX tightening (collapsible exercises/gyms, Settings reorder, "Templates" → "Plans" rename)
-- Theme redesign (soft/modern dark theme with rounded corners, gentle gradients, muted tones)
+None. No active milestone.
 
 ### Out of Scope
 
@@ -115,26 +118,18 @@ Track workout performance with proper data engineering — both usable as a pers
 **User profile:** Data Engineer building this for personal use and GitHub portfolio. Goes to multiple gyms and wants history to be context-aware (gym-specific equipment shouldn't show cross-gym data).
 
 **Known Issues:**
+- Pre-existing TS build errors: QuickStartCard.tsx and StartWorkout.tsx reference templateId instead of planId (Vite build unaffected)
 - Backup reminders only work in persistent mode (by design)
 - dbt vw_progression_status.sql references fw.logged_at but fact_workouts uses started_at (non-blocking — compiled queries bypass dbt at runtime)
 
-**Potential v2+ Features:**
+**Potential v1.5+ Features:**
+- Overlay progress charts (weight/1RM) for compared exercises
+- HSL→OKLCH chart color migration
 - Chart export as image
 - Personal volume targets per muscle group
 - Supersets (paired exercises)
 - Plate calculator for barbell loading
 - Progress summary notifications
-
-## Current Milestone: v1.4 Comparison, UX & Theme
-
-**Goal:** Add multi-exercise comparison, tighten UX across tabs, and redesign the visual theme to a soft/modern dark aesthetic.
-
-**Target features:**
-- Side-by-side exercise comparison cards (PRs, volume, frequency, progression status)
-- Collapsible exercises/gyms sections on Workouts tab (collapsed by default)
-- "Templates" renamed to "Plans" app-wide
-- Settings tab reordered: Rotations → Default Gym → Create Rotation (button) → rest
-- Soft/modern dark theme: rounded corners, gentle gradients, muted tones (Apple Health style)
 
 ## Completed Milestones
 
@@ -146,6 +141,7 @@ See `.planning/MILESTONES.md` for full history and `.planning/milestones/` for a
 | v1.1 | Analytics | 2026-01-30 |
 | v1.2 | UX & Portfolio Polish | 2026-01-31 |
 | v1.3 | Production Polish & Deploy Readiness | 2026-02-01 |
+| v1.4 | Comparison, UX & Theme | 2026-02-02 |
 
 ## Constraints
 
@@ -173,11 +169,16 @@ See `.planning/MILESTONES.md` for full history and `.planning/milestones/` for a
 | Lazy-loaded Analytics page | Keeps Recharts (~110KB) out of main bundle | Good |
 | Session-dismissible alerts | 2-hour boundary via Zustand persist, returns if condition persists | Good |
 | Dual-criteria plateau detection | No PR 4+ weeks AND flat weight < 5%, prevents false positives during deload | Good |
-
 | @toon-format/toon for TOON export | Official SDK for Token-Oriented Object Notation; LLM-optimized data format | Good |
 | Single scrollable analytics dashboard | Unifies exercise + overall views; no drill-down navigation | Good |
 | vite-plugin-pwa + Workbox injectManifest | Full control over caching strategy; combines OPFS + Workbox precaching | Good |
 | Bundle size budgets with CI check | ~15% headroom above actual; script in CI catches regressions | Good |
+| Theme-first ordering for v1.4 | Token changes propagate globally; all later phases inherit new aesthetic | Good |
+| template_id preserved in stored data | Backward compat with events/localStorage; only UI text renamed to "Plans" | Good |
+| Tailwind v4 shadow-* from @theme tokens | Auto-generates utilities from --shadow-* tokens; no arbitrary values needed | Good |
+| Progression status from prop (comparison) | Avoids duplicate 9-week baseline query; DuckDB cache covers reuse | Good |
+| UUID validation before SQL interpolation | Regex check in comparisonStatsSQL prevents injection for dynamic IN clause | Good |
+| Click-outside-to-close for multi-select | Standard dropdown pattern; avoids modal overhead for exercise picker | Good |
 
 ---
-*Last updated: 2026-02-01 after v1.4 milestone started*
+*Last updated: 2026-02-02 after v1.4 milestone completion*

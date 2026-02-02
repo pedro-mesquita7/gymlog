@@ -2,19 +2,19 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-01)
+See: .planning/PROJECT.md (updated 2026-02-02)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
-**Current focus:** v1.4 milestone complete -- all 4 phases delivered
+**Current focus:** v1.4 milestone archived -- ready for next milestone or idle
 
 ## Current Position
 
-Phase: 21 of 21 (Comparison Analytics)
-Plan: 2 of 2
-Status: Phase complete
-Last activity: 2026-02-01 -- Completed 21-02-PLAN.md
+Phase: None (between milestones)
+Plan: N/A
+Status: Milestone v1.4 complete and archived
+Last activity: 2026-02-02 -- Archived v1.4 milestone
 
-Progress: [██████████████░░░░░░] 58% (14/24 plans)
+Progress: [████████████████████] 100% (v1.4 complete)
 
 ## Milestones
 
@@ -24,52 +24,30 @@ Progress: [██████████████░░░░░░] 58% (14
 | v1.1 Analytics | Archived | 2026-01-30 |
 | v1.2 UX & Portfolio Polish | Archived | 2026-01-31 |
 | v1.3 Production Polish & Deploy Readiness | Archived | 2026-02-01 |
-| v1.4 Comparison, UX & Theme | Complete | 2026-02-01 |
+| v1.4 Comparison, UX & Theme | Archived | 2026-02-02 |
 
 ## Performance Metrics
 
-**Velocity:**
-- Total plans completed: 13 (this milestone)
-- Average duration: ~7 min
-- Total execution time: ~88 min
+**Velocity (v1.4):**
+- Total plans completed: 14
+- Total commits: 39
+- Files changed: 74
+- Lines: +1,468/-824
 
 **By Phase:**
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 18. Theme Redesign | 6/6 | ~51 min | ~9 min |
-| 19. Plans Rename | 3/3 | ~24 min | ~8 min |
-| 20. UX Restructure | 3/3 | ~18 min | ~6 min |
-| 21. Comparison Analytics | 2/2 | ~7 min | ~4 min |
+| Phase | Plans | Status |
+|-------|-------|--------|
+| 18. Theme Redesign | 6/6 | Complete |
+| 19. Plans Rename | 3/3 | Complete |
+| 20. UX Restructure | 3/3 | Complete |
+| 21. Comparison Analytics | 2/2 | Complete |
 
 ## Accumulated Context
 
 ### Decisions
 
-- Theme first ordering: Token changes propagate globally, all later phases inherit new aesthetic
-- Rename separated from UX restructure: 40-file rename has distinct risk profile (backward compat with stored event types)
-- Zero new dependencies: Entire v1.4 delivered with existing stack
-- Tailwind v4 auto-generates shadow-* utilities from @theme --shadow-* tokens (no arbitrary values needed)
-- Card gradient applied via inline style (no Tailwind gradient token utility)
-- Navigation active indicator: rounded pill bg-accent/15 instead of border-top; shadow-nav for elevation
-- MuscleHeatMap defaultFill uses inline oklch(0.25 0.012 60) since SVG fill needs direct color values
-- Zone OKLCH colors kept saturated (semantic meaning > warm hue consistency)
-- DemoDataSection gradient chroma reduced from 0.18/0.15 to 0.12/0.10 for warm palette harmony
-- template_id property preserved everywhere (Plan interface keeps template_id, not plan_id -- stored key in events/localStorage)
-- selectNextPlan return field keeps templateId (backward compat with rotation store)
-- PlanFormData replaces TemplateFormData (Zod schema renamed)
-- toon-export interface property renamed template->plan (export format, not stored data)
-- CollapsibleSection overflow set to visible after expand (forms/dropdowns not clipped)
-- prefers-reduced-motion evaluated once at module scope (not per-render)
-- E2E defensive expansion pattern: check aria-expanded="false" count before clicking to avoid toggling open sections
-- E2E section-specific locators replace brittle nth() selectors
-- Comparison progression status merged from prop data, not re-queried (avoids duplicate 9-week SQL)
-- UUID validation via regex before SQL interpolation in comparisonStatsSQL
-- exerciseIds.join(',') as useCallback dependency key for stable reference
-- Click-outside-to-close pattern for multi-select dropdown
-- grid-cols-2 layout for stat cards (2x2 for 4 exercises)
-- ComparisonSection placed after Progression Intelligence as exploratory deep-dive
-- Progression data prop-drilled to ComparisonSection (DuckDB cache covers ProgressionDashboard duplication)
+Archived to PROJECT.md Key Decisions table.
 
 ### Pending Todos
 
@@ -78,12 +56,11 @@ None.
 ### Blockers/Concerns
 
 - Pre-existing TS build errors: QuickStartCard.tsx and StartWorkout.tsx reference templateId instead of planId (from Phase 19 rename incomplete)
-- Grep audit PASSED: zero unprotected Template references in src/ (19-03 verified)
 
 ## Session Continuity
 
-Last session: 2026-02-01
-Stopped at: Completed 21-02-PLAN.md (Comparison UI components)
+Last session: 2026-02-02
+Stopped at: Milestone v1.4 archived
 Resume file: None
 
-**Next action:** v1.4 milestone complete. Run /gsd:audit-milestone or /gsd:complete-milestone.
+**Next action:** Start next milestone with /gsd:new-milestone or idle.
