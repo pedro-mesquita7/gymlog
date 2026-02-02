@@ -1,3 +1,5 @@
+// NOTE: Full TOON export UI -- currently unused, replaced by inline export in BackupSettings.
+// Retained for potential future use in Developer Mode or standalone export page.
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useRotationStore } from '../../stores/useRotationStore';
 import {
