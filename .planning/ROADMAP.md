@@ -51,7 +51,10 @@ Plans:
   2. Analytics page shows weekly volume summary per muscle group
   3. Comparison section, progression dashboard, and plateau detection are gone from the UI
   4. Time range filtering (1M/3M/6M/1Y/All) still works on remaining analytics
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 23-01-PLAN.md — Remove dead code + restructure analytics layout with collapsible sections
+- [ ] 23-02-PLAN.md — Build week comparison subtitle + visual verification
 
 ### Phase 24: Settings + UI Polish
 **Goal**: Settings and UI are organized for daily mobile use, not developer exploration
@@ -103,7 +106,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
 | 22. Bug Fixes + Theme Overhaul | 5/5 | Complete | 2026-02-02 |
-| 23. Analytics Simplification | 0/TBD | Not started | - |
+| 23. Analytics Simplification | 0/2 | Not started | - |
 | 24. Settings + UI Polish | 0/TBD | Not started | - |
 | 25. Exercise Notes | 0/TBD | Not started | - |
 | 26. Warmup System | 0/TBD | Not started | - |
