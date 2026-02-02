@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-02)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
-**Current focus:** Phase 24 (Settings + UI Polish) -- Complete
+**Current focus:** Phase 25 (Exercise Notes) -- In progress
 
 ## Current Position
 
-Phase: 24 of 27 (Settings + UI Polish)
-Plan: 3 of 3 in current phase
-Status: Phase 24 complete
-Last activity: 2026-02-02 -- Completed 24-03-PLAN.md (rotation UX redesign)
+Phase: 25 of 27 (Exercise Notes)
+Plan: 1 of 2 in current phase
+Status: In progress
+Last activity: 2026-02-02 -- Completed 25-01-PLAN.md (exercise notes data layer)
 
-Progress: [████████████████████] 100%
+Progress: [████████████████████░] ~95%
 
 ## Milestones
 
@@ -30,9 +30,9 @@ Progress: [████████████████████] 100%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02 + 24-03)
+- Total plans completed: 11 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02 + 24-03 + 25-01)
 - Average duration: ~3.5 min
-- Total execution time: ~48 min
+- Total execution time: ~52 min
 
 ## Accumulated Context
 
@@ -58,6 +58,8 @@ Archived to PROJECT.md Key Decisions table.
 | d24-02-01 | developerMode stored in rotation store (not separate store) since it co-locates with other app preferences | 24-02 |
 | d24-02-02 | ToonExportSection kept as orphan file for potential future Developer Mode export options | 24-02 |
 | d24-03-01 | Inactive rotations use CollapsibleSection accordion pattern for consistency with rest of settings page | 24-03 |
+| d25-01-01 | Notes keyed by original_exercise_id (not actual/substituted ID) for consistent lookup | 25-01 |
+| d25-01-02 | Migration guard in Zustand persist merge defaults missing notes to {} for backward compat | 25-01 |
 
 ### Pending Todos
 
@@ -73,7 +75,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Completed 24-03-PLAN.md (rotation UX redesign) -- Phase 24 complete
+Stopped at: Completed 25-01-PLAN.md (exercise notes data layer)
 Resume file: None
 
-**Next action:** Continue to Phase 25
+**Next action:** Continue to Phase 25 Plan 02 (exercise notes UI component)
