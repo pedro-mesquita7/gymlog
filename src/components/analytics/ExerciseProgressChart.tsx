@@ -78,16 +78,16 @@ export function ExerciseProgressChart({
             type="monotone"
             dataKey="maxWeight"
             name="maxWeight"
-            stroke="hsl(var(--accent))"
+            stroke="var(--color-accent)"
             strokeWidth={2}
-            dot={{ r: 3, fill: 'hsl(var(--accent))' }}
+            dot={{ r: 3, fill: 'var(--color-accent)' }}
             activeDot={{ r: 5 }}
           />
           <Line
             type="monotone"
             dataKey="max1rm"
             name="max1rm"
-            stroke="hsl(var(--chart-success))"
+            stroke="var(--color-chart-success)"
             strokeWidth={2}
             strokeDasharray="5 5"
             dot={false}
@@ -97,7 +97,7 @@ export function ExerciseProgressChart({
               <YAxis
                 yAxisId="volume"
                 orientation="right"
-                stroke="hsl(var(--chart-primary))"
+                stroke="var(--color-chart-primary)"
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
@@ -106,7 +106,7 @@ export function ExerciseProgressChart({
                 type="monotone"
                 dataKey="totalVolume"
                 name="totalVolume"
-                stroke="hsl(var(--chart-primary))"
+                stroke="var(--color-chart-primary)"
                 strokeWidth={1}
                 dot={false}
                 yAxisId="volume"
@@ -121,7 +121,7 @@ export function ExerciseProgressChart({
           Max Weight
         </span>
         <span className="flex items-center gap-1">
-          <span className="w-3 h-0.5 rounded" style={{ backgroundColor: 'hsl(var(--chart-success))' }} />
+          <span className="w-3 h-0.5 rounded" style={{ backgroundColor: 'var(--color-chart-success)' }} />
           Est. 1RM
         </span>
       </div>
