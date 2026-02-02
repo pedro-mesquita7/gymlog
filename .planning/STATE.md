@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-02)
 ## Current Position
 
 Phase: 22 of 27 (Bug Fixes + Theme Overhaul)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-02-02 -- Roadmap created for v1.5
+Plan: 1 of 5 in current phase
+Status: In progress
+Last activity: 2026-02-02 -- Completed 22-01-PLAN.md (rotation bug + teal tokens)
 
-Progress: [░░░░░░░░░░░░░░░░░░░░] 0%
+Progress: [████░░░░░░░░░░░░░░░░] 20%
 
 ## Milestones
 
@@ -30,9 +30,9 @@ Progress: [░░░░░░░░░░░░░░░░░░░░] 0%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0 (v1.5)
-- Average duration: --
-- Total execution time: --
+- Total plans completed: 1 (v1.5)
+- Average duration: ~5 min
+- Total execution time: ~5 min
 
 ## Accumulated Context
 
@@ -40,13 +40,19 @@ Progress: [░░░░░░░░░░░░░░░░░░░░] 0%
 
 Archived to PROJECT.md Key Decisions table.
 
+| ID | Decision | Plan |
+|----|----------|------|
+| d22-01-01 | Teal accent at oklch(68% 0.10 185) -- L=68% keeps text-black readable | 22-01 |
+| d22-01-02 | Volume zones use teal gradient instead of rainbow | 22-01 |
+| d22-01-03 | Legacy HSL tokens removed now; chart consumers migrated in Plan 02 | 22-01 |
+
 ### Pending Todos
 
 None.
 
 ### Blockers/Concerns
 
-- Rotation bug needs investigation during Phase 22 (root cause unknown)
+- [RESOLVED] Rotation bug was templateId->planId property mismatch in consumers (fixed in 22-01)
 - Analytics simplification removes v1.4 comparison feature (Phase 23 code removal)
 - Theme overhaul touches all OKLCH tokens -- WCAG contrast must be reverified
 - Warmup system needs event sourcing schema extension (new event type)
@@ -54,7 +60,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Roadmap created, ready to plan Phase 22
+Stopped at: Completed 22-01-PLAN.md
 Resume file: None
 
-**Next action:** `/gsd:plan-phase 22`
+**Next action:** `/gsd:execute-phase` 22-02-PLAN.md
