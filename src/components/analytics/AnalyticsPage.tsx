@@ -4,6 +4,7 @@ import { useExerciseProgress } from '../../hooks/useAnalytics';
 import { useVolumeAnalytics } from '../../hooks/useVolumeAnalytics';
 import { useVolumeZoneThresholds } from '../../hooks/useVolumeThresholds';
 import { useSummaryStats } from '../../hooks/useSummaryStats';
+import { useWeekComparisonSubtitle } from '../../hooks/useWeekComparisonSubtitle';
 import { TimeRangePicker } from './TimeRangePicker';
 import { SummaryStatsCards } from './SummaryStatsCards';
 import { CollapsibleSection } from './CollapsibleSection';
@@ -55,6 +56,11 @@ export function AnalyticsPage() {
   const { data: progressData, isLoading: progressLoading, error: progressError } = useExerciseProgress({
     exerciseId: selectedExerciseId,
     days,
+  });
+
+  // Week-over-week comparison subtitle (always last 2 weeks, independent of time range)
+  const { subtitle: weekSubtitle, isLoading: subtitleLoading, data: weekData } = useWeekComparisonSubtitle({
+    exerciseId: selectedExerciseId,
   });
 
   // Derived data
@@ -110,6 +116,32 @@ export function AnalyticsPage() {
               </option>
             ))}
           </select>
+
+          {/* Week-over-week comparison subtitle */}
+          {!subtitleLoading && weekSubtitle && (
+            <p className="text-sm text-text-secondary">
+              {weekData?.hasPreviousWeek ? (
+                <>
+                  {weekData.weightChangePct !== null && (
+                    <span className={weekData.weightChangePct >= 0 ? 'text-success' : 'text-error'}>
+                      {weekData.weightChangePct > 0 ? '+' : ''}{weekData.weightChangePct}% weight
+                    </span>
+                  )}
+                  {weekData.volumeChangePct !== null && (
+                    <>
+                      <span className="text-text-muted">, </span>
+                      <span className={weekData.volumeChangePct >= 0 ? 'text-success' : 'text-error'}>
+                        {weekData.volumeChangePct > 0 ? '+' : ''}{weekData.volumeChangePct}% volume
+                      </span>
+                    </>
+                  )}
+                  <span className="text-text-muted"> vs last week</span>
+                </>
+              ) : (
+                <span className="text-text-muted">{weekSubtitle}</span>
+              )}
+            </p>
+          )}
 
           {progressError ? (
             <div className="text-center py-8 text-error">Error: {progressError}</div>

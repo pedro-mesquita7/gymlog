@@ -638,6 +638,53 @@ export function summaryStatsSQL(days: number | null): string {
   `;
 }
 
+// Week comparison subtitle — compares last 7 days vs 8-14 days ago for a given exercise
+export function weekComparisonSubtitleSQL(exerciseId: string): string {
+  const safeId = exerciseId.replace(/'/g, "''");
+
+  return `
+WITH fact_sets AS (
+    ${FACT_SETS_SQL}
+),
+
+recent_sets AS (
+    SELECT
+        weight_kg,
+        reps,
+        weight_kg * reps AS set_volume,
+        CASE
+            WHEN CAST(logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '7 days' THEN 'current'
+            WHEN CAST(logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '14 days' THEN 'previous'
+            ELSE NULL
+        END AS week_bucket
+    FROM fact_sets
+    WHERE original_exercise_id = '${safeId}'
+      AND CAST(logged_at AS TIMESTAMPTZ) >= CURRENT_DATE - INTERVAL '14 days'
+),
+
+week_stats AS (
+    SELECT
+        week_bucket,
+        MAX(weight_kg) AS max_weight,
+        SUM(set_volume) AS total_volume,
+        COUNT(*) AS set_count
+    FROM recent_sets
+    WHERE week_bucket IS NOT NULL
+    GROUP BY week_bucket
+)
+
+SELECT
+    curr.max_weight AS current_max_weight,
+    curr.total_volume AS current_total_volume,
+    curr.set_count AS current_set_count,
+    prev.max_weight AS previous_max_weight,
+    prev.total_volume AS previous_total_volume,
+    prev.set_count AS previous_set_count
+FROM (SELECT * FROM week_stats WHERE week_bucket = 'current') curr
+FULL OUTER JOIN (SELECT * FROM week_stats WHERE week_bucket = 'previous') prev ON 1=1
+`;
+}
+
 // DEPRECATED: Use function versions. These will be removed after Plan 02 migrates hooks.
 export const EXERCISE_HISTORY_SQL = exerciseHistorySQL(14);
 export const EXERCISE_PROGRESS_SQL = exerciseProgressSQL(28);
