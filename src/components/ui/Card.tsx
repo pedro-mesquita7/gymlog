@@ -12,7 +12,7 @@ export function Card({
   children,
   ...props
 }: CardProps) {
-  const baseStyles = 'rounded-2xl p-4 shadow-card';
+  const baseStyles = 'rounded-xl p-4 shadow-card';
 
   const variantStyles: Record<CardVariant, string> = {
     default: '',

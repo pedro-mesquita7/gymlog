@@ -51,7 +51,7 @@ export function ExerciseHistory({
   };
 
   return (
-    <div className="bg-bg-secondary rounded-2xl">
+    <div className="bg-bg-secondary rounded-xl">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border-primary">
         <h3 className="text-lg font-semibold">{exerciseName}</h3>

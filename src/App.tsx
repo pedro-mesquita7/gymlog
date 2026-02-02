@@ -109,7 +109,7 @@ function AppContent({ status, eventCount, refreshEventCount }: {
             <p className="text-error">Plan not found. Session data may have been lost.</p>
             <button
               onClick={() => cancelWorkout()}
-              className="px-6 py-3 bg-bg-tertiary hover:bg-bg-elevated rounded-2xl transition-colors"
+              className="px-6 py-3 bg-bg-tertiary hover:bg-bg-elevated rounded-xl transition-colors"
             >
               Dismiss
             </button>

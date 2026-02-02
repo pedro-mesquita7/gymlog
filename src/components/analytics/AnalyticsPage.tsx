@@ -115,7 +115,7 @@ export function AnalyticsPage() {
       ) : (
         <div className="space-y-4">
           <FeatureErrorBoundary feature="Volume Chart">
-            <div className="bg-bg-tertiary/30 rounded-2xl p-4">
+            <div className="bg-bg-tertiary/30 rounded-xl p-4">
               <VolumeBarChart data={volumeAvgData} />
             </div>
           </FeatureErrorBoundary>
@@ -134,7 +134,7 @@ export function AnalyticsPage() {
         <div className="text-center py-8 text-text-muted">Loading heat map...</div>
       ) : (
         <FeatureErrorBoundary feature="Muscle Heat Map">
-          <div className="bg-bg-tertiary/30 rounded-2xl p-4">
+          <div className="bg-bg-tertiary/30 rounded-xl p-4">
             <MuscleHeatMap data={heatMapData} getThresholds={getThresholds} />
           </div>
         </FeatureErrorBoundary>
@@ -168,7 +168,7 @@ export function AnalyticsPage() {
         <div className="text-center py-8 text-text-muted">Loading chart...</div>
       ) : (
         <FeatureErrorBoundary feature="Exercise Progress Chart">
-          <div className="bg-bg-tertiary/30 rounded-2xl p-4">
+          <div className="bg-bg-tertiary/30 rounded-xl p-4">
             <ExerciseProgressChart
               data={progressData}
               exerciseName={selectedExercise?.name || 'Exercise'}

@@ -57,7 +57,7 @@ export function ExerciseForm({ exercise, onSubmit, onCancel }: ExerciseFormProps
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-bg-secondary rounded-2xl shadow-dialog border border-border-primary">
+      <div className="relative w-full max-w-md bg-bg-secondary rounded-xl shadow-dialog border border-border-primary">
         <div className="p-6">
           <h2 className="text-lg font-semibold mb-6">
             {isEditing ? 'Edit Exercise' : 'Add Exercise'}
@@ -123,7 +123,7 @@ export function ExerciseForm({ exercise, onSubmit, onCancel }: ExerciseFormProps
                   onClick={() => setIsGlobal(false)}
                   className={`flex-1 py-3 text-sm font-medium border transition-colors ${
                     !isGlobal
-                      ? 'border-accent text-accent bg-orange-950/30'
+                      ? 'border-accent text-accent bg-teal-950/30'
                       : 'border-border-primary text-text-muted hover:text-text-secondary'
                   }`}
                 >

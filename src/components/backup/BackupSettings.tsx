@@ -66,7 +66,7 @@ export function BackupSettings() {
       {gyms.length > 0 && (
         <section>
           <h2 className="text-lg font-semibold mb-4 text-text-primary">Default Gym</h2>
-          <div className="bg-bg-secondary rounded-2xl p-4">
+          <div className="bg-bg-secondary rounded-xl p-4">
             <select
               id="default-gym"
               value={defaultGymId || ''}
@@ -92,7 +92,7 @@ export function BackupSettings() {
 
       {/* 4. Workout Preferences */}
       <CollapsibleSection title="Workout Preferences">
-        <div className="bg-bg-secondary rounded-2xl p-4 space-y-5">
+        <div className="bg-bg-secondary rounded-xl p-4 space-y-5">
           {/* Weight Unit */}
           <div className="flex items-center justify-between">
             <label className="text-sm text-text-primary">Weight Unit</label>

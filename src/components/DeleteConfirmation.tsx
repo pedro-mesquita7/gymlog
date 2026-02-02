@@ -26,7 +26,7 @@ export function DeleteConfirmation({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-sm bg-bg-secondary rounded-2xl shadow-dialog border border-border-primary">
+      <div className="relative w-full max-w-sm bg-bg-secondary rounded-xl shadow-dialog border border-border-primary">
         <div className="p-6">
           <h3 className="text-lg font-semibold mb-2">{title}</h3>
           <p className="text-text-secondary text-sm mb-6">{message}</p>

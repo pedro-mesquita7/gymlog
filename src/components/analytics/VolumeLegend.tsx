@@ -8,7 +8,7 @@ export function VolumeLegend() {
   ];
 
   return (
-    <div className="bg-bg-secondary rounded-2xl p-4 space-y-3">
+    <div className="bg-bg-secondary rounded-xl p-4 space-y-3">
       <h4 className="text-sm font-medium text-text-primary">Volume Zones</h4>
       <div className="flex flex-wrap gap-x-4 gap-y-2">
         {zones.map((zone) => (

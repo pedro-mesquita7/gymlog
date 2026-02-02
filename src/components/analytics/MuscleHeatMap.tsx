@@ -25,22 +25,22 @@ function getColorForVolume(totalSets: number, thresholds: VolumeZoneThresholds):
 
   const zone = getVolumeZone(totalSets, thresholds);
   const colors = {
-    under:   'oklch(63% 0.22 25 / 0.7)',    // red
-    minimum: 'oklch(75% 0.15 85 / 0.7)',    // yellow
-    optimal: 'oklch(65% 0.17 145 / 0.8)',   // green
-    high:    'oklch(70% 0.15 65 / 0.7)',    // orange
-    over:    'oklch(63% 0.22 25 / 0.8)',    // red
+    under:   'oklch(80% 0.08 185 / 0.8)',   // lightest teal
+    minimum: 'oklch(70% 0.10 185 / 0.8)',   // light teal
+    optimal: 'oklch(60% 0.12 185 / 0.9)',   // medium teal
+    high:    'oklch(48% 0.10 185 / 0.8)',   // dark teal
+    over:    'oklch(38% 0.08 185 / 0.9)',   // darkest teal
   };
   return colors[zone];
 }
 
 // Zone legend colors matching the body diagram
 const ZONE_LEGEND = [
-  { zone: 'under', label: 'Under MEV', color: 'oklch(63% 0.22 25 / 0.7)' },
-  { zone: 'minimum', label: 'MEV-MAV (Minimum)', color: 'oklch(75% 0.15 85 / 0.7)' },
-  { zone: 'optimal', label: 'MAV Range (Optimal)', color: 'oklch(65% 0.17 145 / 0.8)' },
-  { zone: 'high', label: 'MAV-MRV (High)', color: 'oklch(70% 0.15 65 / 0.7)' },
-  { zone: 'over', label: 'Over MRV', color: 'oklch(63% 0.22 25 / 0.8)' },
+  { zone: 'under', label: 'Under MEV', color: 'oklch(80% 0.08 185 / 0.8)' },
+  { zone: 'minimum', label: 'MEV-MAV (Minimum)', color: 'oklch(70% 0.10 185 / 0.8)' },
+  { zone: 'optimal', label: 'MAV Range (Optimal)', color: 'oklch(60% 0.12 185 / 0.9)' },
+  { zone: 'high', label: 'MAV-MRV (High)', color: 'oklch(48% 0.10 185 / 0.8)' },
+  { zone: 'over', label: 'Over MRV', color: 'oklch(38% 0.08 185 / 0.9)' },
 ];
 
 export function MuscleHeatMap({ data, getThresholds }: MuscleHeatMapProps) {
@@ -70,14 +70,14 @@ export function MuscleHeatMap({ data, getThresholds }: MuscleHeatMapProps) {
         {/* Front view */}
         <div className="flex flex-col items-center">
           <h3 className="text-sm font-medium text-text-secondary mb-2">Front</h3>
-          <div className="bg-bg-secondary rounded-2xl p-4">
+          <div className="bg-bg-secondary rounded-xl p-4">
             <Body
               data={bodyData}
               side="front"
               gender="male"
               scale={1.2}
               border="none"
-              defaultFill="oklch(0.25 0.012 60)"
+              defaultFill="oklch(25% 0.005 220)"
             />
           </div>
         </div>
@@ -85,21 +85,21 @@ export function MuscleHeatMap({ data, getThresholds }: MuscleHeatMapProps) {
         {/* Back view */}
         <div className="flex flex-col items-center">
           <h3 className="text-sm font-medium text-text-secondary mb-2">Back</h3>
-          <div className="bg-bg-secondary rounded-2xl p-4">
+          <div className="bg-bg-secondary rounded-xl p-4">
             <Body
               data={bodyData}
               side="back"
               gender="male"
               scale={1.2}
               border="none"
-              defaultFill="oklch(0.25 0.012 60)"
+              defaultFill="oklch(25% 0.005 220)"
             />
           </div>
         </div>
       </div>
 
       {/* Legend with muscle group totals */}
-      <div className="bg-bg-secondary rounded-2xl p-4">
+      <div className="bg-bg-secondary rounded-xl p-4">
         <h3 className="text-sm font-medium text-text-primary mb-3">Training Volume</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {data.map((muscleData) => {

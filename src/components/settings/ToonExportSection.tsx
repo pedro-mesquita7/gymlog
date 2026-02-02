@@ -139,7 +139,7 @@ export function ToonExportSection() {
         Export TOON
       </h2>
 
-      <div className="bg-bg-secondary rounded-2xl p-4">
+      <div className="bg-bg-secondary rounded-xl p-4">
         <p className="text-sm text-text-secondary mb-3">
           Export workout data in LLM-optimized format for AI analysis
         </p>

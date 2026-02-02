@@ -77,7 +77,7 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
 
       <div className="space-y-4">
         {/* Load Demo Data */}
-        <div className="bg-bg-secondary rounded-2xl p-4">
+        <div className="bg-bg-secondary rounded-xl p-4">
           <h3 className="font-medium text-text-primary mb-1">Load Demo Data</h3>
           <p className="text-sm text-text-secondary mb-3">
             Load 6 weeks of sample workouts to explore all features
@@ -93,7 +93,7 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
         </div>
 
         {/* Clear Historical Data */}
-        <div className="bg-error/10 border border-error/30 rounded-2xl p-4">
+        <div className="bg-error/10 border border-error/30 rounded-xl p-4">
           <h3 className="font-medium text-error mb-1">Clear Historical Data</h3>
           <p className="text-sm text-error/80 mb-3">
             Remove all workout logs and plans. Exercises and gyms will be kept.

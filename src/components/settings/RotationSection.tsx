@@ -67,7 +67,7 @@ export function RotationSection() {
 
       <div className="space-y-6">
         {/* Create Rotation Form */}
-        <div className="bg-bg-secondary rounded-2xl p-4 space-y-3">
+        <div className="bg-bg-secondary rounded-xl p-4 space-y-3">
           <h3 className="text-sm font-medium text-text-primary">Create New Rotation</h3>
 
           <Input
@@ -120,7 +120,7 @@ export function RotationSection() {
             {rotations.map((rotation) => (
               <div
                 key={rotation.rotation_id}
-                className="bg-bg-secondary rounded-2xl p-4 space-y-3"
+                className="bg-bg-secondary rounded-xl p-4 space-y-3"
               >
                 {/* Rotation Header */}
                 <div className="flex items-start justify-between">

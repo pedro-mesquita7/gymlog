@@ -19,7 +19,7 @@ export function SummaryStatsCards({ stats, isLoading }: SummaryStatsCardsProps) 
     return (
       <div className="grid grid-cols-2 gap-3">
         {[0, 1, 2, 3].map((i) => (
-          <div key={i} className="bg-bg-secondary border border-border-primary rounded-2xl p-4 animate-pulse">
+          <div key={i} className="bg-bg-secondary border border-border-primary rounded-xl p-4 animate-pulse">
             <div className="h-7 w-16 bg-bg-tertiary rounded mb-2" />
             <div className="h-4 w-12 bg-bg-tertiary rounded" />
           </div>
@@ -31,7 +31,7 @@ export function SummaryStatsCards({ stats, isLoading }: SummaryStatsCardsProps) 
   return (
     <div className="grid grid-cols-2 gap-3">
       {cards.map((card) => (
-        <div key={card.label} className="bg-bg-secondary border border-border-primary rounded-2xl p-4">
+        <div key={card.label} className="bg-bg-secondary border border-border-primary rounded-xl p-4">
           <div className="text-2xl font-bold text-text-primary">{card.value}</div>
           <div className="text-sm text-text-secondary mt-1">{card.label}</div>
         </div>

@@ -29,7 +29,7 @@ export function CollapsibleSection({
         type="button"
         aria-expanded={isOpen}
         onClick={() => setIsOpen(prev => !prev)}
-        className="w-full flex items-center justify-between px-4 py-3 bg-bg-secondary hover:bg-bg-tertiary rounded-2xl transition-colors cursor-pointer"
+        className="w-full flex items-center justify-between px-4 py-3 bg-bg-secondary hover:bg-bg-tertiary rounded-xl transition-colors cursor-pointer"
       >
         <span className="flex items-baseline gap-1.5">
           <span className="text-base font-semibold text-text-primary">{title}</span>

@@ -29,9 +29,9 @@ export function VolumeZoneIndicator({
 
   return (
     <div className="flex items-center gap-6 text-sm">
-      {/* Red zone */}
+      {/* Under zone */}
       <div className="flex items-center gap-2">
-        <div className="w-3 h-3 rounded-full bg-error" />
+        <div className="w-3 h-3 rounded-full bg-chart-zone-under" />
         <span className="text-text-secondary">
           Under-training (&lt;
           {onThresholdsChange ? (
@@ -50,9 +50,9 @@ export function VolumeZoneIndicator({
         </span>
       </div>
 
-      {/* Green zone */}
+      {/* Optimal zone */}
       <div className="flex items-center gap-2">
-        <div className="w-3 h-3 rounded-full bg-success" />
+        <div className="w-3 h-3 rounded-full bg-chart-zone-optimal" />
         <span className="text-text-secondary">
           Optimal (
           {onThresholdsChange ? (
@@ -83,9 +83,9 @@ export function VolumeZoneIndicator({
         </span>
       </div>
 
-      {/* Yellow zone */}
+      {/* High zone */}
       <div className="flex items-center gap-2">
-        <div className="w-3 h-3 rounded-full bg-warning" />
+        <div className="w-3 h-3 rounded-full bg-chart-zone-high" />
         <span className="text-text-secondary">
           High-volume (&gt;
           {onThresholdsChange ? (

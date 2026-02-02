@@ -43,7 +43,7 @@ export function ComparisonStatCard({ stat }: ComparisonStatCardProps) {
   return (
     <div
       data-testid="comparison-stat-card"
-      className="bg-bg-secondary border border-border-primary rounded-2xl p-4 space-y-3"
+      className="bg-bg-secondary border border-border-primary rounded-xl p-4 space-y-3"
     >
       {/* Header */}
       <div>

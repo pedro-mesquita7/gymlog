@@ -48,7 +48,7 @@ function SortableItem({ id, planName, onRemove }: SortableItemProps) {
     <div
       ref={setNodeRef}
       style={style}
-      className="flex items-center gap-3 bg-bg-secondary rounded-2xl p-3 border border-border-primary"
+      className="flex items-center gap-3 bg-bg-secondary rounded-xl p-3 border border-border-primary"
     >
       <button
         {...attributes}
