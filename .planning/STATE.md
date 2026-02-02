@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-02)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
-**Current focus:** Phase 24 (Settings + UI Polish) -- Plan 02 complete
+**Current focus:** Phase 24 (Settings + UI Polish) -- Complete
 
 ## Current Position
 
 Phase: 24 of 27 (Settings + UI Polish)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-02-02 -- Completed 24-02-PLAN.md (settings restructure with developer mode)
+Plan: 3 of 3 in current phase
+Status: Phase 24 complete
+Last activity: 2026-02-02 -- Completed 24-03-PLAN.md (rotation UX redesign)
 
-Progress: [████████████████████] 99%
+Progress: [████████████████████] 100%
 
 ## Milestones
 
@@ -30,9 +30,9 @@ Progress: [████████████████████] 99%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02)
+- Total plans completed: 10 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02 + 24-03)
 - Average duration: ~3.5 min
-- Total execution time: ~44 min
+- Total execution time: ~48 min
 
 ## Accumulated Context
 
@@ -57,6 +57,7 @@ Archived to PROJECT.md Key Decisions table.
 | d24-01-02 | SetRow single-line layout with PR badge on separate line below when active | 24-01 |
 | d24-02-01 | developerMode stored in rotation store (not separate store) since it co-locates with other app preferences | 24-02 |
 | d24-02-02 | ToonExportSection kept as orphan file for potential future Developer Mode export options | 24-02 |
+| d24-03-01 | Inactive rotations use CollapsibleSection accordion pattern for consistency with rest of settings page | 24-03 |
 
 ### Pending Todos
 
@@ -72,7 +73,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Completed 24-02-PLAN.md (settings restructure with developer mode)
+Stopped at: Completed 24-03-PLAN.md (rotation UX redesign) -- Phase 24 complete
 Resume file: None
 
-**Next action:** Continue Phase 24 -- Plan 03
+**Next action:** Continue to Phase 25
