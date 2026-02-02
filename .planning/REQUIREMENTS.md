@@ -1,0 +1,119 @@
+# Requirements: GymLog
+
+**Defined:** 2026-02-02
+**Core Value:** Track workout performance with proper data engineering — both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
+
+## v1.5 Requirements
+
+Requirements for v1.5 Real Workout Polish. Each maps to roadmap phases.
+
+### Bug Fixes
+
+- [ ] **BUG-01**: Rotation "plan or gym not found" error resolved when default gym and active rotation exist
+- [ ] **BUG-02**: TS build errors fixed in QuickStartCard.tsx and StartWorkout.tsx (templateId→planId)
+
+### Theme
+
+- [ ] **THEME-01**: Orange accent replaced with cool blue/teal color palette
+- [ ] **THEME-02**: All OKLCH tokens updated for blue/teal aesthetic
+- [ ] **THEME-03**: WCAG AA contrast maintained across all text/background combinations
+- [ ] **THEME-04**: Charts and data visualizations use new color palette
+
+### Analytics Simplification
+
+- [ ] **ANLY-01**: Analytics page shows exercise progress charts (weight, 1RM, volume trends)
+- [ ] **ANLY-02**: Analytics page shows weekly volume per muscle group
+- [ ] **ANLY-03**: Comparison section, progression dashboard, and plateau detection removed
+- [ ] **ANLY-04**: Time range filtering retained for remaining analytics
+
+### UI Polish
+
+- [ ] **UIPOL-01**: Collapsed sections show clean headers without redundant text (Exercises, Gyms, Settings)
+- [ ] **UIPOL-02**: Set logging uses batch grid layout for mobile density
+- [ ] **UIPOL-03**: Settings restructured: Default Gym + Rotation + TOON export visible at top level
+- [ ] **UIPOL-04**: Debug sections (observability, data quality, demo data) behind Developer toggle
+- [ ] **UIPOL-05**: Rotation UX: current rotation prominent, others expandable, create-new collapsed
+
+### Exercise Notes
+
+- [ ] **NOTE-01**: Free text field per exercise during workout logging
+- [ ] **NOTE-02**: Notes saved with workout session data via event sourcing
+- [ ] **NOTE-03**: Notes visible in exercise history on next workout
+
+### Warmup System
+
+- [ ] **WARM-01**: Per-exercise warmup toggle in plan editor
+- [ ] **WARM-02**: Two warmup tiers with configurable percentage and reps (default: 50% x 5, 75% x 3)
+- [ ] **WARM-03**: Warmup tier configuration accessible in Settings
+- [ ] **WARM-04**: Working weight auto-calculated from max weight within exercise's rep range (not PR)
+- [ ] **WARM-05**: Warmup sets displayed with calculated weights during workout logging
+
+### Production Polish
+
+- [ ] **PROD-01**: README and architecture diagrams updated for v1.5 changes
+- [ ] **PROD-02**: Unused files and dead code cleaned up (including removed comparison code)
+- [ ] **PROD-03**: Final E2E test updates for changed UI structure
+
+## v2+ Requirements
+
+Deferred to future release. Not in current roadmap.
+
+### Advanced Features
+
+- **ADV-01**: Chart export as image
+- **ADV-02**: Supersets (paired exercises)
+- **ADV-03**: Plate calculator for barbell loading
+- **ADV-04**: Progress summary notifications
+- **ADV-05**: Personal volume targets per muscle group
+- **ADV-06**: Light mode toggle
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Cloud sync/backup | Keeping local-first, manual export sufficient |
+| Multi-user support | Personal use only |
+| Mobile native app | PWA covers mobile use case |
+| Overlay progress charts for comparison | Comparison feature being removed in v1.5 |
+| Social/sharing features | Not relevant for personal tool |
+| Dynamic N-tier warmup | Fixed 2 tiers covers standard protocol |
+
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| BUG-01 | TBD | Pending |
+| BUG-02 | TBD | Pending |
+| THEME-01 | TBD | Pending |
+| THEME-02 | TBD | Pending |
+| THEME-03 | TBD | Pending |
+| THEME-04 | TBD | Pending |
+| ANLY-01 | TBD | Pending |
+| ANLY-02 | TBD | Pending |
+| ANLY-03 | TBD | Pending |
+| ANLY-04 | TBD | Pending |
+| UIPOL-01 | TBD | Pending |
+| UIPOL-02 | TBD | Pending |
+| UIPOL-03 | TBD | Pending |
+| UIPOL-04 | TBD | Pending |
+| UIPOL-05 | TBD | Pending |
+| NOTE-01 | TBD | Pending |
+| NOTE-02 | TBD | Pending |
+| NOTE-03 | TBD | Pending |
+| WARM-01 | TBD | Pending |
+| WARM-02 | TBD | Pending |
+| WARM-03 | TBD | Pending |
+| WARM-04 | TBD | Pending |
+| WARM-05 | TBD | Pending |
+| PROD-01 | TBD | Pending |
+| PROD-02 | TBD | Pending |
+| PROD-03 | TBD | Pending |
+
+**Coverage:**
+- v1.5 requirements: 26 total
+- Mapped to phases: 0
+- Unmapped: 26 (awaiting roadmap)
+
+---
+*Requirements defined: 2026-02-02*
+*Last updated: 2026-02-02 after initial definition*
