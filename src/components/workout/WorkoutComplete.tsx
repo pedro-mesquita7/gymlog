@@ -12,6 +12,7 @@ import type {
   WorkoutStartedEvent,
   SetLoggedEvent,
   WorkoutCompletedEvent,
+  ExerciseNoteLoggedEvent,
 } from '../../types/events';
 
 interface WorkoutCompleteProps {
@@ -85,6 +86,20 @@ export function WorkoutComplete({
           reps: set.reps,
           rir: set.rir,
         });
+      }
+
+      // Write exercise_note_logged events for non-empty notes
+      for (const [originalExerciseId, noteText] of Object.entries(session.notes ?? {})) {
+        if (noteText.trim()) {
+          const actualExerciseId = session.exerciseSubstitutions[originalExerciseId] ?? originalExerciseId;
+          await writeEvent<ExerciseNoteLoggedEvent>({
+            event_type: 'exercise_note_logged',
+            workout_id: session.workout_id,
+            exercise_id: actualExerciseId,
+            original_exercise_id: originalExerciseId,
+            note: noteText.trim(),
+          });
+        }
       }
 
       // Write workout_completed event

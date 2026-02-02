@@ -36,6 +36,7 @@ interface WorkoutState {
   substituteExercise: (originalId: string, replacementId: string) => void;
   revertSubstitution: (originalId: string) => void;
   addCustomExercise: (exerciseId: string, name: string) => void;
+  setNote: (originalExerciseId: string, note: string) => void;
   setDefaultRestSeconds: (seconds: number) => void;
   setWeightUnit: (unit: 'kg' | 'lbs') => void;
   setSoundEnabled: (enabled: boolean) => void;
@@ -73,6 +74,7 @@ export const useWorkoutStore = create<WorkoutState>()(
             sets: [],
             exerciseSubstitutions: {},
             customExercises: {},
+            notes: {},
           },
         });
       },
@@ -240,6 +242,20 @@ export const useWorkoutStore = create<WorkoutState>()(
         });
       },
 
+      setNote: (originalExerciseId, note) => {
+        const session = get().session;
+        if (!session) return;
+        set({
+          session: {
+            ...session,
+            notes: {
+              ...session.notes,
+              [originalExerciseId]: note,
+            },
+          },
+        });
+      },
+
       setDefaultRestSeconds: (seconds) => {
         set({ defaultRestSeconds: seconds });
       },
@@ -271,10 +287,17 @@ export const useWorkoutStore = create<WorkoutState>()(
         weightUnit: state.weightUnit,
         soundEnabled: state.soundEnabled,
       }),
-      merge: (persistedState, currentState) => ({
-        ...currentState,
-        ...(persistedState as Partial<WorkoutState>),
-      }),
+      merge: (persistedState, currentState) => {
+        const merged = {
+          ...currentState,
+          ...(persistedState as Partial<WorkoutState>),
+        };
+        // Migration guard: sessions persisted before notes field
+        if (merged.session && !merged.session.notes) {
+          merged.session = { ...merged.session, notes: {} };
+        }
+        return merged;
+      },
     }
   )
 );

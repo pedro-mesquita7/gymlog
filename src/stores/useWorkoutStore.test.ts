@@ -49,6 +49,7 @@ describe('useWorkoutStore', () => {
         sets: [],
         exerciseSubstitutions: {},
         customExercises: {},
+        notes: {},
       });
     });
 
