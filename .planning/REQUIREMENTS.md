@@ -21,10 +21,10 @@ Requirements for v1.5 Real Workout Polish. Each maps to roadmap phases.
 
 ### Analytics Simplification
 
-- [ ] **ANLY-01**: Analytics page shows exercise progress charts (weight, 1RM, volume trends)
-- [ ] **ANLY-02**: Analytics page shows weekly volume per muscle group
-- [ ] **ANLY-03**: Comparison section, progression dashboard, and plateau detection removed
-- [ ] **ANLY-04**: Time range filtering retained for remaining analytics
+- [x] **ANLY-01**: Analytics page shows exercise progress charts (weight, 1RM, volume trends)
+- [x] **ANLY-02**: Analytics page shows weekly volume per muscle group
+- [x] **ANLY-03**: Comparison section, progression dashboard, and plateau detection removed
+- [x] **ANLY-04**: Time range filtering retained for remaining analytics
 
 ### UI Polish
 
@@ -88,10 +88,10 @@ Deferred to future release. Not in current roadmap.
 | THEME-02 | Phase 22 | Complete |
 | THEME-03 | Phase 22 | Complete |
 | THEME-04 | Phase 22 | Complete |
-| ANLY-01 | Phase 23 | Pending |
-| ANLY-02 | Phase 23 | Pending |
-| ANLY-03 | Phase 23 | Pending |
-| ANLY-04 | Phase 23 | Pending |
+| ANLY-01 | Phase 23 | Complete |
+| ANLY-02 | Phase 23 | Complete |
+| ANLY-03 | Phase 23 | Complete |
+| ANLY-04 | Phase 23 | Complete |
 | UIPOL-01 | Phase 24 | Pending |
 | UIPOL-02 | Phase 24 | Pending |
 | UIPOL-03 | Phase 24 | Pending |
