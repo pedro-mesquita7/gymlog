@@ -80,7 +80,10 @@ Plans:
   1. User sees a free text field per exercise during workout logging
   2. Notes persist after workout completion (stored via event sourcing)
   3. Previous session notes are visible when logging the same exercise in a future workout
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 25-01-PLAN.md — Note data layer: event type, session state, store action, event persistence
+- [ ] 25-02-PLAN.md — Note UI component with tap-to-reveal input, history display, ExerciseView integration
 
 ### Phase 26: Warmup System
 **Goal**: Users get auto-calculated warmup sets before working sets in their workout
@@ -112,6 +115,6 @@ Plans:
 | 22. Bug Fixes + Theme Overhaul | 5/5 | Complete | 2026-02-02 |
 | 23. Analytics Simplification | 2/2 | Complete | 2026-02-02 |
 | 24. Settings + UI Polish | 3/3 | Complete | 2026-02-02 |
-| 25. Exercise Notes | 0/TBD | Not started | - |
+| 25. Exercise Notes | 0/2 | Not started | - |
 | 26. Warmup System | 0/TBD | Not started | - |
 | 27. Production Polish | 0/TBD | Not started | - |
