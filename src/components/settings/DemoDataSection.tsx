@@ -103,7 +103,6 @@ export function DemoDataSection({ eventCount }: DemoDataSectionProps) {
             Clear Historical Data
           </button>
         </div>
-      </div>
 
       {/* Import confirmation dialog */}
       <Dialog
