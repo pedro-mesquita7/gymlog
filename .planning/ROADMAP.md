@@ -17,7 +17,7 @@ Transform GymLog from a feature-complete analytics tool into a polished daily-us
 
 - [x] **Phase 22: Bug Fixes + Theme Overhaul** - Fix rotation/TS bugs and replace orange accent with cool blue/teal palette
 - [x] **Phase 23: Analytics Simplification** - Remove comparison/progression/plateau, keep exercise progress + volume
-- [ ] **Phase 24: Settings + UI Polish** - Restructure settings, compact logging, rotation UX, clean headers
+- [x] **Phase 24: Settings + UI Polish** - Restructure settings, compact logging, rotation UX, clean headers
 - [ ] **Phase 25: Exercise Notes** - Free text notes per exercise per session with history display
 - [ ] **Phase 26: Warmup System** - Per-exercise warmup toggle with 2-tier auto-calculated warmup sets
 - [ ] **Phase 27: Production Polish** - README update, dead code cleanup, E2E test updates
@@ -68,9 +68,9 @@ Plans:
   5. Rotation section shows current rotation prominently, others are expandable, create-new is collapsed
 **Plans:** 3 plans
 Plans:
-- [ ] 24-01-PLAN.md — Clean redundant inner titles + compact set logging grid
-- [ ] 24-02-PLAN.md — Settings restructure with developer toggle + simplified export
-- [ ] 24-03-PLAN.md — Rotation UX redesign (active prominent, others collapsed, create collapsed)
+- [x] 24-01-PLAN.md — Clean redundant inner titles + compact set logging grid
+- [x] 24-02-PLAN.md — Settings restructure with developer toggle + simplified export
+- [x] 24-03-PLAN.md — Rotation UX redesign (active prominent, others collapsed, create collapsed)
 
 ### Phase 25: Exercise Notes
 **Goal**: Users can write and review notes about exercises across workout sessions
@@ -111,7 +111,7 @@ Plans:
 |-------|---------------|--------|-----------|
 | 22. Bug Fixes + Theme Overhaul | 5/5 | Complete | 2026-02-02 |
 | 23. Analytics Simplification | 2/2 | Complete | 2026-02-02 |
-| 24. Settings + UI Polish | 0/3 | Not started | - |
+| 24. Settings + UI Polish | 3/3 | Complete | 2026-02-02 |
 | 25. Exercise Notes | 0/TBD | Not started | - |
 | 26. Warmup System | 0/TBD | Not started | - |
 | 27. Production Polish | 0/TBD | Not started | - |
