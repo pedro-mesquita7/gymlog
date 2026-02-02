@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-02)
 ## Current Position
 
 Phase: 22 of 27 (Bug Fixes + Theme Overhaul)
-Plan: 3 of 5 in current phase (22-01, 22-03, 22-04 complete)
+Plan: 4 of 5 in current phase (22-01, 22-02, 22-03, 22-04 complete)
 Status: In progress
-Last activity: 2026-02-02 -- Completed 22-03-PLAN.md (text-on-accent contrast fix)
+Last activity: 2026-02-02 -- Completed 22-02-PLAN.md (chart & form color migration)
 
-Progress: [████████████░░░░░░░░] 60%
+Progress: [████████████████░░░░] 80%
 
 ## Milestones
 
@@ -30,9 +30,9 @@ Progress: [████████████░░░░░░░░] 60%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3 (v1.5)
+- Total plans completed: 4 (v1.5)
 - Average duration: ~3.3 min
-- Total execution time: ~10 min
+- Total execution time: ~13 min
 
 ## Accumulated Context
 
@@ -45,6 +45,8 @@ Archived to PROJECT.md Key Decisions table.
 | d22-01-01 | Teal accent at oklch(68% 0.10 185) -- L=68% keeps text-black readable | 22-01 |
 | d22-01-02 | Volume zones use teal gradient instead of rainbow | 22-01 |
 | d22-01-03 | Legacy HSL tokens removed now; chart consumers migrated in Plan 02 | 22-01 |
+| d22-02-01 | MuscleHeatMap keeps hardcoded OKLCH strings (not CSS vars) for SVG fill compatibility | 22-02 |
+| d22-02-02 | VolumeZoneIndicator 3-zone model maps to bg-chart-zone-under/optimal/high classes | 22-02 |
 | d22-03-01 | text-white on all accent backgrounds (teal L=68% + white = ~3.5:1, WCAG 1.4.11 compliant for UI controls) | 22-03 |
 
 ### Pending Todos
@@ -61,7 +63,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Completed 22-03-PLAN.md
+Stopped at: Completed 22-02-PLAN.md
 Resume file: None
 
-**Next action:** `/gsd:execute-phase` for remaining 22-02, 22-05
+**Next action:** `/gsd:execute-phase` 22-05-PLAN.md
