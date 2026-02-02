@@ -107,6 +107,14 @@ export interface WorkoutCancelledEvent extends BaseEvent {
   cancelled_at: string;
 }
 
+export interface ExerciseNoteLoggedEvent extends BaseEvent {
+  event_type: 'exercise_note_logged';
+  workout_id: string;
+  exercise_id: string;           // Actual exercise used (may be substitution)
+  original_exercise_id: string;  // Plan's exercise
+  note: string;                  // Plain text, max ~70 chars
+}
+
 // Union type for all events
 export type GymLogEvent =
   | ExerciseCreatedEvent
@@ -122,7 +130,8 @@ export type GymLogEvent =
   | WorkoutStartedEvent
   | SetLoggedEvent
   | WorkoutCompletedEvent
-  | WorkoutCancelledEvent;
+  | WorkoutCancelledEvent
+  | ExerciseNoteLoggedEvent;
 
 // Muscle groups as defined in PROJECT.md
 export const MUSCLE_GROUPS = [

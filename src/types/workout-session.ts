@@ -21,4 +21,6 @@ export interface WorkoutSession {
   exerciseSubstitutions: Record<string, string>;
   // One-off custom exercises added during workout (name only, not saved to library)
   customExercises: Record<string, string>;  // exercise_id -> name
+  // original_exercise_id -> note text (max ~70 chars)
+  notes: Record<string, string>;
 }
