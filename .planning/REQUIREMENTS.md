@@ -9,15 +9,15 @@ Requirements for v1.5 Real Workout Polish. Each maps to roadmap phases.
 
 ### Bug Fixes
 
-- [ ] **BUG-01**: Rotation "plan or gym not found" error resolved when default gym and active rotation exist
-- [ ] **BUG-02**: TS build errors fixed in QuickStartCard.tsx and StartWorkout.tsx (templateId->planId)
+- [x] **BUG-01**: Rotation "plan or gym not found" error resolved when default gym and active rotation exist
+- [x] **BUG-02**: TS build errors fixed in QuickStartCard.tsx and StartWorkout.tsx (templateId->planId)
 
 ### Theme
 
-- [ ] **THEME-01**: Orange accent replaced with cool blue/teal color palette
-- [ ] **THEME-02**: All OKLCH tokens updated for blue/teal aesthetic
-- [ ] **THEME-03**: WCAG AA contrast maintained across all text/background combinations
-- [ ] **THEME-04**: Charts and data visualizations use new color palette
+- [x] **THEME-01**: Orange accent replaced with cool blue/teal color palette
+- [x] **THEME-02**: All OKLCH tokens updated for blue/teal aesthetic
+- [x] **THEME-03**: WCAG AA contrast maintained across all text/background combinations
+- [x] **THEME-04**: Charts and data visualizations use new color palette
 
 ### Analytics Simplification
 
@@ -82,12 +82,12 @@ Deferred to future release. Not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BUG-01 | Phase 22 | Pending |
-| BUG-02 | Phase 22 | Pending |
-| THEME-01 | Phase 22 | Pending |
-| THEME-02 | Phase 22 | Pending |
-| THEME-03 | Phase 22 | Pending |
-| THEME-04 | Phase 22 | Pending |
+| BUG-01 | Phase 22 | Complete |
+| BUG-02 | Phase 22 | Complete |
+| THEME-01 | Phase 22 | Complete |
+| THEME-02 | Phase 22 | Complete |
+| THEME-03 | Phase 22 | Complete |
+| THEME-04 | Phase 22 | Complete |
 | ANLY-01 | Phase 23 | Pending |
 | ANLY-02 | Phase 23 | Pending |
 | ANLY-03 | Phase 23 | Pending |
