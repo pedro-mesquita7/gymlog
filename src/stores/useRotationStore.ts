@@ -13,6 +13,7 @@ interface RotationState {
   rotations: Rotation[];
   activeRotationId: string | null;
   defaultGymId: string | null;
+  developerMode: boolean;
 
   // CRUD
   createRotation: (name: string, templateIds: string[]) => string; // returns rotation_id
@@ -22,6 +23,7 @@ interface RotationState {
   // Active rotation
   setActiveRotation: (id: string | null) => void;
   setDefaultGym: (gymId: string | null) => void;
+  setDeveloperMode: (enabled: boolean) => void;
 
   // Position management
   advanceRotation: (rotationId: string) => void; // wraps around using modulo
@@ -34,6 +36,7 @@ export const useRotationStore = create<RotationState>()(
       rotations: [],
       activeRotationId: null,
       defaultGymId: null,
+      developerMode: false,
 
       createRotation: (name, templateIds) => {
         const rotationId = uuidv7();
@@ -82,6 +85,10 @@ export const useRotationStore = create<RotationState>()(
         set({ defaultGymId: gymId });
       },
 
+      setDeveloperMode: (enabled) => {
+        set({ developerMode: enabled });
+      },
+
       advanceRotation: (rotationId) => {
         set((state) => ({
           rotations: state.rotations.map((rotation) =>
@@ -112,6 +119,7 @@ export const useRotationStore = create<RotationState>()(
         rotations: state.rotations,
         activeRotationId: state.activeRotationId,
         defaultGymId: state.defaultGymId,
+        developerMode: state.developerMode,
       }),
       merge: (persistedState, currentState) => ({
         ...currentState,

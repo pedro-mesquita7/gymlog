@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { useBackupExport } from '../../hooks/useBackupExport';
 import { useBackupImport } from '../../hooks/useBackupImport';
 import { useBackupStore } from '../../stores/useBackupStore';
@@ -6,13 +6,13 @@ import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { useRotationStore } from '../../stores/useRotationStore';
 import { useDuckDB } from '../../hooks/useDuckDB';
 import { useGyms } from '../../hooks/useGyms';
+import { exportLastWorkoutToon } from '../../services/toon-export';
 import { Input } from '../ui/Input';
 import { CollapsibleSection } from '../ui/CollapsibleSection';
 import { RotationSection } from '../settings/RotationSection';
 import { DemoDataSection } from '../settings/DemoDataSection';
 import { ObservabilitySection } from '../settings/ObservabilitySection';
 import { DataQualitySection } from '../settings/DataQualitySection';
-import { ToonExportSection } from '../settings/ToonExportSection';
 
 export function BackupSettings() {
   const { exportBackup, isExporting, error: exportError } = useBackupExport();
@@ -21,10 +21,19 @@ export function BackupSettings() {
   const { eventCount } = useDuckDB();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Default Gym (extracted from RotationSection)
+  // Default Gym
   const defaultGymId = useRotationStore((state) => state.defaultGymId);
   const setDefaultGym = useRotationStore((state) => state.setDefaultGym);
   const { gyms } = useGyms();
+
+  // Active Rotation
+  const rotations = useRotationStore((state) => state.rotations);
+  const activeRotationId = useRotationStore((state) => state.activeRotationId);
+  const setActiveRotation = useRotationStore((state) => state.setActiveRotation);
+
+  // Developer Mode
+  const developerMode = useRotationStore((state) => state.developerMode);
+  const setDeveloperMode = useRotationStore((state) => state.setDeveloperMode);
 
   // Workout preferences from store
   const weightUnit = useWorkoutStore((state) => state.weightUnit);
@@ -35,6 +44,40 @@ export function BackupSettings() {
   const setSoundEnabled = useWorkoutStore((state) => state.setSoundEnabled);
 
   const [restInput, setRestInput] = useState((defaultRestSeconds / 60).toString());
+
+  // Export Data state
+  const [exportStatus, setExportStatus] = useState<'idle' | 'copied' | 'no-data'>('idle');
+  const [isExportingToon, setIsExportingToon] = useState(false);
+  const exportTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (exportTimeoutRef.current) clearTimeout(exportTimeoutRef.current);
+    };
+  }, []);
+
+  const handleExportLastWorkout = useCallback(async () => {
+    setIsExportingToon(true);
+    try {
+      const result = await exportLastWorkoutToon();
+      if (!result) {
+        setExportStatus('no-data');
+        if (exportTimeoutRef.current) clearTimeout(exportTimeoutRef.current);
+        exportTimeoutRef.current = setTimeout(() => setExportStatus('idle'), 2000);
+        return;
+      }
+      await navigator.clipboard.writeText(result);
+      setExportStatus('copied');
+      if (exportTimeoutRef.current) clearTimeout(exportTimeoutRef.current);
+      exportTimeoutRef.current = setTimeout(() => setExportStatus('idle'), 2000);
+    } catch {
+      setExportStatus('no-data');
+      if (exportTimeoutRef.current) clearTimeout(exportTimeoutRef.current);
+      exportTimeoutRef.current = setTimeout(() => setExportStatus('idle'), 2000);
+    } finally {
+      setIsExportingToon(false);
+    }
+  }, []);
 
   const handleRestBlur = () => {
     const minutes = parseFloat(restInput) || 2;
@@ -55,14 +98,20 @@ export function BackupSettings() {
     }
   };
 
+  // Find active rotation for position display
+  const activeRotation = rotations.find((r) => r.rotation_id === activeRotationId);
+
+  const exportButtonText = exportStatus === 'copied'
+    ? 'Copied!'
+    : exportStatus === 'no-data'
+      ? 'No data'
+      : 'Export Last Workout';
+
   return (
     <div className="space-y-8">
-      {/* === Always Visible: Top Settings === */}
+      {/* === Top Level: Daily-use Settings === */}
 
-      {/* 1. Workout Rotations */}
-      <RotationSection />
-
-      {/* 2. Default Gym */}
+      {/* 1. Default Gym */}
       {gyms.length > 0 && (
         <section>
           <h2 className="text-lg font-semibold mb-4 text-text-primary">Default Gym</h2>
@@ -84,8 +133,53 @@ export function BackupSettings() {
         </section>
       )}
 
-      {/* 3. TOON Export */}
-      <ToonExportSection />
+      {/* 2. Active Rotation */}
+      {rotations.length > 0 && (
+        <section>
+          <h2 className="text-lg font-semibold mb-4 text-text-primary">Active Rotation</h2>
+          <div className="bg-bg-secondary rounded-xl p-4">
+            <select
+              id="active-rotation"
+              value={activeRotationId || ''}
+              onChange={(e) => setActiveRotation(e.target.value || null)}
+              className="w-full px-3 py-2 rounded-xl bg-bg-tertiary border border-border-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+            >
+              <option value="">No active rotation</option>
+              {rotations.map((rotation) => (
+                <option key={rotation.rotation_id} value={rotation.rotation_id}>
+                  {rotation.name}
+                </option>
+              ))}
+            </select>
+            {activeRotation && activeRotation.template_ids.length > 0 && (
+              <p className="text-xs text-text-secondary mt-2">
+                Position {activeRotation.current_position + 1}/{activeRotation.template_ids.length} plans
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* 3. Export Data */}
+      <section>
+        <h2 className="text-lg font-semibold mb-4 text-text-primary">Export Data</h2>
+        <button
+          onClick={handleExportLastWorkout}
+          disabled={isExportingToon}
+          className={`w-full py-3 px-4 rounded-xl font-medium transition-colors ${
+            exportStatus === 'copied'
+              ? 'bg-success text-white'
+              : exportStatus === 'no-data'
+                ? 'bg-bg-tertiary text-text-muted'
+                : 'bg-accent hover:bg-accent/90 disabled:bg-bg-tertiary'
+          }`}
+        >
+          {exportButtonText}
+        </button>
+        <p className="text-xs text-text-secondary mt-2">
+          Copy last workout in TOON format for AI analysis
+        </p>
+      </section>
 
       {/* === Collapsible: Less-used Settings === */}
       <hr className="border-border-primary" />
@@ -223,20 +317,48 @@ export function BackupSettings() {
         </section>
       </CollapsibleSection>
 
-      {/* 7. Demo Data & Reset */}
-      <CollapsibleSection title="Demo Data & Reset">
-        <DemoDataSection eventCount={eventCount} />
+      {/* 7. Manage Rotations */}
+      <CollapsibleSection title="Manage Rotations">
+        <RotationSection />
       </CollapsibleSection>
 
-      {/* 8. System Observability */}
-      <CollapsibleSection title="System Observability">
-        <ObservabilitySection />
-      </CollapsibleSection>
+      {/* === Developer Mode === */}
+      <hr className="border-border-primary" />
 
-      {/* 9. Data Quality */}
-      <CollapsibleSection title="Data Quality">
-        <DataQualitySection />
-      </CollapsibleSection>
+      {/* 8. Developer Mode Toggle */}
+      <div className="flex items-center justify-between px-1">
+        <label className="text-sm text-text-primary">Developer Mode</label>
+        <button
+          onClick={() => setDeveloperMode(!developerMode)}
+          className={`w-12 h-6 rounded-full transition-colors relative ${
+            developerMode ? 'bg-accent' : 'bg-bg-tertiary'
+          }`}
+          aria-label="Toggle developer mode"
+        >
+          <span
+            className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
+              developerMode ? 'left-7' : 'left-1'
+            }`}
+          />
+        </button>
+      </div>
+
+      {/* 9-11. Debug Sections (visible only in Developer Mode) */}
+      {developerMode && (
+        <>
+          <CollapsibleSection title="System Observability">
+            <ObservabilitySection />
+          </CollapsibleSection>
+
+          <CollapsibleSection title="Data Quality">
+            <DataQualitySection />
+          </CollapsibleSection>
+
+          <CollapsibleSection title="Demo Data & Reset">
+            <DemoDataSection eventCount={eventCount} />
+          </CollapsibleSection>
+        </>
+      )}
     </div>
   );
 }
