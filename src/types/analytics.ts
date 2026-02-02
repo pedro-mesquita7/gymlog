@@ -161,7 +161,6 @@ export interface SummaryStats {
   totalWorkouts: number;
   totalVolumeKg: number;
   totalPrs: number;
-  streakWeeks: number;
 }
 
 // Phase 15: Volume by Muscle Group (averaged)

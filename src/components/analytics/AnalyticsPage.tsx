@@ -6,6 +6,7 @@ import { useVolumeZoneThresholds } from '../../hooks/useVolumeThresholds';
 import { useSummaryStats } from '../../hooks/useSummaryStats';
 import { TimeRangePicker } from './TimeRangePicker';
 import { SummaryStatsCards } from './SummaryStatsCards';
+import { CollapsibleSection } from './CollapsibleSection';
 import { VolumeLegend } from './VolumeLegend';
 import { VolumeBarChart } from './VolumeBarChart';
 import { MuscleHeatMap } from './MuscleHeatMap';
@@ -20,7 +21,7 @@ const STORAGE_KEY = 'gymlog-analytics-timerange';
 /**
  * Main Analytics page — single scrollable dashboard
  * Global time range state drives all hooks and charts
- * Layout: time range pills -> summary stats -> exercise progress -> PRs -> volume -> heat map
+ * Section order: Summary Stats -> Exercise Progress -> PRs -> Volume Overview -> Training Balance
  */
 export function AnalyticsPage() {
   // Time range state - persisted in localStorage
@@ -87,86 +88,95 @@ export function AnalyticsPage() {
         <TimeRangePicker value={timeRange} onChange={setTimeRange} />
       </div>
 
-      {/* SECTION 1: Summary Stats */}
+      {/* Summary Stats — always visible, not collapsible */}
       <FeatureErrorBoundary feature="Summary Stats">
         <SummaryStatsCards stats={summaryStats} isLoading={summaryLoading} />
       </FeatureErrorBoundary>
 
-      {/* SECTION 2: Volume Overview */}
-      {volumeError ? (
-        <div className="text-center py-8 text-error">Error: {volumeError}</div>
-      ) : volumeLoading ? (
-        <div className="text-center py-8 text-text-muted">Loading volume data...</div>
-      ) : (
+      {/* Exercise Progress */}
+      <CollapsibleSection title="Exercise Progress">
         <div className="space-y-4">
-          <FeatureErrorBoundary feature="Volume Chart">
+          <select
+            data-testid="analytics-exercise-select"
+            id="exercise-select"
+            value={selectedExerciseId}
+            onChange={(e) => setSelectedExerciseId(e.target.value)}
+            className="w-full bg-bg-tertiary border border-border-primary rounded-xl px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+            aria-label="Select exercise"
+          >
+            {exercises.map((exercise) => (
+              <option key={exercise.exercise_id} value={exercise.exercise_id}>
+                {exercise.name} ({exercise.muscle_group})
+              </option>
+            ))}
+          </select>
+
+          {progressError ? (
+            <div className="text-center py-8 text-error">Error: {progressError}</div>
+          ) : progressLoading ? (
+            <div className="text-center py-8 text-text-muted">Loading chart...</div>
+          ) : (
+            <FeatureErrorBoundary feature="Exercise Progress Chart">
+              <div className="bg-bg-tertiary/30 rounded-xl p-4">
+                <ExerciseProgressChart
+                  data={progressData}
+                  exerciseName={selectedExercise?.name || 'Exercise'}
+                  showVolume={true}
+                />
+              </div>
+            </FeatureErrorBoundary>
+          )}
+        </div>
+      </CollapsibleSection>
+
+      {/* Personal Records */}
+      <CollapsibleSection title="Personal Records">
+        {selectedExercise ? (
+          <FeatureErrorBoundary feature="Personal Records">
+            <PRListCard
+              exerciseId={selectedExercise.exercise_id}
+              exerciseName={selectedExercise.name}
+            />
+          </FeatureErrorBoundary>
+        ) : (
+          <div className="text-center py-8 text-text-muted">Select an exercise to view PRs.</div>
+        )}
+      </CollapsibleSection>
+
+      {/* Volume Overview */}
+      <CollapsibleSection title="Volume Overview">
+        {volumeError ? (
+          <div className="text-center py-8 text-error">Error: {volumeError}</div>
+        ) : volumeLoading ? (
+          <div className="text-center py-8 text-text-muted">Loading volume data...</div>
+        ) : (
+          <div className="space-y-4">
+            <FeatureErrorBoundary feature="Volume Chart">
+              <div className="bg-bg-tertiary/30 rounded-xl p-4">
+                <VolumeBarChart data={volumeAvgData} />
+              </div>
+            </FeatureErrorBoundary>
+            <FeatureErrorBoundary feature="Volume Legend">
+              <VolumeLegend />
+            </FeatureErrorBoundary>
+          </div>
+        )}
+      </CollapsibleSection>
+
+      {/* Training Balance */}
+      <CollapsibleSection title="Training Balance">
+        {volumeError ? (
+          <div className="text-center py-8 text-error">Error: {volumeError}</div>
+        ) : volumeLoading ? (
+          <div className="text-center py-8 text-text-muted">Loading heat map...</div>
+        ) : (
+          <FeatureErrorBoundary feature="Muscle Heat Map">
             <div className="bg-bg-tertiary/30 rounded-xl p-4">
-              <VolumeBarChart data={volumeAvgData} />
+              <MuscleHeatMap data={heatMapData} getThresholds={getThresholds} />
             </div>
           </FeatureErrorBoundary>
-          <FeatureErrorBoundary feature="Volume Legend">
-            <VolumeLegend />
-          </FeatureErrorBoundary>
-        </div>
-      )}
-
-      {/* SECTION 3: Training Balance Heat Map */}
-      {volumeError ? (
-        <div className="text-center py-8 text-error">Error: {volumeError}</div>
-      ) : volumeLoading ? (
-        <div className="text-center py-8 text-text-muted">Loading heat map...</div>
-      ) : (
-        <FeatureErrorBoundary feature="Muscle Heat Map">
-          <div className="bg-bg-tertiary/30 rounded-xl p-4">
-            <MuscleHeatMap data={heatMapData} getThresholds={getThresholds} />
-          </div>
-        </FeatureErrorBoundary>
-      )}
-
-      {/* SECTION 4: Exercise Detail */}
-      <div>
-        <select
-          data-testid="analytics-exercise-select"
-          id="exercise-select"
-          value={selectedExerciseId}
-          onChange={(e) => setSelectedExerciseId(e.target.value)}
-          className="w-full bg-bg-tertiary border border-border-primary rounded-xl px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
-          aria-label="Select exercise"
-        >
-          {exercises.map((exercise) => (
-            <option key={exercise.exercise_id} value={exercise.exercise_id}>
-              {exercise.name} ({exercise.muscle_group})
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Exercise Progress Chart */}
-      {progressError ? (
-        <div className="text-center py-8 text-error">Error: {progressError}</div>
-      ) : progressLoading ? (
-        <div className="text-center py-8 text-text-muted">Loading chart...</div>
-      ) : (
-        <FeatureErrorBoundary feature="Exercise Progress Chart">
-          <div className="bg-bg-tertiary/30 rounded-xl p-4">
-            <ExerciseProgressChart
-              data={progressData}
-              exerciseName={selectedExercise?.name || 'Exercise'}
-              showVolume={true}
-            />
-          </div>
-        </FeatureErrorBoundary>
-      )}
-
-      {/* PR List */}
-      {selectedExercise && (
-        <FeatureErrorBoundary feature="Personal Records">
-          <PRListCard
-            exerciseId={selectedExercise.exercise_id}
-            exerciseName={selectedExercise.name}
-          />
-        </FeatureErrorBoundary>
-      )}
+        )}
+      </CollapsibleSection>
     </div>
   );
 }
