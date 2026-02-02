@@ -34,7 +34,13 @@ Transform GymLog from a feature-complete analytics tool into a polished daily-us
   3. All accent colors are blue/teal throughout the app (no orange remnants)
   4. Charts and data visualizations use the new blue/teal palette
   5. All text/background combinations pass WCAG AA contrast (4.5:1 ratio)
-**Plans**: TBD
+**Plans:** 5 plans
+Plans:
+- [ ] 22-01-PLAN.md — Fix rotation bug + overhaul index.css color tokens
+- [ ] 22-02-PLAN.md — Migrate hardcoded chart/component colors to teal
+- [ ] 22-03-PLAN.md — Fix text-black contrast on accent backgrounds
+- [ ] 22-04-PLAN.md — Replace rounded-2xl with rounded-xl app-wide
+- [ ] 22-05-PLAN.md — Verification sweep + visual checkpoint
 
 ### Phase 23: Analytics Simplification
 **Goal**: Analytics page is focused on what matters -- exercise progress and volume
