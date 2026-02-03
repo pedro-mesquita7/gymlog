@@ -19,7 +19,7 @@ Transform GymLog from a feature-complete analytics tool into a polished daily-us
 - [x] **Phase 23: Analytics Simplification** - Remove comparison/progression/plateau, keep exercise progress + volume
 - [x] **Phase 24: Settings + UI Polish** - Restructure settings, compact logging, rotation UX, clean headers
 - [x] **Phase 25: Exercise Notes** - Free text notes per exercise per session with history display
-- [ ] **Phase 26: Warmup System** - Display-only warmup hints with auto-calculated weights from last session
+- [x] **Phase 26: Warmup System** - Display-only warmup hints with auto-calculated weights from last session
 - [ ] **Phase 27: Production Polish** - README update, dead code cleanup, E2E test updates
 
 ## Phase Details
@@ -96,8 +96,8 @@ Plans:
   4. Default warmup tiers are 50% x 5 reps and 75% x 3 reps, configurable in Settings
 **Plans:** 2 plans
 Plans:
-- [ ] 26-01-PLAN.md — Warmup utilities, store extension, and DuckDB data hook
-- [ ] 26-02-PLAN.md — WarmupHint UI component and Settings tier editor
+- [x] 26-01-PLAN.md — Warmup utilities, store extension, and DuckDB data hook
+- [x] 26-02-PLAN.md — WarmupHint UI component and Settings tier editor
 
 ### Phase 27: Production Polish
 **Goal**: Codebase is clean, documented, and tested for the v1.5 release
@@ -119,5 +119,5 @@ Plans:
 | 23. Analytics Simplification | 2/2 | Complete | 2026-02-02 |
 | 24. Settings + UI Polish | 3/3 | Complete | 2026-02-02 |
 | 25. Exercise Notes | 2/2 | Complete | 2026-02-03 |
-| 26. Warmup System | 0/2 | Not started | - |
+| 26. Warmup System | 2/2 | Complete | 2026-02-03 |
 | 27. Production Polish | 0/TBD | Not started | - |

@@ -42,11 +42,11 @@ Requirements for v1.5 Real Workout Polish. Each maps to roadmap phases.
 
 ### Warmup System
 
-- [ ] **WARM-01**: Per-exercise warmup toggle in plan editor
-- [ ] **WARM-02**: Two warmup tiers with configurable percentage and reps (default: 50% x 5, 75% x 3)
-- [ ] **WARM-03**: Warmup tier configuration accessible in Settings
-- [ ] **WARM-04**: Working weight auto-calculated from max weight within exercise's rep range (not PR)
-- [ ] **WARM-05**: Warmup sets displayed with calculated weights during workout logging
+- [x] **WARM-01**: Global warmup for all weighted exercises (per CONTEXT.md: no per-exercise toggle)
+- [x] **WARM-02**: Two warmup tiers with configurable percentage and reps (default: 50% x 5, 75% x 3)
+- [x] **WARM-03**: Warmup tier configuration accessible in Settings
+- [x] **WARM-04**: Working weight auto-calculated from max weight in last completed session (not PR)
+- [x] **WARM-05**: Warmup sets displayed with calculated weights during workout logging
 
 ### Production Polish
 
@@ -100,11 +100,11 @@ Deferred to future release. Not in current roadmap.
 | NOTE-01 | Phase 25 | Complete |
 | NOTE-02 | Phase 25 | Complete |
 | NOTE-03 | Phase 25 | Complete |
-| WARM-01 | Phase 26 | Pending |
-| WARM-02 | Phase 26 | Pending |
-| WARM-03 | Phase 26 | Pending |
-| WARM-04 | Phase 26 | Pending |
-| WARM-05 | Phase 26 | Pending |
+| WARM-01 | Phase 26 | Complete |
+| WARM-02 | Phase 26 | Complete |
+| WARM-03 | Phase 26 | Complete |
+| WARM-04 | Phase 26 | Complete |
+| WARM-05 | Phase 26 | Complete |
 | PROD-01 | Phase 27 | Pending |
 | PROD-02 | Phase 27 | Pending |
 | PROD-03 | Phase 27 | Pending |
