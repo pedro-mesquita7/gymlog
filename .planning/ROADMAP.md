@@ -19,7 +19,7 @@ Transform GymLog from a feature-complete analytics tool into a polished daily-us
 - [x] **Phase 23: Analytics Simplification** - Remove comparison/progression/plateau, keep exercise progress + volume
 - [x] **Phase 24: Settings + UI Polish** - Restructure settings, compact logging, rotation UX, clean headers
 - [x] **Phase 25: Exercise Notes** - Free text notes per exercise per session with history display
-- [ ] **Phase 26: Warmup System** - Per-exercise warmup toggle with 2-tier auto-calculated warmup sets
+- [ ] **Phase 26: Warmup System** - Display-only warmup hints with auto-calculated weights from last session
 - [ ] **Phase 27: Production Polish** - README update, dead code cleanup, E2E test updates
 
 ## Phase Details
@@ -86,15 +86,18 @@ Plans:
 - [x] 25-02-PLAN.md — Note UI component with tap-to-reveal input, history display, ExerciseView integration
 
 ### Phase 26: Warmup System
-**Goal**: Users get auto-calculated warmup sets before working sets in their workout
+**Goal**: Users see auto-calculated warmup hints before working sets during workout logging
 **Depends on**: Phase 22 (theme), Phase 25 (notes may share logging UI changes)
 **Requirements**: WARM-01, WARM-02, WARM-03, WARM-04, WARM-05
 **Success Criteria** (what must be TRUE):
-  1. User can toggle warmup on/off per exercise in the plan editor
-  2. Warmup-enabled exercises show 2 warmup sets with auto-calculated weights during logging
-  3. Warmup weights are based on max weight within exercise's rep range (not all-time PR)
+  1. Warmup hints show for all weighted exercises globally (no per-exercise toggle)
+  2. Warmup-enabled exercises show 2 warmup tiers with auto-calculated weights during logging
+  3. Warmup weights are based on max weight from last completed session (not all-time PR)
   4. Default warmup tiers are 50% x 5 reps and 75% x 3 reps, configurable in Settings
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 26-01-PLAN.md — Warmup utilities, store extension, and DuckDB data hook
+- [ ] 26-02-PLAN.md — WarmupHint UI component and Settings tier editor
 
 ### Phase 27: Production Polish
 **Goal**: Codebase is clean, documented, and tested for the v1.5 release
@@ -116,5 +119,5 @@ Plans:
 | 23. Analytics Simplification | 2/2 | Complete | 2026-02-02 |
 | 24. Settings + UI Polish | 3/3 | Complete | 2026-02-02 |
 | 25. Exercise Notes | 2/2 | Complete | 2026-02-03 |
-| 26. Warmup System | 0/TBD | Not started | - |
+| 26. Warmup System | 0/2 | Not started | - |
 | 27. Production Polish | 0/TBD | Not started | - |
