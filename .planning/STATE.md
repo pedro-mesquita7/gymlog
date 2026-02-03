@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-02)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
-**Current focus:** Phase 25 (Exercise Notes) -- Complete
+**Current focus:** Phase 26 (Warmup System) -- In progress
 
 ## Current Position
 
-Phase: 25 of 27 (Exercise Notes)
-Plan: 2 of 2 in current phase
-Status: Phase complete
-Last activity: 2026-02-03 -- Completed 25-02-PLAN.md (exercise notes UI component)
+Phase: 26 of 27 (Warmup System)
+Plan: 1 of 2 in current phase
+Status: In progress
+Last activity: 2026-02-03 -- Completed 26-01-PLAN.md (warmup data layer)
 
-Progress: [█████████████████████] ~96%
+Progress: [██████████████████████] ~97%
 
 ## Milestones
 
@@ -30,9 +30,9 @@ Progress: [█████████████████████] ~96%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02 + 24-03 + 25-01 + 25-02)
+- Total plans completed: 13 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02 + 24-03 + 25-01 + 25-02 + 26-01)
 - Average duration: ~3.5 min
-- Total execution time: ~56 min
+- Total execution time: ~59 min
 
 ## Accumulated Context
 
@@ -60,6 +60,8 @@ Archived to PROJECT.md Key Decisions table.
 | d24-03-01 | Inactive rotations use CollapsibleSection accordion pattern for consistency with rest of settings page | 24-03 |
 | d25-01-01 | Notes keyed by original_exercise_id (not actual/substituted ID) for consistent lookup | 25-01 |
 | d25-01-02 | Migration guard in Zustand persist merge defaults missing notes to {} for backward compat | 25-01 |
+| d26-01-01 | Warmup tiers stored in useWorkoutStore (not separate store) alongside workout preferences | 26-01 |
+| d26-01-02 | DuckDB warmup query filters by original_exercise_id AND exercise_id, no gym_id filter | 26-01 |
 
 ### Pending Todos
 
@@ -70,12 +72,12 @@ None.
 - [RESOLVED] Rotation bug was templateId->planId property mismatch in consumers (fixed in 22-01)
 - [RESOLVED] Analytics simplification removes v1.4 comparison feature (completed in 23-01)
 - [RESOLVED] Theme overhaul touches all OKLCH tokens -- WCAG contrast reverified in 22-03
-- Warmup system needs event sourcing schema extension (new event type)
+- [RESOLVED] Warmup system needs event sourcing schema extension -- warmup is display-only per CONTEXT.md, no events needed
 
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Completed 25-02-PLAN.md (exercise notes UI component)
+Stopped at: Completed 26-01-PLAN.md (warmup data layer)
 Resume file: None
 
-**Next action:** Continue to Phase 26
+**Next action:** Continue to 26-02-PLAN.md (warmup UI components)
