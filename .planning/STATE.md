@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-02)
 ## Current Position
 
 Phase: 27 of 27 (Production Polish)
-Plan: 2 of 3 in current phase
+Plan: 2 of 3 in current phase (27-01 and 27-02 complete)
 Status: In progress
-Last activity: 2026-02-03 -- Completed 27-02-PLAN.md (README rewrite)
+Last activity: 2026-02-03 -- Completed 27-01-PLAN.md (dead code removal + version bump)
 
 Progress: [██████████████████████] ~99%
 
@@ -30,9 +30,9 @@ Progress: [██████████████████████] ~
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02 + 24-03 + 25-01 + 25-02 + 26-01 + 26-02 + 27-02)
-- Average duration: ~3.3 min
-- Total execution time: ~64 min
+- Total plans completed: 16 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02 + 24-03 + 25-01 + 25-02 + 26-01 + 26-02 + 27-01 + 27-02)
+- Average duration: ~3.5 min
+- Total execution time: ~80 min
 
 ## Accumulated Context
 
@@ -64,6 +64,9 @@ Archived to PROJECT.md Key Decisions table.
 | d26-01-02 | DuckDB warmup query filters by original_exercise_id AND exercise_id, no gym_id filter | 26-01 |
 | d26-02-01 | WarmupHint uses Unicode multiplication sign and right arrow for compact inline format | 26-02 |
 | d26-02-02 | WarmupTierEditor uses local state with blur-to-persist pattern matching rest timer input | 26-02 |
+| d27-01-01 | Kept ProgressionAlert/useExerciseProgression (active workout feature, not dead progression dashboard code) | 27-01 |
+| d27-01-02 | Kept sw.ts (knip false positive -- referenced by vite-plugin-pwa in vite.config.ts) | 27-01 |
+| d27-01-03 | Removed clearAllData entirely (E2E tests define own version in fixtures) | 27-01 |
 | d27-02-01 | Removed vw_progression_status from README lineage diagram (feature removed, SQL file still exists) | 27-02 |
 | d27-02-02 | Teal-themed Mermaid diagram styles matching app OKLCH design system | 27-02 |
 
@@ -77,11 +80,12 @@ None.
 - [RESOLVED] Analytics simplification removes v1.4 comparison feature (completed in 23-01)
 - [RESOLVED] Theme overhaul touches all OKLCH tokens -- WCAG contrast reverified in 22-03
 - [RESOLVED] Warmup system needs event sourcing schema extension -- warmup is display-only per CONTEXT.md, no events needed
+- 55 pre-existing ESLint errors (mostly no-explicit-any and React hooks rules) -- cosmetic, not blocking release
 
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Completed 27-02-PLAN.md (README rewrite)
+Stopped at: Completed 27-01-PLAN.md (dead code removal + version bump)
 Resume file: None
 
-**Next action:** Continue with 27-01 or 27-03 plans
+**Next action:** Continue with 27-03-PLAN.md (E2E tests)
