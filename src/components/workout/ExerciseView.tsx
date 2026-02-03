@@ -3,6 +3,7 @@ import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { SetGrid } from './SetGrid';
 import { ExerciseSubstitution } from './ExerciseSubstitution';
 import { ExerciseNote } from './ExerciseNote';
+import { WarmupHint } from './WarmupHint';
 import { ExerciseHistory } from '../history/ExerciseHistory';
 import { FeatureErrorBoundary } from '../ui/FeatureErrorBoundary';
 import type { PlanExercise } from '../../types/plan';
@@ -102,6 +103,11 @@ export function ExerciseView({
             History
           </button>
         </div>
+
+        {/* Warmup hint */}
+        {session && (
+          <WarmupHint originalExerciseId={planExercise.exercise_id} />
+        )}
       </div>
 
       {/* Progress indicator */}
