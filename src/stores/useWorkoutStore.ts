@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { uuidv7 } from 'uuidv7';
 import type { WorkoutSession, LoggedSet } from '../types/workout-session';
+import { DEFAULT_WARMUP_TIERS } from '../utils/warmup';
+import type { WarmupTier } from '../utils/warmup';
 
 // Global default rest time in seconds (2 minutes)
 const DEFAULT_REST_SECONDS = 120;
@@ -16,6 +18,7 @@ interface WorkoutState {
   // User preferences
   weightUnit: 'kg' | 'lbs';
   soundEnabled: boolean;
+  warmupTiers: [WarmupTier, WarmupTier];
 
   // Actions
   startWorkout: (planId: string, gymId: string) => void;
@@ -40,6 +43,8 @@ interface WorkoutState {
   setDefaultRestSeconds: (seconds: number) => void;
   setWeightUnit: (unit: 'kg' | 'lbs') => void;
   setSoundEnabled: (enabled: boolean) => void;
+  setWarmupTiers: (tiers: [WarmupTier, WarmupTier]) => void;
+  resetWarmupTiers: () => void;
   completeWorkout: () => WorkoutSession | null;  // Returns session for event writing
   cancelWorkout: () => void;
 }
@@ -62,6 +67,7 @@ export const useWorkoutStore = create<WorkoutState>()(
       defaultRestSeconds: DEFAULT_REST_SECONDS,
       weightUnit: 'kg' as const,
       soundEnabled: true,
+      warmupTiers: DEFAULT_WARMUP_TIERS,
 
       startWorkout: (planId, gymId) => {
         set({
@@ -268,6 +274,14 @@ export const useWorkoutStore = create<WorkoutState>()(
         set({ soundEnabled: enabled });
       },
 
+      setWarmupTiers: (tiers) => {
+        set({ warmupTiers: tiers });
+      },
+
+      resetWarmupTiers: () => {
+        set({ warmupTiers: DEFAULT_WARMUP_TIERS });
+      },
+
       completeWorkout: () => {
         const session = get().session;
         set({ session: null });
@@ -286,6 +300,7 @@ export const useWorkoutStore = create<WorkoutState>()(
         defaultRestSeconds: state.defaultRestSeconds,
         weightUnit: state.weightUnit,
         soundEnabled: state.soundEnabled,
+        warmupTiers: state.warmupTiers,
       }),
       merge: (persistedState, currentState) => {
         const merged = {
@@ -295,6 +310,10 @@ export const useWorkoutStore = create<WorkoutState>()(
         // Migration guard: sessions persisted before notes field
         if (merged.session && !merged.session.notes) {
           merged.session = { ...merged.session, notes: {} };
+        }
+        // Migration guard: stores persisted before warmupTiers field
+        if (!merged.warmupTiers) {
+          merged.warmupTiers = DEFAULT_WARMUP_TIERS;
         }
         return merged;
       },
