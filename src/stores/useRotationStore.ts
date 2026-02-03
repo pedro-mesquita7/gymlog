@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { uuidv7 } from 'uuidv7';
 
-export interface Rotation {
+interface Rotation {
   rotation_id: string;
   name: string;
   template_ids: string[];  // Ordered list of template IDs

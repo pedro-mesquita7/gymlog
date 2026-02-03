@@ -1,7 +1,7 @@
 import type { PlanExercise } from './plan';
 
 // Base event type with required audit columns (DATA-07)
-export interface BaseEvent {
+interface BaseEvent {
   _event_id: string;      // UUID v7, timestamp-sortable
   _created_at: string;    // ISO 8601 timestamp
   event_type: string;     // Discriminator for event types

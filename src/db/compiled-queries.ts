@@ -42,7 +42,7 @@ SELECT * FROM active_exercises
 ORDER BY name
 `;
 
-export const DIM_EXERCISE_ALL_SQL = `
+const DIM_EXERCISE_ALL_SQL = `
 WITH all_exercise_events AS (
     SELECT
         _event_id,
@@ -223,7 +223,7 @@ ORDER BY logged_at DESC
 `;
 
 // Exercise history — parameterized (Phase 15)
-export function exerciseHistorySQL(days: number | null): string {
+function exerciseHistorySQL(days: number | null): string {
   const timeFilter = days !== null
     ? `CAST(f.logged_at AS TIMESTAMP) >= CURRENT_DATE - INTERVAL '${days} days'`
     : `1=1`;
@@ -420,7 +420,7 @@ ORDER BY total_sets DESC
 
 // Progression status — parameterized (Phase 15)
 // Uses max(days, 63) for 9-week window and max(days, 28) for 4-week window
-export function progressionStatusSQL(days: number | null): string {
+function progressionStatusSQL(days: number | null): string {
   const sessionWindowDays = days !== null ? Math.max(days, 63) : 63; // 9 weeks minimum
   const recentWindowDays = days !== null ? Math.max(days, 28) : 28;  // 4 weeks minimum
 
@@ -685,9 +685,5 @@ FULL OUTER JOIN (SELECT * FROM week_stats WHERE week_bucket = 'previous') prev O
 `;
 }
 
-// DEPRECATED: Use function versions. These will be removed after Plan 02 migrates hooks.
 export const EXERCISE_HISTORY_SQL = exerciseHistorySQL(14);
-export const EXERCISE_PROGRESS_SQL = exerciseProgressSQL(28);
-export const VOLUME_BY_MUSCLE_GROUP_SQL = volumeByMuscleGroupSQL(28);
-export const MUSCLE_HEAT_MAP_SQL = muscleHeatMapSQL(28);
 export const PROGRESSION_STATUS_SQL = progressionStatusSQL(null);

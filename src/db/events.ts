@@ -3,12 +3,12 @@ import { getDuckDB, checkpoint } from './duckdb-init';
 import type { GymLogEvent } from '../types/events';
 
 // Generate timestamp-sortable event ID (DATA-07)
-export function createEventId(): string {
+function createEventId(): string {
   return uuidv7();
 }
 
 // Generate ISO timestamp for _created_at
-export function createTimestamp(): string {
+function createTimestamp(): string {
   return new Date().toISOString();
 }
 
@@ -45,51 +45,4 @@ export async function writeEvent<T extends GymLogEvent>(
   checkpoint();
 
   return event;
-}
-
-// Read all events of a specific type
-export async function readEvents<T extends GymLogEvent>(
-  eventType: T['event_type']
-): Promise<T[]> {
-  const db = getDuckDB();
-  if (!db) {
-    throw new Error('Database not initialized');
-  }
-
-  const conn = await db.connect();
-
-  try {
-    const result = await conn.query(`
-      SELECT payload
-      FROM events
-      WHERE event_type = '${eventType}'
-      ORDER BY _created_at ASC
-    `);
-
-    return result.toArray().map(row => JSON.parse(row.payload as string) as T);
-  } finally {
-    await conn.close();
-  }
-}
-
-// Read all events (for debugging/export)
-export async function readAllEvents(): Promise<GymLogEvent[]> {
-  const db = getDuckDB();
-  if (!db) {
-    throw new Error('Database not initialized');
-  }
-
-  const conn = await db.connect();
-
-  try {
-    const result = await conn.query(`
-      SELECT payload
-      FROM events
-      ORDER BY _created_at ASC
-    `);
-
-    return result.toArray().map(row => JSON.parse(row.payload as string) as GymLogEvent);
-  } finally {
-    await conn.close();
-  }
 }

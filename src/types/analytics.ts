@@ -69,18 +69,6 @@ export interface MuscleHeatMapData {
   totalSets: number;
 }
 
-// Volume threshold configuration (VOL-02)
-export interface VolumeThresholds {
-  low: number;       // Below this = under-training (default: 10)
-  optimal: number;   // Above low, at or below this = optimal (default: 20)
-  // Above optimal = over-training
-}
-
-// Per-muscle-group threshold overrides
-export interface MuscleGroupThresholds {
-  [muscleGroup: string]: VolumeThresholds;
-}
-
 // Hook return types
 export interface UseVolumeAnalyticsReturn {
   volumeData: VolumeByMuscleGroup[];
@@ -89,14 +77,6 @@ export interface UseVolumeAnalyticsReturn {
   isLoading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
-}
-
-export interface UseVolumeThresholdsReturn {
-  thresholds: MuscleGroupThresholds;
-  defaultThresholds: VolumeThresholds;
-  setThreshold: (muscleGroup: string, thresholds: VolumeThresholds) => void;
-  resetThreshold: (muscleGroup: string) => void;
-  getThreshold: (muscleGroup: string) => VolumeThresholds;
 }
 
 // Progression status per exercise (Phase 7)

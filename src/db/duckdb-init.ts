@@ -114,10 +114,6 @@ export function getDuckDB(): duckdb.AsyncDuckDB | null {
   return db;
 }
 
-export function getIsPersistent(): boolean {
-  return isPersistent;
-}
-
 export async function checkpoint(): Promise<void> {
   if (!db || !isPersistent) return;
   try {

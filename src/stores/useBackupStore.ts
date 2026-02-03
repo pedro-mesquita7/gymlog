@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-export const BACKUP_THRESHOLD = 10;
+const BACKUP_THRESHOLD = 10;
 
 interface BackupState {
   workoutsSinceBackup: number;

@@ -14,7 +14,7 @@ export const DEFAULT_WARMUP_TIERS: [WarmupTier, WarmupTier] = [
   { percentage: 75, reps: 3 },
 ];
 
-export function roundToNearest(value: number, increment: number): number {
+function roundToNearest(value: number, increment: number): number {
   return Math.round(value / increment) * increment;
 }
 

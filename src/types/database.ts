@@ -1,10 +1,3 @@
-import type * as duckdb from '@duckdb/duckdb-wasm';
-
-export interface DatabaseConnection {
-  db: duckdb.AsyncDuckDB;
-  conn: duckdb.AsyncDuckDBConnection;
-}
-
 export interface DatabaseStatus {
   isInitialized: boolean;
   isConnected: boolean;

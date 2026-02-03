@@ -89,6 +89,7 @@ export function makeWorkoutSession(overrides: Partial<WorkoutSession> = {}): Wor
     sets: [],
     exerciseSubstitutions: {},
     customExercises: {},
+    notes: {},
     ...overrides,
   };
 }

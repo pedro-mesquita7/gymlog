@@ -1,2 +1,0 @@
-/* Font imports moved to src/main.tsx for production build compatibility.
-   Vite cannot bundle font files when imported via CSS @import. */
