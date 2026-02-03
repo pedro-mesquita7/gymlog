@@ -10,6 +10,7 @@ import { exportLastWorkoutToon } from '../../services/toon-export';
 import { Input } from '../ui/Input';
 import { CollapsibleSection } from '../ui/CollapsibleSection';
 import { RotationSection } from '../settings/RotationSection';
+import { WarmupTierEditor } from '../settings/WarmupTierEditor';
 import { DemoDataSection } from '../settings/DemoDataSection';
 import { ObservabilitySection } from '../settings/ObservabilitySection';
 import { DataQualitySection } from '../settings/DataQualitySection';
@@ -254,6 +255,11 @@ export function BackupSettings() {
               />
             </button>
           </div>
+
+          <hr className="border-border-primary/30" />
+
+          {/* Warmup Tiers */}
+          <WarmupTierEditor />
         </div>
       </CollapsibleSection>
 
