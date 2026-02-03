@@ -107,7 +107,11 @@ Plans:
   1. README and architecture diagrams reflect v1.5 changes (removed features, new features)
   2. No dead code from removed comparison/progression/plateau features remains
   3. E2E tests pass against the updated UI structure (settings, analytics, logging changes)
-**Plans**: TBD
+**Plans:** 3 plans
+Plans:
+- [ ] 27-01-PLAN.md — Dead code cleanup + version bump to 1.5.0
+- [ ] 27-02-PLAN.md — README rewrite for portfolio audience
+- [ ] 27-03-PLAN.md — E2E test fixes + new notes/warmup coverage
 
 ## Progress
 
@@ -120,4 +124,4 @@ Plans:
 | 24. Settings + UI Polish | 3/3 | Complete | 2026-02-02 |
 | 25. Exercise Notes | 2/2 | Complete | 2026-02-03 |
 | 26. Warmup System | 2/2 | Complete | 2026-02-03 |
-| 27. Production Polish | 0/TBD | Not started | - |
+| 27. Production Polish | 0/3 | Not started | - |
