@@ -28,17 +28,17 @@ Requirements for v1.5 Real Workout Polish. Each maps to roadmap phases.
 
 ### UI Polish
 
-- [ ] **UIPOL-01**: Collapsed sections show clean headers without redundant text (Exercises, Gyms, Settings)
-- [ ] **UIPOL-02**: Set logging uses batch grid layout for mobile density
-- [ ] **UIPOL-03**: Settings restructured: Default Gym + Rotation + TOON export visible at top level
-- [ ] **UIPOL-04**: Debug sections (observability, data quality, demo data) behind Developer toggle
-- [ ] **UIPOL-05**: Rotation UX: current rotation prominent, others expandable, create-new collapsed
+- [x] **UIPOL-01**: Collapsed sections show clean headers without redundant text (Exercises, Gyms, Settings)
+- [x] **UIPOL-02**: Set logging uses batch grid layout for mobile density
+- [x] **UIPOL-03**: Settings restructured: Default Gym + Rotation + TOON export visible at top level
+- [x] **UIPOL-04**: Debug sections (observability, data quality, demo data) behind Developer toggle
+- [x] **UIPOL-05**: Rotation UX: current rotation prominent, others expandable, create-new collapsed
 
 ### Exercise Notes
 
-- [ ] **NOTE-01**: Free text field per exercise during workout logging
-- [ ] **NOTE-02**: Notes saved with workout session data via event sourcing
-- [ ] **NOTE-03**: Notes visible in exercise history on next workout
+- [x] **NOTE-01**: Free text field per exercise during workout logging
+- [x] **NOTE-02**: Notes saved with workout session data via event sourcing
+- [x] **NOTE-03**: Notes visible in exercise history on next workout
 
 ### Warmup System
 
@@ -92,14 +92,14 @@ Deferred to future release. Not in current roadmap.
 | ANLY-02 | Phase 23 | Complete |
 | ANLY-03 | Phase 23 | Complete |
 | ANLY-04 | Phase 23 | Complete |
-| UIPOL-01 | Phase 24 | Pending |
-| UIPOL-02 | Phase 24 | Pending |
-| UIPOL-03 | Phase 24 | Pending |
-| UIPOL-04 | Phase 24 | Pending |
-| UIPOL-05 | Phase 24 | Pending |
-| NOTE-01 | Phase 25 | Pending |
-| NOTE-02 | Phase 25 | Pending |
-| NOTE-03 | Phase 25 | Pending |
+| UIPOL-01 | Phase 24 | Complete |
+| UIPOL-02 | Phase 24 | Complete |
+| UIPOL-03 | Phase 24 | Complete |
+| UIPOL-04 | Phase 24 | Complete |
+| UIPOL-05 | Phase 24 | Complete |
+| NOTE-01 | Phase 25 | Complete |
+| NOTE-02 | Phase 25 | Complete |
+| NOTE-03 | Phase 25 | Complete |
 | WARM-01 | Phase 26 | Pending |
 | WARM-02 | Phase 26 | Pending |
 | WARM-03 | Phase 26 | Pending |
