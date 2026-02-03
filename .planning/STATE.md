@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-02)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
-**Current focus:** Phase 26 (Warmup System) -- Complete
+**Current focus:** Phase 27 (Production Polish) -- In progress
 
 ## Current Position
 
-Phase: 26 of 27 (Warmup System)
-Plan: 2 of 2 in current phase
-Status: Phase complete
-Last activity: 2026-02-03 -- Completed 26-02-PLAN.md (warmup UI components)
+Phase: 27 of 27 (Production Polish)
+Plan: 2 of 3 in current phase
+Status: In progress
+Last activity: 2026-02-03 -- Completed 27-02-PLAN.md (README rewrite)
 
-Progress: [██████████████████████] ~98%
+Progress: [██████████████████████] ~99%
 
 ## Milestones
 
@@ -30,9 +30,9 @@ Progress: [██████████████████████] ~
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02 + 24-03 + 25-01 + 25-02 + 26-01 + 26-02)
-- Average duration: ~3.5 min
-- Total execution time: ~62 min
+- Total plans completed: 15 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02 + 24-03 + 25-01 + 25-02 + 26-01 + 26-02 + 27-02)
+- Average duration: ~3.3 min
+- Total execution time: ~64 min
 
 ## Accumulated Context
 
@@ -64,6 +64,8 @@ Archived to PROJECT.md Key Decisions table.
 | d26-01-02 | DuckDB warmup query filters by original_exercise_id AND exercise_id, no gym_id filter | 26-01 |
 | d26-02-01 | WarmupHint uses Unicode multiplication sign and right arrow for compact inline format | 26-02 |
 | d26-02-02 | WarmupTierEditor uses local state with blur-to-persist pattern matching rest timer input | 26-02 |
+| d27-02-01 | Removed vw_progression_status from README lineage diagram (feature removed, SQL file still exists) | 27-02 |
+| d27-02-02 | Teal-themed Mermaid diagram styles matching app OKLCH design system | 27-02 |
 
 ### Pending Todos
 
@@ -79,7 +81,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Completed 26-02-PLAN.md (warmup UI components)
+Stopped at: Completed 27-02-PLAN.md (README rewrite)
 Resume file: None
 
-**Next action:** Continue to Phase 27
+**Next action:** Continue with 27-01 or 27-03 plans
