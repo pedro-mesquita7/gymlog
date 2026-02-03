@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useWorkoutStore } from '../../stores/useWorkoutStore';
 import { SetGrid } from './SetGrid';
 import { ExerciseSubstitution } from './ExerciseSubstitution';
+import { ExerciseNote } from './ExerciseNote';
 import { ExerciseHistory } from '../history/ExerciseHistory';
 import { FeatureErrorBoundary } from '../ui/FeatureErrorBoundary';
 import type { PlanExercise } from '../../types/plan';
@@ -31,6 +32,10 @@ export function ExerciseView({
   const session = useWorkoutStore(state => state.session);
   const updateSet = useWorkoutStore(state => state.updateSet);
   const removeSetsByExercise = useWorkoutStore(state => state.removeSetsByExercise);
+  const setNote = useWorkoutStore(state => state.setNote);
+  const currentNote = useWorkoutStore(
+    state => state.session?.notes?.[planExercise.exercise_id] ?? ''
+  );
   const [showSubstitution, setShowSubstitution] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
 
@@ -123,6 +128,15 @@ export function ExerciseView({
           sets={sets}
           onSaveSet={handleSaveSet}
           onRemoveRow={handleRemoveRow}
+        />
+      )}
+
+      {/* Exercise note */}
+      {session && (
+        <ExerciseNote
+          originalExerciseId={planExercise.exercise_id}
+          currentNote={currentNote}
+          onNoteChange={(note) => setNote(planExercise.exercise_id, note)}
         />
       )}
 

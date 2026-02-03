@@ -256,6 +256,39 @@ export async function loadDemoData(): Promise<void> {
           }
         }
 
+        // Add exercise notes for select workouts
+        const demoNotes: Record<string, Record<number, string>> = {
+          'Bench Press': {
+            2: 'Felt strong today, moved up from 60kg',
+            5: 'Paused reps, good control',
+          },
+          'Overhead Press': {
+            3: 'Left shoulder tight, kept weight light',
+          },
+          'Barbell Row': {
+            4: 'Grip gave out on last set',
+          },
+        };
+
+        for (const exerciseName of planExercises) {
+          const noteText = demoNotes[exerciseName]?.[scheduleWeek.week];
+          if (noteText) {
+            const exerciseId = exerciseMap[exerciseName];
+            await insertEvent(
+              conn,
+              'exercise_note_logged',
+              {
+                workout_id: workoutId,
+                exercise_id: exerciseId,
+                original_exercise_id: exerciseId,
+                note: noteText,
+              },
+              workoutTimestamp
+            );
+            workoutTimestamp = addMinutes(workoutTimestamp, 1);
+          }
+        }
+
         // Complete workout
         await insertEvent(
           conn,
