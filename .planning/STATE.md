@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-02)
 
 **Core value:** Track workout performance with proper data engineering -- both usable as a personal training tool and impressive as a senior Data Engineer portfolio piece.
-**Current focus:** Phase 27 (Production Polish) -- In progress
+**Current focus:** Phase 27 (Production Polish) -- Complete
 
 ## Current Position
 
 Phase: 27 of 27 (Production Polish)
-Plan: 2 of 3 in current phase (27-01 and 27-02 complete)
-Status: In progress
-Last activity: 2026-02-03 -- Completed 27-01-PLAN.md (dead code removal + version bump)
+Plan: 3 of 3 in current phase (all complete)
+Status: Phase complete
+Last activity: 2026-02-04 -- Completed 27-03-PLAN.md (E2E test fixes + notes/warmup coverage)
 
-Progress: [██████████████████████] ~99%
+Progress: [██████████████████████████] 100%
 
 ## Milestones
 
@@ -25,14 +25,14 @@ Progress: [██████████████████████] ~
 | v1.2 UX & Portfolio Polish | Archived | 2026-01-31 |
 | v1.3 Production Polish & Deploy Readiness | Archived | 2026-02-01 |
 | v1.4 Comparison, UX & Theme | Archived | 2026-02-02 |
-| v1.5 Real Workout Polish | Active | -- |
+| v1.5 Real Workout Polish | Complete | 2026-02-04 |
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16 (v1.5, Phase 22 complete + 23-01 + 23-02 + 24-01 + 24-02 + 24-03 + 25-01 + 25-02 + 26-01 + 26-02 + 27-01 + 27-02)
+- Total plans completed: 17 (v1.5 all phases complete)
 - Average duration: ~3.5 min
-- Total execution time: ~80 min
+- Total execution time: ~85 min
 
 ## Accumulated Context
 
@@ -69,6 +69,8 @@ Archived to PROJECT.md Key Decisions table.
 | d27-01-03 | Removed clearAllData entirely (E2E tests define own version in fixtures) | 27-01 |
 | d27-02-01 | Removed vw_progression_status from README lineage diagram (feature removed, SQL file still exists) | 27-02 |
 | d27-02-02 | Teal-themed Mermaid diagram styles matching app OKLCH design system | 27-02 |
+| d27-03-01 | Remove onChange from SetRow useEffect deps to prevent infinite render loop | 27-03 |
+| d27-03-02 | Rewrite useRecentWorkout to query events table (not dbt fact/dim tables) | 27-03 |
 
 ### Pending Todos
 
@@ -80,12 +82,13 @@ None.
 - [RESOLVED] Analytics simplification removes v1.4 comparison feature (completed in 23-01)
 - [RESOLVED] Theme overhaul touches all OKLCH tokens -- WCAG contrast reverified in 22-03
 - [RESOLVED] Warmup system needs event sourcing schema extension -- warmup is display-only per CONTEXT.md, no events needed
+- [RESOLVED] Infinite render loop in SetRow/SetGrid -- fixed onChange callback stability in 27-03
 - 55 pre-existing ESLint errors (mostly no-explicit-any and React hooks rules) -- cosmetic, not blocking release
 
 ## Session Continuity
 
-Last session: 2026-02-03
-Stopped at: Completed 27-01-PLAN.md (dead code removal + version bump)
+Last session: 2026-02-04
+Stopped at: Completed 27-03-PLAN.md (E2E test fixes + notes/warmup coverage)
 Resume file: None
 
-**Next action:** Continue with 27-03-PLAN.md (E2E tests)
+**Next action:** All plans complete. v1.5 ready for release.
