@@ -10,7 +10,7 @@ Track workout performance with proper data engineering — both usable as a pers
 
 ## Current State
 
-**Version:** v1.5 Real Workout Polish (in progress)
+**Version:** v1.5 Real Workout Polish (shipped 2026-02-04)
 
 **Tech Stack:**
 - React 18 + TypeScript + Vite
@@ -27,8 +27,8 @@ Track workout performance with proper data engineering — both usable as a pers
 - GitHub Actions CI/CD
 
 **Codebase:**
-- ~15,538 lines of code
-- 433 commits, 21 phases, 111 plans across 5 milestones
+- ~15,312 lines of code (net reduction from dead code cleanup)
+- 500 commits, 27 phases, 128 plans across 6 milestones
 
 **What's Working:**
 - Exercise and gym management with full CRUD
@@ -101,23 +101,17 @@ Track workout performance with proper data engineering — both usable as a pers
 - Theme redesign: soft/modern dark with OKLCH warm tones (THEME-01 to THEME-04) — v1.4
 - UX tightening: collapsible sections, settings reorder, Plans rename (UX-01 to UX-04) — v1.4
 - Multi-exercise comparison analytics (COMP-01 to COMP-05) — v1.4
+- Bug fixes: rotation error, TS build errors (BUG-01, BUG-02) — v1.5
+- Cool blue/teal theme overhaul with WCAG AA (THEME-01 to THEME-04) — v1.5
+- Analytics simplified: removed comparison/progression/plateau (ANLY-01 to ANLY-04) — v1.5
+- Settings restructured with Developer toggle (UIPOL-01 to UIPOL-05) — v1.5
+- Exercise notes per session with history (NOTE-01 to NOTE-03) — v1.5
+- Warmup system with auto-calculated weights (WARM-01 to WARM-05) — v1.5
+- Production polish: README, dead code, E2E tests (PROD-01 to PROD-03) — v1.5
 
 ### Active
 
-**v1.5 — Real Workout Polish**
-
-- [ ] Fix rotation bug: "plan or gym not found" despite valid default gym and active rotation
-- [ ] Fix TS build errors: QuickStartCard.tsx and StartWorkout.tsx templateId→planId
-- [ ] Remove redundant text in collapsed sections (Exercises/Gyms/Settings headers)
-- [ ] Theme overhaul: cool blue/teal replacing orange accent, WCAG AA compliant
-- [ ] Simplify analytics: keep exercise progress + volume summary, remove comparison/progression/plateau
-- [ ] Settings restructure: Default Gym + Rotation + TOON export visible; everything else behind Developer toggle
-- [ ] Rotation UX: current rotation shown, others expandable, create-new collapsed by default
-- [ ] Exercise notes: free text per exercise per session, visible in next workout history
-- [ ] Warmup toggle per exercise in plans: 2 configurable tiers (default 50% x 5, 75% x 3), auto-calculated from working weight in rep range
-- [ ] Compact set logging: batch grid style for mobile density
-- [ ] README/diagrams update and file cleanup
-- [ ] Final production polish
+(No active requirements — next milestone not yet planned)
 
 ### Out of Scope
 
@@ -131,12 +125,10 @@ Track workout performance with proper data engineering — both usable as a pers
 **User profile:** Data Engineer building this for personal use and GitHub portfolio. Goes to multiple gyms and wants history to be context-aware (gym-specific equipment shouldn't show cross-gym data).
 
 **Known Issues:**
-- Rotation bug: "plan or gym not found" error despite valid default gym and active rotation
-- Pre-existing TS build errors: QuickStartCard.tsx and StartWorkout.tsx reference templateId instead of planId (Vite build unaffected)
 - Backup reminders only work in persistent mode (by design)
-- dbt vw_progression_status.sql references fw.logged_at but fact_workouts uses started_at (non-blocking — compiled queries bypass dbt at runtime)
-- Redundant text in collapsed sections (Exercises/Gyms headers, some Settings sections)
-- Theme perceived as "orange/white/dark" — needs cool blue/teal overhaul
+- dbt vw_progression_status.sql orphan file in dbt/models (feature removed, SQL file remains)
+- 55 pre-existing ESLint errors (no-explicit-any, React hooks rules) — cosmetic
+- 1 flaky E2E test (batch-logging ghost data) — intermittent
 
 **Potential v2+ Features:**
 - Chart export as image
@@ -157,6 +149,7 @@ See `.planning/MILESTONES.md` for full history and `.planning/milestones/` for a
 | v1.2 | UX & Portfolio Polish | 2026-01-31 |
 | v1.3 | Production Polish & Deploy Readiness | 2026-02-01 |
 | v1.4 | Comparison, UX & Theme | 2026-02-02 |
+| v1.5 | Real Workout Polish | 2026-02-04 |
 
 ## Constraints
 
@@ -195,10 +188,12 @@ See `.planning/MILESTONES.md` for full history and `.planning/milestones/` for a
 | UUID validation before SQL interpolation | Regex check in comparisonStatsSQL prevents injection for dynamic IN clause | Good |
 | Click-outside-to-close for multi-select | Standard dropdown pattern; avoids modal overhead for exercise picker | Good |
 
-| Simplify analytics (remove comparison) | Comparison feature low value for personal use; exercise progress + volume is what matters | — Pending |
-| Cool blue/teal theme | Orange accent perceived as unpolished; blue/teal is clean modern fitness standard | — Pending |
-| Fixed 2-tier warmup | Covers standard warmup protocol without over-engineering | — Pending |
-| Developer toggle for debug settings | Reduces settings clutter for daily use | — Pending |
+| Simplify analytics (remove comparison) | Comparison feature low value for personal use; exercise progress + volume is what matters | Good |
+| Cool blue/teal theme | Orange accent perceived as unpolished; blue/teal is clean modern fitness standard | Good |
+| Fixed 2-tier warmup | Covers standard warmup protocol without over-engineering | Good |
+| Developer toggle for debug settings | Reduces settings clutter for daily use | Good |
+| Notes keyed by original_exercise_id | Consistent lookup across exercise substitutions | Good |
+| Display-only warmup (no event storage) | Warmup hints are ephemeral UI; no need to persist warmup sets | Good |
 
 ---
-*Last updated: 2026-02-02 after v1.5 milestone start*
+*Last updated: 2026-02-04 after v1.5 milestone completion*

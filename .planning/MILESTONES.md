@@ -1,5 +1,34 @@
 # Project Milestones: GymLog
 
+## v1.5 Real Workout Polish (Shipped: 2026-02-04)
+
+**Delivered:** Cool blue/teal theme overhaul, simplified analytics, restructured settings with developer toggle, exercise notes with session history, auto-calculated warmup hints, and production cleanup with 725 lines of dead code removed -- transforming GymLog into a polished daily-use workout app
+
+**Phases completed:** 22-27 (17 plans total)
+
+**Key accomplishments:**
+- Cool blue/teal OKLCH theme replacing orange accent, WCAG AA contrast verified across all surfaces
+- Analytics simplified to exercise progress + volume; removed comparison/progression/plateau features
+- Settings restructured for mobile daily use with Developer toggle hiding debug sections
+- Exercise notes with tap-to-reveal input, auto-save on blur, and historical note display across sessions
+- Display-only warmup system with 2 configurable tiers auto-calculated from last session's max weight
+- 725 lines dead code removed, README rewritten for portfolio audience, 17/17 E2E tests passing
+
+**Stats:**
+- 67 commits in milestone
+- 137 files changed, +9,167/-2,508 lines
+- 15,312 total lines of TypeScript
+- 6 phases, 17 plans
+- 26/26 requirements satisfied
+- 20/20 UAT tests passed
+- 2 days (2026-02-02 to 2026-02-04)
+
+**Git range:** `6153f71` → `d879ad7`
+
+**What's next:** v2+ features (chart export, supersets, plate calculator, light mode toggle)
+
+---
+
 ## v1.4 Comparison, UX & Theme (Shipped: 2026-02-02)
 
 **Delivered:** Multi-exercise comparison analytics, soft/modern dark theme redesign with OKLCH tokens and rounded corners, "Templates" → "Plans" rename across all UI, and UX restructure with collapsible sections and settings reorder — zero new dependencies added
