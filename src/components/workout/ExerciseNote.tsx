@@ -80,6 +80,7 @@ export function ExerciseNote({
       {/* Toggle button */}
       <button
         type="button"
+        data-testid="exercise-note-toggle"
         onClick={() => setIsExpanded((prev) => !prev)}
         className="flex items-center gap-1.5 text-text-muted hover:text-accent transition-colors px-1 py-1"
         aria-label={isExpanded ? 'Collapse note' : 'Add note'}
@@ -119,6 +120,7 @@ export function ExerciseNote({
               {/* Textarea */}
               <div className="relative">
                 <textarea
+                  data-testid="exercise-note-input"
                   rows={2}
                   maxLength={MAX_LENGTH}
                   placeholder="Quick note..."
@@ -169,14 +171,14 @@ export function ExerciseNote({
                       transition={{ duration: DURATION, ease: 'easeInOut' }}
                       style={{ overflow: 'hidden' }}
                     >
-                      <div className="pt-2 space-y-1.5">
+                      <div data-testid="exercise-note-history" className="pt-2 space-y-1.5">
                         {isLoading ? (
                           <p className="text-xs text-text-muted">Loading...</p>
                         ) : notes.length === 0 ? (
                           <p className="text-xs text-text-muted">No previous notes</p>
                         ) : (
                           notes.map((entry, i) => (
-                            <div key={i} className="flex gap-2 text-xs">
+                            <div key={i} data-testid="exercise-note-entry" className="flex gap-2 text-xs">
                               <span className="text-text-muted shrink-0">
                                 {formatSessionDate(entry.session_date)}
                               </span>

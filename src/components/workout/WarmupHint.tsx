@@ -33,6 +33,7 @@ export function WarmupHint({ originalExerciseId }: WarmupHintProps) {
       {/* Toggle button */}
       <button
         type="button"
+        data-testid="warmup-toggle"
         onClick={() => setIsExpanded((prev) => !prev)}
         className="text-xs text-text-muted hover:text-accent transition-colors px-1 py-0.5"
         aria-expanded={isExpanded}
@@ -51,7 +52,7 @@ export function WarmupHint({ originalExerciseId }: WarmupHintProps) {
             transition={{ duration: DURATION, ease: 'easeInOut' }}
             style={{ overflow: 'hidden' }}
           >
-            <div className="text-xs text-text-secondary py-1 px-1">
+            <div data-testid="warmup-content" className="text-xs text-text-secondary py-1 px-1">
               {noHistory ? (
                 'Log your first session to see warmup suggestions'
               ) : (

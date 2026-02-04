@@ -20,7 +20,8 @@ interface SetRowProps {
   ghostData: GhostData | null;
   previousGhostData: GhostData | null;
   maxData: ExerciseMax | null;
-  onChange: (data: SetData) => void;
+  rowIndex: number;
+  onChange: (data: SetData, index: number) => void;
   onBlur: () => void;
   onRemove: () => void;
   initialData?: SetData;
@@ -31,6 +32,7 @@ export function SetRow({
   ghostData,
   previousGhostData,
   maxData,
+  rowIndex,
   onChange,
   onBlur,
   onRemove,
@@ -48,14 +50,15 @@ export function SetRow({
     initialData?.rir?.toString() ?? ''
   );
 
-  // Update parent on every change
+  // Update parent on every change (exclude onChange from deps to prevent infinite loop)
   useEffect(() => {
     onChange({
       weight_kg: weightKg ? parseFloat(weightKg) : null,
       reps: reps ? parseInt(reps, 10) : null,
       rir: rir ? parseInt(rir, 10) : null,
-    });
-  }, [weightKg, reps, rir, onChange]);
+    }, rowIndex);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [weightKg, reps, rir, rowIndex]);
 
   const handleBlur = () => {
     onBlur();

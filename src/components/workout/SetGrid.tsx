@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { LoggedSet } from '../../types/workout-session';
 import { useLastSessionData } from '../../hooks/useLastSessionData';
 import { useExerciseMax } from '../../hooks/useHistory';
@@ -68,13 +68,13 @@ export function SetGrid({
     setRows(initialRows);
   }, [planSetCount, sets]);
 
-  const handleRowChange = (data: SetData, index: number) => {
+  const handleRowChange = useCallback((data: SetData, index: number) => {
     setRows((prev) => {
       const updated = [...prev];
       updated[index] = data;
       return updated;
     });
-  };
+  }, []);
 
   const handleRowBlur = (index: number) => {
     // Auto-save on blur
@@ -129,7 +129,8 @@ export function SetGrid({
               previousGhostData={previousSetGhostData}
               initialData={row}
               maxData={maxData}
-              onChange={(data) => handleRowChange(data, index)}
+              rowIndex={index}
+              onChange={handleRowChange}
               onBlur={() => handleRowBlur(index)}
               onRemove={() => handleRemoveRow(index)}
             />

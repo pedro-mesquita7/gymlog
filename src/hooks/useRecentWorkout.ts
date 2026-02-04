@@ -35,20 +35,44 @@ export function useRecentWorkout(): {
       const conn = await db.connect();
 
       const query = `
+        WITH completed AS (
+          SELECT
+            payload->>'workout_id' AS workout_id,
+            payload->>'template_id' AS template_id,
+            payload->>'started_at' AS started_at,
+            _created_at AS completed_at
+          FROM events
+          WHERE event_type = 'workout_completed'
+          ORDER BY _created_at DESC
+          LIMIT 1
+        ),
+        template_names AS (
+          SELECT
+            payload->>'template_id' AS template_id,
+            payload->>'name' AS name
+          FROM events
+          WHERE event_type = 'template_created'
+        ),
+        workout_sets AS (
+          SELECT
+            payload->>'workout_id' AS workout_id,
+            payload->>'exercise_id' AS exercise_id,
+            CAST(payload->>'weight_kg' AS DOUBLE) AS weight_kg,
+            CAST(payload->>'reps' AS INTEGER) AS reps
+          FROM events
+          WHERE event_type = 'set_logged'
+        )
         SELECT
           COALESCE(t.name, 'Unknown Plan') as plan_name,
-          fw.started_at,
-          fw.completed_at,
-          COUNT(DISTINCT fs.exercise_id) as exercise_count,
-          COALESCE(SUM(fs.weight_kg * fs.reps), 0) as total_volume,
-          COUNT(fs.set_id) as total_sets
-        FROM fact_workouts fw
-        LEFT JOIN dim_templates t ON fw.template_id = t.template_id
-        LEFT JOIN fact_sets fs ON fw.workout_id = fs.workout_id
-        WHERE fw.status = 'completed'
-        GROUP BY fw.workout_id, t.name, fw.started_at, fw.completed_at
-        ORDER BY fw.started_at DESC
-        LIMIT 1
+          c.started_at,
+          c.completed_at,
+          COUNT(DISTINCT s.exercise_id) as exercise_count,
+          COALESCE(SUM(s.weight_kg * s.reps), 0) as total_volume,
+          COUNT(*) as total_sets
+        FROM completed c
+        LEFT JOIN template_names t ON c.template_id = t.template_id
+        LEFT JOIN workout_sets s ON c.workout_id = s.workout_id
+        GROUP BY c.workout_id, t.name, c.started_at, c.completed_at
       `;
 
       const result = await conn.query(query);
