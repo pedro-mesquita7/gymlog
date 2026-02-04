@@ -1,5 +1,5 @@
 import { test, expect, loadDemoData, clearAllData, waitForApp } from './fixtures/app.fixture';
-import { SEL, setRow } from './helpers/selectors';
+import { SEL } from './helpers/selectors';
 import { createGym, createExercise, logSet } from './helpers/seed';
 
 /**
