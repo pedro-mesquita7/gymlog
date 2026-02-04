@@ -11,7 +11,7 @@ Transform GymLog from a feature-complete analytics tool into a polished daily-us
 - v1.2 UX & Portfolio Polish -- Phases 8-11 (shipped 2026-01-31)
 - v1.3 Production Polish & Deploy Readiness -- Phases 12-17 (shipped 2026-02-01)
 - v1.4 Comparison, UX & Theme -- Phases 18-21 (shipped 2026-02-02)
-- **v1.5 Real Workout Polish -- Phases 22-27 (in progress)**
+- **v1.5 Real Workout Polish -- Phases 22-27 (shipped 2026-02-04)**
 
 ## Phases
 
@@ -20,7 +20,7 @@ Transform GymLog from a feature-complete analytics tool into a polished daily-us
 - [x] **Phase 24: Settings + UI Polish** - Restructure settings, compact logging, rotation UX, clean headers
 - [x] **Phase 25: Exercise Notes** - Free text notes per exercise per session with history display
 - [x] **Phase 26: Warmup System** - Display-only warmup hints with auto-calculated weights from last session
-- [ ] **Phase 27: Production Polish** - README update, dead code cleanup, E2E test updates
+- [x] **Phase 27: Production Polish** - README update, dead code cleanup, E2E test updates
 
 ## Phase Details
 
@@ -109,9 +109,9 @@ Plans:
   3. E2E tests pass against the updated UI structure (settings, analytics, logging changes)
 **Plans:** 3 plans
 Plans:
-- [ ] 27-01-PLAN.md — Dead code cleanup + version bump to 1.5.0
-- [ ] 27-02-PLAN.md — README rewrite for portfolio audience
-- [ ] 27-03-PLAN.md — E2E test fixes + new notes/warmup coverage
+- [x] 27-01-PLAN.md — Dead code cleanup + version bump to 1.5.0
+- [x] 27-02-PLAN.md — README rewrite for portfolio audience
+- [x] 27-03-PLAN.md — E2E test fixes + new notes/warmup coverage
 
 ## Progress
 
@@ -124,4 +124,4 @@ Plans:
 | 24. Settings + UI Polish | 3/3 | Complete | 2026-02-02 |
 | 25. Exercise Notes | 2/2 | Complete | 2026-02-03 |
 | 26. Warmup System | 2/2 | Complete | 2026-02-03 |
-| 27. Production Polish | 0/3 | Not started | - |
+| 27. Production Polish | 3/3 | Complete | 2026-02-04 |

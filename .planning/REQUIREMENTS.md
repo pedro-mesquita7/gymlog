@@ -50,9 +50,9 @@ Requirements for v1.5 Real Workout Polish. Each maps to roadmap phases.
 
 ### Production Polish
 
-- [ ] **PROD-01**: README and architecture diagrams updated for v1.5 changes
-- [ ] **PROD-02**: Unused files and dead code cleaned up (including removed comparison code)
-- [ ] **PROD-03**: Final E2E test updates for changed UI structure
+- [x] **PROD-01**: README and architecture diagrams updated for v1.5 changes
+- [x] **PROD-02**: Unused files and dead code cleaned up (including removed comparison code)
+- [x] **PROD-03**: Final E2E test updates for changed UI structure
 
 ## v2+ Requirements
 
@@ -105,9 +105,9 @@ Deferred to future release. Not in current roadmap.
 | WARM-03 | Phase 26 | Complete |
 | WARM-04 | Phase 26 | Complete |
 | WARM-05 | Phase 26 | Complete |
-| PROD-01 | Phase 27 | Pending |
-| PROD-02 | Phase 27 | Pending |
-| PROD-03 | Phase 27 | Pending |
+| PROD-01 | Phase 27 | Complete |
+| PROD-02 | Phase 27 | Complete |
+| PROD-03 | Phase 27 | Complete |
 
 **Coverage:**
 - v1.5 requirements: 26 total
@@ -116,4 +116,4 @@ Deferred to future release. Not in current roadmap.
 
 ---
 *Requirements defined: 2026-02-02*
-*Last updated: 2026-02-02 after roadmap creation*
+*Last updated: 2026-02-04 after phase 27 completion*
