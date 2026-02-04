@@ -41,8 +41,16 @@ test.describe('Batch Logging Edge Cases', () => {
   async function startWorkout(page: import('@playwright/test').Page) {
     await page.click(SEL.navWorkouts);
 
+    // Open the "Manual select workout" details section
+    const details = page.locator('details:has(summary:has-text("Manual select workout"))');
+    if (!(await details.getAttribute('open'))) {
+      await page.locator('summary:has-text("Manual select workout")').click();
+      await page.waitForTimeout(300);
+    }
+
     // Select gym by finding its option value
     const gymSelect = page.locator(SEL.gymSelect);
+    await gymSelect.waitFor({ state: 'visible', timeout: 5_000 });
     const gymOption = gymSelect.locator('option', { hasText: 'Batch Gym' });
     const gymValue = await gymOption.getAttribute('value');
     await gymSelect.selectOption(gymValue!);

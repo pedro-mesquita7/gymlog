@@ -12,6 +12,34 @@ async function waitForApp(page: Page) {
   await page.waitForSelector(SEL.navWorkouts, { timeout: 30_000 });
 }
 
+/**
+ * Enable Developer Mode in Settings if not already enabled.
+ */
+async function enableDeveloperMode(page: Page) {
+  const toggle = page.locator(SEL.developerModeToggle);
+  await toggle.waitFor({ state: 'visible', timeout: 10_000 });
+  await toggle.scrollIntoViewIfNeeded();
+  const demoSection = page.locator('button[aria-expanded]:has-text("Demo Data & Reset")');
+  if (await demoSection.count() === 0) {
+    await toggle.click();
+    await demoSection.first().waitFor({ state: 'visible', timeout: 5_000 });
+  }
+}
+
+/**
+ * Open a CollapsibleSection by title if not already open.
+ */
+async function openCollapsibleSection(page: Page, title: string) {
+  const anyButton = page.locator(`button[aria-expanded]:has-text("${title}")`);
+  await anyButton.first().waitFor({ state: 'visible', timeout: 10_000 });
+  const isExpanded = await anyButton.first().getAttribute('aria-expanded');
+  if (isExpanded !== 'true') {
+    await anyButton.first().scrollIntoViewIfNeeded();
+    await anyButton.first().click();
+    await page.waitForTimeout(400);
+  }
+}
+
 test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
   test.beforeAll(async ({ browser }) => {
     sharedContext = await browser.newContext({ bypassCSP: true });
@@ -21,10 +49,13 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
 
     // Clear all data to start fresh
     await sharedPage.click(SEL.navSettings);
-    sharedPage.once('dialog', (d) => d.accept());
-    const reloadPromise = sharedPage.waitForURL('**/*');
+    await enableDeveloperMode(sharedPage);
+    await openCollapsibleSection(sharedPage, 'Demo Data & Reset');
+
     await sharedPage.click(SEL.btnClearData);
-    await reloadPromise;
+    await sharedPage.locator('dialog button:has-text("Clear Data")').click();
+    // Wait for page to reload
+    await sharedPage.waitForSelector(SEL.navWorkouts, { state: 'detached', timeout: 30_000 }).catch(() => {});
     await waitForApp(sharedPage);
   });
 
@@ -38,34 +69,33 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
     // --- Navigate to Workouts tab (gym + exercise forms are here) ---
     await page.click(SEL.navWorkouts);
 
-    // --- Create gym: expand Gyms section then click "+ Add" ---
-    const gymsCollapsed = page.locator('button[aria-expanded="false"]', { hasText: 'Gyms' });
-    if (await gymsCollapsed.count() > 0) {
-      await gymsCollapsed.click();
-      await page.waitForTimeout(300);
-    }
-    const gymSection = page.locator('section').filter({ hasText: 'Your Gyms' });
-    await gymSection.locator('button:has-text("+ Add")').click();
+    // --- Create gym: expand Gyms collapsible section then click "+ Add" ---
+    await openCollapsibleSection(page, 'Gyms');
+    // After expanding Gyms, find the "+ Add" button within
+    // Gyms section is rendered after Exercises, so we need the second "+ Add"
+    // But since only Gyms is expanded, the visible one should be in Gyms
+    const gymAddBtns = page.locator('button:has-text("+ Add")');
+    // The last visible "+ Add" is for Gyms (Exercises section is collapsed)
+    await gymAddBtns.last().click();
+    await page.waitForSelector(SEL.gymNameInput, { timeout: 5000 });
     await page.fill(SEL.gymNameInput, 'Rotation Gym');
     await page.fill(SEL.gymLocationInput, 'Downtown');
     await page.click(SEL.btnAddGym);
     await page.waitForSelector('text="Rotation Gym"', { timeout: 5000 });
 
-    // --- Create exercise A: expand Exercises section then click "+ Add" ---
-    const exercisesCollapsed = page.locator('button[aria-expanded="false"]', { hasText: 'Exercises' });
-    if (await exercisesCollapsed.count() > 0) {
-      await exercisesCollapsed.click();
-      await page.waitForTimeout(300);
-    }
-    const exerciseSection = page.locator('section').filter({ hasText: 'Library' });
-    await exerciseSection.locator('button:has-text("+ Add")').click();
+    // --- Create exercise A: expand Exercises collapsible section then click "+ Add" ---
+    await openCollapsibleSection(page, 'Exercises');
+    // Now Exercises has an "+ Add" button -- it's the first one
+    await page.locator('button:has-text("+ Add")').first().click();
+    await page.waitForSelector(SEL.exerciseNameInput, { timeout: 5000 });
     await page.fill(SEL.exerciseNameInput, 'Rotation OHP');
     await page.locator(SEL.exerciseMuscleSelect).selectOption('Front Delts');
     await page.click(SEL.btnAddExercise);
     await page.waitForSelector('text="Rotation OHP"', { timeout: 5000 });
 
     // --- Create exercise B ---
-    await exerciseSection.locator('button:has-text("+ Add")').click();
+    await page.locator('button:has-text("+ Add")').first().click();
+    await page.waitForSelector(SEL.exerciseNameInput, { timeout: 5000 });
     await page.fill(SEL.exerciseNameInput, 'Rotation Row');
     await page.locator(SEL.exerciseMuscleSelect).selectOption('Upper Back');
     await page.click(SEL.btnAddExercise);
@@ -103,22 +133,28 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
     // --- Settings: create rotation, set active, choose default gym ---
     await page.click(SEL.navSettings);
 
+    // Open Manage Rotations collapsible section
+    await openCollapsibleSection(page, 'Manage Rotations');
+
+    // Click the "+" button to show the create form
+    await page.locator('button[aria-label="Create new rotation"]').click();
+    await page.waitForTimeout(300);
+
     // Fill rotation name
     await page.fill(
       'input[placeholder="Rotation name (e.g., Push Pull Legs)"]',
       'Test PPL',
     );
 
-    // Check both plan checkboxes in the rotation section
-    const rotationSection = page
-      .locator('section')
-      .filter({ hasText: 'Workout Rotations' });
-    await rotationSection
+    // Check both plan checkboxes in the create form
+    // The create form is inside the Manage Rotations collapsible
+    const createForm = page.locator('text=Create New Rotation').locator('..');
+    await createForm
       .locator('label')
       .filter({ hasText: 'Rotation Upper' })
       .locator('input[type="checkbox"]')
       .check();
-    await rotationSection
+    await createForm
       .locator('label')
       .filter({ hasText: 'Rotation Lower' })
       .locator('input[type="checkbox"]')
@@ -127,8 +163,10 @@ test.describe.serial('Quick Start + Rotation Advancement (TEST-03)', () => {
     // Click "Create Rotation"
     await page.click('button:has-text("Create Rotation")');
 
-    // Click "Set Active" on the created rotation
-    await page.click('button:has-text("Set Active")');
+    // Set Active rotation via the dropdown at top of settings
+    // Scroll to top first
+    await page.locator('#active-rotation').scrollIntoViewIfNeeded();
+    await page.locator('#active-rotation').selectOption({ label: 'Test PPL' });
 
     // Select default gym
     await page.locator('#default-gym').selectOption({ label: 'Rotation Gym (Downtown)' });

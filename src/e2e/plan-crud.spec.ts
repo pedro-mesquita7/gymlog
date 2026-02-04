@@ -47,6 +47,10 @@ test.describe('Plan CRUD with exercise history preservation', () => {
     // --- Step 3: Log a workout using the plan ---
     await page.click(SEL.navWorkouts);
 
+    // Open the "Manual select workout" details section
+    await page.locator('summary:has-text("Manual select workout")').click();
+    await page.waitForTimeout(300);
+
     // Select gym and plan from dropdowns
     await selectByLabelSubstring(page, SEL.gymSelect, 'E2E Test Gym');
     await selectByLabelSubstring(page, SEL.planSelect, 'E2E Push Day');

@@ -24,7 +24,7 @@ export const SEL = {
   firstTimeHint: '[data-testid="first-time-hint"]',
   loadingGhostData: '[data-testid="loading-ghost-data"]',
   activeExerciseName: '[data-testid="active-exercise-name"]',
-  // Settings
+  // Settings - collapsible sections
   btnLoadDemo: '[data-testid="btn-load-demo"]',
   btnClearData: '[data-testid="btn-clear-data"]',
   btnExportBackup: '[data-testid="btn-export-backup"]',
@@ -32,6 +32,7 @@ export const SEL = {
   fileInputParquet: '[data-testid="file-input-parquet"]',
   eventCount: '[data-testid="event-count"]',
   importResult: '[data-testid="import-result"]',
+  developerModeToggle: 'button[aria-label="Toggle developer mode"]',
   // Plans
   planNameInput: '[data-testid="plan-name-input"]',
   btnCreatePlan: '[data-testid="btn-create-plan"]',
@@ -52,6 +53,14 @@ export const SEL = {
   // Delete confirmation
   btnConfirmDelete: '[data-testid="btn-confirm-delete"]',
   btnCancelDelete: '[data-testid="btn-cancel-delete"]',
+  // Notes
+  exerciseNoteToggle: '[data-testid="exercise-note-toggle"]',
+  exerciseNoteInput: '[data-testid="exercise-note-input"]',
+  exerciseNoteHistory: '[data-testid="exercise-note-history"]',
+  exerciseNoteEntry: '[data-testid="exercise-note-entry"]',
+  // Warmup
+  warmupToggle: '[data-testid="warmup-toggle"]',
+  warmupContent: '[data-testid="warmup-content"]',
 } as const;
 
 // Dynamic selectors for set rows
