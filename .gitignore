@@ -45,3 +45,6 @@ dbt/.user.yml
 
 # Build artifacts
 *.tgz
+
+# GSD planning docs (development process artifacts)
+.planning/

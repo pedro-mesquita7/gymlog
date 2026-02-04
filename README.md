@@ -2,7 +2,7 @@
 
 **Event-sourced workout tracking powered by DuckDB-WASM -- a complete analytical data stack running entirely in the browser.**
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-success?style=for-the-badge)](https://username.github.io/gymlog)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-success?style=for-the-badge)](https://pedro-mesquita7.github.io/gymlog)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![DuckDB-WASM](https://img.shields.io/badge/DuckDB--WASM-1.32.0-yellow?style=for-the-badge)](https://duckdb.org/docs/api/wasm)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
@@ -268,7 +268,7 @@ graph LR
 
 ```bash
 # Clone the repository
-git clone https://github.com/username/gymlog.git
+git clone https://github.com/pedro-mesquita7/gymlog.git
 cd gymlog
 
 # Install dependencies
