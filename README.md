@@ -8,13 +8,9 @@
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
-<!--
-TODO: Add hero GIF here
-Recommended: animated demo showing workout logging flow + analytics dashboard
-Size: 800px wide, optimize with gifski or similar
-Place file at: docs/demo.gif
-Usage: ![GymLog Demo](docs/demo.gif)
--->
+<p align="center">
+  <img src="docs/demo.gif" alt="GymLog Demo - Workout logging and analytics" width="600">
+</p>
 
 ---
 
