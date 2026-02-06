@@ -32,6 +32,7 @@ export function useSummaryStats(days: number | null) {
       const sql = summaryStatsSQL(days);
       const result = await conn.query(sql);
       const rows = result.toArray();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const row = rows[0] as any;
 
       if (!abortRef.current) {

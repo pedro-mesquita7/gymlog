@@ -1,12 +1,14 @@
+import { useState } from 'react';
 import { useDataQuality } from '../../hooks/useDataQuality';
 
 export function DataQualitySection() {
   const { results, isRunning, lastRunAt, anomalyCount, runChecks } = useDataQuality();
+  const [renderTime] = useState(() => Date.now());
 
   const formatTimeAgo = (date: Date | null): string => {
     if (!date) return 'Never';
 
-    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+    const seconds = Math.floor((renderTime - date.getTime()) / 1000);
     if (seconds < 60) return 'Just now';
     const minutes = Math.floor(seconds / 60);
     if (minutes < 60) return `${minutes} minute${minutes === 1 ? '' : 's'} ago`;

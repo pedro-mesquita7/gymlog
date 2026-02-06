@@ -32,12 +32,12 @@ export function AnalyticsPage() {
       if (stored && ['1M', '3M', '6M', '1Y', 'ALL'].includes(stored)) {
         return stored as TimeRange;
       }
-    } catch {}
+    } catch { /* ignored */ }
     return '3M'; // default
   });
 
   useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, timeRange); } catch {}
+    try { localStorage.setItem(STORAGE_KEY, timeRange); } catch { /* ignored */ }
   }, [timeRange]);
 
   const days = TIME_RANGE_DAYS[timeRange];

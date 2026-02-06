@@ -41,6 +41,7 @@ describe('useHistory', () => {
       '*': mockData, // Match any query
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -62,6 +63,7 @@ describe('useHistory', () => {
 
   test('returns empty history when no exerciseId provided', async () => {
     const mockDB = createMockDuckDB({});
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -77,6 +79,7 @@ describe('useHistory', () => {
   });
 
   test('returns error when DB not initialized', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(null as any);
 
     const { result } = renderHook(() =>
@@ -111,6 +114,7 @@ describe('useHistory', () => {
     ];
 
     const mockDB = createMockDuckDB({ '*': mockData });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -145,6 +149,7 @@ describe('useHistory', () => {
       })),
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -188,6 +193,7 @@ describe('useHistory', () => {
     ];
 
     const mockDB = createMockDuckDB({ '*': mockData });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -214,6 +220,7 @@ describe('useHistory', () => {
       })),
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -232,6 +239,7 @@ describe('useHistory', () => {
     const mockDB = createMockDuckDB({
       '*': [makeSetHistory({ matches_gym_context: true })],
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result, rerender } = renderHook(
@@ -259,6 +267,7 @@ describe('useHistory', () => {
     const mockDB = createMockDuckDB({
       '*': [makeSetHistory({ matches_gym_context: true })],
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result, rerender } = renderHook(

@@ -45,6 +45,7 @@ describe('useExerciseProgress', () => {
       })),
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -66,6 +67,7 @@ describe('useExerciseProgress', () => {
 
   test('returns empty array when no exerciseId', async () => {
     const mockDB = createMockDuckDB({});
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -90,6 +92,7 @@ describe('useExerciseProgress', () => {
       })),
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -117,6 +120,7 @@ describe('useExerciseProgress', () => {
     ];
 
     const mockDB = createMockDuckDB({ '*': mockData });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -152,6 +156,7 @@ describe('useExerciseProgress', () => {
     ];
 
     const mockDB = createMockDuckDB({ '*': mockData });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -177,6 +182,7 @@ describe('useExerciseProgress', () => {
     ];
 
     const mockDB = createMockDuckDB({ '*': mockData });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -206,6 +212,7 @@ describe('useExerciseProgress', () => {
       })),
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result } = renderHook(() =>
@@ -227,6 +234,7 @@ describe('useExerciseProgress', () => {
   });
 
   test('returns error when DB not initialized', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(null as any);
 
     const { result } = renderHook(() =>
@@ -243,6 +251,7 @@ describe('useExerciseProgress', () => {
 
   test('re-fetches when exerciseId changes', async () => {
     const mockDB = createMockDuckDB({ '*': [] });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.mocked(getDuckDB).mockReturnValue(mockDB as any);
 
     const { result, rerender } = renderHook(

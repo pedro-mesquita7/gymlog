@@ -224,6 +224,7 @@ export const useWorkoutStore = create<WorkoutState>()(
         const session = get().session;
         if (!session) return;
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { [originalId]: _, ...rest } = session.exerciseSubstitutions;
         set({
           session: {

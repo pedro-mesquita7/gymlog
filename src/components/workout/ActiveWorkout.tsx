@@ -199,19 +199,22 @@ export function ActiveWorkout({ plan, exercises, onFinish, onCancel }: ActiveWor
 
 // Simple workout timer display
 function WorkoutTimer({ startedAt }: { startedAt: string }) {
-  const [, setTick] = useState(0);
+  const [elapsed, setElapsed] = useState(() => {
+    const start = new Date(startedAt).getTime();
+    return Math.floor((Date.now() - start) / 1000);
+  });
 
   // Update every second
   useEffect(() => {
-    const timer = setInterval(() => setTick(t => t + 1), 1000);
+    const start = new Date(startedAt).getTime();
+    const timer = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - start) / 1000));
+    }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [startedAt]);
 
-  const start = new Date(startedAt).getTime();
-  const now = Date.now();
-  const diffSeconds = Math.floor((now - start) / 1000);
-  const minutes = Math.floor(diffSeconds / 60);
-  const seconds = diffSeconds % 60;
+  const minutes = Math.floor(elapsed / 60);
+  const seconds = elapsed % 60;
 
   return (
     <div className="font-mono">

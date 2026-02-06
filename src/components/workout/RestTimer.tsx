@@ -23,7 +23,7 @@ export function RestTimer({ restSeconds, autoStartTrigger, onComplete }: RestTim
   // Auto-start timer when trigger increments
   useEffect(() => {
     if (autoStartTrigger > 0) {
-      setIsActive(true);
+      setIsActive(true); // eslint-disable-line react-hooks/set-state-in-effect
       setHasNotified(false);
       setShowCompleteMessage(false);
       start(targetSeconds);
@@ -35,7 +35,7 @@ export function RestTimer({ restSeconds, autoStartTrigger, onComplete }: RestTim
     if (seconds === 0 && !hasNotified && isActive) {
       play();
       vibrate([200, 100, 200, 100, 200]);  // Triple vibration pattern
-      setHasNotified(true);
+      setHasNotified(true); // eslint-disable-line react-hooks/set-state-in-effect
       setShowCompleteMessage(true);
       onComplete?.();
 

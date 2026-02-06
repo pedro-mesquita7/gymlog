@@ -67,6 +67,7 @@ export function useWeekComparisonSubtitle({ exerciseId }: { exerciseId: string }
         return;
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const row = rows[0] as any;
       const currentMaxWeight = row.current_max_weight != null ? Number(row.current_max_weight) : null;
       const currentVolume = row.current_total_volume != null ? Number(row.current_total_volume) : null;
@@ -108,7 +109,7 @@ export function useWeekComparisonSubtitle({ exerciseId }: { exerciseId: string }
         return `${sign}${pct}%`;
       };
 
-      let parts: string[] = [];
+      const parts: string[] = [];
       parts.push(`${formatPct(weightPct)} weight`);
       if (volumePct !== null) {
         parts.push(`${formatPct(volumePct)} volume`);

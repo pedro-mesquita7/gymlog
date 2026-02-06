@@ -104,6 +104,7 @@ export function useLastSessionData(
           setData(null);
           setPreviousData(null);
         } else {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const mapRow = (row: any): LastSessionSet => ({
             set_number: Number(row.set_number),
             weight_kg: Number(row.weight_kg),
@@ -112,9 +113,11 @@ export function useLastSessionData(
           });
 
           const lastSets = rows
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .filter((row: any) => Number(row.session_rank) === 1)
             .map(mapRow);
           const prevSets = rows
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .filter((row: any) => Number(row.session_rank) === 2)
             .map(mapRow);
 

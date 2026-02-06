@@ -15,7 +15,7 @@ export function PRIndicator({ isPR, prType = 'weight_and_1rm' }: PRIndicatorProp
   useEffect(() => {
     // Only trigger when isPR transitions from false to true
     if (isPR && !prevIsPR.current) {
-      setShow(true);
+      setShow(true); // eslint-disable-line react-hooks/set-state-in-effect
       const timer = setTimeout(() => setShow(false), 3000);
       return () => clearTimeout(timer);
     }

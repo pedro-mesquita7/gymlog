@@ -42,6 +42,7 @@ export function useHistory({ exerciseId, currentGymId }: UseHistoryOptions): Use
         .replace('$1', `'${currentGymId}'`)
         .replace('$2', `'${exerciseId}'`);
       const result = await conn.query(sql);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const rows = result.toArray().map((row: any) => ({
         set_id: row.set_id,
         workout_id: row.workout_id,
@@ -126,6 +127,7 @@ export function usePRList(exerciseId: string): {
         // Replace parameter with actual value (DuckDB-WASM doesn't support parameterized queries via query())
         const sql = PR_LIST_SQL.replace('$1', `'${exerciseId}'`);
         const result = await conn.query(sql);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const rows = result.toArray().map((row: any) => ({
           set_id: row.set_id,
           workout_id: row.workout_id,
@@ -174,6 +176,7 @@ export function useExerciseMax(exerciseId: string): ExerciseMax | null {
         const rows = result.toArray();
 
         if (rows.length > 0) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const row = rows[0] as any;
           const maxData = {
             max_weight: row.max_weight !== null ? Number(row.max_weight) : null,

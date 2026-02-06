@@ -43,6 +43,7 @@ export function useExerciseProgression({
       const conn = await db.connect();
       const result = await conn.query(PROGRESSION_STATUS_SQL);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const rows = result.toArray().map((row: any) => ({
         exerciseId: String(row.original_exercise_id),
         gymId: String(row.gym_id || ''),

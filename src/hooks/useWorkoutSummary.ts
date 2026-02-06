@@ -80,6 +80,7 @@ export function useWorkoutSummary(
         const maxResult = await conn.query(maxQuery);
         const historicalMaxes: Record<string, { max_weight: number; max_1rm: number }> = {};
         for (const row of maxResult.toArray()) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const r: any = row;
           historicalMaxes[String(r.exercise_id)] = {
             max_weight: Number(r.max_weight),
@@ -120,6 +121,7 @@ export function useWorkoutSummary(
         const nameResult = await conn.query(nameQuery);
         const exerciseNames: Record<string, string> = {};
         for (const row of nameResult.toArray()) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const r: any = row;
           exerciseNames[String(r.exercise_id)] = String(r.name);
         }
@@ -193,6 +195,7 @@ export function useWorkoutSummary(
             const compResult = await conn.query(comparisonQuery);
             const compRows = compResult.toArray();
             if (compRows.length > 0) {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const row: any = compRows[0];
               const lastVolumeKg = Number(row.last_volume_kg);
               comparisonData = {

@@ -46,6 +46,7 @@ export function useExerciseProgress({ exerciseId, days }: UseExerciseProgressOpt
       const result = await conn.query(sql);
 
       const rawRows = result.toArray();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const rows = rawRows.map((row: any) => {
         // DuckDB-WASM DATE returns millisecond-epoch integers (number or BigInt)
         const dateVal = row.date;

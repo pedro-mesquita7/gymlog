@@ -32,7 +32,6 @@ export function SetLogger({
   const [rir, setRir] = useState<number | null>(null);
   const [showRir] = useState(true);  // RIR always visible per CONTEXT.md
   const [showPR, setShowPR] = useState(false);
-  const [prType, setPrType] = useState<'weight' | '1rm' | 'weight_and_1rm'>('weight_and_1rm');
 
   // Get current gym context for progression alert
   const currentGymId = useWorkoutStore((state) => state.session?.gym_id || '');
@@ -46,25 +45,22 @@ export function SetLogger({
     return weight * (1 + reps / 30.0);
   }, [weight, reps]);
 
-  // Detect if current set would be a PR
-  const isPR = useMemo(() => {
-    if (!maxData || weight <= 0 || reps <= 0) return false;
+  // Detect if current set would be a PR and derive PR type
+  const { isPR, prType } = useMemo(() => {
+    if (!maxData || weight <= 0 || reps <= 0) return { isPR: false, prType: 'weight_and_1rm' as const };
 
     const isWeightPR = maxData.max_weight === null || weight > maxData.max_weight;
     const is1RMPR = currentEstimated1RM !== null &&
                     (maxData.max_1rm === null || currentEstimated1RM > maxData.max_1rm);
 
     if (isWeightPR && is1RMPR) {
-      setPrType('weight_and_1rm');
-      return true;
+      return { isPR: true, prType: 'weight_and_1rm' as const };
     } else if (isWeightPR) {
-      setPrType('weight');
-      return true;
+      return { isPR: true, prType: 'weight' as const };
     } else if (is1RMPR) {
-      setPrType('1rm');
-      return true;
+      return { isPR: true, prType: '1rm' as const };
     }
-    return false;
+    return { isPR: false, prType: 'weight_and_1rm' as const };
   }, [weight, reps, currentEstimated1RM, maxData]);
 
   const handleSubmit = () => {

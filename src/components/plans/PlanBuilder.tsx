@@ -80,6 +80,7 @@ export function PlanBuilder({ exercises, plan, onSubmit, onCancel }: PlanBuilder
   })) ?? [];
 
   const { control, register, handleSubmit, setValue, watch, formState: { errors } } = useForm<PlanFormData>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(planSchema) as any,
     defaultValues: {
       name: plan?.name ?? '',

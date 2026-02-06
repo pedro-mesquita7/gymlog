@@ -41,6 +41,7 @@ export function useVolumeAnalytics(days?: number | null): UseVolumeAnalyticsRetu
       const rawVolumeRows = volumeResult.toArray();
 
       // Map to averaged data (new format from Plan 01 SQL)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const avgRows = rawVolumeRows.map((row: any) => ({
         muscleGroup: String(row.muscle_group),
         avgWeeklySets: Number(row.avg_weekly_sets),
@@ -68,6 +69,7 @@ export function useVolumeAnalytics(days?: number | null): UseVolumeAnalyticsRetu
       const heatMapResult = await conn.query(heatMapSQL);
       const rawHeatMapRows = heatMapResult.toArray();
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const heatMapRows = rawHeatMapRows.map((row: any) => ({
         muscleGroup: String(row.muscle_group),
         totalSets: Number(row.total_sets),

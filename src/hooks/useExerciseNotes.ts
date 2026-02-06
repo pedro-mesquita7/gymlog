@@ -69,6 +69,7 @@ export function useExerciseNotes(exerciseId: string): UseExerciseNotesReturn {
           setNotes([]);
         } else {
           setNotes(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             rows.map((row: any) => ({
               note: String(row.note),
               session_date: String(row.session_date),

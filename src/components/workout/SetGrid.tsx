@@ -22,7 +22,7 @@ interface SetGridProps {
 }
 
 export function SetGrid({
-  exerciseId: _exerciseId,
+  exerciseId: _exerciseId, // eslint-disable-line @typescript-eslint/no-unused-vars
   originalExerciseId,
   planSetCount,
   gymId,
@@ -65,7 +65,7 @@ export function SetGrid({
       }
     }
 
-    setRows(initialRows);
+    setRows(initialRows); // eslint-disable-line react-hooks/set-state-in-effect
   }, [planSetCount, sets]);
 
   const handleRowChange = useCallback((data: SetData, index: number) => {

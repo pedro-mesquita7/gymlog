@@ -58,8 +58,10 @@ function generateRIR(setIndex: number, totalSets: number): number {
  * Insert event directly to DuckDB with custom timestamp
  */
 async function insertEvent(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   conn: any,
   eventType: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload: any,
   timestamp: Date
 ): Promise<void> {

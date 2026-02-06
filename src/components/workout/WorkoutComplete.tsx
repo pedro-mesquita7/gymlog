@@ -127,8 +127,8 @@ export function WorkoutComplete({
     }
   };
 
-  // Calculate duration
-  const durationMs = Date.now() - new Date(session.started_at).getTime();
+  // Calculate duration (captured at mount to avoid impure Date.now() in render)
+  const [durationMs] = useState(() => Date.now() - new Date(session.started_at).getTime());
   const durationMins = Math.floor(durationMs / 60000);
 
   // Review/saving phase: pre-save with warnings and save button

@@ -79,6 +79,7 @@ export function useRecentWorkout(): {
       const rows = result.toArray();
 
       if (rows.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const row: any = rows[0];
 
         // Parse timestamps — DuckDB-WASM may return various formats

@@ -33,7 +33,7 @@ export function useRestTimer(initialSeconds: number = 90): UseRestTimerReturn {
         intervalRef.current = null;
       }
       if (seconds <= 0 && isRunning) {
-        setIsRunning(false);
+        setIsRunning(false); // eslint-disable-line react-hooks/set-state-in-effect
       }
       return;
     }
